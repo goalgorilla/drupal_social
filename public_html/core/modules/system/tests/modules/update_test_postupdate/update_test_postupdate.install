@@ -1,7 +1,0 @@
-<?php
-
-/**
- * Normal update_N() function.
- */
-function update_test_postupdate_update_8001() {
-}

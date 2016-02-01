@@ -1,8 +1,0 @@
-<?php
-
-/**
- * Implements hook_toolbar_alter().
- */
-function toolbar_disable_user_toolbar_toolbar_alter(&$items) {
-  unset($items['user']);
-}
