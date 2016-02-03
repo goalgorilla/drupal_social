@@ -26,48 +26,55 @@
         </div>
         <nav role="navigation" class="block--headermenu">
           <ul class="header-menu">
-            <li class="menu__item hidden-mobile"><a href="#0" class="menu__link"><i title="Account" class="material-icons">add</i><span class="menu__label">Add content</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"><i title="Home" class="material-icons">home</i><span class="menu__label">Dashboard</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"><i title="Groups" class="material-icons">group</i><span></span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"> <i title="Notifications" class="material-icons">notifications_none</i><span class="menu__label">Notifications</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link menu-open">
-                <div class="b-container">
-                  <div class="b-menu">
-                    <div class="b-bun b-bun--top"></div>
-                    <div class="b-bun b-bun--mid"></div>
-                    <div class="b-bun b-bun--bottom"></div>
-                  </div>
-                </div><span class="menu__label">menu</span></a></li>
+            <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
+                <div class="b-menu"><i title="Account" class="material-icons">add</i><span class="menu__label hidden">Add content</span></div></a></li>
+            <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
+                <div class="b-menu hidden-tablet"><i title="Home" class="material-icons">home</i></div><span class="menu__label hidden-mobile">Home</span></a></li>
+            <li class="menu__item"><a href="#0" class="menu__link">
+                <div class="b-menu hidden-tablet"><i title="Groups" class="material-icons">group</i></div><span class="menu__label hidden-mobile">Groups</span></a></li>
+            <li class="menu__item"><a href="#0" data-panel="#notification-panel" title="Show notifications" class="menu__link panel-trigger">
+                <div class="b-menu"><i title="Notifications" class="material-icons">notifications_none</i></div><span class="menu__label hidden">Notifications</span></a></li>
+            <li class="menu__item"><a href="#0" data-panel="#user-panel" title="Show user menu" class="menu__link panel-trigger">
+                <div class="b-menu"><i title="View profile" class="material-icons">account_box</i></div><span class="menu__label hidden-mobile">Sebastiaan            </span></a></li>
+            <li class="menu__item hidden-desktop"><a href="#0" data-panel="#menu-panel" title="Show menu" class="menu__link panel-trigger">
+                <div class="b-menu">
+                  <div class="b-bun b-bun--top"></div>
+                  <div class="b-bun b-bun--mid"></div>
+                  <div class="b-bun b-bun--bottom"></div>
+                </div><span class="menu__label hidden">menu</span></a></li>
           </ul>
         </nav>
       </div>
-    </header>
-    <div class="menu-panel">
-      <div class="container">
-        <div role="search" class="block-search">
-          <h2 class="visually-hidden">Search</h2>
-          <form action="#" method="get" id="search-block-form" accept-charset="UTF-8">
-            <div class="form-item form-type-search input-field"><i class="material-icons prefix">search</i>
-              <input id="icon_prefix" type="text">
-              <label for="icon_prefix">Search the entire website</label>
-            </div>
-          </form>
-        </div>
-        <div class="block--main-menu">
-          <ul class="main-menu">
-            <li class="menu__item"><a href="#0" class="menu__link"> <i title="Account" class="material-icons">explore</i><span class="menu__label">Explore</span></a></li>
-          </ul>
-        </div>
-        <div class="block--user-menu">
-          <ul class="user-menu">
-            <li class="menu__item"><a href="#0" class="menu__link"> <i title="View profile" class="material-icons">account_box</i><span class="menu__label">View profile</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"> <i title="Edit profile" class="material-icons">edit</i><span class="menu__label">Edit profile</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"> <i title="Account settings" class="material-icons">settings</i><span class="menu__label">Account settings</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"> <i title="Edit profile" class="material-icons">exit_to_app</i><span class="menu__label">Logout</span></a></li>
-          </ul>
+      <div id="menu-panel" class="panel">         
+        <div class="container">
+          <div role="search" class="block--search">
+            <h2 class="visually-hidden">Search</h2>
+            <form action="#" method="get" id="search-block-form" accept-charset="UTF-8">
+              <div id="search-wrapper" class="form-item form-type-search input-field"><i class="material-icons prefix search__icon">search</i>
+                <input id="icon_prefix" type="text" class="search__input">
+                <label for="icon_prefix" class="search__label">Search the entire website</label>
+              </div>
+            </form>
+          </div>
+          <div class="block--main-menu">
+            <ul class="main-menu">
+              <li class="menu__item"><a href="#0" class="menu__link"> <i title="Account" class="material-icons">explore</i><span class="menu__label">Explore</span></a></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+      <div id="user-panel" class="panel">
+        <div class="container">
+          <div class="block--user-menu">
+            <ul class="user-menu">
+              <li class="menu__item"><a href="#0" class="menu__link"> <i title="Edit profile" class="material-icons">edit</i><span class="menu__label">Edit profile</span></a></li>
+              <li class="menu__item"><a href="#0" class="menu__link"> <i title="Account settings" class="material-icons">settings</i><span class="menu__label">Account settings</span></a></li>
+              <li class="menu__item"><a href="#0" class="menu__link"> <i title="Edit profile" class="material-icons">exit_to_app</i><span class="menu__label">Logout</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
     <main></main>
     <script src="js/vendor.js"></script>
     <script src="js/components.js"></script>
