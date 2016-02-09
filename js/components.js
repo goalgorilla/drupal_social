@@ -849,7 +849,7 @@ if ($) {
 }( jQuery ));
 
 
-$(function() {
+(function($) {
 
   function isMobile() {
     try{ document.createEvent("TouchEvent"); return true; }
@@ -963,7 +963,7 @@ $(function() {
     }
   });
 
-});
+})(jQuery);
 
 (function ($) {
   $(document).ready(function() {
