@@ -5,20 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <meta name="description" content="Materialize is a modern responsive CSS framework based on Material Design by Google. ">
-    <title>Drupal Social - Drupal Social</title>
-    <!-- Favicons-->
+    <title>Topic</title>
+    <div id="Favicons"></div>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <!-- CSS-->
+    <div id="CSS"></div>
     <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
     <header class="header">
-      <div class="container">
-        <div href="index.html" class="site-logo">
-          <object id="header-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object>
-        </div>
+      <div class="container"><a href="prototype.html" class="site-logo">
+          <object id="header-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
         <nav role="navigation" class="block--headermenu">
           <ul class="header-menu">
             <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
@@ -70,11 +67,22 @@
         </div>
       </div>
     </header>
-    <main></main>
-    <script src="js/vendor.js"></script>
-    <script src="js/drupal-core.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/project.js"></script>
-    <script src="js/init.js"></script>
+    <main role="main" class="main-container">
+      <nav>
+        <div class="breadcrumbs-wrapper">
+          <div class="container"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
+        </div>
+      </nav>
+      <div class="container">
+        <h1 class="page-title">Topic</h1>
+      </div>
+    </main>
   </body>
+  <script src="js/vendor.js"></script>
+  <script src="js/drupal-core.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/project.js"></script>
+  <script src="js/init.js"></script>
+  <!--unless pagetype == "template"script(src='js/prism.js')
+  -->
 </html>
