@@ -1,5 +1,7 @@
 # Docker #
 
+[![Join the chat at https://gitter.im/goalgorilla/drupal_social](https://badges.gitter.im/goalgorilla/drupal_social.svg)](https://gitter.im/goalgorilla/drupal_social?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Download and install the [toolbox](https://www.docker.com/docker-toolbox).
 
 Note that the docker projects have to be somewhere in your /Users/ directory in order to work (limitation for Mac and Windows). Note that /Users/<name>/Sites/Docker is fine.
