@@ -35,7 +35,7 @@
               <div class="collapsible-body">
                 <ul>
                   <li><a href="color.html">Color</a></li>
-                  <li class="active"><a href="grid.html">Grid</a></li>
+                  <li><a href="layout.html">Layout</a></li>
                   <li><a href="typography.html">Typography</a></li>
                 </ul>
               </div>
@@ -65,7 +65,7 @@
         <div class="row"> 
           <div class="col s12">
             <div class="section">
-              <h2 class="header">Container</h2>
+              <h3 class="header">Container</h3>
               <p>The container class is important in laying out content. It allows you to center your page content. The container class is set to a maximum of 960px. It helps you center and contain your page content. We use the container to contain our body content.</p>
               <p> <p>To add a container just put your content inside a <code>&lt;div&gt;</code> tag with a <code>container</code> class. Here&#39;s an example of how your page might be set up.</p>
 
@@ -77,84 +77,90 @@
 </main>
 </code></pre>
             </div>
+          </div>
+        </div>
+        <div class="row"> 
+          <div class="col s12">
             <div class="section">
-              <h2 class="header">Grid</h2>
+              <h3 class="header">Grid</h3>
               <p>Our standard grid has 12 columns. No matter the size of the browser, each of these columns will always have an equal width.</p>
               <p>Columns are applied with the `.col` class. A column always resides in a `.row` to clearfix the float. On all devices you can use the class `.s1` to `.s12`, where the number stands for the amount of colums to span. This is always based on the 12 column grid.</p>
               <p>The letter `s` here stands for small screens. Since we use a mobile-first approach, we define the mobile layout as default.</p>
               <h4>Screen sizes</h4>
               <p>For the breakpoints $small and $medium, which are defined in the sass file we have individual grid override options. You can use `.m` for the `$small` breakpoint and `.l` for the `$medium breakpoint`. This give you the flexibility to have different layouts on mobile, tablet and desktop screen sizes.</p>
-              <div class="row">
-                <div class="col s12 m8 l6 grid-example"><span class="flow-text">I am full-width on mobile, 75% on tablet and 50% on desktop (col s12 m8 l6)</span></div>
-                <div class="col s12 m4 l6 grid-example"><span class="flow-text">I am full-width on mobile, 25% on tablet and 50% on desktop (col s12 m4 l6)</span></div>
-              </div>
             </div>
-            <div class="section">
-              <h2 class="header">Base layout</h2>
-              <p>Our base layout consist of the following regions. Below you can see the layout.</p>
-              <ul class="list"> 
-                <li>Header: primary navigation, user menu, site search</li>
-                <li>Breadcrumbs </li>
-                <li>Hero: displays an overview of the page</li>
-                <li>Secondary navigation: section specific navigation</li>
-                <li>Main content: holds the content of the page</li>
-                <li>Complementary: sidebar with block such as filters or other actions</li>
-                <li>Footer: closing block of the page</li>
-              </ul>
-              <div class="browser-window">
-                <div class="top-bar">
-                  <div class="circles">
-                    <div id="close-circle" class="circle"></div>
-                    <div id="minimize-circle" class="circle"></div>
-                    <div id="maximize-circle" class="circle"></div>
+            <div class="row">
+              <div class="col s12 m8 l6 grid-example"><span class="flow-text">I am full-width on mobile, 75% on tablet and 50% on desktop (col s12 m8 l6)</span></div>
+              <div class="col s12 m4 l6 grid-example"><span class="flow-text">I am full-width on mobile, 25% on tablet and 50% on desktop (col s12 m4 l6)</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">     
+          <div class="col s12">
+            <h3 class="header">Base layout</h3>
+            <p>Our base layout consist of the following regions. Below you can see the layout.</p>
+            <ul class="list"> 
+              <li>Header: primary navigation, user menu, site search</li>
+              <li>Breadcrumbs </li>
+              <li>Hero: displays an overview of the page</li>
+              <li>Secondary navigation: section specific navigation</li>
+              <li>Main content: holds the content of the page</li>
+              <li>Complementary: sidebar with block such as filters or other actions</li>
+              <li>Footer: closing block of the page</li>
+            </ul>
+            <div class="browser-window">
+              <div class="top-bar">
+                <div class="circles">
+                  <div id="close-circle" class="circle"></div>
+                  <div id="minimize-circle" class="circle"></div>
+                  <div id="maximize-circle" class="circle"></div>
+                </div>
+              </div>
+              <div class="content">
+                <div class="row">
+                  <div id="site-layout-example-header" class="col s12">
+                    <p>Header</p>
                   </div>
                 </div>
-                <div class="content">
-                  <div class="row">
-                    <div id="site-layout-example-header" class="col s12">
-                      <p>Header</p>
-                    </div>
+                <div class="row only-desktop">
+                  <div id="site-layout-example-breadcrumb" class="col l12">
+                    <p>Breadcrumbs</p>
                   </div>
-                  <div class="row only-desktop">
-                    <div id="site-layout-example-breadcrumb" class="col l12">
-                      <p>Breadcrumbs</p>
-                    </div>
+                </div>
+                <div class="row">
+                  <div id="site-layout-example-hero" class="col s12">
+                    <p>Hero</p>
+                    <p class="flat-text inline25"></p>
+                    <p class="flat-text inline25"></p>
+                    <p class="flat-text inline25"></p>
                   </div>
-                  <div class="row">
-                    <div id="site-layout-example-hero" class="col s12">
-                      <p>Hero</p>
-                      <p class="flat-text inline25"></p>
-                      <p class="flat-text inline25"></p>
-                      <p class="flat-text inline25"></p>
-                    </div>
+                </div>
+                <div class="row">
+                  <div id="site-layout-example-secondary" class="col s12">
+                    <p>Secondary navigation</p>
+                    <p class="flat-text inline25"> </p>
+                    <p class="flat-text inline25"></p>
+                    <p class="flat-text inline25"></p>
                   </div>
-                  <div class="row">
-                    <div id="site-layout-example-secondary" class="col s12">
-                      <p>Secondary navigation</p>
-                      <p class="flat-text inline25"> </p>
-                      <p class="flat-text inline25"></p>
-                      <p class="flat-text inline25"></p>
-                    </div>
+                </div>
+                <div class="row">
+                  <div id="site-layout-example-main" class="col s12 m9">
+                    <p>main content </p>
+                    <p class="flat-text-header"> </p>
+                    <p class="flat-text"></p>
+                    <p class="flat-text"></p>
+                    <p class="flat-text"></p>
                   </div>
-                  <div class="row">
-                    <div id="site-layout-example-main" class="col s12 m9">
-                      <p>main content </p>
-                      <p class="flat-text-header"> </p>
-                      <p class="flat-text"></p>
-                      <p class="flat-text"></p>
-                      <p class="flat-text"></p>
-                    </div>
-                    <div id="site-layout-example-aside" class="col s12 m3">
-                      <p>Complementary</p>
-                      <p class="flat-text small"></p>
-                      <p class="flat-text"></p>
-                      <p class="flat-text"></p>
-                    </div>
+                  <div id="site-layout-example-aside" class="col s12 m3">
+                    <p>Complementary</p>
+                    <p class="flat-text small"></p>
+                    <p class="flat-text"></p>
+                    <p class="flat-text"></p>
                   </div>
-                  <div class="row">
-                    <div id="site-layout-example-footer" class="col s12">
-                      <p>Footer</p>
-                    </div>
+                </div>
+                <div class="row">
+                  <div id="site-layout-example-footer" class="col s12">
+                    <p>Footer</p>
                   </div>
                 </div>
               </div>

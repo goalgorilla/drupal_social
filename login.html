@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <title>Login</title>
-    <div id="Favicons"></div>
+    <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <div id="CSS"></div>
+    <!--CSS-->
     <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
-    <header class="header">
+    <header id="header">
       <div class="container"><a href="prototype.html" class="site-logo">
           <object id="header-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
         <nav role="navigation" class="block--headermenu">
@@ -51,37 +51,49 @@
     <main role="main" class="main-container">
       <nav>
         <div class="breadcrumbs-wrapper">
-          <div class="container"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
+          <div class="container">
+            <div class="row">
+              <div class="col s12"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
+            </div>
+          </div>
         </div>
       </nav>
+      <div class="page-title"> 
+        <div class="container">
+          <h1>Login</h1>
+        </div>
+      </div>
       <div class="container">
-        <h1 class="page-title">Login</h1>
-        <div class="card form-card">
-          <nav role="navigation" aria-label="Tabs">
-            <h2 class="visually-hidden">Primary tabs</h2>
-            <ul class="tabs primary">
-              <li class="is-active"><a href="login.html" class="is-active">Log in<span class="visually-hidden">(active tab)</span></a></li>
-              <li><a href="sign-up.html">Sign up</a></li>
-              <li><a href="reset-password.html">Reset password</a></li>
-            </ul>
-          </nav>
-          <form accept-charset="UTF-8" class="user-login-form">
-            <div class="form-item form-type-textfield">
-              <div class="input-field">
-                <input id="edit-name" type="text" autocorrect="none" autofocus="autofocus" required="required" class="form-text">
-                <label for="edit-name">Username</label>
-              </div>
+        <div class="row">
+          <div class="col s12 l8">
+            <div class="card form-card">
+              <nav role="navigation" aria-label="Tabs">
+                <h2 class="visually-hidden">Primary tabs</h2>
+                <ul class="tabs primary">
+                  <li class="is-active"><a href="login.html" class="is-active">Log in<span class="visually-hidden">(active tab)</span></a></li>
+                  <li><a href="sign-up.html">Sign up</a></li>
+                  <li><a href="reset-password.html">Reset password</a></li>
+                </ul>
+              </nav>
+              <form accept-charset="UTF-8" class="user-login-form">
+                <div class="form-item form-type-textfield">
+                  <div class="input-field">
+                    <input id="edit-name" type="text" autocorrect="none" autofocus="autofocus" required="required" class="form-text">
+                    <label for="edit-name">Username</label>
+                  </div>
+                </div>
+                <div class="form-item form-type-textfield">
+                  <div class="input-field">
+                    <input id="edit-pass" type="password" required="required" class="form-text">
+                    <label for="edit-pass">Password</label>
+                  </div>
+                </div>
+                <div id="edit-actions" class="form-actions form-wrapper">
+                  <input id="edit-submit" type="submit" value="Log in" class="waves-effect waves-light btn form-submit">
+                </div>
+              </form>
             </div>
-            <div class="form-item form-type-textfield">
-              <div class="input-field">
-                <input id="edit-pass" type="password" required="required" class="form-text">
-                <label for="edit-pass">Password</label>
-              </div>
-            </div>
-            <div id="edit-actions" class="form-actions form-wrapper">
-              <input id="edit-submit" type="submit" value="Log in" class="waves-effect waves-light btn form-submit">
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </main>

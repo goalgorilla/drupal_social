@@ -5,157 +5,200 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <meta name="description" content="Materialize is a modern responsive CSS framework based on Material Design by Google. ">
     <title>Typography - Drupal Social</title>
-    <!-- Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <!-- CSS-->
     <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
-  <body class="template">
-    <div class="nav-button-wrapper">
-      <button id="js-showSidebar" role="tab" class="hamburger-button"> <i title="show navigation" class="material-icons">menu</i></button>
-    </div>
-    <ul id="nav-mobile" class="side-nav fixed">
-      <li class="logo"><a id="logo-container" href="index.html" class="brand-logo">
-          <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-blue.svg">Your browser does not support SVG</object></a></li>
-      <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Getting Started</a></li>
-      <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          <li class="bold"><a class="collapsible-header active waves-effect waves-teal">CSS</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a href="color.html">Color</a></li>
-                <li><a href="grid.html">Grid</a></li>
-                <li class="active"><a href="typography.html">Typography</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a href="forms.html">Forms</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="bold"><a class="collapsible-header  waves-effect waves-teal">JavaScript</a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a href="waves.html">Waves</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
-      <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
-    </ul>
-    <div class="mask-modal"></div>
-    <div class="header__wrapper">
-      <div class="header__innerwrapper container">
-        <h1 class="header__title">Typography</h1>
-      </div>
-    </div>
-    <main><div class="container">
-  <div class="row">
-
-    <div class="col s12 m9 l10">
-
-      <div class="section">
-        <div id="roboto" class="scrollspy">
-          <h2 class="header">Roboto 2.0</h2>
-          <p class="caption">
-            The standard font Material Design uses is Roboto. We have included the font files with our framework.
-          </p>
+  <body class="styleguide">
+    <header class="styleguide-header">
+      <div class="header__wrapper">
+        <div class="header__innerwrapper container">
           <div class="row">
-            <p class="col s12 m4">We bundle our framework with the latest iteration of Roboto Google has released. It comes with 5 different font weights you can use: 200, 300, 400, 500, 600.<br> <br> Here is an image from Google's Roboto Specimen document displaying the different font weights.</p>
-            <img class="col s12 m8" src="http://material-design.storage.googleapis.com/publish/v_2/material_ext_publish/0Bx4BSt6jniD7SW9CUzR4MnRpOTg/style_typography_roboto1.png">
+            <div class="col s12">
+              <h1 class="header__title">Typography</h1>
+            </div>
           </div>
-
-          <h4>Removing Roboto</h4>
-          <p>In case you don't want to use Roboto on your webpage, fear not. Simply change the font stack by modifying the code below to your liking and add it to your custom css.</p>
-        <pre><code class="language-css">
-  html {
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
-  }
-        </code></pre>
+        </div>
       </div>
-
-
-        <div id="headers" class="section scrollspy">
-          <h2 class="header">Headers</h2>
-          <p>We provide some basic styling on header tags. In the example, you can see the the 6 header tags' different sizes.</p>
-          <div class="card-panel">
-            <h1>Heading h1</h1>
-            <h2>Heading h2</h2>
-            <h3>Heading h3</h3>
-            <h4>Heading h4</h4>
-            <h5>Heading h5</h5>
-            <h6>Heading h6</h6>
-          </div>
-        </div>
-
-        <div id="blockquote" class="section scrollspy">
-          <h2 class="header">Blockquotes</h2>
-          <p>
-            Blockquotes are mainly used to give emphasis to a quote or citation. You can also use these for some extra text hierarchy and emphasis.
-            </p>
-          <blockquote>
-            This is an example quotation that uses the blockquote tag.
-            <br>Here is another line to make it look bigger.
-          </blockquote>
-          <pre><code class="language-markup">
-    &lt;blockquote>
-      This is an example quotation that uses the blockquote tag.
-    &lt;/blockquote>
-          </code></pre>
-        </div>
-
-        <div id="flow" class="section scrollspy">
-          <h2 class="header">Flow Text</h2>
-          <a id="flow-toggle" class="btn waves-effect waves-light">Toggle flow-text</a>
-          <div id="flow-text-demo" class="card-panel">
-          <p class="flow-text">
-          One common flaw we've seen in many frameworks is a lack of support for truly responsive text. While elements on the page resize fluidly, text still resizes on a fixed basis. To ameliorate this problem, for text heavy pages, we've created a class that fluidly scales text size and line-height to optimize readability for the user. Line length stays between 45-80 characters and line height scales to be larger on smaller screens.</p>
-          <p class="flow-text">To see Flow Text in action, slowly resize your browser and watch the size of this text body change! Use the button above to toggle off/on flow-text to see the difference!</p>
-          </div>
-
-          <br>
-
-          <p>To use flow-text on a body of text, simply just add the class <code class="language-markup">flow-text</code> to a tag, see the code blow.</p>
-          <div class="row">
-          <pre><code class="language-markup col s12">
-    &lt;p class="flow-text">I am Flow Text&lt;/p>
-          </code></pre>
-          </div>
-        </div>
-
+      <div class="nav-button-wrapper">
+        <button id="js-showSidebar" role="tab" class="hamburger-button"> <i title="show navigation" class="material-icons">menu</i></button>
       </div>
-
-    </div>
-    <div class="col hide-on-small-only m3 l2">
-      <div class="toc-wrapper">
-        <div class="buysellads hide-on-small-only">
-          <!-- CarbonAds Zone Code -->
-          <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=materializecss" id="_carbonads_js"></script>
-        </div>
-        <div style="height: 1px;">
-          <ul class="section table-of-contents">
-            <li><a href="#roboto">Roboto</a></li>
-            <li><a href="#headers">Headers</a></li>
-            <li><a href="#blockquote">Blockquotes</a></li>
-            <li><a href="#flow">Flow Text</a></li>
+      <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo"><a id="logo-container" href="index.html" class="brand-logo">
+            <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-blue.svg">Your browser does not support SVG</object></a></li>
+        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Getting Started</a></li>
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header active waves-effect waves-teal">CSS</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="color.html">Color</a></li>
+                  <li><a href="grid.html">Grid</a></li>
+                  <li class="active"><a href="typography.html">Typography</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="forms.html">Forms</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">JavaScript</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="waves.html">Waves</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
+        </li>
+        <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
+      </ul>
+      <div class="mask-modal"></div>
+    </header>
+    <main role="main" class="styleguide-container">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m9 l10">
+            <div class="section">
+              <h2 class="header">Montserrat</h2>
+              <p class="caption">The standard font Drupal social uses is Montserrat. We have included the font files with our framework.</p>
+              <p>We bundle our framework with 3 different font weights you can use: 300, 500 and 700</p>
+              <ul class="list">
+                <li style="font-weight:300" class="h4">Font with weight 300 </li>
+                <li style="font-weight:500" class="h4">Font with weight 500 </li>
+                <li style="font-weight:700" class="h4">Font with weight 700</li>
+              </ul>
+            </div>
+            <div class="section">
+              <h4>Removing default font</h4>
+              <p>In case you don't want to use Montserrat on your webpage, fear not. Simply change the font stack by modifying the code below to your liking and add it to your custom css.</p>
+              <pre>     <code class="language-css">html {
+  font-family: 'montserrat', sans-serif;
+}
+  </code></pre>
+            </div>
+            <div class="section">
+              <h2 class="header">Headers</h2>
+              <p> <p>We provide some basic styling on header tags. In the example, you can see the the 6 header tags&#39; different sizes. In the <code>_default.scss</code> you can define the heading sizes per breakpoint.</p>
+
+              </p>
+              <div class="card-panel">
+                <h1>Heading h1</h1>
+                <h2>Heading h2</h2>
+                <h3>Heading h3</h3>
+                <h4>Heading h4</h4>
+                <h5>Heading h5</h5>
+                <h6>Heading h6</h6>
+              </div>
+            </div>
+            <div class="section">
+              <h2 class="header">Blockquotes</h2>
+              <p>Blockquotes are mainly used to give emphasis to a quote or citation. You can also use these for some extra text hierarchy and emphasis.</p>
+              <blockquote>This is an example quotation that uses the blockquote tag.<br>Here is another line to make it look bigger.</blockquote>
+              <pre>     <code class="language-markup"><blockquote>
+  This is an example quotation that uses the blockquote tag.
+</blockquote>
+</code></pre>
+            </div>
+            <div class="section">
+              <h2 class="header">Flow text</h2>
+              <div id="flow-text-demo" class="card-panel">
+                <p class="flow-text"><p>Create automagical fluid typography with a new <code>responsive</code> property on <code>font-size</code>. </p>
+
+                </p>
+                <p class="flow-text"><p>To see Flow Text in action, slowly resize your browser and watch the size of this text body change! Use the button above to toggle off/on flow-text to see the difference!</p>
+
+                </p>
+              </div><a id="flow-toggle" class="btn waves-effect waves-light">Toggle flow-text</a><br><br>
+              <p>To use flow-text on a body of text, simply just add the class `flow-text` to a tag, see the code blow.</p>
+              <pre>     <code class="language-markup"><p class="flow-text">I am Flow Text</p></code></pre>
+            </div>
+            <div class="section">
+              <h4>Specifying parameters</h4>
+              <p><p>You’ll probably want to change those defaults and have some control over the bounds of a font size. The best way to do this is with a new shorthand syntax in <code>font-size</code>, and a new property called <code>font-range</code>. Font range specifies the viewport widths between which the font size is fluid, outside of this range the font sizes are set to min/max values.</p>
+
+              </p>
+              <p>The format of each property is very simple</p>
+              <pre>     <code class="language-css">font-size: responsive [min-font-size] [max-font-size]
+font-range: [lower-bound] [upper-bound]</code></pre>
+              <p>For example</p>
+              <pre>     <code class="language-css">.flow-text {
+  font-size: responsive 12px 21px;
+  font-range: 420px 1280px;
+}
+</code></pre>
+              <h5>Output</h5>
+              <p>Flow text outputs complex calc and vw based font-sizes, along with media queries to set the range between which a font size is fluid.</p>
+              <pre><code class="language-css">html {
+  font-size: calc(12px + 9 * ( (100vw - 420px) / 860));
+}
+
+@media screen and (max-width: 420px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  html {
+    font-size: 21px;
+  }
+}
+</code></pre>
+              <p>With the calc expression above being equivalent to</p>
+              <pre><code class="language-css">min-size + (min-size - max-size) * ( (100vw - min-width) / ( max-width - min-width) )
+
+</code></pre>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div> <!-- End Container -->
     </main>
     <script src="js/vendor.js"></script>
     <script src="js/drupal-core.js"></script>
     <script src="js/components.js"></script>
-    <script src="js/project.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/components/prism.js"></script>
+    <script>
+      // Escape code
+      // ============================================================
+      
+      var $lang_markup       = document.querySelectorAll('pre code.language-markup')
+          $lang_js           = document.querySelectorAll('script.atomic-js'),
+          $lang_jscode       = document.querySelectorAll('pre > code.language-javascript')
+          lang_markupsnippet = [],
+          lang_jsnippet      = [];
+      
+      
+      // Markup
+      // order matters!
+      // ============================================================
+      
+      for(var i = 0, l = $lang_markup.length; i < l; i++) {
+        lang_markupsnippet.push(
+          $lang_markup[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        );
+        $lang_markup[i].innerHTML = lang_markupsnippet[i];
+      }
+      
+      
+      // JavaScript
+      // order matters!
+      // ============================================================
+      for(var i = 0, l = $lang_js.length; i < l; i++) {
+        lang_jsnippet.push(
+          $lang_js[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        );
+      }
+      
+      for(var i = 0, l = $lang_jscode.length; i < l; i++) {
+        $lang_jscode[i].innerHTML = lang_jsnippet[i];
+      }
+    </script>
   </body>
 </html>
