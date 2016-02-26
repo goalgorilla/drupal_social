@@ -61,7 +61,644 @@
       </ul>
       <div class="mask-modal"></div>
     </header>
-    <main role="main" class="styleguide-container"></main>
+    <main role="main" class="styleguide-container">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m9 l10">
+            <div id="input" class="section scrollspy">
+              <p class="caption">Forms are the standard way to receive user inputted data. The transitions and smoothness of these elements are very important because of the inherent user interaction associated with forms.</p>
+              <h2 class="header">Input fields</h2>
+              <p><p>Text fields allow user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.input-field</code> div wrapping your input and label. This helps our jQuery animate the label. This is only used in our input and textarea form elements.</p>
+
+              </p>
+              <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s6">
+                      <input id="first_name" placeholder="Placeholder" type="text" class="form-text">
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <input id="last_name" type="text" class="form-text">
+                      <label for="last_name">Last Name</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="disabled" disabled="" value="I am not editable" type="text" class="form-text">
+                      <label for="disabled">Disabled</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="password" type="password" class="form-text">
+                      <label for="password">Password</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="email" type="email" class="form-text">
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <pre>     <code class="language-markup"><div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input placeholder="Placeholder" id="first_name" type="text" class="form-text">
+        <label for="first_name">First Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="last_name" type="text" class="form-text">
+        <label for="last_name">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input disabled value="I am not editable" id="disabled" type="text" class="form-text">
+        <label for="disabled">Disabled</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="form-text">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="email" type="email" class="form-text">
+        <label for="email">Email</label>
+      </div>
+    </div>
+  </form>
+</div></code></pre><br>
+              <h4>Prefilling Text Inputs</h4>
+              <p>If you are having trouble with the labels overlapping prefilled content, Try adding `class="active"` to the label. </p>
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="first_name2" value="Bart Simpson" type="text" class="form-text">
+                  <label for="first_name2" class="active">First Name</label>
+                </div>
+              </div>
+              <pre><code class="language-markup"><div class="row">
+  <div class="input-field col s6">
+    <input id="first_name2" type="text" class="form-text" value="Bart Simpson">
+    <label class="active" for="first_name2">First Name</label>
+  </div>
+</div>
+</code></pre>
+            </div>
+            <!-- Textarea Section-->
+            <div id="textarea" class="section scrollspy">
+              <h2 class="header">Textarea</h2><p>Textareas allow larger expandable user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.input-field</code> div wrapping your input and label. This helps our jQuery animate the label. This is only used in our Input and Textarea form elements.</p>
+
+              <p><strong>Textareas will auto resize to the text inside.</strong></p>
+              <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <textarea id="textarea1" class="form-text form-textarea materialize-textarea"></textarea>
+                      <label for="textarea1">Textarea</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <pre><code class="language-markup"><div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="form-text form-textarea materialize-textarea"></textarea>
+        <label for="textarea1">Textarea</label>
+      </div>
+    </div>
+  </form>
+</div>
+</code></pre><p>advanced note: When dynamically changing the value of a textarea with methods like jQuery&#39;s <code>.val()</code>, you must trigger an autoresize on it afterwords because <code>.val()</code> does not automatically trigger the events we&#39;ve binded to the textarea.</p>
+
+              <pre><code class="language-javascript">$('#textarea1').val('New Text');
+$('#textarea1').trigger('autoresize');
+
+</code></pre>
+            </div>
+            <div id="select" class="section scrollspy">
+              <h2 class="header">Select</h2><p>Select allows user input through specified options. Make sure you wrap it in a <code>.input-field</code> for proper alignment with other text fields.</p>
+
+              <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <select>
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                      <label>Materialize Select</label>
+                    </div>
+                    <div class="col s12"><p>You can add the property <code>multiple</code> to get the multiple select and select several options.</p>
+
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <select multiple="">
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                      <label>Materialize Multiple Select</label>
+                    </div>
+                    <div class="col s12"><br>
+                      <p>We also support optgroups in our selects.</p>
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <select>
+                        <optgroup label="team 1">
+                          <option value="1">Option 1</option>
+                          <option value="2">Option 2</option>
+                        </optgroup>
+                        <optgroup label="team 2">
+                          <option value="3">Option 3</option>
+                          <option value="4">Option 4</option>
+                        </optgroup>
+                      </select>
+                      <label>Optgroups</label>
+                    </div>
+                    <div class="col s12"><br><p>You can add icons to your options in any type of select. In the option you add the image source with the <code>data-icon</code> attribute. You can add the 
+<code>left</code> or <code>right</code> class to align your icon. You can also add the <code>circle</code> class to your icon.</p>
+
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <select class="icons">
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="" data-icon="content/images/animals1.jpg" class="circle">example 1</option>
+                        <option value="" data-icon="content/images/food1.jpg" class="circle">example 2</option>
+                        <option value="" data-icon="content/images/nature9.jpg" class="circle">example 1</option>
+                      </select>
+                      <label>Images in select</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <select class="icons">
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="" data-icon="content/images/animals4.jpg" class="left circle">example 1</option>
+                        <option value="" data-icon="content/images/people3.jpg" class="left circle">example 2</option>
+                        <option value="" data-icon="content/images/nature4.jpg" class="left circle">example 3</option>
+                      </select>
+                      <label>Images in select</label>
+                    </div>
+                    <div class="col s12"><br><p>You can add the class <code>browser-default</code> to get the browser default.</p>
+
+                    </div>
+                    <div class="col s12 m6">
+                      <label>Browser Select</label>
+                      <select class="browser-default">
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                    </div>
+                  </div>
+                </form>
+                <div class="col s12">
+                  <pre><code class="language-markup"><div class="input-field col s12">
+  <select>
+    <option value="" disabled selected>Choose your option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+  <label>Materialize Select</label>
+</div>
+
+<div class="input-field col s12">
+  <select multiple>
+    <option value="" disabled selected>Choose your option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+  <label>Materialize Multiple Select</label>
+</div>
+
+<div class="input-field col s12">
+  <select multiple>
+    <optgroup label="team 1">
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+    </optgroup>
+    <optgroup label="team 2">
+      <option value="3">Option 3</option>
+      <option value="4">Option 4</option>
+    </optgroup>
+  </select>
+  <label>Optgroups</label>
+</div>
+
+<div class="input-field col s12 m6">
+  <select class="icons">
+    <option value="" disabled selected>Choose your option</option>
+    <option value="" data-icon="images/sample-1.jpg" class="circle">example 1</option>
+    <option value="" data-icon="images/office.jpg" class="circle">example 2</option>
+    <option value="" data-icon="images/yuna.jpg" class="circle">example 1</option>
+  </select>
+  <label>Images in select</label>
+</div>
+<div class="input-field col s12 m6">
+  <select class="icons">
+    <option value="" disabled selected>Choose your option</option>
+    <option value="" data-icon="images/sample-1.jpg" class="left circle">example 1</option>
+    <option value="" data-icon="images/office.jpg" class="left circle">example 2</option>
+    <option value="" data-icon="images/yuna.jpg" class="left circle">example 3</option>
+  </select>
+  <label>Images in select</label>
+</div>
+
+<label>Browser Select</label>
+<select class="browser-default">
+  <option value="" disabled selected>Choose your option</option>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+  <option value="3">Option 3</option>
+</select></code></pre>
+                </div>
+                <div class="col s12"><br><br>
+                  <h4>Disabled Styles</h4><p>You can also add <code>disabled</code> to the select element to make the whole thing disabled. Or if you add <code>disabled</code> to the options, the individual options will be unselectable.</p>
+
+                </div>
+              </div>
+              <div class="row">
+                <form>
+                  <div class="input-field col s12 m6">
+                    <select disabled="">
+                      <option value="" disabled="" selected="">Choose your option</option>
+                      <option value="1">Option 1</option>
+                      <option value="2">Option 2</option>
+                      <option value="3">Option 3</option>
+                    </select>
+                    <label>Materialize Disabled</label>
+                  </div>
+                  <div class="col s12 m6">
+                    <label>Browser Disabled</label>
+                    <select disabled="" class="browser-default">
+                      <option value="" disabled="" selected="">Choose your option</option>
+                      <option value="1">Option 1</option>
+                      <option value="2">Option 2</option>
+                      <option value="3">Option 3</option>
+                    </select>
+                  </div>
+                </form>
+                <div class="col s12">
+                  <pre><code class="language-markup"><div class="input-field col s12 m6">
+  <label>Materialize Disabled</label>
+  <select disabled>
+    <option value="" disabled selected>Choose your option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+</div>
+
+<div class="col s12 m6">
+  <label>Browser Disabled</label>
+  <select class="browser-default" disabled>
+    <option value="" disabled selected>Choose your option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+</div>
+</code></pre>
+                </div>
+                <div class="col s12">
+                  <h4>Initialization</h4>
+                  <p>You must initialize the select element as shown below. In addition, you will need a separate call for any dynamically generated select elements your page generates.</p>
+                  <pre><code class="language-javascript">$(document).ready(function() {
+  $('select').material_select();
+});
+</code></pre>
+                </div>
+                <div class="col s12">
+                  <h4>Updating/Destroying Select</h4>
+                  <p>If you want to update the items inside the select, just rerun the initialization code from above after editing the original select. Or you can destroy the material select with this function below, and create a new select altogether</p>
+                  <pre><code class="language-javascript">$('select').material_select('destroy');
+</code></pre>
+                </div>
+              </div>
+            </div>
+            <div id="radio" class="section scrollspy">
+              <h2 class="header">Radio Buttons</h2>
+              <p>Radio Buttons are used when the user must make only one selection out of a group of items</p>
+              <form action="#">
+                <p>
+                  <input id="test1" name="group1" type="radio" checked="">
+                  <label for="test1">Red</label>
+                </p>
+                <p>
+                  <input id="test2" name="group1" type="radio">
+                  <label for="test2">Yellow</label>
+                </p>
+                <p>
+                  <input id="test3" name="group1" type="radio" class="with-gap">
+                  <label for="test3">Green</label>
+                </p>
+                <p>
+                  <input id="test4" name="group1" type="radio" disabled="disabled">
+                  <label for="test4">Brown</label>
+                </p>
+              </form>
+              <p>Add radio buttons to a group by adding the name attribute along with the same corresponding value for each of the radio  buttons in the group. Create disabled radio buttons by adding the disabled attribute as shown below.</p>
+              <pre><code class="language-markup"><form action="#">
+  <p>
+    <input name="group1" type="radio" id="test1" />
+    <label for="test1">Red</label>
+  </p>
+  <p>
+    <input name="group1" type="radio" id="test2" />
+    <label for="test2">Yellow</label>
+  </p>
+  <p>
+    <input class="with-gap" name="group1" type="radio" id="test3"  />
+    <label for="test3">Green</label>
+  </p>
+    <p>
+      <input name="group1" type="radio" id="test4" disabled="disabled" />
+      <label for="test4">Brown</label>
+  </p>
+</form>
+</code></pre>
+              <h4>Options</h4><p>To create a radio button with a gap, add <code>class=&quot;with-gap&quot;</code> to your input. See the example below.</p>
+
+              <p>
+                <input id="test5" name="group3" type="radio" checked="" class="with-gap">
+                <label for="test5">Red</label>
+              </p>
+              <pre><code class="language-markup"><p>
+  <input class="with-gap" name="group3" type="radio" id="test5" checked />
+  <label for="test5">Red</label>
+</p>
+</code></pre>
+            </div>
+            <!-- Checkboxes-->
+            <div id="checkbox" class="section scrollspy">
+              <h2 class="header">Checkboxes</h2><p>Use checkboxes when looking for yes or no answers. The <code>for</code> attribute is necessary to bind the our custom checkbox with the input. Add the input&#39;s <code>id</code> as the value of the <code>for</code> attribute of the label.</p>
+
+              <form action="#">
+                <p>
+                  <input id="test9" type="checkbox">
+                  <label for="test9">Red</label>
+                </p>
+                <p>
+                  <input id="test6" type="checkbox" checked>
+                  <label for="test6">Yellow</label>
+                </p>
+                <p>
+                  <input id="filled-in-box" type="checkbox" checked class="filled-in">
+                  <label for="filled-in-box">Filled in</label>
+                </p>
+                <p>
+                  <input id="indeterminate-checkbox" type="checkbox">
+                  <label for="indeterminate-checkbox">Indeterminate Style</label>
+                </p>
+                <p>
+                  <input id="test7" type="checkbox" checked disabled="disabled">
+                  <label for="test7">Green</label>
+                </p>
+                <p>
+                  <input id="test8" type="checkbox" disabled="disabled">
+                  <label for="test8">Brown</label>
+                </p>
+              </form>
+              <pre><code class="language-markup"><form action="#">
+  <p>
+    <input type="checkbox" id="test5" />
+    <label for="test5">Red</label>
+  </p>
+  <p>
+    <input type="checkbox" id="test6" checked />
+    <label for="test6">Yellow</label>
+  </p>
+  <p>
+    <input type="checkbox" class="filled-in" id="filled-in-box" checked />
+    <label for="filled-in-box">Filled in</label>
+  </p>
+  <p>
+    <input type="checkbox" id="indeterminate-checkbox">
+    <label for="indeterminate-checkbox">Indeterminate Style</label>
+  </p>
+  <p>
+    <input type="checkbox" id="test7" checked disabled="disabled" />
+    <label for="test7">Green</label>
+  </p>
+    <p>
+      <input type="checkbox" id="test8" disabled="disabled" />
+      <label for="test8">Brown</label>
+  </p>
+</form></code></pre>
+            </div>
+            <!-- Switches-->
+            <div id="switches" class="section scrollspy">
+              <h2 class="header">Switches</h2>
+              <form action="#">
+                <p>
+                  <div class="switch">
+                    <label>Off
+                      <input checked="" type="checkbox"><span class="lever"></span>On
+                    </label>
+                  </div>
+                </p>
+                <p>
+                  <div class="switch">
+                    <label>Off
+                      <input disabled="" type="checkbox"><span class="lever"></span>On
+                    </label>
+                  </div>
+                </p>
+              </form>
+              <pre><code class="language-markup"><!-- Switch -->
+<div class="switch">
+  <label>
+    Off
+    <input type="checkbox">
+    <span class="lever"></span>
+    On
+  </label>
+</div>
+
+<!-- Disabled Switch -->
+<div class="switch">
+  <label>
+    Off
+    <input disabled type="checkbox">
+    <span class="lever"></span>
+    On
+  </label>
+</div>
+</code></pre>
+            </div>
+            <div id="file" class="section scrollspy">
+              <h2 class="header">File Input</h2>
+              <p>If you want to style an input button with a path input we provide this structure.</p>
+              <form action="#">
+                <div class="file-field input-field">
+                  <div class="btn"><span>File</span>
+                    <input type="file">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input type="text" class="file-path form-text">
+                  </div>
+                </div>
+              </form>
+              <pre><code class="language-markup"><form action="#">
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>File</span>
+      <input type="file">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path form-text" type="text">
+    </div>
+  </div>
+</form>
+</code></pre><p>You can also use the <code>multiple</code> attribute to allow multiple file uploads.</p>
+
+              <form action="#">
+                <div class="file-field input-field">
+                  <div class="btn"><span>File</span>
+                    <input type="file" multiple="">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input type="text" placeholder="Upload one or more files" class="file-path form-text">
+                  </div>
+                </div>
+              </form>
+              <pre><code class="language-markup"><form action="#">
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>File</span>
+      <input type="file" multiple>
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path form-text" type="text" placeholder="Upload one or more files">
+    </div>
+  </div>
+</form>
+</code></pre>
+            </div>
+            <div id="range" class="section scrollspy">
+              <h2 class="header">Range</h2><p>Add a range slider for values with a wide range. This one is set to be a number between 0 and 100. We have two different types of sliders. nouiSlider is a 3rd party plugin which we&#39;ve modified. To use the noUiSlider, you will have to manually link the <code>nouislider.css</code> and <code>nouislider.js</code> files located in the extras folder.</p>
+
+              <h4>noUiSlider</h4>
+              <p>See noUiSlider's official documentation <a href="http://refreshless.com/nouislider/" class="social-blue-text">here</a> to see a variety of slider options</p>
+              <div id="range-input"></div><br>
+              <pre><code class="language-javascript">var slider = document.getElementById('test5');
+noUiSlider.create(slider, {
+ start: [20, 80],
+ connect: true,
+ step: 1,
+ range: {
+   'min': 0,
+   'max': 100
+ },
+ format: wNumb({
+   decimals: 0
+ })
+});
+</code></pre>
+              <h4>HTML5 Range</h4>
+              <form action="#">
+                <p class="range-field">
+                  <input type="range" name="points" min="0" max="100">
+                </p>
+              </form>
+              <pre><code class="language-markup"><form action="#">
+  <p class="range-field">
+    <input type="range" id="test5" min="0" max="100" />
+  </p>
+</form>
+</code></pre>
+            </div>
+            <div id="date-picker" class="section scrollspy">
+              <h2 class="header">Date Picker</h2>
+              <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below!</p>
+              <label for="birthdate">Birthdate</label>
+              <input id="birthdate" type="text" class="datepicker form-text">
+              <pre><code class="language-markup"><input type="date" class="form-text datepicker">
+</code></pre>
+              <h4>Initialization</h4>
+              <p>At this time, not all pickadate.js options are working with our implementation</p>
+              <pre><code class="language-javascript">$('.datepicker').pickadate({
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 15 // Creates a dropdown of 15 years to control year
+});
+
+</code></pre>
+            </div>
+            <div id="character-counter" class="section scrollspy">
+              <h2 class="header">Character Counter</h2>
+              <p class="caption">Use a character counter in fields where a character restriction is in place.</p>
+              <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s6">
+                      <input id="input_text" type="text" length="10" class="form-text">
+                      <label for="input_text">Input text</label>
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <textarea id="textarea1" length="120" class="form-text form-textarea materialize-textarea"></textarea>
+                      <label for="textarea1">Textarea</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <pre><code class="language-markup"><div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="input_text" type="text" length="10">
+        <label for="input_text">Input text</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="form-text form-textarea materialize-textarea" length="120"></textarea>
+        <label for="textarea1">Textarea</label>
+      </div>
+    </div>
+  </form>
+</div>
+</code></pre><br>
+              <h4>Initialization</h4>
+              <p>There are no options for this plugin, but if you are adding these dynamically, you can use this to initialize them.</p>
+              <pre><code class="language-javascript">$(document).ready(function() {
+ $('input#input_text, textarea#textarea1').characterCounter();
+});
+</code></pre>
+            </div>
+          </div>
+          <div class="col m3 l2 hidden-mobile">
+            <div class="toc-wrapper">
+              <ul class="section table-of-contents">
+                <li><a href="#input">Input Fields</a></li>
+                <li><a href="#textarea">Textareas</a></li>
+                <li><a href="#select">Select</a></li>
+                <li><a href="#radio">Radio Buttons</a></li>
+                <li><a href="#checkbox">Checkboxes</a></li>
+                <li><a href="#switches">Switches</a></li>
+                <li><a href="#file">File Input Button</a></li>
+                <li><a href="#range">Range</a></li>
+                <li><a href="#date-picker">Date picker</a></li>
+                <li><a href="#character-counter">Character counter</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
     <script src="js/vendor.js"></script>
     <script src="js/drupal-core.js"></script>
     <script src="js/components.js"></script>
@@ -73,7 +710,7 @@
       
       var $lang_markup       = document.querySelectorAll('pre code.language-markup')
           $lang_js           = document.querySelectorAll('script.atomic-js'),
-          $lang_jscode       = document.querySelectorAll('pre > code.language-javascript')
+          $lang_jscode       = document.querySelectorAll('pre code.language-javascript')
           lang_markupsnippet = [],
           lang_jsnippet      = [];
       
@@ -93,15 +730,71 @@
       // JavaScript
       // order matters!
       // ============================================================
-      for(var i = 0, l = $lang_js.length; i < l; i++) {
+      for(var i = 0, l = $lang_jscode.length; i < l; i++) {
         lang_jsnippet.push(
-          $lang_js[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          $lang_jscode[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         );
       }
       
-      for(var i = 0, l = $lang_jscode.length; i < l; i++) {
-        $lang_jscode[i].innerHTML = lang_jsnippet[i];
+      for(var i = 0, l = $lang_js.length; i < l; i++) {
+        $lang_js[i].innerHTML = lang_jsnippet[i];
       }
+      
+    </script>
+    <script>
+      (function(){'use strict';var f,g=[];function l(a){g.push(a);1==g.length&&f()}function m(){for(;g.length;)g[0](),g.shift()}f=function(){setTimeout(m)};function n(a){this.a=p;this.b=void 0;this.f=[];var b=this;try{a(function(a){q(b,a)},function(a){r(b,a)})}catch(c){r(b,c)}}var p=2;function t(a){return new n(function(b,c){c(a)})}function u(a){return new n(function(b){b(a)})}function q(a,b){if(a.a==p){if(b==a)throw new TypeError;var c=!1;try{var d=b&&b.then;if(null!=b&&"object"==typeof b&&"function"==typeof d){d.call(b,function(b){c||q(a,b);c=!0},function(b){c||r(a,b);c=!0});return}}catch(e){c||r(a,e);return}a.a=0;a.b=b;v(a)}}
+      function r(a,b){if(a.a==p){if(b==a)throw new TypeError;a.a=1;a.b=b;v(a)}}function v(a){l(function(){if(a.a!=p)for(;a.f.length;){var b=a.f.shift(),c=b[0],d=b[1],e=b[2],b=b[3];try{0==a.a?"function"==typeof c?e(c.call(void 0,a.b)):e(a.b):1==a.a&&("function"==typeof d?e(d.call(void 0,a.b)):b(a.b))}catch(h){b(h)}}})}n.prototype.g=function(a){return this.c(void 0,a)};n.prototype.c=function(a,b){var c=this;return new n(function(d,e){c.f.push([a,b,d,e]);v(c)})};
+      function w(a){return new n(function(b,c){function d(c){return function(d){h[c]=d;e+=1;e==a.length&&b(h)}}var e=0,h=[];0==a.length&&b(h);for(var k=0;k<a.length;k+=1)u(a[k]).c(d(k),c)})}function x(a){return new n(function(b,c){for(var d=0;d<a.length;d+=1)u(a[d]).c(b,c)})};window.Promise||(window.Promise=n,window.Promise.resolve=u,window.Promise.reject=t,window.Promise.race=x,window.Promise.all=w,window.Promise.prototype.then=n.prototype.c,window.Promise.prototype["catch"]=n.prototype.g);}());
+      
+      (function(){var h=!!document.addEventListener;function k(a,b){h?a.addEventListener("scroll",b,!1):a.attachEvent("scroll",b)}function w(a){document.body?a():h?document.addEventListener("DOMContentLoaded",a):document.onreadystatechange=function(){"interactive"==document.readyState&&a()}};function x(a){this.a=document.createElement("div");this.a.setAttribute("aria-hidden","true");this.a.appendChild(document.createTextNode(a));this.b=document.createElement("span");this.c=document.createElement("span");this.h=document.createElement("span");this.f=document.createElement("span");this.g=-1;this.b.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.c.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";
+      this.f.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.h.style.cssText="display:inline-block;width:200%;height:200%;font-size:16px;max-width:none;";this.b.appendChild(this.h);this.c.appendChild(this.f);this.a.appendChild(this.b);this.a.appendChild(this.c)}
+      function y(a,b){a.a.style.cssText="max-width:none;min-width:20px;min-height:20px;display:inline-block;overflow:hidden;position:absolute;width:auto;margin:0;padding:0;top:-999px;left:-999px;white-space:nowrap;font:"+b+";"}function z(a){var b=a.a.offsetWidth,c=b+100;a.f.style.width=c+"px";a.c.scrollLeft=c;a.b.scrollLeft=a.b.scrollWidth+100;return a.g!==b?(a.g=b,!0):!1}function A(a,b){function c(){var a=l;z(a)&&null!==a.a.parentNode&&b(a.g)}var l=a;k(a.b,c);k(a.c,c);z(a)};function B(a,b){var c=b||{};this.family=a;this.style=c.style||"normal";this.weight=c.weight||"normal";this.stretch=c.stretch||"normal"}var C=null,D=null,H=!!window.FontFace;function I(){if(null===D){var a=document.createElement("div");try{a.style.font="condensed 100px sans-serif"}catch(b){}D=""!==a.style.font}return D}function J(a,b){return[a.style,a.weight,I()?a.stretch:"","100px",b].join(" ")}
+      B.prototype.a=function(a,b){var c=this,l=a||"BESbswy",E=b||3E3,F=(new Date).getTime();return new Promise(function(a,b){if(H){var q=function(){(new Date).getTime()-F>=E?b(c):document.fonts.load(J(c,c.family),l).then(function(b){1<=b.length?a(c):setTimeout(q,25)},function(){b(c)})};q()}else w(function(){function r(){var b;if(b=-1!=e&&-1!=f||-1!=e&&-1!=g||-1!=f&&-1!=g)(b=e!=f&&e!=g&&f!=g)||(null===C&&(b=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),C=!!b&&(536>parseInt(b[1],
+      10)||536===parseInt(b[1],10)&&11>=parseInt(b[2],10))),b=C&&(e==t&&f==t&&g==t||e==u&&f==u&&g==u||e==v&&f==v&&g==v)),b=!b;b&&(null!==d.parentNode&&d.parentNode.removeChild(d),clearTimeout(G),a(c))}function q(){if((new Date).getTime()-F>=E)null!==d.parentNode&&d.parentNode.removeChild(d),b(c);else{var a=document.hidden;if(!0===a||void 0===a)e=m.a.offsetWidth,f=n.a.offsetWidth,g=p.a.offsetWidth,r();G=setTimeout(q,50)}}var m=new x(l),n=new x(l),p=new x(l),e=-1,f=-1,g=-1,t=-1,u=-1,v=-1,d=document.createElement("div"),
+      G=0;d.dir="ltr";y(m,J(c,"sans-serif"));y(n,J(c,"serif"));y(p,J(c,"monospace"));d.appendChild(m.a);d.appendChild(n.a);d.appendChild(p.a);document.body.appendChild(d);t=m.a.offsetWidth;u=n.a.offsetWidth;v=p.a.offsetWidth;q();A(m,function(a){e=a;r()});y(m,J(c,'"'+c.family+'",sans-serif'));A(n,function(a){f=a;r()});y(n,J(c,'"'+c.family+'",serif'));A(p,function(a){g=a;r()});y(p,J(c,'"'+c.family+'",monospace'))})})};window.FontFaceObserver=B;window.FontFaceObserver.prototype.check=B.prototype.a;"undefined"!==typeof module&&(module.exports=window.FontFaceObserver);}());
+      
+      (function( w ){
+        if( w.document.documentElement.className.indexOf( "fonts-loaded" ) > -1 ){
+          return;
+        }
+        var font300 = new w.FontFaceObserver( 'montserrat', { weight: 500} );
+        var font500 = new w.FontFaceObserver( 'montserrat', { weight: 500} );
+        var font700 = new w.FontFaceObserver( 'montserrat', { weight: 700} );
+        
+        var fontIcons = new w.FontFaceObserver( 'Material Icons');
+          
+        w.Promise.all([font300.check(), font500.check(), font700.check()])
+          .then( function(){
+            document.documentElement.className += " fonts-loaded";
+        });
+        
+        fontIcons.check().then( function(){
+            document.documentElement.className += " icon-font-loaded";
+        });
+        
+      }(this));
+    </script>
+    <script src="extras/date_picker/picker.js"></script>
+    <script src="extras/date_picker/picker.date.js"></script>
+    <link href="extras/noUiSlider/nouislider.css" rel="stylesheet">
+    <script src="extras/noUiSlider/nouislider.js"></script>
+    <script type="text/javascript">
+      var slider = document.getElementById('range-input');
+      noUiSlider.create(slider, {
+       start: [20, 80],
+       connect: true,
+       step: 1,
+       range: {
+         'min': 0,
+         'max': 100
+       },
+       format: wNumb({
+         decimals: 0
+       })
+      });
+      (function($){
+        $('.datepicker').pickadate({selectYears: 20});
+      })(jQuery); // end of jQuery name space
     </script>
   </body>
 </html>
