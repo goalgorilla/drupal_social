@@ -150,6 +150,33 @@
   </div>
 </div>
 </code></pre>
+              <h4>Autocomplete</h4><p>To add autocomplete to an input field you need to add a couple of things. The <code>input</code> needs to have class <code>.autocomplete</code>. The second thing need is a data attribute <code>array</code>. This attribute will hold all data needed.</p>
+
+              <div class="row">
+                <div class="col s12">
+                  <p>How the array should look:</p>
+                  <pre><code class="language-markup">[
+  {
+   "value": "Select text",
+   "path": "Image path",
+   "class": "Image class"
+  }
+]
+</code></pre>
+                </div>
+              </div>
+              <p>The array is a json array so it's easy to maintain with PHP. <em>This might need to be changed because it gets quite long.</em></p>
+              <p>To get highlighted text add `highlight-matching` class to the input.</p>
+              <div class="row">
+                <div class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="autocomplete" type="text" data-array="[{&quot;value&quot;: &quot;Aaron&quot;, &quot;path&quot;: &quot;content/images/avatar1.jpg&quot;,&quot;class&quot;: &quot;left circle&quot;},{&quot;value&quot;: &quot;Alex Nelson&quot;,&quot;path&quot;: &quot;content/images/avatar2.jpg&quot;,&quot;class&quot;: &quot;right circle&quot;},{&quot;value&quot;: &quot;Abbey Christensen&quot;, &quot;path&quot;: &quot;content/images/avatar3.jpg&quot;,&quot;class&quot;: &quot;right circle&quot;}]" class="form-text autocomplete">
+                      <label for="autocomplete">Autocomplete with highlighting</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- Textarea Section-->
             <div id="textarea" class="section scrollspy">
