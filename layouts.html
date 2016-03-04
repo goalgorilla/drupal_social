@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Layouts - Drupal Social</title>
+    <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
+    <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+  </head>
+  <body class="styleguide">
+    <header class="styleguide-header">
+      <div class="header__wrapper">
+        <div class="header__innerwrapper container">
+          <div class="row">
+            <div class="col s12">
+              <h1 class="header__title">Layouts</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-button-wrapper">
+        <button id="js-showSidebar" role="tab" class="hamburger-button"> <i title="show navigation" class="material-icons">menu</i></button>
+      </div>
+      <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo"><a id="logo-container" href="index.html" class="brand-logo">
+            <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-blue.svg">Your browser does not support SVG</object></a></li>
+        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Getting Started</a></li>
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">CSS</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="color.html">Color</a></li>
+                  <li><a href="grid.html">Grid</a></li>
+                  <li><a href="typography.html">Typography</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
+                  <li><a href="forms.html">Forms</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="bold active"><a href="layouts.html" class="waves-effect waves-teal">Layouts</a></li>
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">JavaScript</a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="waves.html">Waves</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
+      </ul>
+      <div class="mask-modal"></div>
+    </header>
+    <main role="main" class="styleguide-container">
+      <div class="container">
+        <div class="row"> 
+          <div class="col s12 m9 l10">
+            <div id="regions" class="section scrollspy">
+              <h2 class="header">Regions</h2>
+              <p>We have split up the <em>fluid</em> layout of the interface into regions to which in Drupal we can assign blocks to. The following regions are used. When you scroll down we see how these regions are placed in layouts. </p>
+              <ul class="collection"> 
+                <li class="collection__item avatar"><span style="background-color: #e1bee7" class="circle"> </span><span class="title">Header</span>
+                  <p>Primary navigation, user navigation, site search</p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #80deea" class="circle"></span><span class="title">Breadcrumbs </span>
+                  <p>pathway navigation for large screen and 'go back' navigation for mobile </p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #ef9a9a" class="circle"></span><span class="title">Hero</span>
+                  <p>Displays an overview of the main content such as a person, group or event.</p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #90caf9" class="circle"></span><span class="title">Primary action</span>
+                  <p>Call to action </p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #80cbc4" class="circle"></span><span class="title">Secondary navigation</span>
+                  <p>section specific navigation</p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #dce775" class="circle"></span><span class="title">Section title </span>
+                  <p>Explains what this page or section is about</p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #a5d6a7" class="circle"></span><span class="title">Section content </span>
+                  <p>Content about this section          </p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #ffe082" class="circle"></span><span class="title">Complementary </span>
+                  <p>Complementary content, filters, actions, quick navigations that specific to the section     </p>
+                </li>
+                <li class="collection__item avatar"><span style="background-color: #b0bec5" class="circle"></span><span class="title">Footer </span>
+                  <p>It is static and contains information about the whole application.</p>
+                </li>
+              </ul>
+            </div>
+            <div id="layout-a" class="section scrollspy">
+              <h2 class="header">Layout A</h2>
+              <p>This layout is used on all section overviews such as a the dashboard, profile, groups and content types (events overview). It is usually a function t bind content and there are always subcontent pages.</p>
+              <div class="browser-window">
+                <div class="top-bar">
+                  <div class="circles">
+                    <div id="close-circle" class="circle"></div>
+                    <div id="minimize-circle" class="circle"></div>
+                    <div id="maximize-circle" class="circle"></div>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="row">
+                    <div style="background-color:#e1bee7; min-height: 80px;" class="col s12">
+                      <p>Header</p>
+                    </div>
+                  </div>
+                  <div class="row only-desktop">
+                    <div style="background-color:#80deea; min-height: 30px;" class="col l12">
+                      <p>Breadcrumbs</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#ef9a9a; min-height: 120px;" class="col s12">
+                      <p>Hero</p>
+                      <p class="flat-text inline25"></p>
+                      <p class="flat-text inline25"></p>
+                      <div style="background-color:#90caf9; min-height: 60px;" class="col s12 m3 right">
+                        <p>Primary action</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#80cbc4; min-height: 40px;" class="col s12">
+                      <p>Secondary navigation</p>
+                      <p class="flat-text inline25"> </p>
+                      <p class="flat-text inline25"></p>
+                      <p class="flat-text inline25"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#dce775; min-height: 60px;" class="col s12 m9">
+                      <p>Title </p>
+                    </div>
+                    <div style="background-color:#ffe082; min-height: 250px;" class="col s12 m3 right">
+                      <p>Complementary</p>
+                      <p class="flat-text small"></p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                    </div>
+                    <div style="background-color:#a5d6a7; min-height: 400px;" class="col s12 m9">
+                      <p>main content </p>
+                      <p class="flat-text-header"> </p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#b0bec5; min-height: 50px;" class="col s12">
+                      <p>Footer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="layout-b" class="section scrollspy">
+              <h2 class="header">Layout B</h2>
+              <p>This layout is used on sections that has subcontent or has sibling pages in the hierarchy. For example an event node has enrollment as a sibling, but a topic node doesn't have siblings. So we use this template for event, but not for topic.</p>
+              <p><strong>Please note that the difference here is only seen on smaller screens compared to Layout A.</strong></p>
+              <div class="browser-window">
+                <div class="top-bar">
+                  <div class="circles">
+                    <div id="close-circle" class="circle"></div>
+                    <div id="minimize-circle" class="circle"></div>
+                    <div id="maximize-circle" class="circle"></div>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="row">
+                    <div style="background-color:#e1bee7; min-height: 80px;" class="col s12">
+                      <p>Header</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#80deea; min-height: 30px;" class="col l12 only-desktop">
+                      <p>Breadcrumbs</p>
+                    </div>
+                    <div style="background-color:#80deea; min-height: 30px;" class="col s12 hidden-tablet">
+                      <p>Back to main page</p>
+                    </div>
+                  </div>
+                  <div class="row hidden-mobile">
+                    <div style="background-color:#ef9a9a; min-height: 120px;" class="col s12">
+                      <p>Hero</p>
+                      <p class="flat-text inline25"></p>
+                      <p class="flat-text inline25"></p>
+                      <div style="background-color:#90caf9; min-height: 60px;" class="col s12 m3 right">
+                        <p>Primary action</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row hidden-mobile">
+                    <div style="background-color:#80cbc4; min-height: 40px;" class="col s12">
+                      <p>Secondary navigation</p>
+                      <p class="flat-text inline25"> </p>
+                      <p class="flat-text inline25"></p>
+                      <p class="flat-text inline25"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#dce775; min-height: 60px;" class="col s12 m9">
+                      <p>Title </p>
+                    </div>
+                    <div style="background-color:#ffe082; min-height: 250px;" class="col s12 m3 right">
+                      <p>Complementary</p>
+                      <p class="flat-text small"></p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                    </div>
+                    <div style="background-color:#a5d6a7; min-height: 400px;" class="col s12 m9">
+                      <p>main content </p>
+                      <p class="flat-text-header"> </p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#b0bec5; min-height: 50px;" class="col s12">
+                      <p>Footer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="layout-c" class="section scrollspy">
+              <h2 class="header">Layout C</h2>
+              <p>This layout is used on sections that has <strong>no</strong> subcontent nor has sibling pages in the hierarchy. For example a topic node, or and edit node page. Compared to the other layouts we do not have a Secondary navigation nor Title region here. The title will be displayed in the Hero.</p>
+              <div class="browser-window">
+                <div class="top-bar">
+                  <div class="circles">
+                    <div id="close-circle" class="circle"></div>
+                    <div id="minimize-circle" class="circle"></div>
+                    <div id="maximize-circle" class="circle"></div>
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="row">
+                    <div style="background-color:#e1bee7; min-height: 80px;" class="col s12">
+                      <p>Header</p>
+                    </div>
+                  </div>
+                  <div class="row only-desktop">
+                    <div style="background-color:#80deea; min-height: 30px;" class="col l12">
+                      <p>Breadcrumbs</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#ef9a9a; min-height: 120px;" class="col s12">
+                      <p>Hero</p>
+                      <p class="flat-text inline25"></p>
+                      <p class="flat-text inline25"></p>
+                      <div style="background-color:#90caf9; min-height: 60px;" class="col s12 m3 right">
+                        <p>Primary action</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#ffe082; min-height: 250px;" class="col s12 m3 right">
+                      <p>Complementary</p>
+                      <p class="flat-text small"></p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                    </div>
+                    <div style="background-color:#a5d6a7; min-height: 400px;" class="col s12 m9">
+                      <p>main content </p>
+                      <p class="flat-text-header"> </p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                      <p class="flat-text"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div style="background-color:#b0bec5; min-height: 50px;" class="col s12">
+                      <p>Footer</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col m3 l2 hidden-mobile">
+            <div class="toc-wrapper">
+              <ul class="section table-of-contents">
+                <li><a href="#regions">Regions</a></li>
+                <li><a href="#layout-a">Layout A</a></li>
+                <li><a href="#layout-b">Layout B</a></li>
+                <li><a href="#layout-c">Layout C</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="js/vendor.js"></script>
+    <script src="js/drupal-core.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/components/prism.js"></script>
+    <script>
+      // Escape code
+      // ============================================================
+      
+      var $lang_markup       = document.querySelectorAll('pre code.language-markup')
+          $lang_js           = document.querySelectorAll('script.atomic-js'),
+          $lang_jscode       = document.querySelectorAll('pre code.language-javascript')
+          lang_markupsnippet = [],
+          lang_jsnippet      = [];
+      
+      
+      // Markup
+      // order matters!
+      // ============================================================
+      
+      for(var i = 0, l = $lang_markup.length; i < l; i++) {
+        lang_markupsnippet.push(
+          $lang_markup[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        );
+        $lang_markup[i].innerHTML = lang_markupsnippet[i];
+      }
+      
+      
+      // JavaScript
+      // order matters!
+      // ============================================================
+      for(var i = 0, l = $lang_jscode.length; i < l; i++) {
+        lang_jsnippet.push(
+          $lang_jscode[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        );
+      }
+      
+      for(var i = 0, l = $lang_js.length; i < l; i++) {
+        $lang_js[i].innerHTML = lang_jsnippet[i];
+      }
+      
+    </script>
+    <script>
+      (function(){'use strict';var f,g=[];function l(a){g.push(a);1==g.length&&f()}function m(){for(;g.length;)g[0](),g.shift()}f=function(){setTimeout(m)};function n(a){this.a=p;this.b=void 0;this.f=[];var b=this;try{a(function(a){q(b,a)},function(a){r(b,a)})}catch(c){r(b,c)}}var p=2;function t(a){return new n(function(b,c){c(a)})}function u(a){return new n(function(b){b(a)})}function q(a,b){if(a.a==p){if(b==a)throw new TypeError;var c=!1;try{var d=b&&b.then;if(null!=b&&"object"==typeof b&&"function"==typeof d){d.call(b,function(b){c||q(a,b);c=!0},function(b){c||r(a,b);c=!0});return}}catch(e){c||r(a,e);return}a.a=0;a.b=b;v(a)}}
+      function r(a,b){if(a.a==p){if(b==a)throw new TypeError;a.a=1;a.b=b;v(a)}}function v(a){l(function(){if(a.a!=p)for(;a.f.length;){var b=a.f.shift(),c=b[0],d=b[1],e=b[2],b=b[3];try{0==a.a?"function"==typeof c?e(c.call(void 0,a.b)):e(a.b):1==a.a&&("function"==typeof d?e(d.call(void 0,a.b)):b(a.b))}catch(h){b(h)}}})}n.prototype.g=function(a){return this.c(void 0,a)};n.prototype.c=function(a,b){var c=this;return new n(function(d,e){c.f.push([a,b,d,e]);v(c)})};
+      function w(a){return new n(function(b,c){function d(c){return function(d){h[c]=d;e+=1;e==a.length&&b(h)}}var e=0,h=[];0==a.length&&b(h);for(var k=0;k<a.length;k+=1)u(a[k]).c(d(k),c)})}function x(a){return new n(function(b,c){for(var d=0;d<a.length;d+=1)u(a[d]).c(b,c)})};window.Promise||(window.Promise=n,window.Promise.resolve=u,window.Promise.reject=t,window.Promise.race=x,window.Promise.all=w,window.Promise.prototype.then=n.prototype.c,window.Promise.prototype["catch"]=n.prototype.g);}());
+      
+      (function(){var h=!!document.addEventListener;function k(a,b){h?a.addEventListener("scroll",b,!1):a.attachEvent("scroll",b)}function w(a){document.body?a():h?document.addEventListener("DOMContentLoaded",a):document.onreadystatechange=function(){"interactive"==document.readyState&&a()}};function x(a){this.a=document.createElement("div");this.a.setAttribute("aria-hidden","true");this.a.appendChild(document.createTextNode(a));this.b=document.createElement("span");this.c=document.createElement("span");this.h=document.createElement("span");this.f=document.createElement("span");this.g=-1;this.b.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.c.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";
+      this.f.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.h.style.cssText="display:inline-block;width:200%;height:200%;font-size:16px;max-width:none;";this.b.appendChild(this.h);this.c.appendChild(this.f);this.a.appendChild(this.b);this.a.appendChild(this.c)}
+      function y(a,b){a.a.style.cssText="max-width:none;min-width:20px;min-height:20px;display:inline-block;overflow:hidden;position:absolute;width:auto;margin:0;padding:0;top:-999px;left:-999px;white-space:nowrap;font:"+b+";"}function z(a){var b=a.a.offsetWidth,c=b+100;a.f.style.width=c+"px";a.c.scrollLeft=c;a.b.scrollLeft=a.b.scrollWidth+100;return a.g!==b?(a.g=b,!0):!1}function A(a,b){function c(){var a=l;z(a)&&null!==a.a.parentNode&&b(a.g)}var l=a;k(a.b,c);k(a.c,c);z(a)};function B(a,b){var c=b||{};this.family=a;this.style=c.style||"normal";this.weight=c.weight||"normal";this.stretch=c.stretch||"normal"}var C=null,D=null,H=!!window.FontFace;function I(){if(null===D){var a=document.createElement("div");try{a.style.font="condensed 100px sans-serif"}catch(b){}D=""!==a.style.font}return D}function J(a,b){return[a.style,a.weight,I()?a.stretch:"","100px",b].join(" ")}
+      B.prototype.a=function(a,b){var c=this,l=a||"BESbswy",E=b||3E3,F=(new Date).getTime();return new Promise(function(a,b){if(H){var q=function(){(new Date).getTime()-F>=E?b(c):document.fonts.load(J(c,c.family),l).then(function(b){1<=b.length?a(c):setTimeout(q,25)},function(){b(c)})};q()}else w(function(){function r(){var b;if(b=-1!=e&&-1!=f||-1!=e&&-1!=g||-1!=f&&-1!=g)(b=e!=f&&e!=g&&f!=g)||(null===C&&(b=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),C=!!b&&(536>parseInt(b[1],
+      10)||536===parseInt(b[1],10)&&11>=parseInt(b[2],10))),b=C&&(e==t&&f==t&&g==t||e==u&&f==u&&g==u||e==v&&f==v&&g==v)),b=!b;b&&(null!==d.parentNode&&d.parentNode.removeChild(d),clearTimeout(G),a(c))}function q(){if((new Date).getTime()-F>=E)null!==d.parentNode&&d.parentNode.removeChild(d),b(c);else{var a=document.hidden;if(!0===a||void 0===a)e=m.a.offsetWidth,f=n.a.offsetWidth,g=p.a.offsetWidth,r();G=setTimeout(q,50)}}var m=new x(l),n=new x(l),p=new x(l),e=-1,f=-1,g=-1,t=-1,u=-1,v=-1,d=document.createElement("div"),
+      G=0;d.dir="ltr";y(m,J(c,"sans-serif"));y(n,J(c,"serif"));y(p,J(c,"monospace"));d.appendChild(m.a);d.appendChild(n.a);d.appendChild(p.a);document.body.appendChild(d);t=m.a.offsetWidth;u=n.a.offsetWidth;v=p.a.offsetWidth;q();A(m,function(a){e=a;r()});y(m,J(c,'"'+c.family+'",sans-serif'));A(n,function(a){f=a;r()});y(n,J(c,'"'+c.family+'",serif'));A(p,function(a){g=a;r()});y(p,J(c,'"'+c.family+'",monospace'))})})};window.FontFaceObserver=B;window.FontFaceObserver.prototype.check=B.prototype.a;"undefined"!==typeof module&&(module.exports=window.FontFaceObserver);}());
+      
+      (function( w ){
+        if( w.document.documentElement.className.indexOf( "fonts-loaded" ) > -1 ){
+          return;
+        }
+        var font300 = new w.FontFaceObserver( 'montserrat', { weight: 500} );
+        var font500 = new w.FontFaceObserver( 'montserrat', { weight: 500} );
+        var font700 = new w.FontFaceObserver( 'montserrat', { weight: 700} );
+        
+        var fontIcons = new w.FontFaceObserver( 'Material Icons');
+          
+        w.Promise.all([font300.check(), font500.check(), font700.check()])
+          .then( function(){
+            document.documentElement.className += " fonts-loaded";
+        });
+        
+        fontIcons.check().then( function(){
+            document.documentElement.className += " icon-font-loaded";
+        });
+        
+      }(this));
+    </script>
+  </body>
+</html>
