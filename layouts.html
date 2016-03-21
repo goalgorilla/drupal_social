@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="styleguide">
@@ -45,6 +46,7 @@
                 <ul>
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="forms.html">Forms</a></li>
+                  <li><a href="tabs.html">Tabs</a></li>
                 </ul>
               </div>
             </li>
@@ -78,16 +80,16 @@
                   <p>Primary navigation, user navigation, site search</p>
                 </li>
                 <li class="collection__item avatar"><span style="background-color: #80deea" class="circle"></span><span class="title">Breadcrumbs </span>
-                  <p>pathway navigation for large screen and 'go back' navigation for mobile </p>
+                  <p>Pathway navigation for large screen and 'go back' navigation for mobile </p>
                 </li>
                 <li class="collection__item avatar"><span style="background-color: #ef9a9a" class="circle"></span><span class="title">Hero</span>
-                  <p>Displays an overview of the main content such as a person, group or event.</p>
+                  <p>Provides a summary of the main content of this page, for example a person, a group or an event.</p>
                 </li>
                 <li class="collection__item avatar"><span style="background-color: #90caf9" class="circle"></span><span class="title">Primary action</span>
-                  <p>Call to action </p>
+                  <p>Provides actions that are relevant to the main content such as follow a person, join a group, enrol to an event </p>
                 </li>
                 <li class="collection__item avatar"><span style="background-color: #80cbc4" class="circle"></span><span class="title">Secondary navigation</span>
-                  <p>section specific navigation</p>
+                  <p>Navigation options to the sub contents of a main content.</p>
                 </li>
                 <li class="collection__item avatar"><span style="background-color: #dce775" class="circle"></span><span class="title">Title </span>
                   <p>Explains what this page or section is about</p>
@@ -104,8 +106,8 @@
               </ul>
             </div>
             <div id="layout-a" class="section scrollspy">
-              <h2 class="header">Layout A</h2>
-              <p>This layout is used on all section overviews such as a the dashboard, profile, groups and content types (events overview). It is usually a function t bind content and there are always subcontent pages.</p>
+              <h2 class="header">Layout A | Parents</h2>
+              <p>This layout is used on the section's parent pages. The parents form the landing pages of the platform such as the timeline page of a person or group or the detail page of an event. These pages always have child pages. </p>
               <div class="browser-window">
                 <div class="top-bar">
                   <div class="circles">
@@ -170,8 +172,8 @@
               </div>
             </div>
             <div id="layout-b" class="section scrollspy">
-              <h2 class="header">Layout B</h2>
-              <p>This layout is used on sections that has subcontent or has sibling pages in the hierarchy. For example an event node has enrollment as a sibling, but a topic node doesn't have siblings. So we use this template for event, but not for topic.</p>
+              <h2 class="header">Layout B | Children</h2>
+              <p>This layout is used on section's child pages. For example an event node has enrollment as a child, but a topic node doesn't have children. So we use this template for event enrollment, but not for topic.</p>
               <p><strong>Please note</strong> that the difference here is only seen on smaller screens compared to Layout A. The hero area will be hidden and instead of the secondary navigation there is a "Back to main page" button which leads back to  Layout A.</p>
               <div class="browser-window">
                 <div class="top-bar">
@@ -240,8 +242,8 @@
               </div>
             </div>
             <div id="layout-c" class="section scrollspy">
-              <h2 class="header">Layout C</h2>
-              <p>This layout is used on sections that has <strong>no</strong> subcontent nor has sibling pages in the hierarchy. For example a topic node, or and edit node page. Compared to the other layouts we do not have a Secondary navigation nor Title region here. The title will be displayed in the Hero.</p>
+              <h2 class="header">Layout C | Orphans</h2>
+              <p>This layout is used on sections that has <strong>no</strong> sub content nor has sibling pages in the hierarchy. For example a topic node, or and edit node page. Compared to the other layouts we do not have a secondary navigation nor title region here. The title will be displayed in the Hero region.</p>
               <div class="browser-window">
                 <div class="top-bar">
                   <div class="circles">

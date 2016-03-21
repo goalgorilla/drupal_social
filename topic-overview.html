@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Reset your password</title>
+    <title>Michael Angarano</title>
     <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
@@ -18,8 +18,16 @@
           <object id="header-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
         <nav role="navigation" class="block--headermenu">
           <ul class="header-menu">
-            <li class="menu__item"><a href="#0" class="menu__link"><span class="menu__label">Sign up</span></a></li>
-            <li class="menu__item"><a href="#0" class="menu__link"><span class="menu__label">Login        </span></a></li>
+            <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
+                <div class="b-menu"><i title="Account" class="material-icons">add</i><span class="menu__label hidden">Add content</span></div></a></li>
+            <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
+                <div class="b-menu hidden-tablet"><i title="Home" class="material-icons">home</i></div><span class="menu__label hidden-mobile">Home</span></a></li>
+            <li class="menu__item"><a href="#0" class="menu__link">
+                <div class="b-menu hidden-tablet"><i title="Groups" class="material-icons">group</i></div><span class="menu__label hidden-mobile">Groups</span></a></li>
+            <li class="menu__item"><a href="#0" data-panel="#notification-panel" title="Show notifications" class="menu__link panel-trigger">
+                <div class="b-menu"><i title="Notifications" class="material-icons">notifications_none</i></div><span class="menu__label hidden">Notifications</span></a></li>
+            <li class="menu__item"><a href="#0" data-panel="#user-panel" title="Show user menu" class="menu__link panel-trigger">
+                <div class="b-menu"><i title="View profile" class="material-icons">account_box</i></div><span class="menu__label hidden-mobile">Sebastiaan            </span></a></li>
             <li class="menu__item hidden-desktop"><a href="#0" data-panel="#menu-panel" title="Show menu" class="menu__link panel-trigger">
                 <div class="b-menu">
                   <div class="b-bun b-bun--top"></div>
@@ -47,6 +55,17 @@
           </div>
         </div>
       </div>
+      <div id="user-panel" class="panel">
+        <div class="container">
+          <div class="block--user-menu">
+            <ul class="user-menu">
+              <li class="menu__item"><a href="#0" class="menu__link">Edit profile</a></li>
+              <li class="menu__item"><a href="#0" class="menu__link">Account settings</a></li>
+              <li class="menu__item"><a href="#0" class="menu__link">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </header>
     <main role="main" class="main-container">
       <nav>
@@ -58,39 +77,118 @@
           </div>
         </div>
       </nav>
+      <div class="block-hero">
+        <div class="container">
+          <div class="row">
+            <div class="col s12 center"><img src="/content/images/avatar0.jpg" class="circle img-bordered">
+              <h1 class="page-title h2">Michael Angarano</h1>
+              <button class="btn white social-blue-text">following</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="secondary_navigation">
         <div class="container">
-          <nav role="navigation" aria-label="Tabs">
-            <h2 class="visually-hidden">Primary tabs</h2>
-            <ul class="tabs primary">
-              <li><a href="login.html">Log in</a></li>
-              <li><a href="sign-up.html">Sign up</a></li>
-              <li class="is-active"><a href="reset-password.html" class="is-active">Reset password</a><span class="visually-hidden">(active tab)</span></li>
-            </ul>
-          </nav>
+          <div class="block-secondary-nav social-blue darken-1">
+            <div class="container">
+              <nav role="navigation" aria-label="Tabs">
+                <h2 class="visually-hidden">Secondary navigation</h2>
+                <ul class="tabs primary">
+                  <li><a href="#">Timeline  </a></li>
+                  <li><a href="#">Information</a></li>
+                  <li class="is-active"><a href="#" class="is-active">Topics<span class="visually-hidden">(active tab)</span></a></li>
+                  <li><a href="#">Events</a></li>
+                  <li><a href="#">Groups</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="page-title"> 
+      <div class="main-content">
         <div class="container">
-          <h1>Reset your password</h1>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col s12 l9">
-            <div class="card form-card">
-              <form accept-charset="UTF-8" class="user-pass-form">
-                <div class="form__item form__type-textfield">
-                  <div class="input-field">
-                    <input id="edit-name" type="text" autocorrect="off" autofocus="autofocus" required="required" class="form-text">
-                    <label for="edit-name" class="form-required">Username or email address</label>
-                    <div class="form__description">Password reset instructions will be sent to your registered email address.</div>
+          <div class="row">
+            <div class="col s12">
+              <h2 class="section-title">My topics</h2>
+            </div>
+            <div class="col s12 l3 right"><a href="#!" class="waves-effect waves-light btn btn--block btn--black"> <i class="material-icons left">add</i>Add a topic</a><a class="btn btn--block hidden-desktop js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
+              <div class="off-canvas off-canvas-right off-canvas-small-only desktop-card">
+                <div class="offcanvas-head">
+                  <header class="card__label">filter</header>
+                  <div class="offcanvas-tools hidden-desktop">
+                    <div class="js-close-canvas btn-flat btn-icon-toggle btn-default-light right"><i class="material-icons">close</i></div>
                   </div>
                 </div>
-                <div id="edit-actions" class="form-actions form-wrapper">
-                  <input id="edit-submit" type="submit" value="Submit" class="waves-effect waves-light btn form__submit">
-                </div>
-              </form>
+                <form>
+                  <div class="form-item">
+                    <div class="input-field">
+                      <select>
+                        <option value="" selected="">All types</option>
+                        <option value="blog">Blog</option>
+                        <option value="discussion">Discussion</option>
+                        <option value="topic">Topic</option>
+                      </select>
+                      <label>Topic type</label>
+                    </div>
+                  </div>
+                  <div class="form-item">
+                    <div class="input-field">
+                      <select>
+                        <option value="" selected="">All statusses</option>
+                        <option value="published">Published</option>
+                        <option value="unpublished">Unpublished</option>
+                      </select>
+                      <label>Status</label>
+                    </div>
+                  </div>
+                  <div class="form-actions form-wrapper">
+                    <input type="submit" value="Reset" class="waves-effect waves-light btn btn--block disabled">
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col s12 l9">
+              <div class="card--wrapper"><a href="#" class="card teaser teaser--topic">
+                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image"></div>
+                  <div class="teaser__content">
+                    <h2 class="teaser__title">Technology for the handicapped</h2>
+                    <div class="teaser__published">15 Feb 2016</div>
+                    <div class="teaser__author">Clive Owen</div>
+                    <div class="teaser__type">blog</div>
+                    <div class="teaser__read-more">Read more </div>
+                  </div></a><a href="#" class="card teaser teaser--topic">
+                  <div class="teaser__media"><img src="content/images/animals1-square.jpg" class="teaser__image"></div>
+                  <div class="teaser__content">
+                    <h2 class="teaser__title">Will this be the cinema of the future?</h2>
+                    <div class="teaser__published">15 Feb 2016</div>
+                    <div class="teaser__author">Clive Owen</div>
+                    <div class="teaser__type">discussion</div>
+                    <div class="teaser__read-more">Read more </div>
+                  </div></a><a href="#" class="card teaser teaser--topic unpublished">
+                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image"><span class="status">unpublished</span></div>
+                  <div class="teaser__content">
+                    <h2 class="teaser__title">5 new cool features in Office 365</h2>
+                    <div class="teaser__published">11 Mar 2016</div>
+                    <div class="teaser__author">Clive Owen</div>
+                    <div class="teaser__type">topic</div>
+                    <div class="teaser__read-more">Read more </div>
+                  </div></a><a href="#" class="card teaser teaser--topic">
+                  <div class="teaser__media"><img src="content/images/animals1-square.jpg" class="teaser__image"></div>
+                  <div class="teaser__content">
+                    <h2 class="teaser__title">Will this be the cinema of the future?</h2>
+                    <div class="teaser__published">15 Feb 2016</div>
+                    <div class="teaser__author">Clive Owen</div>
+                    <div class="teaser__type">discussion</div>
+                    <div class="teaser__read-more">Read more </div>
+                  </div></a></div>
+              <ul class="pagination">
+                <li class="disabled"><a href="#0">    <i class="material-icons">chevron_left</i></a></li>
+                <li class="active"><a href="#1">1</a></li>
+                <li> <a href="#1">2</a></li>
+                <li> <a href="#1">3          </a></li>
+                <li> <a href="#1">4</a></li>
+                <li><a href="#0">    <i class="material-icons">chevron_right</i></a></li>
+              </ul>
             </div>
           </div>
         </div>

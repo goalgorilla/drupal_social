@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Breadcrumbs - Drupal Social</title>
+    <title>Tabs - Drupal Social</title>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -17,7 +17,7 @@
           <div class="header__innerwrapper container">
             <div class="row">
               <div class="col s12">
-                <h1 class="header__title">Breadcrumbs</h1>
+                <h1 class="header__title">Tabs</h1>
               </div>
             </div>
           </div>
@@ -43,9 +43,9 @@
               <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Components</a>
                 <div class="collapsible-body">
                   <ul>
-                    <li class="active"><a href="breadcrumbs.html">Breadcrumbs</a></li>
+                    <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                     <li><a href="forms.html">Forms</a></li>
-                    <li><a href="tabs.html">Tabs</a></li>
+                    <li class="active"><a href="tabs.html">Tabs</a></li>
                   </ul>
                 </div>
               </li>
@@ -54,7 +54,7 @@
           <li class="bold"><a href="layouts.html" class="waves-effect waves-teal">Layouts</a></li>
           <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
-              <li class="bold"><a class="collapsible-header  waves-effect waves-teal">JavaScript</a>
+              <li class="bold"><a class="collapsible-header active waves-effect waves-teal">JavaScript</a>
                 <div class="collapsible-body">
                   <ul>
                     <li><a href="waves.html">Waves</a></li>
@@ -72,26 +72,170 @@
           <div class="row"> 
             <div class="col s12">
               <div class="section">
-                <p>Breadcrumbs are a good way to display your current location. This is usually used when you have multiple layers of content. They are hidden on small screens.</p>
-                <nav>
-                  <div class="breadcrumbs-wrapper">
-                    <div class="container">
-                      <div class="col s12"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
-                    </div>
+                <div class="row"> 
+                  <div class="col l9">
+                    <p class="flow-text">Tabs make it easy to explore and switch between different views or functional aspects of an app or to browse categorized data sets.</p>
+                    <h3 class="social-blue-text">Alignment</h3>
+                    <p>You can align the tabs to the left, right, centered and justified. By default the tabs are left aligned in the header.</p>
                   </div>
-                </nav>
-                <pre>     <code class="language-markup"><nav>
-  <div class="breadcrumbs-wrapper">
-    <div class="col s12">
-      <a href="#!" class="breadcrumb">First</a>
-      <a href="#!" class="breadcrumb">Second</a>
-      <a href="#!" class="breadcrumb">Third</a>
-    </div>
-  </div>
-</nav>
-
-
-</code></pre>
+                </div>
+                <div class="row">
+                  <div class="col s12 l6">
+                    <div class="card">
+                      <div class="card-head">
+                        <ul data-toggle="tabs" class="nav nav-tabs">
+                          <li class="active"><a href="#first1">First item</a></li>
+                          <li><a href="#second1">Second item</a></li>
+                          <li><a href="#third1">Third item</a></li>
+                        </ul>
+                      </div>
+                      <div class="card-body tab-content">
+                        <div id="first1" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second1" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                        <div id="third1" class="tab-pane"> 
+                          <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                        </div>
+                      </div>
+                    </div><em class="text-caption">Left aligned tabs (default)</em>
+                  </div>
+                  <div class="col s12 l6">
+                    <div class="card card-underline">
+                      <div class="card-head">
+                        <ul data-toggle="tabs" class="nav nav-tabs nav-tabs-right">
+                          <li class="active"><a href="#first2">First item</a></li>
+                          <li><a href="#second2">Second item</a></li>
+                        </ul>
+                      </div>
+                      <div class="card-body tab-content">
+                        <div id="first2" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second2" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                      </div>
+                    </div><em class="text-caption">Right aligned tabs    </em>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 l6">
+                    <div class="card">
+                      <div class="card-head">
+                        <ul data-toggle="tabs" class="nav nav-tabs tabs-center">
+                          <li class="active"><a href="#first3">First item</a></li>
+                          <li><a href="#second3">Second item</a></li>
+                          <li><a href="#third3">Third item</a></li>
+                        </ul>
+                      </div>
+                      <div class="card-body tab-content">
+                        <div id="first3" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second3" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                        <div id="third3" class="tab-pane"> 
+                          <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                        </div>
+                      </div>
+                    </div><em class="text-caption">Centered tabs</em>
+                  </div>
+                  <div class="col s12 l6">
+                    <div class="card card-underline">
+                      <div class="card-head">
+                        <ul data-toggle="tabs" class="nav nav-tabs nav-justified">
+                          <li class="active"><a href="#first4">First item</a></li>
+                          <li><a href="#second4">Second item</a></li>
+                        </ul>
+                      </div>
+                      <div class="card-body tab-content">
+                        <div id="first4" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second4" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                      </div>
+                    </div><em class="text-caption">Justified tabs    </em>
+                  </div>
+                </div>
+                <pre>     <code class="language-markup"></code></pre>
+              </div>
+              <div class="section">
+                <div class="row"> 
+                  <div class="col l9">
+                    <h3 class="social-blue-text">Layout</h3>
+                    <p>Tabs can not only be placed above the content, but also left, right and below the content.</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 l6">
+                    <div class="card tabs-left style-default-bright">
+                      <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
+                        <li class="active"><a href="#first5">First item</a></li>
+                        <li><a href="#second5">Second item</a></li>
+                        <li><a href="#third5">Third item</a></li>
+                      </ul>
+                      <div class="card-body tab-content">
+                        <div id="first5" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second5" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                        <div id="third5" class="tab-pane"> 
+                          <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                        </div>
+                      </div>
+                    </div><em class="text-caption">Left sidebar layout</em>
+                  </div>
+                  <div class="col s12 l6">
+                    <div class="card tabs-right style-default-bright">
+                      <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
+                        <li class="active"><a href="#first6">First item</a></li>
+                        <li><a href="#second6">Second item</a></li>
+                        <li><a href="#third6">Third item</a></li>
+                      </ul>
+                      <div class="card-body tab-content">
+                        <div id="first6" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second6" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                        <div id="third6" class="tab-pane"> 
+                          <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                        </div>
+                      </div>
+                    </div><em class="text-caption">Right sidebar layout</em>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 l6">
+                    <div class="card tabs-below style-default-bright">
+                      <div class="card-body tab-content">
+                        <div id="first7" class="tab-pane active">
+                          <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        </div>
+                        <div id="second7" class="tab-pane"> 
+                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+                        </div>
+                        <div id="third7" class="tab-pane"> 
+                          <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                        </div>
+                      </div>
+                      <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
+                        <li class="active"><a href="#first7">First item</a></li>
+                        <li><a href="#second7">Second item</a></li>
+                        <li><a href="#third7">Third item</a></li>
+                      </ul>
+                    </div><em class="text-caption">Below layout              </em>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
