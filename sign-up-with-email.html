@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <!--CSS-->
-    <link href="css/generic.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
     <header id="header">
@@ -49,55 +49,46 @@
       </div>
     </header>
     <main role="main" class="main-container">
-      <nav>
-        <div class="breadcrumbs-wrapper">
+      <div class="main-content">
+        <div class="style-default-bright only-desktop">
           <div class="container">
-            <div class="row">
-              <div class="col s12"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
-            </div>
+            <nav role="navigation" aria-label="Tabs">
+              <h2 class="visually-hidden">Secondary navigation</h2>
+              <ul class="nav nav-tabs nav-justified style-default-bright nav-tabs--xl">
+                <li><a href="login.html">Log in</a></li>
+                <li class="active"><a href="sign-up.html">Sign up<span class="visually-hidden">(active tab)</span></a></li>
+                <li><a href="reset-password.html">Reset password</a></li>
+              </ul>
+            </nav>
           </div>
         </div>
-      </nav>
-      <div class="secondary_navigation">
         <div class="container">
-          <nav role="navigation" aria-label="Tabs">
-            <h2 class="visually-hidden">Primary tabs</h2>
-            <ul class="tabs primary">
-              <li><a href="login.html">Log in</a></li>
-              <li class="is-active"><a href="sign-up.html" class="is-active">Sign up<span class="visually-hidden">(active tab)</span></a></li>
-              <li><a href="reset-password.html">Reset password</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <div class="page-title"> 
-        <div class="container">
-          <h1>Sign up</h1>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col s12 l9">
-            <div class="card form-card">
-              <form accept-charset="UTF-8" class="user-register-form">
-                <div class="form__item form__type-textfield">
-                  <div class="input-field">
-                    <input id="edit-email" type="email" autocorrect="none" autofocus="autofocus" required="required" class="form-text">
-                    <label for="edit-email" class="form-required">E-mail address</label>
-                    <div class="description">A valid email address. All emails from the system will be sent to this address. The email address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by email.</div>
-                  </div>
+          <div class="row">
+            <div class="col s12 l9 section-header">
+              <h2 class="h3 section-title">Sign up</h2>
+              <div class="card form-card">
+                <div class="card-body">
+                  <form accept-charset="UTF-8" class="user-register-form">
+                    <div class="form__item form__type-textfield">
+                      <div class="input-field">
+                        <input id="edit-email" type="email" autocorrect="none" autofocus="autofocus" required="required" class="form-text">
+                        <label for="edit-email" class="form-required">E-mail address</label>
+                        <div class="description">A valid email address. All emails from the system will be sent to this address. The email address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by email.</div>
+                      </div>
+                    </div>
+                    <div class="form__item form__type-textfield">
+                      <div class="input-field">
+                        <input id="edit-username" type="text" required="required" class="form-text">
+                        <label for="edit-username" class="form-required">Username</label>
+                        <div class="form__description">Several special characters are allowed, including space, period (.), hyphen (-), apostrophe (&rsquo;), underscore (_), and the @ sign.</div>
+                      </div>
+                    </div>
+                    <div id="edit-actions" class="form-actions form-wrapper">
+                      <input id="edit-submit" type="submit" value="Sign up" class="waves-effect waves-light btn form__submit">
+                    </div>
+                  </form>
                 </div>
-                <div class="form__item form__type-textfield">
-                  <div class="input-field">
-                    <input id="edit-username" type="text" required="required" class="form-text">
-                    <label for="edit-username" class="form-required">Username</label>
-                    <div class="form__description">Several special characters are allowed, including space, period (.), hyphen (-), apostrophe (&rsquo;), underscore (_), and the @ sign.</div>
-                  </div>
-                </div>
-                <div id="edit-actions" class="form-actions form-wrapper">
-                  <input id="edit-submit" type="submit" value="Sign up" class="waves-effect waves-light btn form__submit">
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

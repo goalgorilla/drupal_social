@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <!--CSS-->
-    <link href="css/generic.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
     <header id="header">
@@ -68,7 +68,7 @@
       </div>
     </header>
     <main role="main" class="main-container">
-      <nav>
+      <nav class="only-desktop">
         <div class="breadcrumbs-wrapper">
           <div class="container">
             <div class="row">
@@ -77,7 +77,7 @@
           </div>
         </div>
       </nav>
-      <div class="block-hero">
+      <div class="block-hero only-desktop">
         <div class="container">
           <div class="row">
             <div class="col s12 center"><img src="content/images/avatar0.jpg" class="circle img-bordered">
@@ -87,29 +87,30 @@
           </div>
         </div>
       </div>
-      <div class="secondary_navigation">
+      <div class="main-content">
         <div class="container">
-          <div class="block-secondary-nav social-blue darken-1">
-            <div class="container">
-              <nav role="navigation" aria-label="Tabs">
-                <h2 class="visually-hidden">Secondary navigation</h2>
-                <ul class="tabs primary">
-                  <li><a href="#">Timeline  </a></li>
-                  <li><a href="#">Information</a></li>
-                  <li><a href="my-topics.html">Topics</a></li>
-                  <li class="is-active"><a href="my-events.html" class="is-active">Events<span class="visually-hidden">(active tab)</span></a></li>
-                  <li><a href="#">Groups</a></li>
-                </ul>
-              </nav>
-            </div>
+          <div class="row hidden-desktop section-header">
+            <div class="col s12"><a class="btn"> <i class="material-icons left">keyboard_arrow_left</i>Back to timeline</a></div>
           </div>
         </div>
-      </div>
-      <div class="main-content">
+        <div class="style-primary-dark only-desktop">
+          <div class="container">
+            <nav role="navigation" aria-label="Tabs">
+              <h2 class="visually-hidden">Secondary navigation</h2>
+              <ul class="nav nav-tabs nav-justified style-primary-dark nav-tabs--xl">
+                <li><a href="#">Timeline  </a></li>
+                <li><a href="#">Information</a></li>
+                <li><a href="my-topics.html">Topics</a></li>
+                <li class="active"><a href="my-events.html">Events<span class="visually-hidden">(active tab)</span></a></li>
+                <li><a href="#">Groups</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
         <div class="container">
           <div class="row">
             <div class="col s12">
-              <h2 class="section-title">My events</h2>
+              <h2 class="h3 section-title">My events</h2>
             </div>
             <div class="col s12 l3 right"><a href="#!" class="waves-effect waves-light btn btn--block btn--black"> <i class="material-icons left">add</i>Add an event</a><a class="btn btn--block hidden-desktop js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
               <div class="off-canvas off-canvas-right off-canvas-small-only desktop-card">
@@ -149,7 +150,7 @@
                     <div class="teaser__event-date">19<span class="teaser__event-date-month">Apr</span></div>
                   </div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">Security and modern internet</h2>
+                    <h2 class="h4">Security and modern internet</h2>
                     <div class="teaser__published">19 apr 09:00 - 18:00</div>
                     <div class="teaser__location">Patheon, Rome</div>
                     <div class="teaser__enrolled">Enrolled</div>
@@ -159,7 +160,7 @@
                     <div class="teaser__event-date">20-21<span class="teaser__event-date-month">Apr - Apr</span></div>
                   </div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">Security and modern internet</h2>
+                    <h2 class="h4">Security and modern internet</h2>
                     <div class="teaser__published">20 Apr 09:00 - 21 Apr 18:00</div>
                     <div class="teaser__location">Rembrandtplein, Amsterdam</div>
                     <div class="teaser__enrolled"></div>
@@ -169,7 +170,7 @@
                     <div class="teaser__event-date">26<span class="teaser__event-date-month">May</span></div>
                   </div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">London Meetup</h2>
+                    <h2 class="h4">London Meetup</h2>
                     <div class="teaser__published">26 may 09:00 - 18:00</div>
                     <div class="teaser__location">Tower Bridge, London</div>
                     <div class="teaser__enrolled">Enrolled</div>
@@ -179,7 +180,7 @@
                     <div class="teaser__event-date">28<span class="teaser__event-date-month">May</span></div><span class="status">unpublished</span>
                   </div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">Team conference East</h2>
+                    <h2 class="h4">Team conference East</h2>
                     <div class="teaser__published">28 may 10:00 - 12:00</div>
                     <div class="teaser__location">Old Market, Groningen</div>
                     <div class="teaser__enrolled"></div>

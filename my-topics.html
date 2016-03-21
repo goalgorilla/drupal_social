@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <!--CSS-->
-    <link href="css/generic.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/social.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
     <header id="header">
@@ -68,7 +68,7 @@
       </div>
     </header>
     <main role="main" class="main-container">
-      <nav>
+      <nav class="only-desktop">
         <div class="breadcrumbs-wrapper">
           <div class="container">
             <div class="row">
@@ -77,39 +77,40 @@
           </div>
         </div>
       </nav>
-      <div class="block-hero">
+      <div class="block-hero only-desktop">
         <div class="container">
           <div class="row">
-            <div class="col s12 center"><img src="content/images/avatar0.jpg" class="circle img-bordered">
+            <div class="col s12 center margin-bottom-xxl"><img src="content/images/avatar0.jpg" class="circle img-bordered">
               <h1 class="page-title h2">Michael Angarano</h1>
               <button class="btn white social-blue-text">following</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="secondary_navigation">
+      <div class="main-content">
         <div class="container">
-          <div class="block-secondary-nav social-blue darken-1">
-            <div class="container">
-              <nav role="navigation" aria-label="Tabs">
-                <h2 class="visually-hidden">Secondary navigation</h2>
-                <ul class="tabs primary">
-                  <li><a href="#" class="disabled">Timeline  </a></li>
-                  <li><a href="#">Information</a></li>
-                  <li class="is-active"><a href="my-topics.html" class="is-active">Topics<span class="visually-hidden">(active tab)</span></a></li>
-                  <li><a href="my-events.html">Events</a></li>
-                  <li><a href="#">Groups</a></li>
-                </ul>
-              </nav>
-            </div>
+          <div class="row hidden-desktop section-header">
+            <div class="col s12"><a class="btn"> <i class="material-icons left">keyboard_arrow_left</i>Back to timeline</a></div>
           </div>
         </div>
-      </div>
-      <div class="main-content">
+        <div class="style-primary-dark only-desktop">
+          <div class="container">
+            <nav role="navigation" aria-label="Tabs">
+              <h2 class="visually-hidden">Secondary navigation</h2>
+              <ul class="nav nav-tabs nav-justified style-primary-dark nav-tabs--xl">
+                <li><a href="#" class="disabled">Timeline  </a></li>
+                <li><a href="#">Information</a></li>
+                <li class="active"><a href="my-topics.html">Topics<span class="visually-hidden">(active tab)</span></a></li>
+                <li><a href="my-events.html">Events</a></li>
+                <li><a href="#">Groups</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
         <div class="container">
           <div class="row">
             <div class="col s12">
-              <h2 class="section-title">My topics</h2>
+              <h2 class="h3 section-title">My topics</h2>
             </div>
             <div class="col s12 l3 right"><a href="#!" class="waves-effect waves-light btn btn--block btn--black"> <i class="material-icons left">add</i>Add a topic</a><a class="btn btn--block hidden-desktop js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
               <div class="off-canvas off-canvas-right off-canvas-small-only desktop-card">
@@ -151,7 +152,7 @@
               <div class="card--wrapper"><a href="#" class="card teaser teaser--topic">
                   <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image"></div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">Technology for the handicapped</h2>
+                    <h2 class="h4">Technology for the handicapped</h2>
                     <div class="teaser__published">15 Feb 2016</div>
                     <div class="teaser__author">Clive Owen</div>
                     <div class="teaser__type">blog</div>
@@ -159,7 +160,7 @@
                   </div></a><a href="#" class="card teaser teaser--topic">
                   <div class="teaser__media"><img src="content/images/animals1-square.jpg" class="teaser__image"></div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">Will this be the cinema of the future?</h2>
+                    <h2 class="h4">Will this be the cinema of the future?</h2>
                     <div class="teaser__published">15 Feb 2016</div>
                     <div class="teaser__author">Clive Owen</div>
                     <div class="teaser__type">discussion</div>
@@ -167,7 +168,7 @@
                   </div></a><a href="#" class="card teaser teaser--topic unpublished">
                   <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image"><span class="status">unpublished</span></div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">5 new cool features in Office 365</h2>
+                    <h2 class="h4">5 new cool features in Office 365</h2>
                     <div class="teaser__published">11 Mar 2016</div>
                     <div class="teaser__author">Clive Owen</div>
                     <div class="teaser__type">topic</div>
@@ -175,7 +176,7 @@
                   </div></a><a href="#" class="card teaser teaser--topic">
                   <div class="teaser__media"><img src="content/images/animals1-square.jpg" class="teaser__image"></div>
                   <div class="teaser__content">
-                    <h2 class="teaser__title">Will this be the cinema of the future?</h2>
+                    <h2 class="h4">Will this be the cinema of the future?</h2>
                     <div class="teaser__published">15 Feb 2016</div>
                     <div class="teaser__author">Clive Owen</div>
                     <div class="teaser__type">discussion</div>
