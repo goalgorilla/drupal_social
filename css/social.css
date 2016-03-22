@@ -560,6 +560,7 @@ ol {
 
 .list-unstyled {
   padding-left: 0;
+  margin: 0;
   list-style: none; }
 
 .page-title h1 {
@@ -785,7 +786,8 @@ button:focus {
   transition: .2s ease-out;
   cursor: pointer; }
   .btn:hover, .btn-large:hover {
-    background-color: #6cc5eb; }
+    background-color: #6cc5eb;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
 
 .btn-floating {
   display: inline-block;
@@ -873,6 +875,17 @@ button.btn-floating {
   .btn-flat.btn-default-light {
     color: #adadad; }
 
+.btn-raised {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  transition: box-shadow, .15s ease-out; }
+  .btn-raised:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+  .btn-raised:active, .btn-raised.active {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+  .btn-raised.disabled, .btn-raised[disabled],
+  .pager .disabled .btn-raised {
+    box-shadow: none; }
+
 .btn-large {
   height: 3.6em;
   line-height: 3.6em; }
@@ -892,6 +905,22 @@ button.btn-floating {
 .btn-icon-toggle {
   padding: 0;
   width: 1em; }
+
+.btn--primary {
+  background-color: #29abe2;
+  color: white; }
+  .btn--primary:hover, .btn--primary:focus {
+    background-color: #177da8; }
+
+.btn--secondary {
+  background-color: #1f80aa;
+  color: white; }
+
+.btn--default-bright {
+  background-color: white;
+  color: #4d4d4d; }
+  .btn--default-bright:hover, .btn--default-bright:focus {
+    background-color: #f5f5f5; }
 
 .dropdown-content {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -1065,7 +1094,8 @@ a.waves-effect .waves-ripple {
   border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
-  margin: 0.5rem 0 1rem 0; }
+  margin: 0.5rem 0 1rem 0;
+  padding-left: 0; }
 
 .collapsible-header {
   display: block;
@@ -1091,6 +1121,9 @@ a.waves-effect .waves-ripple {
   .collapsible-body p {
     margin: 0;
     padding: 2rem; }
+  .collapsible-body ul {
+    padding-left: 0;
+    margin: 0; }
 
 .collapsible.popout {
   border: none;
