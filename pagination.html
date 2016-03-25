@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Typography - Drupal Social</title>
+    <title>Pagination - Drupal Social</title>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -18,7 +18,7 @@
         <div class="header__innerwrapper container">
           <div class="row">
             <div class="col s12">
-              <h1 class="header__title">Typography</h1>
+              <h1 class="header__title">Pagination</h1>
             </div>
           </div>
         </div>
@@ -32,22 +32,22 @@
         <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Getting Started</a></li>
         <li class="no-padding">
           <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header active waves-effect waves-teal">CSS</a>
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">CSS</a>
               <div class="collapsible-body">
                 <ul>
                   <li><a href="color.html">Color</a></li>
                   <li><a href="grid.html">Grid</a></li>
-                  <li class="active"><a href="typography.html">Typography</a></li>
+                  <li><a href="typography.html">Typography</a></li>
                 </ul>
               </div>
             </li>
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
+            <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Components</a>
               <div class="collapsible-body">
                 <ul>
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="forms.html">Forms</a></li>
                   <li><a href="tabs.html">Tabs</a></li>
-                  <li><a href="pagination.html">Pagination</a></li>
+                  <li class="active"><a href="pagination.html">Pagination</a></li>
                 </ul>
               </div>
             </li>
@@ -72,98 +72,100 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row">
-          <div class="col s12 m9 l10">
-            <div class="section">
-              <h2 class="header">Montserrat</h2>
-              <p class="caption">The standard font Drupal social uses is Montserrat. We have included the font files with our framework.</p>
-              <p>We bundle our framework with 3 different font weights you can use: 300, 500 and 700</p>
-              <ul class="list">
-                <li style="font-weight:300" class="h4">Font with weight 300 </li>
-                <li style="font-weight:500" class="h4">Font with weight 500 </li>
-                <li style="font-weight:700" class="h4">Font with weight 700</li>
+          <div class="col s12">
+            <h2>Default</h2>
+            <p class="caption">Provide pagination links with the multi-page pagination component. On mobile we only show the pagination items "previous" and "next".</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <nav role="navigation" aria-labelledby="pagination-heading" class="pager-nav text-center">
+              <h4 id="pagination-heading" class="visually-hidden">Pagination</h4>
+              <ul class="pagination">
+                <li class="pager__item pager__item--previous"><a href="#" aria-label="Previous"> <span aria-hidden="true"><i class="material-icons">chevron_left</i></span></a></li>
+                <li class="pager__item"><a href="#">1</a></li>
+                <li class="pager__item"><a href="#">2</a></li>
+                <li class="pager__item"><a href="#">3</a></li>
+                <li class="pager__item"><a href="#">4              </a></li>
+                <li class="pager__item"><a href="#">5</a></li>
+                <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
               </ul>
-            </div>
-            <div class="section">
-              <h4>Removing default font</h4>
-              <p>In case you don't want to use Montserrat on your webpage, fear not. Simply change the font stack by modifying the code below to your liking and add it to your custom css.</p>
-              <pre>     <code class="language-css">html {
-  font-family: 'montserrat', sans-serif;
-}
-  </code></pre>
-            </div>
-            <div class="section">
-              <h2 class="header">Headers</h2>
-              <p> <p>We provide some basic styling on header tags. In the example, you can see the the 6 header tags&#39; different sizes. In the <code>_default.scss</code> you can define the heading sizes per breakpoint.</p>
-
-              </p>
-              <div class="card-panel">
-                <h1>Heading h1</h1>
-                <h2>Heading h2</h2>
-                <h3>Heading h3</h3>
-                <h4>Heading h4</h4>
-                <h5>Heading h5</h5>
-                <h6>Heading h6</h6>
-              </div>
-            </div>
-            <div class="section">
-              <h2 class="header">Blockquotes</h2>
-              <p>Blockquotes are mainly used to give emphasis to a quote or citation. You can also use these for some extra text hierarchy and emphasis.</p>
-              <blockquote>This is an example quotation that uses the blockquote tag.<br>Here is another line to make it look bigger.</blockquote>
-              <pre>     <code class="language-markup"><blockquote>
-  This is an example quotation that uses the blockquote tag.
-</blockquote>
+            </nav>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <pre><code class="language-markup"><nav role="navigation" aria-labelledby="pagination-heading" class="pager-nav text-center">
+  <h4 id="pagination-heading" class="visually-hidden">Pagination</h4>
+  <ul class="pagination">
+    <li class="pager__item pager__item--previous">
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">
+          <i class="material-icons">chevron_left</i>
+        </span>
+      </a>
+    </li>
+    <li class="pager__item"><a href="#">1</a></li>
+    <li class="pager__item"><a href="#">2</a></li>
+    <li class="pager__item"><a href="#">3</a></li>
+    <li class="pager__item"><a href="#">4</a></li>
+    <li class="pager__item"><a href="#">5</a></li>
+    <li class="pager__item pager__item--next"> 
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true"> 
+          <i class="material-icons">chevron_right</i>
+        </span>
+      </a>
+    </li>
+  </ul>
+</nav>
 </code></pre>
-            </div>
-            <div class="section">
-              <h2 class="header">Flow text</h2>
-              <div id="flow-text-demo" class="card-panel">
-                <p class="flow-text"><p>Create automagical fluid typography with a new <code>responsive</code> property on <code>font-size</code>. </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <h3>Disabled and active states</h3>
+            <p><p>Links are customizable for different circumstances. Use <code>.disabled</code> for unclickable links and <code>.active</code> to indicate the current page.</p>
 
-                </p>
-                <p class="flow-text"><p>To see Flow Text in action, slowly resize your browser and watch the size of this text body change! Use the button above to toggle off/on flow-text to see the difference!</p>
-
-                </p>
-              </div><a id="flow-toggle" class="btn waves-effect waves-light">Toggle flow-text</a><br><br>
-              <p>To use flow-text on a body of text, simply just add the class `flow-text` to a tag, see the code blow.</p>
-              <pre>     <code class="language-markup"><p class="flow-text">I am Flow Text</p></code></pre>
-            </div>
-            <div class="section">
-              <h4>Specifying parameters</h4>
-              <p><p>You’ll probably want to change those defaults and have some control over the bounds of a font size. The best way to do this is with a new shorthand syntax in <code>font-size</code>, and a new property called <code>font-range</code>. Font range specifies the viewport widths between which the font size is fluid, outside of this range the font sizes are set to min/max values.</p>
-
-              </p>
-              <p>The format of each property is very simple</p>
-              <pre>     <code class="language-css">font-size: responsive [min-font-size] [max-font-size]
-font-range: [lower-bound] [upper-bound]</code></pre>
-              <p>For example</p>
-              <pre>     <code class="language-css">.flow-text {
-  font-size: responsive 12px 21px;
-  font-range: 420px 1280px;
-}
-</code></pre>
-              <h5>Output</h5>
-              <p>Flow text outputs complex calc and vw based font-sizes, along with media queries to set the range between which a font size is fluid.</p>
-              <pre><code class="language-css">html {
-  font-size: calc(12px + 9 * ( (100vw - 420px) / 860));
-}
-
-@media screen and (max-width: 420px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  html {
-    font-size: 21px;
-  }
-}
-</code></pre>
-              <p>With the calc expression above being equivalent to</p>
-              <pre><code class="language-css">min-size + (min-size - max-size) * ( (100vw - min-width) / ( max-width - min-width) )
-
-</code></pre>
-            </div>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <nav role="navigation" aria-labelledby="pagination-heading" class="pager-nav text-center">
+              <h4 id="pagination-heading" class="visually-hidden">Pagination</h4>
+              <ul class="pagination">
+                <li class="disabled pager__item pager__item--previous"><a href="#" aria-label="Previous"> <span aria-hidden="true"><i class="material-icons">chevron_left</i></span></a></li>
+                <li class="pager__item active"><a href="#">1<span class="sr-only">(current)</span></a></li>
+                <li class="pager__item"><a href="#">2</a></li>
+                <li class="pager__item"><a href="#">3</a></li>
+                <li class="pager__item"><a href="#">4              </a></li>
+                <li class="pager__item"><a href="#">5</a></li>
+                <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <pre><code class="language-markup"><nav>
+  <ul class="pagination">
+    <li class="disabled pager__item pager__item--previous">
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">
+          <i class="material-icons">chevron_left</i>
+        </span>
+      </a>
+    </li>
+    <li class="pager__item active">
+      <a href="#">1 
+        <span class="sr-only"> (current) </span>
+      </a>
+    </li>
+    ...
+  </ul>
+</nav>
+      </code></pre>
           </div>
         </div>
       </div>
@@ -209,6 +211,39 @@ font-range: [lower-bound] [upper-bound]</code></pre>
         $lang_js[i].innerHTML = lang_jsnippet[i];
       }
       
+    </script>
+    <script>
+      (function(){'use strict';var f,g=[];function l(a){g.push(a);1==g.length&&f()}function m(){for(;g.length;)g[0](),g.shift()}f=function(){setTimeout(m)};function n(a){this.a=p;this.b=void 0;this.f=[];var b=this;try{a(function(a){q(b,a)},function(a){r(b,a)})}catch(c){r(b,c)}}var p=2;function t(a){return new n(function(b,c){c(a)})}function u(a){return new n(function(b){b(a)})}function q(a,b){if(a.a==p){if(b==a)throw new TypeError;var c=!1;try{var d=b&&b.then;if(null!=b&&"object"==typeof b&&"function"==typeof d){d.call(b,function(b){c||q(a,b);c=!0},function(b){c||r(a,b);c=!0});return}}catch(e){c||r(a,e);return}a.a=0;a.b=b;v(a)}}
+      function r(a,b){if(a.a==p){if(b==a)throw new TypeError;a.a=1;a.b=b;v(a)}}function v(a){l(function(){if(a.a!=p)for(;a.f.length;){var b=a.f.shift(),c=b[0],d=b[1],e=b[2],b=b[3];try{0==a.a?"function"==typeof c?e(c.call(void 0,a.b)):e(a.b):1==a.a&&("function"==typeof d?e(d.call(void 0,a.b)):b(a.b))}catch(h){b(h)}}})}n.prototype.g=function(a){return this.c(void 0,a)};n.prototype.c=function(a,b){var c=this;return new n(function(d,e){c.f.push([a,b,d,e]);v(c)})};
+      function w(a){return new n(function(b,c){function d(c){return function(d){h[c]=d;e+=1;e==a.length&&b(h)}}var e=0,h=[];0==a.length&&b(h);for(var k=0;k<a.length;k+=1)u(a[k]).c(d(k),c)})}function x(a){return new n(function(b,c){for(var d=0;d<a.length;d+=1)u(a[d]).c(b,c)})};window.Promise||(window.Promise=n,window.Promise.resolve=u,window.Promise.reject=t,window.Promise.race=x,window.Promise.all=w,window.Promise.prototype.then=n.prototype.c,window.Promise.prototype["catch"]=n.prototype.g);}());
+      
+      (function(){var h=!!document.addEventListener;function k(a,b){h?a.addEventListener("scroll",b,!1):a.attachEvent("scroll",b)}function w(a){document.body?a():h?document.addEventListener("DOMContentLoaded",a):document.onreadystatechange=function(){"interactive"==document.readyState&&a()}};function x(a){this.a=document.createElement("div");this.a.setAttribute("aria-hidden","true");this.a.appendChild(document.createTextNode(a));this.b=document.createElement("span");this.c=document.createElement("span");this.h=document.createElement("span");this.f=document.createElement("span");this.g=-1;this.b.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.c.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";
+      this.f.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.h.style.cssText="display:inline-block;width:200%;height:200%;font-size:16px;max-width:none;";this.b.appendChild(this.h);this.c.appendChild(this.f);this.a.appendChild(this.b);this.a.appendChild(this.c)}
+      function y(a,b){a.a.style.cssText="max-width:none;min-width:20px;min-height:20px;display:inline-block;overflow:hidden;position:absolute;width:auto;margin:0;padding:0;top:-999px;left:-999px;white-space:nowrap;font:"+b+";"}function z(a){var b=a.a.offsetWidth,c=b+100;a.f.style.width=c+"px";a.c.scrollLeft=c;a.b.scrollLeft=a.b.scrollWidth+100;return a.g!==b?(a.g=b,!0):!1}function A(a,b){function c(){var a=l;z(a)&&null!==a.a.parentNode&&b(a.g)}var l=a;k(a.b,c);k(a.c,c);z(a)};function B(a,b){var c=b||{};this.family=a;this.style=c.style||"normal";this.weight=c.weight||"normal";this.stretch=c.stretch||"normal"}var C=null,D=null,H=!!window.FontFace;function I(){if(null===D){var a=document.createElement("div");try{a.style.font="condensed 100px sans-serif"}catch(b){}D=""!==a.style.font}return D}function J(a,b){return[a.style,a.weight,I()?a.stretch:"","100px",b].join(" ")}
+      B.prototype.a=function(a,b){var c=this,l=a||"BESbswy",E=b||3E3,F=(new Date).getTime();return new Promise(function(a,b){if(H){var q=function(){(new Date).getTime()-F>=E?b(c):document.fonts.load(J(c,c.family),l).then(function(b){1<=b.length?a(c):setTimeout(q,25)},function(){b(c)})};q()}else w(function(){function r(){var b;if(b=-1!=e&&-1!=f||-1!=e&&-1!=g||-1!=f&&-1!=g)(b=e!=f&&e!=g&&f!=g)||(null===C&&(b=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),C=!!b&&(536>parseInt(b[1],
+      10)||536===parseInt(b[1],10)&&11>=parseInt(b[2],10))),b=C&&(e==t&&f==t&&g==t||e==u&&f==u&&g==u||e==v&&f==v&&g==v)),b=!b;b&&(null!==d.parentNode&&d.parentNode.removeChild(d),clearTimeout(G),a(c))}function q(){if((new Date).getTime()-F>=E)null!==d.parentNode&&d.parentNode.removeChild(d),b(c);else{var a=document.hidden;if(!0===a||void 0===a)e=m.a.offsetWidth,f=n.a.offsetWidth,g=p.a.offsetWidth,r();G=setTimeout(q,50)}}var m=new x(l),n=new x(l),p=new x(l),e=-1,f=-1,g=-1,t=-1,u=-1,v=-1,d=document.createElement("div"),
+      G=0;d.dir="ltr";y(m,J(c,"sans-serif"));y(n,J(c,"serif"));y(p,J(c,"monospace"));d.appendChild(m.a);d.appendChild(n.a);d.appendChild(p.a);document.body.appendChild(d);t=m.a.offsetWidth;u=n.a.offsetWidth;v=p.a.offsetWidth;q();A(m,function(a){e=a;r()});y(m,J(c,'"'+c.family+'",sans-serif'));A(n,function(a){f=a;r()});y(n,J(c,'"'+c.family+'",serif'));A(p,function(a){g=a;r()});y(p,J(c,'"'+c.family+'",monospace'))})})};window.FontFaceObserver=B;window.FontFaceObserver.prototype.check=B.prototype.a;"undefined"!==typeof module&&(module.exports=window.FontFaceObserver);}());
+      
+      (function( w ){
+        if( w.document.documentElement.className.indexOf( "fonts-loaded" ) > -1 ){
+          return;
+        }
+        var font300 = new w.FontFaceObserver( 'montserrat', { weight: 500} );
+        var font500 = new w.FontFaceObserver( 'montserrat', { weight: 500} );
+        var font700 = new w.FontFaceObserver( 'montserrat', { weight: 700} );
+        
+        var fontIcons = new w.FontFaceObserver( 'Material Icons');
+          
+        w.Promise.all([font300.check(), font500.check(), font700.check()])
+          .then( function(){
+            document.documentElement.className += " fonts-loaded";
+        });
+        
+        fontIcons.check().then( function(){
+            document.documentElement.className += " icon-font-loaded";
+        });
+        
+      }(this));
     </script>
     <script>
       (function(){'use strict';var f,g=[];function l(a){g.push(a);1==g.length&&f()}function m(){for(;g.length;)g[0](),g.shift()}f=function(){setTimeout(m)};function n(a){this.a=p;this.b=void 0;this.f=[];var b=this;try{a(function(a){q(b,a)},function(a){r(b,a)})}catch(c){r(b,c)}}var p=2;function t(a){return new n(function(b,c){c(a)})}function u(a){return new n(function(b){b(a)})}function q(a,b){if(a.a==p){if(b==a)throw new TypeError;var c=!1;try{var d=b&&b.then;if(null!=b&&"object"==typeof b&&"function"==typeof d){d.call(b,function(b){c||q(a,b);c=!0},function(b){c||r(a,b);c=!0});return}}catch(e){c||r(a,e);return}a.a=0;a.b=b;v(a)}}
