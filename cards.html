@@ -73,41 +73,32 @@
         <div class="container">
           <div class="row"> 
             <div class="col s12">
-              <div class="section"> 
-                <p class="caption">A card is a sheet of material that serves as an entry point to more detailed information. A card could contain a photo, text, and a link about a single subject.</p>
-                <h3 class="text-primary">Usage</h3>
-                <p>Cards are a convenient means of displaying content composed of different elements. They’re also well-suited for showcasing elements whose size or supported actions vary, like photos with captions of variable length.</p>
-                <h4>When to use</h4>
-                <p>Use a card layout when displaying content that:</p>
-                <ul>
-                  <li>As a collection, comprises multiple data types, such as images, videos, and text</li>
-                  <li>Does not require direct comparison (a user is not directly comparing images or text)</li>
-                  <li>Supports content of highly variable length, such as comments</li>
-                  <li>Contains interactive content, such as like buttons or comments</li>
-                  <li>Would otherwise be in a grid list but needs to display more content to supplement the image</li>
-                </ul>
-              </div>
-              <div class="section">
-                <h3 class="text-primary">Basic card</h3>
-                <p>A basic card consists of a card header and a card body. The body can hold any information such as text, images and form elements.</p>
-              </div>
+              <p class="caption">A card is a sheet of material that serves as an entry point to more detailed information. A card could contain a photo, text, and a link about a single subject.          </p>
             </div>
           </div>
           <div class="row"> 
-            <div class="col s12 m6">
+            <div class="col s12 m7">
+              <h3 class="text-primary">Usage</h3>
+              <p>Cards are a convenient means of displaying content composed of different elements. They’re also well-suited for showcasing elements whose size or supported actions vary, like photos with captions of variable length.</p>
+              <h4>When to use</h4>
+              <p>Use a card layout when displaying content that:</p>
+              <ul>
+                <li>As a collection, comprises multiple data types, such as images, videos, and text</li>
+                <li>Does not require direct comparison (a user is not directly comparing images or text)</li>
+                <li>Supports content of highly variable length, such as comments</li>
+                <li>Contains interactive content, such as like buttons or comments</li>
+                <li>Would otherwise be in a grid list but needs to display more content to supplement the image</li>
+              </ul>
+            </div>
+            <div class="col s12 m5">   
+              <h3 class="text-primary">Basic card</h3>
+              <p>A basic card consists of a card header and a card body. The body can hold any information such as text, images and form elements.</p>
               <div class="card">
                 <div class="card-head">
                   <header>Basic card title</header>
                 </div>
                 <div class="card-body">
                   <p>Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nulla vitae elit libero, a pharetra augue.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m6">
-              <div class="card">
-                <div class="card-body">
-                  <p>Basic card without an header</p>
                 </div>
               </div>
             </div>
@@ -134,6 +125,22 @@
           </div>
           <div class="row">
             <div class="col s12 m6">
+              <h4>No header</h4>
+              <div class="card">
+                <div class="card-body">
+                  <p>Curabitur blandit tempus porttitor. Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus.</p>
+                  <p>Nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nulla vitae elit libero, a pharetra augue.</p>
+                </div>
+              </div>
+              <pre><code class="language-markup"><div class="card">
+  <div class="card-body">
+    <p>...</p>
+  </div>
+</div>
+</code></pre>
+            </div>
+            <div class="col s12 m6">
+              <h4>Extra padding</h4>
               <div class="card">
                 <div class="card-body extra-padding"><p>You can add the class <code>.extra-padding</code> to double the default padding of the card body. The extra padding is applied for larger screen only.</p>
 
@@ -144,10 +151,12 @@
     <p>...</p>
   </div>
 </div>
-
 </code></pre>
             </div>
+          </div>
+          <div class="row">
             <div class="col s12 m6">
+              <h4>Header underlined</h4>
               <div class="card card-underline">
                 <div class="card-head">
                   <header>Card with Underlined header</header>
@@ -166,6 +175,24 @@
 </div>
 </code></pre>
             </div>
+            <div class="col s12 m6">
+              <h4>Card action          </h4>
+              <div class="card with-action">
+                <div class="card-body"><p>Card actions are prefereably put as flat button in a <code>.card-action</code> block. You can an extra class of <code>.card-action--with-border</code> for the visual border. </p>
+
+                  <div class="card-action card-action--with-border"><a href="#" class="btn btn-flat right">Read more</a></div>
+                </div>
+              </div>
+              <pre><code class="language-markup"><div class="card">
+  <div class="card-body">
+    <p>...</p>
+    <div class="card-action card-action--with-border">
+      <a href="#" class="btn btn-flat right"> Read more </a>
+    </div>
+  </div>
+</div>
+</code></pre>
+            </div>
           </div>
           <div class="row"> 
             <div class="col s12">
@@ -175,20 +202,16 @@
           </div>
           <div class="row">
             <div class="col s12 m9">
-              <div class="section">
-                <div class="card card-teaser">
-                  <div class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" class="teaser-type"></div>
-                  <div class="card-body">
-                    <div class="text-default-dark">Blog</div>
-                    <h2 class="h3 card-title"> <a href="#">Teaser title</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
-                    <div class="text-grey-dark">15 feb 2016</div>
-                    <div class="card-action"><a href="#" class="btn btn-flat right">Read more</a></div>
-                  </div>
-                </div><em class="text-caption">Example of a topic teaser card</em>
-              </div>
+              <div class="card card-teaser">
+                <div class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" class="teaser-type"></div>
+                <div class="card-body">
+                  <div class="text-default-dark">Blog</div>
+                  <h2 class="h3 card-title"> <a href="#">Teaser title</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
+                  <div class="text-grey-dark">15 feb 2016</div>
+                  <div class="card-action"><a href="#" class="btn btn-flat right">Read more</a></div>
+                </div>
+              </div><em class="text-caption">Example of a topic teaser card</em>
             </div>
-          </div>
-          <div class="row">
             <div class="col s12">     
               <pre><code class="language-markup"><div class="card card-teaser">
   <div class="card-image">

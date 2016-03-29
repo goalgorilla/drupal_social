@@ -670,7 +670,7 @@ ol {
 
 .text-caption {
   display: block;
-  margin-bottom: 29px;
+  margin-bottom: 24px;
   font-size: 12px; }
 
 .text-xs {
@@ -1283,6 +1283,10 @@ a.waves-effect .waves-ripple {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px; }
 
+.with-action .card-body {
+  padding-bottom: 48px;
+  overflow: hidden; }
+
 .card-head header {
   display: inline-block;
   padding: 12px 24px;
@@ -1354,9 +1358,7 @@ a.card:hover {
   .card-teaser .card-body {
     -webkit-flex: 1 1 auto;
         -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    padding-bottom: 48px;
-    overflow: hidden; }
+            flex: 1 1 auto; }
 
 .card-action {
   position: absolute;
@@ -1365,12 +1367,15 @@ a.card:hover {
   right: 0;
   z-index: 1;
   background-color: inherit;
-  padding: 0 24px 12px 24px; }
+  padding: 6px 24px; }
   .card-action:before, .card-action:after {
     content: '';
     display: table; }
   .card-action:after {
     clear: both; }
+
+.card-action--with-border {
+  border-top: 1px solid #e6e6e6; }
 
 .nav-tabs {
   margin: 0;
