@@ -89,7 +89,7 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col s12 l9">
+            <div class="col s12 m9">
               <form class="node-form">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
@@ -141,8 +141,14 @@
                       <div class="col s12">   
                         <div class="form-item form__type-managed-file">
                           <label class="form__label">Image</label>
-                          <div class="image-widget form-managed-file clearfix"><img src="content/images/animals1-square.jpg" width="100" class="img-responsive"><span class="file file--image"><a href="#" type="image/jpeg; length=158378">animals1-square.jpg</a></span><span class="file-size">(154.78kb)</span>
-                            <button type="submit" value="remove" class="btn form-submit style-default"><i class="material-icons left">delete</i>Remove</button>
+                          <div class="image-widget form-managed-file clearfix"><img src="content/images/animals1-square.jpg" width="100" class="img-responsive left">
+                            <div class="left padding-s">
+                              <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">animals1-square.jpg</a>
+                              <div class="file-size">(154.78kb)</div>
+                            </div>
+                            <div class="left padding-s">
+                              <button type="submit" value="remove" class="btn form-submit style-default"><i class="material-icons left">delete</i>Remove</button>
+                            </div>
                           </div>
                           <div style="display:none" class="form__item-help-text">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                         </div>
@@ -166,20 +172,20 @@
                             </div>
                             <div class="form-item">
                               <input id="group" type="radio" checked name="placement" onclick="showMe('selectagroup', this)" class="form-radio">
-                              <label for="group" class="option">A group I am a member of</label>
+                              <label for="group" class="option">A group I am a member of:</label>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div id="selectagroup" class="row">
-                      <div class="form-item col s12 m6">
-                        <select class="browser-default">
-                          <option value="" disabled="">Select a group</option>
-                          <option value="1">Group name 1</option>
-                          <option value="2" selected="">Group name 2</option>
-                          <option value="3">Group name 3</option>
-                        </select>
+                      <div id="selectagroup">
+                        <div class="form-item col s12 m6 margin-top-s">
+                          <select class="browser-default">
+                            <option value="" disabled="">Select a group</option>
+                            <option value="1">Group name 1</option>
+                            <option value="2" selected="">Group name 2</option>
+                            <option value="3">Group name 3</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                     <div class="row">
@@ -233,9 +239,9 @@
                   </div>
                 </div>
               </div>
-              <div class="form-wrapper clearfix">
-                <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--secondary left"><a href="#" class="btn btn-flat left">Delete</a>
-                <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn--primary right"><a href="#" class="waves-effect waves-light btn btn-raised btn--default-bright right">Discard changes</a>
+              <div class="form-wrapper clearfix"><a href="#" class="waves-effect waves-light btn btn-raised btn--default-bright">Discard changes</a><a href="#" class="btn btn-flat">Delete</a>
+                <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn--primary right">
+                <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--default-dark right">
               </div>
             </div>
             <div class="col m3 hidden-mobile">

@@ -89,7 +89,7 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col s12 l9">
+            <div class="col s12 l9 margin-bottom-l">
               <form class="node-form">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
@@ -169,16 +169,16 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div id="selectagroup" style="display:none" class="row">
-                      <div class="form-item col s12 m6">
-                        <select class="browser-default">
-                          <option value="" disabled="" selected="">Select a group</option>
-                          <option value="1">Option 1</option>
-                          <option value="2">Option 2</option>
-                          <option value="3">Option 3</option>
-                        </select>
+                        <div id="selectagroup" style="display:none;" class="form-item-select">
+                          <div class="form-item col s12 m6 margin-top-s">
+                            <select class="browser-default">
+                              <option value="" disabled="" selected="">Select a group</option>
+                              <option value="1">Option 1</option>
+                              <option value="2">Option 2</option>
+                              <option value="3">Option 3</option>
+                            </select>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="row">
@@ -207,35 +207,35 @@
                     </div>
                   </div>
                 </div>
-              </form>
-              <div id="comment-settings" class="form-item card scrollspy tabs-left">
-                <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
-                  <li class="active"><a href="#comments">Comment settings</a></li>
-                </ul>
-                <div class="card-body tab-content">
-                  <div id="comments" class="tab-pane active">
-                    <div class="form-item form__item-radios">
-                      <label class="form__label form-required">Comments</label>
-                      <div class="form__radios">
-                        <div class="form-item">
-                          <input id="open" type="radio" checked name="comments" class="form-radio">
-                          <label for="open" class="option">Open</label>
-                          <div class="form__item-help-text">Users with the "Post comments" permission can post comments.</div>
-                        </div>
-                        <div class="form-item">
-                          <input id="closed" type="radio" name="comments" class="form-radio">
-                          <label for="closed" class="option">Closed</label>
-                          <div class="form__item-help-text">Users cannot post comments.</div>
+                <div id="comment-settings" class="form-item card scrollspy tabs-left">
+                  <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
+                    <li class="active"><a href="#comments">Comment settings</a></li>
+                  </ul>
+                  <div class="card-body tab-content">
+                    <div id="comments" class="tab-pane active">
+                      <div class="form-item form__item-radios">
+                        <label class="form__label form-required">Comments</label>
+                        <div class="form__radios">
+                          <div class="form-item">
+                            <input id="open" type="radio" checked name="comments" class="form-radio">
+                            <label for="open" class="option">Open</label>
+                            <div class="form__item-help-text">Users with the "Post comments" permission can post comments.</div>
+                          </div>
+                          <div class="form-item">
+                            <input id="closed" type="radio" name="comments" class="form-radio">
+                            <label for="closed" class="option">Closed</label>
+                            <div class="form__item-help-text">Users cannot post comments.</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-wrapper">
-                <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn--primary">
-                <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--secondary">
-              </div>
+                <div class="form-wrapper clearfix">
+                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn--primary right">
+                  <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--default-dark right">
+                </div>
+              </form>
             </div>
             <div class="col m3 hidden-mobile">
               <div class="toc-wrapper">
