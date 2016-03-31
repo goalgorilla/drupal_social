@@ -60,7 +60,7 @@
           <div class="block--user-menu">
             <ul class="user-menu list-unstyled">
               <li class="menu__item"><a href="#0" class="menu__link">Edit profile</a></li>
-              <li class="menu__item"><a href="#0" class="menu__link">Account settings</a></li>
+              <li class="menu__item"><a href="#0" class="menu__link">Edit account</a></li>
               <li class="menu__item"><a href="#0" class="menu__link">Logout</a></li>
             </ul>
           </div>
@@ -77,27 +77,23 @@
           </div>
         </div>
       </nav>
-      <div class="block-hero only-desktop">
-        <div class="container">
-          <div class="row">
-            <div class="col s12 center margin-bottom-xxl"><img src="content/images/avatar0.jpg" class="circle img-bordered">
-              <h1 class="page-title h2">Michael Angarano</h1>
-              <button class="btn btn--default-bright">Following</button>
-            </div>
-          </div>
+      <div class="block-hero only-desktop profile-cover">
+        <div class="cover-wrap"><img src="content/images/avatar0.jpg" class="circle img-bordered">
+          <h1 class="page-title h2">Michael Angarano</h1>
+          <button class="btn btn-flat btn--default-bright"><i class="material-icons left">check</i>Following</button>
         </div>
       </div>
       <div class="main-content">
         <div class="container">
           <div class="row hidden-desktop section-header">
-            <div class="col s12"><a class="btn btn--default-bright"><i class="material-icons left">keyboard_arrow_left</i>Back to timeline</a></div>
+            <div class="col s12"><a class="btn btn-raised btn--default-bright"> <i class="material-icons left">keyboard_arrow_left</i>Back to timeline</a></div>
           </div>
         </div>
         <div class="style-secondary only-desktop">
           <div class="container">
             <nav role="navigation" aria-label="Tabs">
               <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs nav-justified style-secondary nav-tabs--xl">
+              <ul class="nav nav-tabs tabs-center style-secondary nav-tabs--xl">
                 <li><a href="#" class="disabled">Timeline  </a></li>
                 <li><a href="#">Information</a></li>
                 <li class="active"><a href="my-topics.html">Topics<span class="visually-hidden">(active tab)</span></a></li>
@@ -125,14 +121,13 @@
                     <div class="row">
                       <div class="col s12">
                         <div class="form-item">
-                          <label class="form__label">Topic type
-                            <select class="browser-default">
-                              <option value="" selected="">All types</option>
-                              <option value="blog">Blog</option>
-                              <option value="discussion">Discussion</option>
-                              <option value="topic">Topic</option>
-                            </select>
-                          </label>
+                          <label class="form__label">Topic type</label>
+                          <select onchange="enableMe('reset-button', this)" class="browser-default">
+                            <option value="" selected="">All types</option>
+                            <option value="blog">Blog</option>
+                            <option value="discussion">Discussion</option>
+                            <option value="topic">Topic</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -140,7 +135,7 @@
                       <div class="col s12">
                         <div class="form-item">
                           <label class="form__label">Status</label>
-                          <select class="browser-default">
+                          <select onchange="enableMe('reset-button', this)" class="browser-default">
                             <option value="" selected="">All statusses</option>
                             <option value="published">Published</option>
                             <option value="unpublished">Unpublished</option>
@@ -151,7 +146,7 @@
                     <div class="row">
                       <div class="col s12">
                         <div class="form-actions form-wrapper right-align">
-                          <input type="submit" value="Reset" class="waves-effect waves-light btn-primary btn btn-flat disabled">
+                          <input id="reset-button" type="submit" value="Reset" class="btn btn-flat disabled">
                         </div>
                       </div>
                     </div>
@@ -160,39 +155,40 @@
               </div>
             </div>
             <div class="col s12 l9">
-              <div class="card--wrapper"><a href="#" class="card teaser teaser--topic">
-                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image"></div>
-                  <div class="teaser__content">
-                    <h2 class="h4">Technology for the handicapped</h2>
-                    <div class="teaser__published">15 Feb 2016</div>
-                    <div class="teaser__author">Clive Owen</div>
-                    <div class="teaser__type">blog</div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a><a href="#" class="card teaser teaser--topic">
-                  <div class="teaser__media"><img src="content/images/animals1-square.jpg" class="teaser__image"></div>
-                  <div class="teaser__content">
-                    <h2 class="h4">Will this be the cinema of the future?</h2>
-                    <div class="teaser__published">15 Feb 2016</div>
-                    <div class="teaser__author">Clive Owen</div>
-                    <div class="teaser__type">discussion</div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a><a href="#" class="card teaser teaser--topic unpublished">
-                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image"><span class="status">unpublished</span></div>
-                  <div class="teaser__content">
-                    <h2 class="h4">5 new cool features in Office 365</h2>
-                    <div class="teaser__published">11 Mar 2016</div>
-                    <div class="teaser__author">Clive Owen</div>
-                    <div class="teaser__type">topic</div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a><a href="#" class="card teaser teaser--topic">
-                  <div class="teaser__media"><img src="content/images/animals1-square.jpg" class="teaser__image"></div>
-                  <div class="teaser__content">
-                    <h2 class="h4">Will this be the cinema of the future?</h2>
-                    <div class="teaser__published">15 Feb 2016</div>
-                    <div class="teaser__author">Clive Owen</div>
-                    <div class="teaser__type">discussion</div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a></div>
+              <div class="card--wrapper">
+                <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                  <div class="card-body">
+                    <div class="text-default-dark">Blog</div>
+                    <h2 class="h3 card-title"> <a href="#">Technology for the handicapped</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
+                    <div class="text-grey-dark">15 feb 2016</div>
+                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                  </div>
+                </div>
+                <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                  <div class="card-body">
+                    <div class="text-default-dark">Discussion</div>
+                    <h2 class="h3 card-title"> <a href="#">Will this be the cinema of the future?</a></h2><a href="#" class="text-l text-grey-dark">Richard Ogylvie</a>
+                    <div class="text-grey-dark">22 mar 2016</div>
+                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                  </div>
+                </div>
+                <div class="card card--teaser card-with-actionbar unpublished"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                  <div class="card-body">
+                    <div class="text-default-dark">Blog</div>
+                    <h2 class="h3 card-title"> <a href="#">5 new cool features in Office 365</a></h2><a href="#" class="text-l text-grey-dark">Dennis Rodman</a>
+                    <div class="text-grey-dark">28 mar 2016</div>
+                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                  </div>
+                </div>
+                <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                  <div class="card-body">
+                    <div class="text-default-dark">Topic</div>
+                    <h2 class="h3 card-title"> <a href="#">Top 10 zoos to visit in 2016</a></h2><a href="#" class="text-l text-grey-dark">Amanda Boxer</a>
+                    <div class="text-grey-dark">12 apr 2016</div>
+                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                  </div>
+                </div>
+              </div>
               <ul class="pagination">
                 <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
                 <li class="pager__item active"><a href="#1">1</a></li>
@@ -245,4 +241,9 @@
   <script src="js/components.js"></script>
   <script src="js/project.js"></script>
   <script src="js/init.js"></script>
+  <script>
+    function enableMe() {
+      jQuery('#reset-button').removeClass('disabled');
+    }
+  </script>
 </html>

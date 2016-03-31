@@ -177,16 +177,16 @@
             </div>
             <div class="col s12 m6">
               <h4>Card action          </h4>
-              <div class="card with-action">
+              <div class="card card-with-actionbar">
                 <div class="card-body"><p>Card actions are prefereably put as flat button in a <code>.card-action</code> block. You can an extra class of <code>.card-action--with-border</code> for the visual border. </p>
 
-                  <div class="card-action card-action--with-border"><a href="#" class="btn btn-flat right">Read more</a></div>
+                  <div class="card-actionbar card-actionbar--with-border"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <pre><code class="language-markup"><div class="card">
+              <pre><code class="language-markup"><div class="card card-with-action-bar">
   <div class="card-body">
     <p>...</p>
-    <div class="card-action card-action--with-border">
+    <div class="card-actionbar card-actionbar--with-border">
       <a href="#" class="btn btn-flat right"> Read more </a>
     </div>
   </div>
@@ -202,17 +202,17 @@
           </div>
           <div class="row">
             <div class="col s12 m9">
-              <div class="card card-teaser"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
                   <h2 class="h3 card-title"> <a href="#">Teaser title</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
                   <div class="text-grey-dark">15 feb 2016</div>
-                  <div class="card-action"><a href="#" class="btn btn-flat right">Read more</a></div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div><em class="text-caption">Example of a topic teaser card</em>
             </div>
             <div class="col s12">     
-              <pre><code class="language-markup"><div class="card card-teaser">
+              <pre><code class="language-markup"><div class="card card-teaser card-with-actionbar">
   <div class="card-image">
     <img src="content/images/people3-square.jpg" alt="" class="img-responsive">
     <img src="images/icon-topic.svg" class="teaser-type">
@@ -224,7 +224,7 @@
     <a href="#" class="text-l text-grey-dark">Clive Owen</a>
     <div class="text-grey-dark">15 feb 2016</div>
     
-    <div class="card-action">
+    <div class="card-actionbar">
       <a href="#" class="btn btn-flat right">Read more</a>
     </div>
     
@@ -235,7 +235,7 @@
           </div>
           <div class="row">
             <div class="col s12 m9">  
-              <div class="card card-teaser with-action"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
                   <div class="teaser-date">19-21
                     <div class="text-xs">apr - apr</div>
                   </div></a>
@@ -243,12 +243,10 @@
                   <h2 class="h3 card-title"> <a href="#">Event teaser example</a></h2>
                   <div class="text-grey">15 may 2016 09:00 - 17:00</div>
                   <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-action">
-                    <div class="left card-status">Enrolled</div><a href="#" class="btn btn-flat right">Read more</a>
-                  </div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat left btn--primary">Enrolled</a><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div><em class="text-caption">Example of a event teaser card</em>
-              <div class="card card-teaser unpublished with-action"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
+              <div class="card card--teaser unpublished card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
                   <div class="teaser-date">9
                     <div class="text-xs">jun</div>
                   </div>
@@ -257,9 +255,7 @@
                   <h2 class="h3 card-title"> <a href="#">Example of an unpublished teaser</a></h2>
                   <div class="text-grey">15 may 2016 09:00 - 17:00</div>
                   <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-action">
-                    <div class="left card-status">Enrolled</div><a href="#" class="btn btn-flat right">Read more</a>
-                  </div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat left btn--primary">Enrolled</a><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div><em class="text-caption">Example of an unpublished teaser card</em>
             </div>
