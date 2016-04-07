@@ -14,7 +14,7 @@ Feature: Create Comments
     When I fill in the following:
          | Add a comment | This is a test comment |
     And I press "Comment"
-    And I should see the success message "Your comment has been posted."
+    And I should see "Your comment has been posted."
     And I should see the heading "Comments" in the "Main content"
     And I should see "This is a test comment" in the "Main content"
     And I should see "Comment view user"
