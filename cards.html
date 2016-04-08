@@ -8,15 +8,15 @@
     <title>Cards - Drupal Social</title>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
     <body class="styleguide">
       <header class="styleguide-header">
         <div class="header__wrapper">
           <div class="header__innerwrapper container">
             <div class="row">
-              <div class="col s12">
+              <div class="col-xs-12">
                 <h1 class="header__title">Cards</h1>
               </div>
             </div>
@@ -72,12 +72,12 @@
       <main role="main" class="styleguide-container">
         <div class="container">
           <div class="row"> 
-            <div class="col s12">
+            <div class="col-xs-12">
               <p class="caption">A card is a sheet of material that serves as an entry point to more detailed information. A card could contain a photo, text, and a link about a single subject.          </p>
             </div>
           </div>
           <div class="row"> 
-            <div class="col s12 m7">
+            <div class="col-xs-12 col-md-7">
               <h3 class="text-primary">Usage</h3>
               <p>Cards are a convenient means of displaying content composed of different elements. They’re also well-suited for showcasing elements whose size or supported actions vary, like photos with captions of variable length.</p>
               <h4>When to use</h4>
@@ -90,7 +90,7 @@
                 <li>Would otherwise be in a grid list but needs to display more content to supplement the image</li>
               </ul>
             </div>
-            <div class="col s12 m5">   
+            <div class="col-xs-12 col-md-5">   
               <h3 class="text-primary">Basic card</h3>
               <p>A basic card consists of a card header and a card body. The body can hold any information such as text, images and form elements.</p>
               <div class="card">
@@ -104,7 +104,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12">
+            <div class="col-xs-12">
               <pre><code class="language-markup"><!-- Basic card: the .card-head element is optional -->
 <div class="card">
   <div class="card-head">
@@ -119,12 +119,12 @@
             </div>
           </div>
           <div class="row"> 
-            <div class="col s12 m9">
+            <div class="col-xs-12 col-md-9">
               <h3 class="text-primary">Styles</h3>
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m6">
+            <div class="col-xs-12 col-md-6">
               <h4>No header</h4>
               <div class="card">
                 <div class="card-body">
@@ -139,11 +139,11 @@
 </div>
 </code></pre>
             </div>
-            <div class="col s12 m6">
+            <div class="col-xs-12 col-md-6">
               <h4>Extra padding</h4>
               <div class="card">
-                <div class="card-body extra-padding"><p>You can add the class <code>.extra-padding</code> to double the default padding of the card body. The extra padding is applied for larger screen only.</p>
-
+                <div class="card-body extra-padding"><p>You can add the class <code>.extra-padding</code> to double the default padding of the card body. The extra padding is applied for larger screen only.
+  </p>
                 </div>
               </div>
               <pre><code class="language-markup"><div class="card">
@@ -155,14 +155,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m6">
+            <div class="col-xs-12 col-md-6">
               <h4>Header underlined</h4>
               <div class="card card-underline">
                 <div class="card-head">
                   <header>Card with Underlined header</header>
                 </div>
-                <div class="card-body"><p>You can add the class <code>.card-underline</code> to create a visually seperated box of the card head.</p>
-
+                <div class="card-body"><p>You can add the class <code>.card-underline</code> to create a visually seperated box of the card head.
+  </p>
                 </div>
               </div>
               <pre><code class="language-markup"><div class="card card-underline">
@@ -175,11 +175,10 @@
 </div>
 </code></pre>
             </div>
-            <div class="col s12 m6">
+            <div class="col-xs-12 col-md-6">
               <h4>Card action          </h4>
               <div class="card card-with-actionbar">
                 <div class="card-body"><p>Card actions are prefereably put as flat button in a <code>.card-action</code> block. You can an extra class of <code>.card-action--with-border</code> for the visual border. </p>
-
                   <div class="card-actionbar card-actionbar--with-border"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
@@ -195,13 +194,13 @@
             </div>
           </div>
           <div class="row"> 
-            <div class="col s12">
+            <div class="col-xs-12 col-md-6">
               <h3 class="text-primary">Teaser card</h3>
               <p>A teaser card can be used for Drupal teasers. The teaser can have image but it is not mandatory. Teasers can have one or two buttons which are at the bottom and are flat buttons. Content hierarchy is achieved by the order of fields and the use of typography. Try to limit the amount of information and actions in a teaser. On mobile the image field is not displayed. On tablet and wider the maximum height of the teaser card should match the heigth of the image style.</p>
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m9">
+            <div class="col-xs-12 col-md-6">
               <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
@@ -211,7 +210,7 @@
                 </div>
               </div><em class="text-caption">Example of a topic teaser card</em>
             </div>
-            <div class="col s12">     
+            <div class="col-xs-12">   
               <pre><code class="language-markup"><div class="card card-teaser card-with-actionbar">
   <div class="card-image">
     <img src="content/images/people3-square.jpg" alt="" class="img-responsive">
@@ -234,7 +233,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m9">  
+            <div class="col-xs-12 col-md-9"> 
               <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
                   <div class="teaser-date">19-21
                     <div class="text-xs">apr - apr</div>
@@ -267,7 +266,7 @@
     <script src="js/drupal-core.js"></script>
     <script src="js/components.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/components/prism.js"></script>
+    <script src="js/prism.js"></script>
     <script>
       // Escape code
       // ============================================================

@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Michael Angarano</title>
+    <title>Amsterdam meetup</title>
     <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <!--CSS-->
-    <link href="css/generic.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
     <header id="header">
       <div class="container"><a href="prototype.html" class="site-logo">
           <object id="header-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
         <nav role="navigation" class="block--headermenu">
-          <ul class="header-menu">
+          <ul class="header-menu list-unstyled">
             <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
                 <div class="b-menu"><i title="Account" class="material-icons">add</i><span class="menu__label hidden">Add content</span></div></a></li>
             <li class="menu__item hidden-mobile"><a href="#0" class="menu__link">
@@ -49,7 +49,7 @@
             </form>
           </div>
           <div class="block--main-menu">
-            <ul class="main-menu">
+            <ul class="main-menu list-unstyled">
               <li class="menu__item"><a href="#0" class="menu__link">Explore</a></li>
             </ul>
           </div>
@@ -58,9 +58,9 @@
       <div id="user-panel" class="panel">
         <div class="container">
           <div class="block--user-menu">
-            <ul class="user-menu">
+            <ul class="user-menu list-unstyled">
               <li class="menu__item"><a href="#0" class="menu__link">Edit profile</a></li>
-              <li class="menu__item"><a href="#0" class="menu__link">Account settings</a></li>
+              <li class="menu__item"><a href="#0" class="menu__link">Edit account</a></li>
               <li class="menu__item"><a href="#0" class="menu__link">Logout</a></li>
             </ul>
           </div>
@@ -68,131 +68,81 @@
       </div>
     </header>
     <main role="main" class="main-container">
-      <nav>
-        <div class="breadcrumbs-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col s12"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
-            </div>
-          </div>
-        </div>
+      <nav class="visible-md-block visible-lg-block style-default-bright">
+        <ol class="breadcrumb container">
+          <li><a href="#!">Home</a></li>
+          <li><a href="#!">Overview</a></li>
+          <li class="active">Detail</li>
+        </ol>
       </nav>
       <div class="block-hero">
         <div class="container">
-          <div class="row">
-            <div class="col s12 center"><img src="/content/images/avatar0.jpg" class="circle img-bordered">
-              <h1 class="page-title h2">Michael Angarano</h1>
-              <button class="btn white social-blue-text">following</button>
+          <div class="hero-cover">
+            <div class="center cover-wrap"><a href="#!" class="right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit        </i></a>
+              <h1 class="page-title">Amsterdam Meetup</h1>
+              <p>
+                <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
+              </p>
+              <div class="hero-footer"><img src="content/images/avatar0.jpg" class="img-circle img-bordered img-small">
+                <div class="small margin-top-m">
+                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by  </div><a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="secondary_navigation">
-        <div class="container">
-          <div class="block-secondary-nav social-blue darken-1">
-            <div class="container">
-              <nav role="navigation" aria-label="Tabs">
-                <h2 class="visually-hidden">Secondary navigation</h2>
-                <ul class="tabs primary">
-                  <li><a href="#">Timeline  </a></li>
-                  <li><a href="#">Information</a></li>
-                  <li><a href="my-topics.html">Topics</a></li>
-                  <li class="is-active"><a href="my-events.html" class="is-active">Events<span class="visually-hidden">(active tab)</span></a></li>
-                  <li><a href="#">Groups</a></li>
-                </ul>
-              </nav>
-            </div>
+          <div class="primary-action-region">
+            <button class="btn btn-accent btn-raised">enroll this event</button>
           </div>
         </div>
       </div>
       <div class="main-content">
+        <div class="style-secondary">
+          <div class="container">
+            <nav role="navigation" aria-label="Tabs">
+              <h2 class="visually-hidden">Secondary navigation</h2>
+              <ul class="nav nav-tabs tabs-center style-secondary nav-tabs--xl">
+                <li class="active"><a href="event.html">Details<span class="visually-hidden">(active tab)</span></a></li>
+                <li><a href="event-enrollments.html">Enrollments</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
         <div class="container">
           <div class="row">
-            <div class="col s12">
-              <h2 class="section-title">My events</h2>
+            <div class="col-sm-12">
+              <h4 class="section-title">Event details</h4>
             </div>
-            <div class="col s12 l3 right"><a href="#!" class="waves-effect waves-light btn btn--block btn--black"> <i class="material-icons left">add</i>Add an event</a><a class="btn btn--block hidden-desktop js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
-              <div class="off-canvas off-canvas-right off-canvas-small-only desktop-card">
-                <div class="offcanvas-head">
-                  <header class="card__label">filter</header>
-                  <div class="offcanvas-tools hidden-desktop">
-                    <div class="js-close-canvas btn-flat btn-icon-toggle btn-default-light right"><i class="material-icons">close</i></div>
-                  </div>
+            <div class="col-sm-3 col-sm-push-9">
+              <div class="card small-padding">
+                <div class="card-head text-center"> 
+                  <header>15 people have enrolled</header>
                 </div>
-                <form>
-                  <div class="form__item form__item-radios">
-                    <label class="form__label">Event status </label>
-                    <div class="form__radios">
-                      <div class="form__item form__item-radio">
-                        <input id="radio1" name="event" type="radio" checked class="form__radio">
-                        <label for="radio1" class="label--option">Upcoming</label>
-                      </div>
-                      <div class="form__item form__item-radio">
-                        <input id="radio2" name="event" type="radio" class="form__radio">
-                        <label for="radio2" class="label--option">Past </label>
-                      </div>
-                      <div class="form__item form__item-radio">
-                        <input id="radio3" name="event" type="radio" class="form__radio">
-                        <label for="radio3" class="label--option">Unpublished</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-actions form-wrapper">
-                    <button class="btn js-close-canvas hidden-desktop">Done</button>
-                  </div>
-                </form>
+                <div class="card-body text-center">
+                  <div class="img-grid"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small">
+                  </div><a href="#" class="btn btn-default">View all</a>
+                </div>
               </div>
             </div>
-            <div class="col s12 l9">
-              <div class="card--wrapper"><a href="#" class="card teaser teaser--event">
-                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image">
-                    <div class="teaser__event-date">19<span class="teaser__event-date-month">Apr</span></div>
-                  </div>
-                  <div class="teaser__content">
-                    <h2 class="teaser__title">Security and modern internet</h2>
-                    <div class="teaser__published">19 apr 09:00 - 18:00</div>
-                    <div class="teaser__location">Patheon, Rome</div>
-                    <div class="teaser__enrolled">Enrolled</div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a><a href="#" class="card teaser teaser--event">
-                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image">
-                    <div class="teaser__event-date">20-21<span class="teaser__event-date-month">Apr - Apr</span></div>
-                  </div>
-                  <div class="teaser__content">
-                    <h2 class="teaser__title">Security and modern internet</h2>
-                    <div class="teaser__published">20 Apr 09:00 - 21 Apr 18:00</div>
-                    <div class="teaser__location">Rembrandtplein, Amsterdam</div>
-                    <div class="teaser__enrolled"></div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a><a href="#" class="card teaser teaser--event">
-                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image">
-                    <div class="teaser__event-date">26<span class="teaser__event-date-month">May</span></div>
-                  </div>
-                  <div class="teaser__content">
-                    <h2 class="teaser__title">London Meetup</h2>
-                    <div class="teaser__published">26 may 09:00 - 18:00</div>
-                    <div class="teaser__location">Tower Bridge, London</div>
-                    <div class="teaser__enrolled">Enrolled</div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a><a href="#" class="card teaser teaser--event unpublished">
-                  <div class="teaser__media"><img src="content/images/people3-square.jpg" class="teaser__image">
-                    <div class="teaser__event-date">28<span class="teaser__event-date-month">May</span></div><span class="status">unpublished</span>
-                  </div>
-                  <div class="teaser__content">
-                    <h2 class="teaser__title">Team conference East</h2>
-                    <div class="teaser__published">28 may 10:00 - 12:00</div>
-                    <div class="teaser__location">Old Market, Groningen</div>
-                    <div class="teaser__enrolled"></div>
-                    <div class="teaser__read-more">Read more </div>
-                  </div></a></div>
-              <ul class="pagination">
-                <li class="disabled"><a href="#0">    <i class="material-icons">chevron_left</i></a></li>
-                <li class="active"><a href="#1">1</a></li>
-                <li> <a href="#1">2</a></li>
-                <li> <a href="#1">3          </a></li>
-                <li> <a href="#1">4</a></li>
-                <li><a href="#0">    <i class="material-icons">chevron_right</i></a></li>
-              </ul>
+            <div class="col-sm-9 col-sm-pull-3">
+              <div class="card">
+                <div class="card-body extra-padding">
+                  <p> <strong>Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business. Your training can be free, as so many industry experts write and teach and share this information without charging for it. Even the tools you use to build websites can be downloaded free of charge, or purchased for very little.</strong></p>
+                  <p>As an industry we have become accustomed to getting hundreds of hours of work, and the benefit of years of hard-won knowledge for free.</p>
+                  <p>My free time in the last couple of years has been put into looking at the Grid Layout spec. I start most days answering emailed questions about the examples I’ve posted, before I get down to the work that pays the bills.</p>
+                  <p>I’m not unusual in that. Most of my friends in the industry have tales of invites to events where no payment is offered, a queue of issues raised on their personal project on GitHub, or people requesting general web development technical support via email.</p>
+                  <p>What pays the bills for me, and enables me to spend my spare time doing unpaid work, is my product Perch. Yet we launched Perch to complaints that it wasn’t open source. There are very good reasons why someone might want, or be required, to use software that has an open source license. However, when we ask about it, people rarely cite these reasons. When they say open source, they mean free of charge.</p>
+                  <p>I’ll be 41 this year. I don’t feel 41, but the reality is that at some point I won’t be able to keep up a pace of work that encompasses running a business, putting together talks and workshops, writing books, and contributing as much as possible to the industry that I love being a part of. I need to make sure that I am building not only a body of work and contributions that I’m proud of, but also financial security for when I can’t do this anymore. Yes, that free work does sometimes result in someone trying my software or offering me paid consultancy, but not as often as you might think. Despite having very marketable skills, I don’t own a home, much less have a pension and savings in place.</p><img src="content/images/iphone6.jpg" class="img-responsive">
+                  <p>I wondered how other independent and freelance web workers dealt with this conflict between earning money and contributing back. I also wondered if I was alone in feeling that the clock is ticking. I put together a survey (the responses to which probably will be the background to several other pieces of research), and a few things stood out immediately.</p>
+                  <p>Of the 211 people who responded and said they worked for themselves, 33% said they had some provision but not enough to fully retire, while 39% said they had no pension or retirement savings at all. In fact, 30% of the 211 said that they live pretty much “month to month” without so much as a contingency fund. Even filtering out the under-40 age groups, those percentages remained roughly the same.</p>
+                  <p>John Gruber:</p>
+                  <blockquote>
+                    <q>I worry that the inherent slowness of the web and ill-considered trend toward over-produced web design is going to start hurting traffic to DF.</q>
+                  </blockquote>
+                  <p>I asked the question, “Are you involved in open source projects, writing tutorials, mentoring, speaking at events-that you do free of charge or for expenses only?” 59% said they were not involved, with 27% of those people citing time constraints. Some people did explain that they were involved in volunteer work outside of the web. By the time I filtered out the under-40s, the non-involvement figure rose to 70%.</p>
+                  <p>We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. It is a privilege that not everyone has to begin with, but that we can also lose as our responsibilities increase or as we start to lose the youthful ability to pull all-nighters. Perhaps we begin to realize how much that free work is taking us away from our families, friends, and hobbies; away from work that might improve our situation and enable us to save for the future.</p>
+                  <p>If you are in your early twenties, willing to work all night for the love of this industry, and have few pressing expenses, then building up your professional reputation on open source projects and sharing your ideas is a great thing to do. It’s how we all got started, how I and the majority of my peers found our voices. As I get older, however, I have started to feel the pressure of the finite amount of time we all have. I’ve started to see people of my generation taking a step back. I’ve seen people leave the industry, temporarily or permanently, due to burnout. Others disappear into companies, often in managerial (rather than hands-on) roles that leave limited time for giving back to the community.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

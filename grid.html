@@ -8,16 +8,16 @@
     <title>Grid - Drupal Social</title>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
-            <div class="col s12">
+            <div class="col-xs-12">
               <h1 class="header__title">Grid</h1>
             </div>
           </div>
@@ -72,40 +72,8 @@
     </header>
     <main role="main" class="styleguide-container">
       <div class="container">
-        <div class="row"> 
-          <div class="col s12">
-            <div class="section">
-              <h2 class="header">Container</h2>
-              <p>The container class is important in laying out content. It allows you to center your page content. The container class is set to a maximum of 960px. It helps you center and contain your page content. We use the container to contain our body content.</p>
-              <p> <p>To add a container just put your content inside a <code>&lt;div&gt;</code> tag with a <code>container</code> class. Here&#39;s an example of how your page might be set up.</p>
-
-              </p>
-              <pre>     <code class="language-markup"><main class="main-container">
-  <div class="container">
-    <!-- Page Content goes here --> 
-  </div>
-</main>
-</code></pre>
-            </div>
-            <div class="section">
-              <h2 class="header">Grid</h2>
-              <p>Our standard grid has 12 columns. No matter the size of the browser, each of these columns will always have an equal width.</p>
-              <p><p>Columns are applied with the <code>.col</code> class. A column always resides in a <code>.row</code> to clearfix the float. On all devices you can use the class <code>.s1</code> to <code>.s12</code>, where the number stands for the amount of colums to span. This is always based on the 12 column grid.</p>
-
-              </p>
-              <p><p>The letter <code>s</code> here stands for small screens. Since we use a mobile-first approach, we define the mobile layout as default.</p>
-
-              </p>
-              <h4>Screen sizes</h4>
-              <p> <p>For the breakpoints $small and $medium, which are defined in the sass file we have individual grid override options. You can use <code>.m</code> for the <code>$small</code> breakpoint and <code>.l</code> for the <code>$medium breakpoint</code>. This give you the flexibility to have different layouts on mobile, tablet and desktop screen sizes.</p>
-
-              </p>
-              <div class="row">
-                <div class="col s12 m8 l6 grid-example"><span class="flow-text">I am full-width on mobile, 75% on tablet and 50% on desktop (col s12 m8 l6)</span></div>
-                <div class="col s12 m4 l6 grid-example"><span class="flow-text">I am full-width on mobile, 25% on tablet and 50% on desktop (col s12 m4 l6)</span></div>
-              </div>
-            </div>
-          </div>
+        <div class="section">
+          <p>The grid system we use is the Bootstrap Grid system (v4.0). The default settings for breakpoints can be found in the variables scss file. </p><a href="http://v4-alpha.getbootstrap.com/layout/grid/" target="_blank" class="btn btn-raised btn--primary">View Bootstrap documentation</a>
         </div>
       </div>
     </main>
@@ -113,7 +81,7 @@
     <script src="js/drupal-core.js"></script>
     <script src="js/components.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/components/prism.js"></script>
+    <script src="js/prism.js"></script>
     <script>
       // Escape code
       // ============================================================

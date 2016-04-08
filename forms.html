@@ -8,16 +8,16 @@
     <title>Forms - Drupal Social</title>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
-            <div class="col s12">
+            <div class="col-xs-12">
               <h1 class="header__title">Forms</h1>
             </div>
           </div>
@@ -73,39 +73,38 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row">
-          <div class="col s12 m9 l10">
+          <div class="col-xs-12 col-sm-9 col-md-10">
             <div id="input" class="section scrollspy">
               <p class="caption">Forms are the standard way to receive user inputted data. The transitions and smoothness of these elements are very important because of the inherent user interaction associated with forms.</p>
               <h2 class="header">Input fields</h2>
               <p><p>Text fields allow user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.input-field</code> div wrapping your input and label. This helps our jQuery animate the label. This is only used in our input and textarea form elements.</p>
-
               </p>
               <div class="row">
-                <form class="col s12">
+                <form class="col-xs-12">
                   <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col-xs-6">
                       <input id="first_name" placeholder="Placeholder" type="text" class="form-text">
                       <label for="first_name">First Name</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col-xs-6">
                       <input id="last_name" type="text" class="form-text">
                       <label for="last_name">Last Name</label>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col-xs-12">
                       <input id="disabled" disabled="" value="I am not editable" type="text" class="form-text">
                       <label for="disabled">Disabled</label>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col-xs-12">
                       <input id="password" type="password" class="form-text">
                       <label for="password">Password</label>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col-xs-12">
                       <input id="email" type="email" class="form-text">
                       <label for="email">Email</label>
                     </div>
@@ -113,31 +112,31 @@
                 </form>
               </div>
               <pre>     <code class="language-markup"><div class="row">
-  <form class="col s12">
+  <form class="col-xs-12">
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col-xs-6">
         <input placeholder="Placeholder" id="first_name" type="text" class="form-text">
         <label for="first_name">First Name</label>
       </div>
-      <div class="input-field col s6">
+      <div class="input-field col-xs-6">
         <input id="last_name" type="text" class="form-text">
         <label for="last_name">Last Name</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col-xs-12">
         <input disabled value="I am not editable" id="disabled" type="text" class="form-text">
         <label for="disabled">Disabled</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col-xs-12">
         <input id="password" type="password" class="form-text">
         <label for="password">Password</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col-xs-12">
         <input id="email" type="email" class="form-text">
         <label for="email">Email</label>
       </div>
@@ -147,22 +146,21 @@
               <h4>Prefilling Text Inputs</h4>
               <p>If you are having trouble with the labels overlapping prefilled content, Try adding `class="active"` to the label. </p>
               <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col-xs-6">
                   <input id="first_name2" value="Bart Simpson" type="text" class="form-text">
                   <label for="first_name2" class="active">First Name</label>
                 </div>
               </div>
               <pre><code class="language-markup"><div class="row">
-  <div class="input-field col s6">
+  <div class="input-field col-xs-6">
     <input id="first_name2" type="text" class="form-text" value="Bart Simpson">
     <label class="active" for="first_name2">First Name</label>
   </div>
 </div>
 </code></pre>
               <h4>Autocomplete</h4><p>To add autocomplete to an input field you need to add a couple of things. The <code>input</code> needs to have class <code>.autocomplete</code>. The second thing need is a data attribute <code>array</code>. This attribute will hold all data needed.</p>
-
               <div class="row">
-                <div class="col s12">
+                <div class="col-xs-12">
                   <p>How the array should look:</p>
                   <pre><code class="language-markup">[
   {
@@ -177,9 +175,9 @@
               <p>The array is a json array so it's easy to maintain with PHP. <em>This might need to be changed because it gets quite long.</em></p>
               <p>To get highlighted text add `highlight-matching` class to the input.</p>
               <div class="row">
-                <div class="col s12">
+                <div class="col-xs-12">
                   <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col-xs-12">
                       <input id="autocomplete" type="text" data-array="[{&quot;value&quot;: &quot;Aaron&quot;, &quot;path&quot;: &quot;content/images/avatar1.jpg&quot;,&quot;class&quot;: &quot;left circle&quot;},{&quot;value&quot;: &quot;Alex Nelson&quot;,&quot;path&quot;: &quot;content/images/avatar2.jpg&quot;,&quot;class&quot;: &quot;right circle&quot;},{&quot;value&quot;: &quot;Abbey Christensen&quot;, &quot;path&quot;: &quot;content/images/avatar3.jpg&quot;,&quot;class&quot;: &quot;right circle&quot;}]" class="form-text autocomplete">
                       <label for="autocomplete">Autocomplete with highlighting</label>
                     </div>
@@ -190,12 +188,11 @@
             <!-- Textarea Section-->
             <div id="textarea" class="section scrollspy">
               <h2 class="header">Textarea</h2><p>Textareas allow larger expandable user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.input-field</code> div wrapping your input and label. This helps our jQuery animate the label. This is only used in our Input and Textarea form elements.</p>
-
               <p><strong>Textareas will auto resize to the text inside.</strong></p>
               <div class="row">
-                <form class="col s12">
+                <form class="col-xs-12">
                   <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col-xs-12">
                       <textarea id="textarea1" class="form-text form-textarea materialize-textarea"></textarea>
                       <label for="textarea1">Textarea</label>
                     </div>
@@ -203,9 +200,9 @@
                 </form>
               </div>
               <pre><code class="language-markup"><div class="row">
-  <form class="col s12">
+  <form class="col-xs-12">
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col-xs-12">
         <textarea id="textarea1" class="form-text form-textarea materialize-textarea"></textarea>
         <label for="textarea1">Textarea</label>
       </div>
@@ -213,7 +210,6 @@
   </form>
 </div>
 </code></pre><p>advanced note: When dynamically changing the value of a textarea with methods like jQuery&#39;s <code>.val()</code>, you must trigger an autoresize on it afterwords because <code>.val()</code> does not automatically trigger the events we&#39;ve binded to the textarea.</p>
-
               <pre><code class="language-javascript">$('#textarea1').val('New Text');
 $('#textarea1').trigger('autoresize');
 
@@ -221,11 +217,10 @@ $('#textarea1').trigger('autoresize');
             </div>
             <div id="select" class="section scrollspy">
               <h2 class="header">Select</h2><p>Select allows user input through specified options. Make sure you wrap it in a <code>.input-field</code> for proper alignment with other text fields.</p>
-
               <div class="row">
-                <form class="col s12">
+                <form class="col-xs-12">
                   <div class="row">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col-xs-12 col-sm-6">
                       <select>
                         <option value="" disabled="" selected="">Choose your option</option>
                         <option value="1">Option 1</option>
@@ -234,10 +229,9 @@ $('#textarea1').trigger('autoresize');
                       </select>
                       <label>Materialize Select</label>
                     </div>
-                    <div class="col s12"><p>You can add the property <code>multiple</code> to get the multiple select and select several options.</p>
-
+                    <div class="col-xs-12"><p>You can add the property <code>multiple</code> to get the multiple select and select several options.</p>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col-xs-12 col-sm-6">
                       <select multiple="">
                         <option value="" disabled="" selected="">Choose your option</option>
                         <option value="1">Option 1</option>
@@ -246,10 +240,10 @@ $('#textarea1').trigger('autoresize');
                       </select>
                       <label>Materialize Multiple Select</label>
                     </div>
-                    <div class="col s12"><br>
+                    <div class="col-xs-12"><br>
                       <p>We also support optgroups in our selects.</p>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col-xs-12 col-sm-6">
                       <select>
                         <optgroup label="team 1">
                           <option value="1">Option 1</option>
@@ -262,11 +256,10 @@ $('#textarea1').trigger('autoresize');
                       </select>
                       <label>Optgroups</label>
                     </div>
-                    <div class="col s12"><br><p>You can add icons to your options in any type of select. In the option you add the image source with the <code>data-icon</code> attribute. You can add the 
+                    <div class="col-xs-12"><br><p>You can add icons to your options in any type of select. In the option you add the image source with the <code>data-icon</code> attribute. You can add the 
 <code>left</code> or <code>right</code> class to align your icon. You can also add the <code>circle</code> class to your icon.</p>
-
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col-xs-12 col-sm-6">
                       <select class="icons">
                         <option value="" disabled="" selected="">Choose your option</option>
                         <option value="" data-icon="content/images/animals1.jpg" class="circle">example 1</option>
@@ -275,7 +268,7 @@ $('#textarea1').trigger('autoresize');
                       </select>
                       <label>Images in select</label>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col-xs-12 col-sm-6">
                       <select class="icons">
                         <option value="" disabled="" selected="">Choose your option</option>
                         <option value="" data-icon="content/images/animals4.jpg" class="left circle">example 1</option>
@@ -284,10 +277,9 @@ $('#textarea1').trigger('autoresize');
                       </select>
                       <label>Images in select</label>
                     </div>
-                    <div class="col s12"><br><p>You can add the class <code>browser-default</code> to get the browser default.</p>
-
+                    <div class="col-xs-12"><br><p>You can add the class <code>browser-default</code> to get the browser default.</p>
                     </div>
-                    <div class="col s12 m6">
+                    <div class="col-xs-12 col-sm-6">
                       <label>Browser Select</label>
                       <select class="browser-default">
                         <option value="" disabled="" selected="">Choose your option</option>
@@ -298,8 +290,8 @@ $('#textarea1').trigger('autoresize');
                     </div>
                   </div>
                 </form>
-                <div class="col s12">
-                  <pre><code class="language-markup"><div class="input-field col s12">
+                <div class="col-xs-12">
+                  <pre><code class="language-markup"><div class="input-field col-xs-12">
   <select>
     <option value="" disabled selected>Choose your option</option>
     <option value="1">Option 1</option>
@@ -309,7 +301,7 @@ $('#textarea1').trigger('autoresize');
   <label>Materialize Select</label>
 </div>
 
-<div class="input-field col s12">
+<div class="input-field col-xs-12">
   <select multiple>
     <option value="" disabled selected>Choose your option</option>
     <option value="1">Option 1</option>
@@ -319,7 +311,7 @@ $('#textarea1').trigger('autoresize');
   <label>Materialize Multiple Select</label>
 </div>
 
-<div class="input-field col s12">
+<div class="input-field col-xs-12">
   <select multiple>
     <optgroup label="team 1">
       <option value="1">Option 1</option>
@@ -333,7 +325,7 @@ $('#textarea1').trigger('autoresize');
   <label>Optgroups</label>
 </div>
 
-<div class="input-field col s12 m6">
+<div class="input-field col-xs-12 col-sm-6">
   <select class="icons">
     <option value="" disabled selected>Choose your option</option>
     <option value="" data-icon="images/sample-1.jpg" class="circle">example 1</option>
@@ -342,7 +334,7 @@ $('#textarea1').trigger('autoresize');
   </select>
   <label>Images in select</label>
 </div>
-<div class="input-field col s12 m6">
+<div class="input-field col-xs-12 col-sm-6">
   <select class="icons">
     <option value="" disabled selected>Choose your option</option>
     <option value="" data-icon="images/sample-1.jpg" class="left circle">example 1</option>
@@ -360,14 +352,13 @@ $('#textarea1').trigger('autoresize');
   <option value="3">Option 3</option>
 </select></code></pre>
                 </div>
-                <div class="col s12"><br><br>
+                <div class="col-xs-12"><br><br>
                   <h4>Disabled Styles</h4><p>You can also add <code>disabled</code> to the select element to make the whole thing disabled. Or if you add <code>disabled</code> to the options, the individual options will be unselectable.</p>
-
                 </div>
               </div>
               <div class="row">
                 <form>
-                  <div class="input-field col s12 m6">
+                  <div class="input-field col-xs-12 col-sm-6">
                     <select disabled="">
                       <option value="" disabled="" selected="">Choose your option</option>
                       <option value="1">Option 1</option>
@@ -376,7 +367,7 @@ $('#textarea1').trigger('autoresize');
                     </select>
                     <label>Materialize Disabled</label>
                   </div>
-                  <div class="col s12 m6">
+                  <div class="col-xs-12 col-sm-6">
                     <label>Browser Disabled</label>
                     <select disabled="" class="browser-default">
                       <option value="" disabled="" selected="">Choose your option</option>
@@ -386,8 +377,8 @@ $('#textarea1').trigger('autoresize');
                     </select>
                   </div>
                 </form>
-                <div class="col s12">
-                  <pre><code class="language-markup"><div class="input-field col s12 m6">
+                <div class="col-xs-12">
+                  <pre><code class="language-markup"><div class="input-field col-xs-12 col-sm-6">
   <label>Materialize Disabled</label>
   <select disabled>
     <option value="" disabled selected>Choose your option</option>
@@ -397,7 +388,7 @@ $('#textarea1').trigger('autoresize');
   </select>
 </div>
 
-<div class="col s12 m6">
+<div class="col-xs-12 col-sm-6">
   <label>Browser Disabled</label>
   <select class="browser-default" disabled>
     <option value="" disabled selected>Choose your option</option>
@@ -408,7 +399,7 @@ $('#textarea1').trigger('autoresize');
 </div>
 </code></pre>
                 </div>
-                <div class="col s12">
+                <div class="col-xs-12">
                   <h4>Initialization</h4>
                   <p>You must initialize the select element as shown below. In addition, you will need a separate call for any dynamically generated select elements your page generates.</p>
                   <pre><code class="language-javascript">$(document).ready(function() {
@@ -416,7 +407,7 @@ $('#textarea1').trigger('autoresize');
 });
 </code></pre>
                 </div>
-                <div class="col s12">
+                <div class="col-xs-12">
                   <h4>Updating/Destroying Select</h4>
                   <p>If you want to update the items inside the select, just rerun the initialization code from above after editing the original select. Or you can destroy the material select with this function below, and create a new select altogether</p>
                   <pre><code class="language-javascript">$('select').material_select('destroy');
@@ -466,7 +457,6 @@ $('#textarea1').trigger('autoresize');
 </form>
 </code></pre>
               <h4>Options</h4><p>To create a radio button with a gap, add <code>class=&quot;with-gap&quot;</code> to your input. See the example below.</p>
-
               <p>
                 <input id="test5" name="group3" type="radio" checked="" class="with-gap">
                 <label for="test5">Red</label>
@@ -480,7 +470,6 @@ $('#textarea1').trigger('autoresize');
             <!-- Checkboxes-->
             <div id="checkbox" class="section scrollspy">
               <h2 class="header">Checkboxes</h2><p>Use checkboxes when looking for yes or no answers. The <code>for</code> attribute is necessary to bind the our custom checkbox with the input. Add the input&#39;s <code>id</code> as the value of the <code>for</code> attribute of the label.</p>
-
               <form action="#">
                 <p>
                   <input id="test9" type="checkbox">
@@ -599,7 +588,6 @@ $('#textarea1').trigger('autoresize');
   </div>
 </form>
 </code></pre><p>You can also use the <code>multiple</code> attribute to allow multiple file uploads.</p>
-
               <form action="#">
                 <div class="file-field input-field">
                   <div class="btn"><span>File</span>
@@ -625,7 +613,6 @@ $('#textarea1').trigger('autoresize');
             </div>
             <div id="range" class="section scrollspy">
               <h2 class="header">Range</h2><p>Add a range slider for values with a wide range. This one is set to be a number between 0 and 100. We have two different types of sliders. nouiSlider is a 3rd party plugin which we&#39;ve modified. To use the noUiSlider, you will have to manually link the <code>nouislider.css</code> and <code>nouislider.js</code> files located in the extras folder.</p>
-
               <h4>noUiSlider</h4>
               <p>See noUiSlider's official documentation <a href="http://refreshless.com/nouislider/" class="social-blue-text">here</a> to see a variety of slider options</p>
               <div id="range-input"></div><br>
@@ -676,15 +663,15 @@ noUiSlider.create(slider, {
               <h2 class="header">Character Counter</h2>
               <p class="caption">Use a character counter in fields where a character restriction is in place.</p>
               <div class="row">
-                <form class="col s12">
+                <form class="col-xs-12">
                   <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col-xs-6">
                       <input id="input_text" type="text" length="10" class="form-text">
                       <label for="input_text">Input text</label>
                     </div>
                   </div><br>
                   <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col-xs-12">
                       <textarea id="textarea1" length="120" class="form-text form-textarea materialize-textarea"></textarea>
                       <label for="textarea1">Textarea</label>
                     </div>
@@ -692,15 +679,15 @@ noUiSlider.create(slider, {
                 </form>
               </div>
               <pre><code class="language-markup"><div class="row">
-  <form class="col s12">
+  <form class="col-xs-12">
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col-xs-6">
         <input id="input_text" type="text" length="10">
         <label for="input_text">Input text</label>
       </div>
     </div>
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col-xs-12">
         <textarea id="textarea1" class="form-text form-textarea materialize-textarea" length="120"></textarea>
         <label for="textarea1">Textarea</label>
       </div>
@@ -739,7 +726,7 @@ noUiSlider.create(slider, {
     <script src="js/drupal-core.js"></script>
     <script src="js/components.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/components/prism.js"></script>
+    <script src="js/prism.js"></script>
     <script>
       // Escape code
       // ============================================================

@@ -68,19 +68,17 @@
       </div>
     </header>
     <main role="main" class="main-container">
-      <nav class="only-desktop">
-        <div class="breadcrumbs-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col s12"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
-            </div>
-          </div>
-        </div>
+      <nav class="visible-md-block visible-lg-block style-default-bright">
+        <ol class="breadcrumb container">
+          <li><a href="#!">Home</a></li>
+          <li><a href="#!">Overview</a></li>
+          <li class="active">Detail</li>
+        </ol>
       </nav>
       <div class="block-hero">
         <div class="container">
           <div class="row">
-            <div class="col s12 center margin-bottom-xxl">
+            <div class="col-xs-12 center margin-bottom-xxl">
               <h1 class="page-title h2">Where has all the corn in the midwest gone?</h1>
             </div>
           </div>
@@ -89,7 +87,7 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col s12 m9">
+            <div class="col-xs-12 col-sm-9">
               <form class="node-form">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
@@ -97,7 +95,7 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col s12">
+                      <div class="col-xs-12">
                         <div class="form-item form__item-radios">
                           <label class="form__label form-required">Topic type</label>
                           <div class="form__radios">
@@ -118,7 +116,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s12 m8">
+                      <div class="col-xs-12 col-sm-8">
                         <div class="form-item form__type-textfield">
                           <label class="form__label form-required">Title</label>
                           <input type="text" value="Where has all the corn in the midwest gone?" class="form-text required">
@@ -126,7 +124,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s12">
+                      <div class="col-xs-12">
                         <div class="form-item form__type-textarea">
                           <label class="form__label form-required">Description</label>
                           <div class="textarea--cke">
@@ -138,7 +136,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s12">   
+                      <div class="col-xs-12"> 
                         <div class="form-item form__type-managed-file">
                           <label class="form__label">Image</label>
                           <div class="image-widget form-managed-file clearfix"><img src="content/images/animals1-square.jpg" width="100" class="img-responsive left">
@@ -147,7 +145,7 @@
                               <div class="file-size">(154.78kb)</div>
                             </div>
                             <div class="left padding-s">
-                              <button type="submit" value="remove" class="btn form-submit style-default"><i class="material-icons left">delete</i>Remove</button>
+                              <button type="submit" value="remove" class="btn btn-flat form-submit"><i class="material-icons left">delete</i>Remove</button>
                             </div>
                           </div>
                           <div style="display:none" class="form__item-help-text">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
@@ -162,7 +160,7 @@
                   </div>
                   <div class="card-body"> 
                     <div class="row">
-                      <div class="col s12"> 
+                      <div class="col-xs-12">
                         <div class="form-item form__item-radios">
                           <label class="form__label form-required">Add topic to</label>
                           <div class="form__radios">
@@ -178,7 +176,7 @@
                         </div>
                       </div>
                       <div id="selectagroup">
-                        <div class="form-item col s12 m6 margin-top-s">
+                        <div class="form-item col col-xs-12 col-sm-6 margin-top-s">
                           <select class="browser-default">
                             <option value="" disabled="">Select a group</option>
                             <option value="1">Group name 1</option>
@@ -189,7 +187,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col s12">     
+                      <div class="col-xs-12">     
                         <div class="form-item form__item-radios">
                           <label class="form__label form-required">Visibility</label>
                           <div class="form__radios">
@@ -244,7 +242,7 @@
                 <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--default-dark right">
               </div>
             </div>
-            <div class="col m3 hidden-mobile">
+            <div class="col-sm-3 hidden-mobile">
               <div class="toc-wrapper">
                 <ul class="section table-of-contents">
                   <li><a href="#content">Content</a></li>

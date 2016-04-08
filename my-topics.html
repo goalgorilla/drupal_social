@@ -68,16 +68,14 @@
       </div>
     </header>
     <main role="main" class="main-container">
-      <nav class="only-desktop">
-        <div class="breadcrumbs-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col s12"><a href="#!" class="breadcrumb">First</a><a href="#!" class="breadcrumb">Second</a><a href="#!" class="breadcrumb">Third</a></div>
-            </div>
-          </div>
-        </div>
+      <nav class="visible-md-block visible-lg-block style-default-bright">
+        <ol class="breadcrumb container">
+          <li><a href="#!">Home</a></li>
+          <li><a href="#!">Overview</a></li>
+          <li class="active">Detail</li>
+        </ol>
       </nav>
-      <div class="block-hero only-desktop profile-cover">
+      <div class="block-hero hidden-xs profile-cover">
         <div class="cover-wrap"><img src="content/images/avatar0.jpg" class="circle img-bordered">
           <h1 class="page-title h2">Michael Angarano</h1>
           <button class="btn btn-flat btn--default-bright"><i class="material-icons left">check</i>Following</button>
@@ -85,11 +83,11 @@
       </div>
       <div class="main-content">
         <div class="container">
-          <div class="row hidden-desktop section-header">
-            <div class="col s12"><a class="btn btn-raised btn--default-bright"> <i class="material-icons left">keyboard_arrow_left</i>Back to timeline</a></div>
+          <div class="row visible-xs-block section-header">
+            <div class="col-xs-12"><a class="btn btn-raised btn--default-bright"> <i class="material-icons left">keyboard_arrow_left</i>Back to timeline</a></div>
           </div>
         </div>
-        <div class="style-secondary only-desktop">
+        <div class="style-secondary hidden-xs">
           <div class="container">
             <nav role="navigation" aria-label="Tabs">
               <h2 class="visually-hidden">Secondary navigation</h2>
@@ -105,98 +103,86 @@
         </div>
         <div class="container">
           <div class="row">
-            <div class="col s12">
+            <div class="col-xs-12">
               <h2 class="h3 section-title">My topics</h2>
             </div>
-            <div class="col s12 l3 right margin-bottom-l"><a href="#!" class="waves-effect waves-light btn btn--block btn--default-dark btn-raised"> <i class="material-icons left">add</i>Add a topic</a><a class="btn btn--block btn--primary btn-raised hidden-desktop js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
-              <div class="off-canvas off-canvas-right off-canvas-small-only desktop-card">
+            <div class="col-xs-12 col-sm-3 right margin-bottom-l"><a href="#!" class="waves-effect waves-light btn btn--block btn--default-dark btn-raised"> <i class="material-icons left">add</i>Add a topic</a><a class="btn btn--block btn--primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
+              <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
-                  <div class="offcanvas-tools hidden-desktop">
-                    <div class="js-close-canvas btn-icon-toggle btn-default-light right"><i class="material-icons">close</i></div>
+                  <div class="offcanvas-tools visible-xs-block">
+                    <div class="js-close-canvas btn btn-icon-toggle btn-default-light right"><i class="material-icons">close</i></div>
                   </div>
                 </div>
                 <div class="offcanvas-body">
                   <form>
-                    <div class="row">
-                      <div class="col s12">
-                        <div class="form-item">
-                          <label class="form__label">Topic type</label>
-                          <select onchange="enableMe('reset-button', this)" class="browser-default">
-                            <option value="" selected="">All types</option>
-                            <option value="blog">Blog</option>
-                            <option value="discussion">Discussion</option>
-                            <option value="topic">Topic</option>
-                          </select>
-                        </div>
-                      </div>
+                    <div class="form-item">
+                      <label class="form__label">Topic type</label>
+                      <select onchange="enableMe('reset-button', this)" class="browser-default">
+                        <option value="" selected="">All types</option>
+                        <option value="blog">Blog</option>
+                        <option value="discussion">Discussion</option>
+                        <option value="topic">Topic</option>
+                      </select>
                     </div>
-                    <div class="row">
-                      <div class="col s12">
-                        <div class="form-item">
-                          <label class="form__label">Status</label>
-                          <select onchange="enableMe('reset-button', this)" class="browser-default">
-                            <option value="" selected="">All statusses</option>
-                            <option value="published">Published</option>
-                            <option value="unpublished">Unpublished</option>
-                          </select>
-                        </div>
-                      </div>
+                    <div class="form-item">
+                      <label class="form__label">Status</label>
+                      <select onchange="enableMe('reset-button', this)" class="browser-default">
+                        <option value="" selected="">All statusses</option>
+                        <option value="published">Published</option>
+                        <option value="unpublished">Unpublished</option>
+                      </select>
                     </div>
-                    <div class="row">
-                      <div class="col s12">
-                        <div class="form-actions form-wrapper right-align">
-                          <input id="reset-button" type="submit" value="Reset" class="btn btn-flat disabled">
-                        </div>
-                      </div>
+                    <div class="form-actions form-wrapper clearfix">
+                      <input id="reset-button" type="submit" value="Reset" class="btn btn-flat right disabled">
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="col s12 l9">
-              <div class="card--wrapper">
-                <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                  <div class="card-body">
-                    <div class="text-default-dark">Blog</div>
-                    <h2 class="h3 card-title"> <a href="#">Technology for the handicapped</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
-                    <div class="text-grey-dark">15 feb 2016</div>
-                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
-                  </div>
-                </div>
-                <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                  <div class="card-body">
-                    <div class="text-default-dark">Discussion</div>
-                    <h2 class="h3 card-title"> <a href="#">Will this be the cinema of the future?</a></h2><a href="#" class="text-l text-grey-dark">Richard Ogylvie</a>
-                    <div class="text-grey-dark">22 mar 2016</div>
-                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
-                  </div>
-                </div>
-                <div class="card card--teaser card-with-actionbar unpublished"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                  <div class="card-body">
-                    <div class="text-default-dark">Blog</div>
-                    <h2 class="h3 card-title"> <a href="#">5 new cool features in Office 365</a></h2><a href="#" class="text-l text-grey-dark">Dennis Rodman</a>
-                    <div class="text-grey-dark">28 mar 2016</div>
-                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
-                  </div>
-                </div>
-                <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                  <div class="card-body">
-                    <div class="text-default-dark">Topic</div>
-                    <h2 class="h3 card-title"> <a href="#">Top 10 zoos to visit in 2016</a></h2><a href="#" class="text-l text-grey-dark">Amanda Boxer</a>
-                    <div class="text-grey-dark">12 apr 2016</div>
-                    <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
-                  </div>
+            <div class="col-xs-12 col-sm-9">
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                <div class="card-body">
+                  <div class="text-default-dark">Blog</div>
+                  <h2 class="h3 card-title"> <a href="#">Technology for the handicapped</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
+                  <div class="text-grey-dark">15 feb 2016</div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <ul class="pagination">
-                <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
-                <li class="pager__item active"><a href="#1">1</a></li>
-                <li class="pager__item"> <a href="#1">2</a></li>
-                <li class="pager__item"> <a href="#1">3          </a></li>
-                <li class="pager__item"> <a href="#1">4</a></li>
-                <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
-              </ul>
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                <div class="card-body">
+                  <div class="text-default-dark">Discussion</div>
+                  <h2 class="h3 card-title"> <a href="#">Will this be the cinema of the future?</a></h2><a href="#" class="text-l text-grey-dark">Richard Ogylvie</a>
+                  <div class="text-grey-dark">22 mar 2016</div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                </div>
+              </div>
+              <div class="card card--teaser card-with-actionbar unpublished"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                <div class="card-body">
+                  <div class="text-default-dark">Blog</div>
+                  <h2 class="h3 card-title"> <a href="#">5 new cool features in Office 365</a></h2><a href="#" class="text-l text-grey-dark">Dennis Rodman</a>
+                  <div class="text-grey-dark">28 mar 2016</div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                </div>
+              </div>
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+                <div class="card-body">
+                  <div class="text-default-dark">Topic</div>
+                  <h2 class="h3 card-title"> <a href="#">Top 10 zoos to visit in 2016</a></h2><a href="#" class="text-l text-grey-dark">Amanda Boxer</a>
+                  <div class="text-grey-dark">12 apr 2016</div>
+                  <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
+                </div>
+              </div>
+              <nav>
+                <ul class="pagination">
+                  <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
+                  <li class="pager__item active"><a href="#1">1</a></li>
+                  <li class="pager__item"> <a href="#1">2</a></li>
+                  <li class="pager__item"> <a href="#1">3          </a></li>
+                  <li class="pager__item"> <a href="#1">4</a></li>
+                  <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

@@ -8,16 +8,16 @@
     <title>Tabs - Drupal Social</title>
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
-            <div class="col s12">
+            <div class="col-xs-12">
               <h1 class="header__title">Tabs</h1>
             </div>
           </div>
@@ -73,18 +73,18 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row"> 
-          <div class="col s12">
+          <div class="col-xs-12">
             <div class="section">
               <div class="row"> 
-                <div class="col l9">
+                <div class="col-md-9">
                   <p class="flow-text">The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>
                   <h3 class="social-blue-text">Markup</h3>
                   <p><p>We use Bootstrap nav-tabs as a base for the tabs component. Simply create a list element and add the <code>.nav</code> and <code>.nav-tabs</code> classes. For further documentation read the <a href="http://getbootstrap.com/components/#nav-tabs">bootstrap docs</a>.</p>
-<p>You can activate a tab navigation without writing any JavaScript by simply specifying <code>data-toggle=&quot;tab&quot;</code>  on an element. Adding the nav and nav-tabs classes to the tab ul will apply the tab styling.</p>
 
+<p>You can activate a tab navigation without writing any JavaScript by simply specifying <code>data-toggle=&quot;tab&quot;</code>  on an element. Adding the nav and nav-tabs classes to the tab ul will apply the tab styling.</p>
                   </p>
                 </div>
-                <div class="col s12">
+                <div class="col-xs-12">
                   <pre><code class="language-markup"><ul class="nav nav-tabs" data-toggle="tabs">
   <li class="active"><a href="#one">Home</a></li>
   <li><a href="#two">Profile</a></li>
@@ -101,8 +101,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col s12 l6">
-                  <div class="card">
+                <div class="col-xs-12 col-md-6">
+                  <div class="card card-underline">
                     <div class="card-head">
                       <ul data-toggle="tabs" class="nav nav-tabs">
                         <li class="active"><a href="#first1">First item</a></li>
@@ -123,7 +123,7 @@
                     </div>
                   </div><em class="text-caption">Left aligned tabs (default)</em>
                 </div>
-                <div class="col s12 l6">
+                <div class="col-xs-12 col-md-6">
                   <div class="card card-underline">
                     <div class="card-head">
                       <ul data-toggle="tabs" class="nav nav-tabs nav-tabs-right">
@@ -143,8 +143,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col s12 l6">
-                  <div class="card">
+                <div class="col-xs-12 col-md-6">
+                  <div class="card card-underline">
                     <div class="card-head">
                       <ul data-toggle="tabs" class="nav nav-tabs tabs-center">
                         <li class="active"><a href="#first3">First item</a></li>
@@ -165,7 +165,7 @@
                     </div>
                   </div><em class="text-caption">Centered tabs</em>
                 </div>
-                <div class="col s12 l6">
+                <div class="col-xs-12 col-md-6">
                   <div class="card card-underline">
                     <div class="card-head">
                       <ul data-toggle="tabs" class="nav nav-tabs nav-justified">
@@ -188,13 +188,13 @@
             <hr>
             <div class="section">
               <div class="row"> 
-                <div class="col l9">
+                <div class="col-md-9">
                   <h3 class="social-blue-text">Layout</h3>
                   <p>Tabs can not only be placed above the content, but also left, right and below the content.</p>
                 </div>
               </div>
               <div class="row">
-                <div class="col s12 l6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card tabs-left style-default-bright">
                     <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
                       <li class="active"><a href="#first5">First item</a></li>
@@ -214,13 +214,8 @@
                     </div>
                   </div><em class="text-caption">Left sidebar layout</em>
                 </div>
-                <div class="col s12 l6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card tabs-right style-default-bright">
-                    <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
-                      <li class="active"><a href="#first6">First item</a></li>
-                      <li><a href="#second6">Second item</a></li>
-                      <li><a href="#third6">Third item</a></li>
-                    </ul>
                     <div class="card-body tab-content">
                       <div id="first6" class="tab-pane active">
                         <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
@@ -232,11 +227,16 @@
                         <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
                       </div>
                     </div>
+                    <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
+                      <li class="active"><a href="#first6">First item</a></li>
+                      <li><a href="#second6">Second item</a></li>
+                      <li><a href="#third6">Third item</a></li>
+                    </ul>
                   </div><em class="text-caption">Right sidebar layout</em>
                 </div>
               </div>
               <div class="row">
-                <div class="col s12 l6">
+                <div class="col-xs-12 col-md-6">
                   <div class="card tabs-below style-default-bright">
                     <div class="card-body tab-content">
                       <div id="first7" class="tab-pane active">
@@ -259,12 +259,12 @@
               </div>
               <hr>
               <div class="row"> 
-                <div class="col l8">
+                <div class="col-md-9">
                   <h3 class="social-blue-text">Colors</h3>
                 </div>
               </div>
               <div class="row"> 
-                <div class="col s12 m6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card">
                     <ul data-toggle="tabs" class="card-head nav nav-tabs style-default">
                       <li class="active"><a href="#first8">First item</a></li>
@@ -284,7 +284,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col s12 m6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card">
                     <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
                       <li class="active"><a href="#first9">First item</a></li>
@@ -304,7 +304,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col s12 m6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card">
                     <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-bright">
                       <li class="active"><a href="#first10">First item</a></li>
@@ -324,7 +324,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col s12 m6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card">
                     <ul data-toggle="tabs" class="card-head nav nav-tabs style-primary">
                       <li class="active"><a href="#first11">First item</a></li>
@@ -344,7 +344,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col s12 m6">
+                <div class="col-xs-12 col-sm-6">
                   <div class="card">
                     <ul data-toggle="tabs" class="card-head nav nav-tabs style-primary-dark">
                       <li class="active"><a href="#first12">First item</a></li>
@@ -374,7 +374,7 @@
     <script src="js/drupal-core.js"></script>
     <script src="js/components.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/components/prism.js"></script>
+    <script src="js/prism.js"></script>
     <script>
       // Escape code
       // ============================================================
