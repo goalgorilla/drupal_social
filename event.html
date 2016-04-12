@@ -75,37 +75,32 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="block-hero">
-        <div class="container">
-          <div class="hero-cover">
-            <div class="center cover-wrap"><a href="#!" class="right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit        </i></a>
-              <h1 class="page-title">Amsterdam Meetup</h1>
-              <p>
-                <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
-              </p>
-              <div class="hero-footer"><img src="content/images/avatar0.jpg" class="img-circle img-bordered img-small">
-                <div class="small margin-top-m">
-                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by  </div><a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a>
-                </div>
-              </div>
+      <div style="background-image: url('content/images/event-hero.jpg')" class="cover container cover-img"> 
+        <div class="cover-wrap">  <a href="#!" class="right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit        </i></a>
+          <h1 class="page-title">Amsterdam Meetup</h1>
+          <p>
+            <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
+          </p>
+          <div class="hero-footer"><img src="content/images/avatar0.jpg" class="img-circle img-bordered img-small">
+            <div class="small margin-top-m">
+              <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by</div><a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a>
             </div>
           </div>
-          <div class="primary-action-region">
-            <button class="btn btn-accent btn-raised">enroll this event</button>
-          </div>
+        </div>
+        <div class="primary-action-region">
+          <p class="small text-default-bright hidden">You have enrolled to this event.</p>
+          <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll this event</button>
         </div>
       </div>
       <div class="main-content">
-        <div class="style-secondary">
-          <div class="container">
-            <nav role="navigation" aria-label="Tabs">
-              <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs tabs-center style-secondary nav-tabs--xl">
-                <li class="active"><a href="event.html">Details<span class="visually-hidden">(active tab)</span></a></li>
-                <li><a href="event-enrollments.html">Enrollments</a></li>
-              </ul>
-            </nav>
-          </div>
+        <div class="container style-default-bright">
+          <nav role="navigation" aria-label="Tabs">
+            <h2 class="visually-hidden">Secondary navigation</h2>
+            <ul class="nav nav-tabs tabs-center style-default-bright nav-tabs--xl">
+              <li class="active"><a href="event.html">Details<span class="visually-hidden">(active tab)</span></a></li>
+              <li><a href="event-enrollments.html">Enrollments</a></li>
+            </ul>
+          </nav>
         </div>
         <div class="container">
           <div class="row">
@@ -118,8 +113,8 @@
                   <header>15 people have enrolled</header>
                 </div>
                 <div class="card-body text-center">
-                  <div class="img-grid"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small">
-                  </div><a href="#" class="btn btn-default">View all</a>
+                  <div class="img-grid"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small">
+                  </div><a href="event-enrollments.html" class="btn btn-default">View all</a>
                 </div>
               </div>
             </div>
@@ -184,7 +179,24 @@
   </script>
   <script src="js/vendor.js"></script>
   <script src="js/drupal-core.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/components.js"></script>
   <script src="js/project.js"></script>
   <script src="js/init.js"></script>
+  <script>
+    jQuery(document).ready(function($){
+      $('#enrollButton').on('click', function () {
+        
+        // button text will toggle "Cancel enrollment"
+        var buttonState = $(this).data("toggle-text");
+        $(this).data('toggle-text', $(this).text()).text(buttonState);
+        
+        // button active state will toggle
+        $(this).toggleClass('active') 
+        
+        // show / hide previous text element
+        $(this).prev('p').toggleClass('hidden');
+      })  
+    });
+  </script>
 </html>

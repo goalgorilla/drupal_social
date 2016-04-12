@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Create Topic</title>
+    <title>Create Event</title>
     <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
@@ -77,7 +77,7 @@
       </nav>
       <div class="block-hero cover">
         <div class="container">
-          <h1 class="page-title h2 text-center">Create Topic         </h1>
+          <h1 class="page-title h2">Create event          </h1>
         </div>
       </div>
       <div class="main-content">
@@ -87,36 +87,15 @@
               <form class="node-form">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
-                    <header>Content</header>
+                    <header>Title and teaser image</header>
                   </div>
                   <div class="card-body">
-                    <div class="form-group radios">
-                      <label class="form-required">Topic type</label>
-                      <div class="radio">
-                        <input id="blog" type="radio" name="type">
-                        <label for="blog">Blog</label>
-                      </div>
-                      <div class="radio">
-                        <input id="discussion" type="radio" name="type">
-                        <label for="discussion">Discussion</label>
-                      </div>
-                      <div class="radio">
-                        <input id="topic" type="radio" name="type">
-                        <label for="topic">Topic  </label>
-                      </div>
-                    </div>
                     <div class="form-group">
                       <label class="form-required">Title</label>
-                      <input type="text" required class="form-control">
-                    </div>
-                    <div class="form-group">
-                      <label class="form-required">Description</label>
-                      <div class="textarea--cke">
-                        <textarea id="ckeditor" required class="form-control"></textarea>
-                      </div>
+                      <input type="text" class="form-control required">
                     </div>
                     <div class="form-group form__type-managed-file">
-                      <label>Image</label>
+                      <label class="form__label">Image</label>
                       <div class="image-widget form-managed-file clearfix">
                         <input type="file" value="upload an image" class="form-control">
                         <button type="submit" value="remove" class="btn form-submit style-default js-hide"><i class="material-icons left">file_upload</i>Upload</button>
@@ -130,8 +109,8 @@
                     <header>Placement and visibility</header>
                   </div>
                   <div class="card-body"> 
-                    <div class="form-group">
-                      <label class="form-required">Add topic to</label>
+                    <div class="form-group radios">
+                      <label class="form-required">Add event to</label>
                       <div class="radio">
                         <input id="profile" type="radio" name="placement">
                         <label for="profile">My profile</label>
@@ -140,32 +119,130 @@
                         <input id="group" type="radio" name="placement" onclick="showMe('selectagroup', 'visibilitygroup', this)">
                         <label for="group">A group I am a member of:</label>
                       </div>
-                      <div id="selectagroup" style="display:none;" class="form-control col-sm-6 margin-top-s">
-                        <select class="form-control">
-                          <option value="" disabled="" selected="">Select a group</option>
-                          <option value="1">Group 1</option>
-                          <option value="2">Group 2</option>
-                          <option value="3">Group 3</option>
-                        </select>
-                      </div>
+                    </div>
+                    <div id="selectagroup" style="display:none;">
+                      <select class="form-control">
+                        <option value="" disabled="" selected="">Select a group</option>
+                        <option value="1">Group 1</option>
+                        <option value="2">Group 2</option>
+                        <option value="3">Group 3</option>
+                      </select>
                     </div>
                     <div class="form-group radios">
                       <label class="form-required">Visibility</label>
-                      <div class="radio">
-                        <input id="public" type="radio" name="visibility">
-                        <label for="public">Public</label>
-                        <div class="help-block">Community visible to all visitors of the platform</div>
+                      <div class="form__radios">
+                        <div class="radio">
+                          <input id="public" type="radio" name="visibility">
+                          <label for="public">Public</label>
+                          <div class="help-block">Community visible to all visitors of the platform</div>
+                        </div>
+                        <div class="radio">
+                          <input id="community" type="radio" name="visibility">
+                          <label for="community">Community</label>
+                          <div class="help-block">visible only to logged in members</div>
+                        </div>
+                        <div id="visibilitygroup" style="display: none" class="radio">
+                          <input id="groups" type="radio" name="visibility" class="form-radio">
+                          <label for="groups" class="option">Groups</label>
+                          <div class="help-block">Visible only to group members</div>
+                        </div>
                       </div>
-                      <div class="radio">
-                        <input id="community" type="radio" name="visibility">
-                        <label for="community">Community</label>
-                        <div class="help-block">visible only to logged in members</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="eventtime" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Date and time</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-required">Start date</label>
+                          <input type="text" class="form-control datepicker">
+                          <div class="help-block">Please fill in the start date of your event</div>
+                        </div>
                       </div>
-                      <div class="radio">
-                        <input id="groups" type="radio" name="visibility">
-                        <label for="groups">Groups</label>
-                        <div class="help-block">Visible only to group members</div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-required">Start time</label>
+                          <input type="text" class="form-control timepicker">
+                        </div>
                       </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>End date</label>
+                          <input type="text" class="form-control datepicker">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>End time</label>
+                          <input type="text" class="form-control timepicker">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="location" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Location</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Venue name</label>
+                      <input type="text" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Country</label>
+                      <select class="form-control">
+                        <option value="" disabled="" selected="">Choose a country</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Post code</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>City</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div id="description" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Description</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Description</label>
+                      <div class="textarea--cke">
+                        <textarea id="ckeditor" class="form-control"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="attachments" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Attachments</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Files</label>
+                      <div class="image-widget form-managed-file clearfix">
+                        <input type="file" value="upload an image" class="form-control">
+                        <button type="submit" value="remove" class="btn form-submit style-default js-hide"><i class="material-icons left">file_upload</i>Upload</button>
+                      </div>
+                      <div class="help-block">15 MB per file limit - Allowed types: xls xlsx doc </div>
                     </div>
                   </div>
                 </div>
@@ -197,11 +274,15 @@
                 </div>
               </form>
             </div>
-            <div class="col-sm-3 hidden-mobile">
+            <div class="col-md-3">
               <div class="toc-wrapper">
                 <ul class="section table-of-contents">
-                  <li><a href="#content">Content</a></li>
+                  <li><a href="#content">Title &amp; image</a></li>
                   <li><a href="#placement">Placement and visibility</a></li>
+                  <li> <a href="#eventtime">Date &amp; time</a></li>
+                  <li> <a href="#location">Location</a></li>
+                  <li> <a href="#description">Description</a></li>
+                  <li><a href="#attachments">Attachments</a></li>
                   <li><a href="#comment-settings">Comment settings</a></li>
                 </ul>
               </div>
@@ -252,9 +333,14 @@
   <script src="js/init.js"></script>
   <script src="libs/ckeditor/ckeditor.js"></script>
   <script src="libs/ckeditor/adapters/jquery.js"></script>
+  <script src="libs/date_picker/picker.js"></script>
+  <script src="libs/date_picker/picker.date.js"></script>
+  <script src="libs/date_picker/picker.time.js"></script>
   <script>
     jQuery(document).ready(function($){
       $( '#ckeditor' ).ckeditor();  
+      $('.datepicker').pickadate({selectYears: 20});
+      $('.timepicker').pickatime();
     });
     
     function showMe (it, it2, box) {

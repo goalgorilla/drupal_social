@@ -75,9 +75,9 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="block-hero hidden-xs hero-cover">
-        <div class="cover-wrap"><img src="content/images/avatar0.jpg" class="img-circle img-bordered">
-          <h1 class="page-title">Michael Angarano</h1>
+      <div class="cover container">
+        <div class="cover-wrap">
+          <h1 class="page-title">Michael Angarano</h1><img src="content/images/avatar0.jpg" class="img-circle img-bordered"><br><br>
           <button class="btn btn-flat btn--default-bright"><i class="material-icons left">check</i>Following</button>
         </div>
       </div>
@@ -106,7 +106,8 @@
             <div class="col-xs-12">
               <h2 class="h3 section-title">My events</h2>
             </div>
-            <div class="col-xs-12 col-sm-3 right margin-bottom-l"><a href="#!" class="waves-effect waves-light btn btn--block btn--default-dark btn-raised"> <i class="material-icons left">add</i>Add an event</a><a class="btn btn--block btn--primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
+            <div class="col-xs-12 col-sm-3 right margin-bottom-l"><a href="node-add-event.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons left">add</i>Add an event</a>
+              <button class="waves-effect waves-light btn btn-block btn--primary visible-xs-block js-open-canvas"><i class="material-icons left">tune</i>Filters</button>
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
@@ -116,32 +117,30 @@
                 </div>
                 <div class="offcanvas-body">
                   <form>
-                    <div class="form-item form__item-radios">
-                      <label class="form__label">Event status </label>
-                      <div class="form__radios">
-                        <div class="form-item form__item-radio">
-                          <input id="radio1" name="event" type="radio" checked class="form__radio">
-                          <label for="radio1" class="label--option">Upcoming</label>
-                        </div>
-                        <div class="form-item form__item-radio">
-                          <input id="radio2" name="event" type="radio" class="form__radio">
-                          <label for="radio2" class="label--option">Past </label>
-                        </div>
-                        <div class="form-item form__item-radio">
-                          <input id="radio3" name="event" type="radio" class="form__radio">
-                          <label for="radio3" class="label--option">Unpublished</label>
-                        </div>
+                    <div class="form-group radios">
+                      <label>Event status </label>
+                      <div class="radio">
+                        <input id="radio1" name="event" type="radio" checked>
+                        <label for="radio1">Upcoming</label>
+                      </div>
+                      <div class="radio">
+                        <input id="radio2" name="event" type="radio">
+                        <label for="radio2">Past</label>
+                      </div>
+                      <div class="radio">
+                        <input id="radio3" name="event" type="radio">
+                        <label for="radio3">Unpublished</label>
                       </div>
                     </div>
-                    <div class="form-actions form-wrapper clearfix">
-                      <button class="btn btn-flat js-close-canvas right">Done</button>
+                    <div class="form-group margin-top-l clearfix visible-xs-block">
+                      <button class="btn btn-default js-close-canvas right">Done</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-xs-12 col-sm-9">
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/people3-square.jpg" class="img-responsive">
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
                   <div class="teaser-date">19
                     <div class="text-xs">may</div>
                   </div></a>
@@ -152,7 +151,7 @@
                   <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Enrolled</a><a href="event.html" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/people3-square.jpg" class="img-responsive">
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
                   <div class="teaser-date">20-21
                     <div class="text-xs">may-may</div>
                   </div></a>
@@ -163,7 +162,7 @@
                   <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Enrolled</a><a href="event.html" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/people3-square.jpg" class="img-responsive">
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
                   <div class="teaser-date">26
                     <div class="text-xs">may</div>
                   </div></a>
@@ -174,7 +173,7 @@
                   <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Enrolled</a><a href="event.html" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image"><img src="content/images/people3-square.jpg" class="img-responsive">
+              <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
                   <div class="teaser-date">28
                     <div class="text-xs">Aug</div>
                   </div></a>
@@ -236,6 +235,7 @@
   </script>
   <script src="js/vendor.js"></script>
   <script src="js/drupal-core.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/components.js"></script>
   <script src="js/project.js"></script>
   <script src="js/init.js"></script>

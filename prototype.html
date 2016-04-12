@@ -44,6 +44,7 @@
             <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
               <div class="collapsible-body">
                 <ul>
+                  <li><a href="navigation.html">Navigation</a></li>
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="cards.html">Cards  </a></li>
                   <li><a href="forms.html">Forms</a></li>
@@ -72,30 +73,31 @@
     </header>
     <main role="main" class="styleguide-container">
       <div class="container">
-        <div class="row"> 
-          <div class="col-xs-12">
-            <div class="section">
-              <ul class="collection">
-                <li class="collection-header">
-                  <h4 class="flow-text">Anonymous users</h4>
-                </li>
-                <li class="collection__item"><a href="login.html">Login</a></li>
-                <li class="collection__item"><a href="sign-up.html">Sign up</a></li>
-                <li class="collection__item"><a href="sign-up-with-email.html"> Sign up with e-mail verification</a></li>
-                <li class="collection__item"><a href="reset-password.html">Reset password</a></li>
-              </ul>
+        <div class="row section"> 
+          <div class="col-xs-12 col-md-6">
+            <div class="list-group">
+              <div class="list-group-item">
+                <h4 class="list-group-item-heading text-primary">Anonymous users</h4>
+              </div><a href="login.html" class="list-group-item">
+                <p class="list-group-item-text">Login</p></a><a href="sign-up.html" class="list-group-item">
+                <p class="list-group-item-text">Sign up</p></a><a href="sign-up-with-email.html" class="list-group-item">
+                <p class="list-group-item-text"> Sign up with e-mail verification</p></a><a href="reset-password.html" class="list-group-item">
+                <p class="list-group-item-text">Reset password</p></a>
             </div>
-            <div class="section">
-              <ul class="collection">
-                <li class="collection-header">
-                  <h4 class="flow-text">Logged in users</h4>
-                </li>
-                <li class="collection__item"><a href="my-topics.html">My Topics</a></li>
-                <li class="collection__item"><a href="topic.html">Topic</a></li>
-                <li class="collection__item"><a href="node-add-topic.html">Create topic</a></li>
-                <li class="collection__item"><a href="node-edit-topic.html">Edit topic</a></li>
-                <li class="collection__item"><a href="my-events.html">My Events</a></li>
-              </ul>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="list-group">
+              <div class="list-group-item">
+                <h4 class="list-group-item-heading text-primary">Logged in users</h4>
+              </div><a href="my-topics.html" class="list-group-item">
+                <p class="list-group-item-text">My Topics</p></a><a href="topic.html" class="list-group-item">
+                <p class="list-group-item-text">Topic</p></a><a href="node-add-topic.html" class="list-group-item">
+                <p class="list-group-item-text">Create topic</p></a><a href="node-edit-topic.html" class="list-group-item">
+                <p class="list-group-item-text">Edit topic</p></a><a href="my-events.html" class="list-group-item">
+                <p class="list-group-item-text">My Events</p></a><a href="event.html" class="list-group-item">
+                <p class="list-group-item-text">Event</p></a><a href="event-enrollments.html" class="list-group-item">
+                <p class="list-group-item-text">Event enrollments</p></a><a href="node-add-event.html" class="list-group-item">
+                <p class="list-group-item-text">Create event</p></a>
             </div>
           </div>
         </div>
@@ -103,7 +105,9 @@
     </main>
     <script src="js/vendor.js"></script>
     <script src="js/drupal-core.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/components.js"></script>
+    <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/prism.js"></script>
     <script>

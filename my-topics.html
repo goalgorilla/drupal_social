@@ -75,9 +75,9 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="block-hero hidden-xs profile-cover">
-        <div class="cover-wrap"><img src="content/images/avatar0.jpg" class="circle img-bordered">
-          <h1 class="page-title h2">Michael Angarano</h1>
+      <div class="cover container">
+        <div class="cover-wrap">
+          <h1 class="page-title">Michael Angarano</h1><img src="content/images/avatar0.jpg" class="img-circle img-bordered"><br><br>
           <button class="btn btn-flat btn--default-bright"><i class="material-icons left">check</i>Following</button>
         </div>
       </div>
@@ -106,7 +106,8 @@
             <div class="col-xs-12">
               <h2 class="h3 section-title">My topics</h2>
             </div>
-            <div class="col-xs-12 col-sm-3 right margin-bottom-l"><a href="#!" class="waves-effect waves-light btn btn--block btn--default-dark btn-raised"> <i class="material-icons left">add</i>Add a topic</a><a class="btn btn--block btn--primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons left">tune</i>Filters</a>
+            <div class="col-xs-12 col-sm-3 right margin-bottom-l"><a href="node-add-topic.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons left">add</i>Add a topic</a>
+              <btn class="waves-effect waves-light btn btn-block btn--primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons left">tune</i>Filters</btn>
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
@@ -116,32 +117,32 @@
                 </div>
                 <div class="offcanvas-body">
                   <form>
-                    <div class="form-item">
-                      <label class="form__label">Topic type</label>
-                      <select onchange="enableMe('reset-button', this)" class="browser-default">
+                    <div class="form-group">
+                      <label>Topic type</label>
+                      <select onchange="enableMe('reset-button', this)" class="form-control">
                         <option value="" selected="">All types</option>
                         <option value="blog">Blog</option>
                         <option value="discussion">Discussion</option>
                         <option value="topic">Topic</option>
                       </select>
                     </div>
-                    <div class="form-item">
-                      <label class="form__label">Status</label>
-                      <select onchange="enableMe('reset-button', this)" class="browser-default">
+                    <div class="form-group">
+                      <label>Status</label>
+                      <select onchange="enableMe('reset-button', this)" class="form-control">
                         <option value="" selected="">All statusses</option>
                         <option value="published">Published</option>
                         <option value="unpublished">Unpublished</option>
                       </select>
                     </div>
-                    <div class="form-actions form-wrapper clearfix">
-                      <input id="reset-button" type="submit" value="Reset" class="btn btn-flat right disabled">
+                    <div class="form-group margin-top-l clearfix">
+                      <input id="reset-button" type="submit" value="Reset" class="btn btn-primary right disabled">
                     </div>
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-xs-12 col-sm-9">
-              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
                   <h2 class="h3 card-title"> <a href="#">Technology for the handicapped</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
@@ -149,7 +150,7 @@
                   <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image blue-overlay"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Discussion</div>
                   <h2 class="h3 card-title"> <a href="#">Will this be the cinema of the future?</a></h2><a href="#" class="text-l text-grey-dark">Richard Ogylvie</a>
@@ -157,7 +158,7 @@
                   <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar unpublished"><a href="#" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
                   <h2 class="h3 card-title"> <a href="#">5 new cool features in Office 365</a></h2><a href="#" class="text-l text-grey-dark">Dennis Rodman</a>
@@ -165,7 +166,7 @@
                   <div class="card-actionbar"><a href="#" class="btn btn-flat right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Topic</div>
                   <h2 class="h3 card-title"> <a href="#">Top 10 zoos to visit in 2016</a></h2><a href="#" class="text-l text-grey-dark">Amanda Boxer</a>
@@ -224,6 +225,7 @@
   </script>
   <script src="js/vendor.js"></script>
   <script src="js/drupal-core.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/components.js"></script>
   <script src="js/project.js"></script>
   <script src="js/init.js"></script>

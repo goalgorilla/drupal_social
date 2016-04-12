@@ -44,6 +44,7 @@
             <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Components</a>
               <div class="collapsible-body">
                 <ul>
+                  <li><a href="navigation.html">Navigation</a></li>
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="cards.html">Cards  </a></li>
                   <li class="active"><a href="forms.html">Forms</a></li>
@@ -703,7 +704,7 @@ noUiSlider.create(slider, {
 </code></pre>
             </div>
           </div>
-          <div class="col m3 l2 hidden-mobile">
+          <div class="col-sm-3 col-md-2 hidden-xs">
             <div class="toc-wrapper">
               <ul class="section table-of-contents">
                 <li><a href="#input">Input Fields</a></li>
@@ -724,7 +725,9 @@ noUiSlider.create(slider, {
     </main>
     <script src="js/vendor.js"></script>
     <script src="js/drupal-core.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/components.js"></script>
+    <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/prism.js"></script>
     <script>
@@ -797,10 +800,10 @@ noUiSlider.create(slider, {
         
       }(this));
     </script>
-    <script src="extras/date_picker/picker.js"></script>
-    <script src="extras/date_picker/picker.date.js"></script>
-    <link href="extras/noUiSlider/nouislider.css" rel="stylesheet">
-    <script src="extras/noUiSlider/nouislider.js"></script>
+    <script src="libs/date_picker/picker.js"></script>
+    <script src="libs/date_picker/picker.date.js"></script>
+    <link href="libs/noUiSlider/nouislider.css" rel="stylesheet">
+    <script src="libs/noUiSlider/nouislider.js"></script>
     <script type="text/javascript">
       var slider = document.getElementById('range-input');
       noUiSlider.create(slider, {

@@ -64,27 +64,23 @@
         </div>
         <div class="container">
           <div class="row">
-            <div class="col-xs-12 col-md-8 section-header">
+            <div class="col-md-8 section-header">
               <h2 class="h3 section-title">Sign up</h2>
               <div class="card form-card">
                 <div class="card-body">
-                  <form accept-charset="UTF-8" class="user-register-form">
-                    <div class="form-item form__type-textfield">
-                      <div class="input-field">
-                        <label for="edit-email" class="form-required">E-mail address</label>
-                        <input id="edit-email" type="email" autocorrect="none" autofocus="autofocus" required="required" class="form-text">
-                        <div class="form__item--description">A valid email address. All emails from the system will be sent to this address. The email address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by email.</div>
-                      </div>
+                  <form accept-charset="UTF-8">
+                    <div class="form-group">
+                      <label for="edit-email" class="form-required">E-mail address</label>
+                      <input id="edit-email" type="email" autocorrect="none" autofocus="autofocus" required="required" class="form-control">
+                      <div class="help-block">A valid email address. All emails from the system will be sent to this address. The email address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by email.</div>
                     </div>
-                    <div class="form-item form__type-textfield">
-                      <div class="input-field">
-                        <label for="edit-username" class="form-required">Username</label>
-                        <input id="edit-username" type="text" required="required" class="form-text">
-                        <div class="form__item--description">Several special characters are allowed, including space, period (.), hyphen (-), apostrophe (&rsquo;), underscore (_), and the @ sign.</div>
-                      </div>
+                    <div class="form-group">
+                      <label for="edit-username" class="form-required">Username</label>
+                      <input id="edit-username" type="text" required="required" class="form-control">
+                      <div class="help-block">Several special characters are allowed, including space, period (.), hyphen (-), apostrophe (&rsquo;), underscore (_), and the @ sign.</div>
                     </div>
-                    <div id="edit-actions" class="form-actions form-wrapper clearfix">
-                      <input id="edit-submit" type="submit" value="Sign up" class="btn btn-flat right">
+                    <div class="margin-top-xxl clearfix">
+                      <input type="submit" value="Sign up" class="btn btn-primary right">
                     </div>
                   </form>
                 </div>
