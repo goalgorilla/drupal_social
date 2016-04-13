@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Amsterdam meetup</title>
+    <title>Edit profile</title>
     <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
@@ -75,70 +75,139 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="container">
-        <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img"> 
-          <div class="cover-wrap">  <a href="node-edit-event.html" class="pull-right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit        </i></a>
-            <h1 class="page-title">Amsterdam Meetup</h1>
-            <div class="hero-footer">
-              <div>
-                <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
-              </div>
-              <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by <a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a></div>
-            </div>
-          </div>
-          <div class="primary-action-region">
-            <p class="small text-default-bright hidden">You have enrolled to this event.</p>
-            <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll</button>
-          </div>
+      <div class="block-hero cover">
+        <div class="container">
+          <h1 class="page-title h2">Edit profile         </h1>
         </div>
       </div>
       <div class="main-content">
         <div class="container">
-          <div class="brand-secondary z-depth-1">
-            <nav role="navigation" aria-label="Tabs">
-              <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-                <li class="active"><a href="event.html">Details<span class="visually-hidden">(active tab)</span></a></li>
-                <li><a href="event-enrollments.html">Enrollments</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <h4 class="section-title">Event details</h4>
+          <div class="row margin-top-l">
+            <div class="col-md-9 margin-bottom-l">
+              <form method="get" action="my-profile-about.html">
+                <div id="name" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Name & profile image</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label>First name</label>
+                          <input type="text" value="John" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                          <label>Last name</label>
+                          <input type="text" value="Johnson" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group form__type-managed-file">
+                      <label>Image</label>
+                      <div class="image-widget form-managed-file clearfix"><img src="content/images/avatar3.jpg" width="50" class="img-responsive pull-left">
+                        <div class="pull-left padding-xs">
+                          <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">my-picture.jpg</a>
+                          <div class="file-size">(91.78kb)</div>
+                        </div>
+                        <div class="pull-left padding-xs">
+                          <button type="submit" value="remove" class="btn btn-default form-submit"><i class="material-icons pull-left">delete</i>Remove</button>
+                        </div>
+                      </div>
+                      <div style="display:none" class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="work" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Work </header>
+                  </div>
+                  <div class="card-body"> 
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label>Function</label>
+                          <input type="text" value="Executive director animal relations" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                          <label>Organisation</label>
+                          <input type="text" value="The pet shop" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="contact" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Contact information</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Phone </label>
+                      <input type="number" value="+31 612345678" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Location name </label>
+                      <input type="text" value="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Country</label>
+                      <select class="form-control">
+                        <option value="" disabled="">Choose a country</option>
+                        <option value="1" selected>Netherlands</option>
+                        <option value="2">United Kingdom</option>
+                        <option value="3">France</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-required">Post code</label>
+                      <input type="text" value="1234 BB" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-required">City</label>
+                      <input type="text" value="Amsterdam" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-required">Address</label>
+                      <input type="text" value="My streetname 123" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div id="details" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Details about you</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Write some details about yourself</label>
+                      <div class="textarea--cke">
+                        <textarea id="ckeditor" required class="form-control">
+                          <p>Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas sed diam eget risus varius blandit sit amet non magna. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        </textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Your expertises</label>
+                      <input type="text" value="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Your interests</label>
+                      <input type="text" value="" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-wrapper clearfix"><a href="my-profile-about.html" class="waves-effect waves-light btn btn-raised btn--default-bright">Discard changes</a>
+                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
+                </div>
+              </form>
             </div>
-            <div class="col-sm-3 col-sm-push-9">
-              <div class="card small-padding">
-                <div class="card-head text-center"> 
-                  <header>15 people have enrolled</header>
-                </div>
-                <div class="card-body text-center">
-                  <div class="img-grid"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small">
-                  </div><a href="event-enrollments.html" class="btn btn-default">View all</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-9 col-sm-pull-3">
-              <div class="card">
-                <div class="card-body extra-padding">
-                  <p> <strong>Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business. Your training can be free, as so many industry experts write and teach and share this information without charging for it. Even the tools you use to build websites can be downloaded free of charge, or purchased for very little.</strong></p>
-                  <p>As an industry we have become accustomed to getting hundreds of hours of work, and the benefit of years of hard-won knowledge for free.</p>
-                  <p>My free time in the last couple of years has been put into looking at the Grid Layout spec. I start most days answering emailed questions about the examples I’ve posted, before I get down to the work that pays the bills.</p>
-                  <p>I’m not unusual in that. Most of my friends in the industry have tales of invites to events where no payment is offered, a queue of issues raised on their personal project on GitHub, or people requesting general web development technical support via email.</p>
-                  <p>What pays the bills for me, and enables me to spend my spare time doing unpaid work, is my product Perch. Yet we launched Perch to complaints that it wasn’t open source. There are very good reasons why someone might want, or be required, to use software that has an open source license. However, when we ask about it, people rarely cite these reasons. When they say open source, they mean free of charge.</p>
-                  <p>I’ll be 41 this year. I don’t feel 41, but the reality is that at some point I won’t be able to keep up a pace of work that encompasses running a business, putting together talks and workshops, writing books, and contributing as much as possible to the industry that I love being a part of. I need to make sure that I am building not only a body of work and contributions that I’m proud of, but also financial security for when I can’t do this anymore. Yes, that free work does sometimes result in someone trying my software or offering me paid consultancy, but not as often as you might think. Despite having very marketable skills, I don’t own a home, much less have a pension and savings in place.</p><img src="content/images/iphone6.jpg" class="img-responsive">
-                  <p>I wondered how other independent and freelance web workers dealt with this conflict between earning money and contributing back. I also wondered if I was alone in feeling that the clock is ticking. I put together a survey (the responses to which probably will be the background to several other pieces of research), and a few things stood out immediately.</p>
-                  <p>Of the 211 people who responded and said they worked for themselves, 33% said they had some provision but not enough to fully retire, while 39% said they had no pension or retirement savings at all. In fact, 30% of the 211 said that they live pretty much “month to month” without so much as a contingency fund. Even filtering out the under-40 age groups, those percentages remained roughly the same.</p>
-                  <p>John Gruber:</p>
-                  <blockquote>
-                    <q>I worry that the inherent slowness of the web and ill-considered trend toward over-produced web design is going to start hurting traffic to DF.</q>
-                  </blockquote>
-                  <p>I asked the question, “Are you involved in open source projects, writing tutorials, mentoring, speaking at events-that you do free of charge or for expenses only?” 59% said they were not involved, with 27% of those people citing time constraints. Some people did explain that they were involved in volunteer work outside of the web. By the time I filtered out the under-40s, the non-involvement figure rose to 70%.</p>
-                  <p>We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. It is a privilege that not everyone has to begin with, but that we can also lose as our responsibilities increase or as we start to lose the youthful ability to pull all-nighters. Perhaps we begin to realize how much that free work is taking us away from our families, friends, and hobbies; away from work that might improve our situation and enable us to save for the future.</p>
-                  <p>If you are in your early twenties, willing to work all night for the love of this industry, and have few pressing expenses, then building up your professional reputation on open source projects and sharing your ideas is a great thing to do. It’s how we all got started, how I and the majority of my peers found our voices. As I get older, however, I have started to feel the pressure of the finite amount of time we all have. I’ve started to see people of my generation taking a step back. I’ve seen people leave the industry, temporarily or permanently, due to burnout. Others disappear into companies, often in managerial (rather than hands-on) roles that leave limited time for giving back to the community.</p>
-                </div>
+            <div class="col-md-3">
+              <div class="toc-wrapper">
+                <ul class="section table-of-contents">
+                  <li><a href="#name">Name &amp; profile image</a></li>
+                  <li><a href="#work">Work </a></li>
+                  <li> <a href="#contact">Contact information</a></li>
+                  <li> <a href="#details">Details about you</a></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -185,20 +254,11 @@
   <script src="js/components.js"></script>
   <script src="js/project.js"></script>
   <script src="js/init.js"></script>
+  <script src="libs/ckeditor/ckeditor.js"></script>
+  <script src="libs/ckeditor/adapters/jquery.js"></script>
   <script>
     jQuery(document).ready(function($){
-      $('#enrollButton').on('click', function () {
-        
-        // button text will toggle "Cancel enrollment"
-        var buttonState = $(this).data("toggle-text");
-        $(this).data('toggle-text', $(this).text()).text(buttonState);
-        
-        // button active state will toggle
-        $(this).toggleClass('active') 
-        
-        // show / hide previous text element
-        $(this).prev('p').toggleClass('hidden');
-      })  
+      $( '#ckeditor' ).ckeditor();  
     });
   </script>
 </html>
