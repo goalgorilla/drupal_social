@@ -75,32 +75,34 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div style="background-image: url('content/images/event-hero.jpg')" class="cover container cover-img"> 
-        <div class="cover-wrap">  <a href="#!" class="right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit        </i></a>
-          <h1 class="page-title">Amsterdam Meetup</h1>
-          <p>
-            <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
-          </p>
-          <div class="hero-footer"><img src="content/images/avatar0.jpg" class="img-circle img-bordered img-small">
-            <div class="small margin-top-m">
-              <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by</div><a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a>
+      <div class="container">
+        <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img"> 
+          <div class="cover-wrap">  <a href="node-edit-event.html" class="pull-right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit        </i></a>
+            <h1 class="page-title">Amsterdam Meetup</h1>
+            <div class="hero-footer">
+              <div>
+                <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
+              </div>
+              <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by <a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a></div>
             </div>
           </div>
-        </div>
-        <div class="primary-action-region">
-          <p class="small text-default-bright hidden">You have enrolled to this event.</p>
-          <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll this event</button>
+          <div class="primary-action-region">
+            <p class="small text-default-bright hidden">You have enrolled to this event.</p>
+            <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll</button>
+          </div>
         </div>
       </div>
       <div class="main-content">
-        <div class="container style-default-bright">
-          <nav role="navigation" aria-label="Tabs">
-            <h2 class="visually-hidden">Secondary navigation</h2>
-            <ul class="nav nav-tabs tabs-center style-default-bright nav-tabs--xl">
-              <li><a href="event.html">Details</a></li>
-              <li class="active"><a href="event-enrollments.html">Enrollments<span class="visually-hidden">(active tab)</span></a></li>
-            </ul>
-          </nav>
+        <div class="container">
+          <div class="brand-secondary z-depth-1">
+            <nav role="navigation" aria-label="Tabs">
+              <h2 class="visually-hidden">Secondary navigation</h2>
+              <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
+                <li><a href="event.html">Details</a></li>
+                <li class="active"><a href="event-enrollments.html">Enrollments<span class="visually-hidden">(active tab)</span></a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
         <div class="container">
           <div class="row">
@@ -113,7 +115,7 @@
                   <h2 class="h3 card-title"> <a href="profile.html">Jade Williams</a></h2>
                   <div class="text-grey-dark">Drupal Ninja</div>
                   <div class="text-grey">Tech Inc.</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Contact me</a><a href="event.html" class="btn btn-flat right">View profile</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="event.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/member2.jpg" class="img-responsive"></a>
@@ -121,7 +123,7 @@
                   <h2 class="h3 card-title">Catelyn Stark<a href="profile.html"> </a></h2>
                   <div class="text-grey-dark">Drupal Ninja</div>
                   <div class="text-grey">House Stark</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Contact me</a><a href="event.html" class="btn btn-flat right">View profile</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="event.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/member3.jpg" class="img-responsive"></a>
@@ -129,7 +131,7 @@
                   <h2 class="h3 card-title"> <a href="profile.html">Khal Drogo</a></h2>
                   <div class="text-grey-dark">Drupal Ninja</div>
                   <div class="text-grey">Nightswatch</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Contact me</a><a href="event.html" class="btn btn-flat right">View profile</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="event.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/member4.jpg" class="img-responsive"></a>
@@ -137,7 +139,7 @@
                   <h2 class="h3 card-title"> <a href="profile.html">Getrud van Assen</a></h2>
                   <div class="text-grey-dark">Drupal Ninja</div>
                   <div class="text-grey">House Tully</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Contact me</a><a href="event.html" class="btn btn-flat right">View profile</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="event.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image"><img src="content/images/member5.jpg" class="img-responsive"></a>
@@ -145,7 +147,7 @@
                   <h2 class="h3 card-title"> <a href="profile.html">Tyrion Lannister</a></h2>
                   <div class="text-grey-dark">Drupal Ninja</div>
                   <div class="text-grey">House Lannister</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat left btn--primary">Contact me</a><a href="event.html" class="btn btn-flat right">View profile</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="event.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
             </div>

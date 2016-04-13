@@ -84,7 +84,7 @@
         <div class="container">
           <div class="row margin-top-l">
             <div class="col-md-9 margin-bottom-l">
-              <form class="node-form">
+              <form action="topic.html" method="get">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
                     <header>Content</header>
@@ -119,7 +119,7 @@
                       <label>Image</label>
                       <div class="image-widget form-managed-file clearfix">
                         <input type="file" value="upload an image" class="form-control">
-                        <button type="submit" value="remove" class="btn form-submit style-default js-hide"><i class="material-icons left">file_upload</i>Upload</button>
+                        <button type="submit" value="remove" class="btn form-submit style-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
                       </div>
                       <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                     </div>
@@ -140,7 +140,7 @@
                         <input id="group" type="radio" name="placement" onclick="showMe('selectagroup', 'visibilitygroup', this)">
                         <label for="group">A group I am a member of:</label>
                       </div>
-                      <div id="selectagroup" style="display:none;" class="form-control col-sm-6 margin-top-s">
+                      <div id="selectagroup" style="display:none;">
                         <select class="form-control">
                           <option value="" disabled="" selected="">Select a group</option>
                           <option value="1">Group 1</option>
@@ -192,8 +192,8 @@
                   </div>
                 </div>
                 <div class="form-wrapper clearfix">
-                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn--primary right">
-                  <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--default-dark right">
+                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
+                  <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn--default-dark pull-right">
                 </div>
               </form>
             </div>
