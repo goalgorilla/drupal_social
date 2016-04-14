@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Michael Angarano</title>
+    <title>John Johnson</title>
     <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
@@ -79,7 +79,7 @@
       </nav>
       <div class="container hidden-xs">
         <div class="cover">
-          <div class="cover-wrap">
+          <div class="cover-wrap"><a href="profile-edit.html" class="pull-right waves-effect waves-light btn btn-raised style-default-dark btn-floating"><i class="material-icons">mode_edit   </i></a>
             <h1 class="page-title">John Johnson</h1><img src="content/images/avatar1.jpg" class="img-circle img-bordered"><br><br>
             <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
           </div>
@@ -87,7 +87,7 @@
       </div>
       <div class="main-content">
         <div class="container">
-          <div class="visible-xs-block section"><a class="btn btn-raised btn-default"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
+          <div class="visible-xs-block section"><a class="btn btn-raised btn-default"> <i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
         </div>
         <div class="container">
           <div class="brand-secondary z-depth-1 hidden-xs">
@@ -95,9 +95,9 @@
               <h2 class="visually-hidden">Secondary navigation</h2>
               <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
                 <li><a href="my-stream.html">Stream  </a></li>
-                <li><a href="about.html">About</a></li>
+                <li class="active"><a href="my-profile-about.html">About</a><span class="visually-hidden">(active tab)</span></li>
                 <li><a href="my-topics.html">Topics</a></li>
-                <li class="active"><a href="my-events.html">Events </a><span class="visually-hidden">(active tab) </span></li>
+                <li><a href="my-events.html">Events  </a></li>
                 <li><a href="my-groups.html">Groups</a></li>
               </ul>
             </nav>
@@ -105,97 +105,44 @@
         </div>
         <div class="container">
           <div class="row">
-            <div class="col-xs-12">
-              <h2 class="h3 section-title">My events</h2>
-            </div>
-            <div class="col-xs-12 col-sm-3 pull-right margin-bottom-l"><a href="node-add-event.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons pull-left">add</i>Add an event</a>
-              <button class="waves-effect waves-light btn btn-block btn-primary visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</button>
-              <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
-                <div class="offcanvas-head">
-                  <header class="card__label">filter</header>
-                  <div class="offcanvas-tools visible-xs-block">
-                    <button class="js-close-canvas btn btn-icon-toggle btn-default-light pull-right"><i class="material-icons">close</i></button>
-                  </div>
-                </div>
-                <div class="offcanvas-body">
-                  <form>
-                    <div class="form-group radios">
-                      <label>Event status </label>
-                      <div class="radio">
-                        <input id="radio1" name="event" type="radio" checked>
-                        <label for="radio1">Upcoming</label>
-                      </div>
-                      <div class="radio">
-                        <input id="radio2" name="event" type="radio">
-                        <label for="radio2">Past</label>
-                      </div>
-                      <div class="radio">
-                        <input id="radio3" name="event" type="radio">
-                        <label for="radio3">Unpublished</label>
-                      </div>
-                    </div>
-                    <div class="form-group margin-top-l clearfix visible-xs-block">
-                      <button class="btn btn-default js-close-canvas pull-right">Done</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <div class="col-sm-12">
+              <h4 class="section-title">About me</h4>
             </div>
             <div class="col-xs-12 col-sm-9">
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">19
-                    <div class="text-xs">may</div>
-                  </div></a>
-                <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
-                  <div class="text-grey">19 jul 09:00 - 18:00</div>
-                  <div class="text-grey-dark">Patheon, Rome</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+              <div class="card">
+                <div class="card-body extra-padding">
+                  <ul class="collection">
+                    <li class="collection-item">
+                      <h4>Contact information</h4>
+                    </li>
+                    <li class="collection-item"> 
+                      <div class="collection-label">Phone</div>
+                      <div class="collection-field">+31 612345678</div>
+                    </li>
+                    <li class="collection-item"> 
+                      <div class="collection-label">E-mail</div>
+                      <div class="collection-field"> <a href="#">john@johnjohnson.com    </a></div>
+                    </li>
+                    <li class="collection-item"> 
+                      <div class="collection-label">Address</div>
+                      <div class="collection-field">
+                         
+                        My street name 123 <br>1234 BB<br>Amsterdam
+                      </div>
+                    </li>
+                  </ul>
+                  <h4>About you</h4>
+                  <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                  <h4>Your interests</h4>
+                  <div class="chip">drupal</div>
+                  <div class="chip">sales</div>
+                  <div class="chip">barbecues</div>
+                  <h4>Your expertise</h4>
+                  <div class="chip">php</div>
+                  <div class="chip">interaction design</div>
+                  <div class="chip">cooking</div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">20-21
-                    <div class="text-xs">may-may</div>
-                  </div></a>
-                <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
-                  <div class="text-grey">20 May 09:00 - 21 May 18:00</div>
-                  <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">26
-                    <div class="text-xs">may</div>
-                  </div></a>
-                <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">London Meetup</a></h2>
-                  <div class="text-grey">26 may 09:00 - 18:00</div>
-                  <div class="text-grey-dark">Tower Bridge, London</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">28
-                    <div class="text-xs">Aug</div>
-                  </div></a>
-                <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Team conference East</a></h2>
-                  <div class="text-grey">28 Aug 10:00 - 12:00</div>
-                  <div class="text-grey-dark">Old Market, Groningen</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
-                </div>
-              </div>
-              <nav>
-                <ul class="pagination">
-                  <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
-                  <li class="pager__item active"><a href="#1">1</a></li>
-                  <li class="pager__item"> <a href="#1">2</a></li>
-                  <li class="pager__item"> <a href="#1">3          </a></li>
-                  <li class="pager__item"> <a href="#1">4</a></li>
-                  <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
