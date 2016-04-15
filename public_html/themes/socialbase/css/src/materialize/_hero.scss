@@ -1,0 +1,80 @@
+// Used on a hero block that can hold a background image.
+.cover {
+  position: relative; // keep hero-footer contained
+  color: white;
+  background-color: $primary-color;
+  width: 100%;
+  text-align: center;
+  padding: ($grid-gutter-width / 2);
+}
+
+.cover-img {
+  background-size: cover;
+  background-position: center;
+
+  &:before{
+      display: block;
+      position: absolute;
+      content: '';
+      background-image: linear-gradient(rgba(0,0,0,0.00) 40%, rgba(0,0,0,0.1) 70%, rgba(34,34,34,0.35) 100%);
+      width: 100%;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+
+}
+
+.cover-wrap {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+
+  @include MQ($medium) {
+    height: 335px;
+  }
+
+
+}
+
+.page-title {
+	color: white;
+  font-weight: 700;
+  text-align: center;
+	margin: 1em 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+}
+
+.hero-footer {
+  padding-top: 20px;
+
+  @include MQ($medium) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.primary-action-region {
+  position: relative;
+  padding-top: 20px;
+  width: 100%;
+  z-index: 2;
+
+  @include MQ($small) {
+    position: absolute;
+    text-align: right;
+    right: 0;
+    bottom: 0;
+    width: 35%;
+    padding: ($grid-gutter-width / 2);
+  }
+
+}

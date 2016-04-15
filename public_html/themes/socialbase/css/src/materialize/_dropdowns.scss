@@ -1,0 +1,32 @@
+.dropdown-menu {
+  font-size: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 0;
+
+  > li > a {
+    padding: 10px 20px;
+    font-weight: 300;
+  }
+
+  .media {
+    min-width: 250px;
+  }
+
+  .media-body {
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+}
+
+
+.dropdown-header {
+  padding: 10px 20px;
+  background: $dropdown-header-bg;
+}
+
+.dropdown-toggle + ul > li > .material-icons {
+  margin-right: 10px;
+  font-size: 16px;
+}

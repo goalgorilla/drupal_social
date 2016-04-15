@@ -4,29 +4,33 @@ block title
   title The High Price of Free
 
 block pagetitle
-  .block-hero
-    .container
-      .row
-        .col.s12.center
-          a.right.waves-effect.waves-light.btn.btn-raised.style-default-dark.btn-floating(href='#!')
-            i.material-icons mode_edit
-            
-          h1.page-title.h2 The High Price of Free
-          p.entry-details
-            span(itemprop="author", itemscope="", itemtype="http://schema.org/Person") By 
-              a.author(itemprop="url", rel="author", href="/author/rachelandrew") Rachel Andrew
-            time.pubdate.updated(datetime="2016-01-26T10:00:00-05:00", itemprop="datePublished")  January 26, 2016
-            span.entry-meta Published in
+
+  .container
+    .cover.cover-img(style="background-image: url('content/images/event-hero.jpg')")  
+      .cover-wrap   
+        a.pull-right.waves-effect.waves-light.btn.btn-raised.style-default-dark.btn-floating(href='node-edit-topic.html')
+          i.material-icons mode_edit        
+        h1.page-title The High Price of Free
+        .hero-footer
+          div(itemprop="author", itemscope="", itemtype="http://schema.org/Person") published by 
+            a.author(itemprop="url", rel="author", href="/author/rachelandrew") Rachel Andrew
+          div on 
+            time.pubdate.updated(datetime="2016-01-26T10:00:00-05:00", itemprop="datePublished")  January 26, 2016 
+            span in 
               a(href="/topic/blogs")
                 span(itemprop="about") Blogs
       
 block content
       
-  .row.margin-top-l
-    .col.s12.l9
+  .row
+    .col-sm-12
+      h4.section-title Topic details
+    
+    .col-md-9
       .card
         .card-body.extra-padding
-          p.caption Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business. Your training can be free, as so many industry experts write and teach and share this information without charging for it. Even the tools you use to build websites can be downloaded free of charge, or purchased for very little.
+          p
+            strong Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business. Your training can be free, as so many industry experts write and teach and share this information without charging for it. Even the tools you use to build websites can be downloaded free of charge, or purchased for very little.
           
           p As an industry we have become accustomed to getting hundreds of hours of work, and the benefit of years of hard-won knowledge for free.
 
