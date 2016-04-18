@@ -299,6 +299,7 @@ if (window.jQuery) {
    *      `{@link Drupal.theme}('placeholder')`).
    *
    * @return {string}
+   *   The formatted string.
    *
    * @see Drupal.t
    */
