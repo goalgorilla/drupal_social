@@ -1,26 +1,45 @@
 @charset "UTF-8";
 
 // Mixins
-@import "mixins/mixins";
+
 @import "base/shadows";
 
-// Variables;
-@import "base/variables";
-@import "mixins/styles";
+//
+// Variables and mixins
+@import "materialize/variables";
+@import "bootstrap/mixins";
+@import "materialize/mixins";
 
-// Reset
-@import "base/normalize";
+//
+// Reset and dependencies
+@import "bootstrap/normalize";
+@import "bootstrap/print";
+@import "materialize/icons";
+@import "materialize/fonts";
 
 //
 // Base
 @import "base/color";
-@import "base/global";
 @import "base/animations";
-@import "base/fonts";
-@import "base/typography";
 @import "base/visibility";
-@import "base/icons";
-@import "base/tables";
+
+//
+// Bootstrap components that are used @version 3.3.6
+@import "bootstrap/scaffolding";
+@import "bootstrap/buttons";
+@import "bootstrap/breadcrumbs";
+@import "bootstrap/pagination";
+@import "bootstrap/type";
+
+//
+// Materialize style components
+@import "materialize/scaffolding";
+@import "materialize/typography";
+@import "materialize/breadcrumbs";
+@import "materialize/cards";
+@import "materialize/pagination";
+@import "materialize/grid"; // This is the Bootstrap v4.0 grid system
+@import "materialize/hero";
 
 //
 // Components
@@ -29,13 +48,10 @@
 @import "components/collection";
 @import "components/waves";
 @import "components/collapsible";
-@import "components/cards";
 @import "components/tabs";
-@import "components/breadcrumbs";
 @import "components/table-of-contents";
-@import "components/teaser";
 @import "components/off-canvas";
-@import "components/pagination";
+
 
 @import "components/forms/inputs";
 @import "components/forms/radio";
@@ -52,7 +68,6 @@
 
 // Layout
 @import "layout/layout";
-@import "layout/grid";
 
 //
 // Project
@@ -61,6 +76,10 @@
 @import "project/hamburger";
 @import "project/forms";
 @import "project/hero";
+
+// Utility classes
+@import "bootstrap/utilities";
+@import "bootstrap/responsive-utilities";
 
 //
 // Theme

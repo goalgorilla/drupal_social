@@ -18,7 +18,7 @@ var gulp          = require('gulp'),
     notify        = require('gulp-notify'),
     gutil         = require('gulp-util'),
     uglify        = require('gulp-uglify'),
-    cssnano       = require('gulp-cssnano'),
+    nano          = require('gulp-cssnano'),
     connect       = require('gulp-connect'),
     plumber       = require('gulp-plumber'),
     deploy        = require('gulp-gh-pages');
@@ -28,24 +28,26 @@ var gulp          = require('gulp'),
 // ===================================================
 
 var folder = {
-  dist: 'dist',
-  jade: 'jade',
   css: 'css',
   scss: 'css/src',
+  bootstrap_scss: 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap',
+  bootstrap_js: 'node_modules/bootstrap-sass/assets/javascripts/bootstrap',
   js: 'js',
   js_comp: 'js/components',
   js_project: 'js/project',
-  data: 'locales',
   js_vendor: '../../core/assets/vendor',
-  js_drupal: '../../core'
+  js_drupal: '../../core',
+  jade: 'jade',
+  dist: 'dist'
 }
 
 var glob = {
-  jade: folder.jade + '/*.jade',
   css: folder.css + '/*.css',
   scss: folder.css + '/src/**/*.scss',
+  bootstrap_scss: folder.bootstrap_scss + '/**/*.scss',
+  bootstrap_js: folder.bootstrap_js + '/*.js',
   js: folder.js + '/**/*.js',
-  data: folder.data + '/**/*.json',
+  jade: folder.jade + '/*.jade',
   font: 'font/**/*',
   images: 'images/**/*',
   content: 'content/**/*',
@@ -79,6 +81,9 @@ gulp.task('css', function () {
     }))
     .pipe( sourcemaps.init() )
     .pipe( sass() )
+    .pipe( nano( {
+      mergeRules: true
+    }) )
     .pipe( postcss(processors) )
     .pipe( rucksack() )
     .pipe( sourcemaps.write('.') )
@@ -231,6 +236,26 @@ gulp.task('libs', function() {
 
 
 // ===================================================
+// Import Bootstrap assets
+// ===================================================
+
+gulp.task('bootstrap-sass', function() {
+  stream = gulp.src(glob.bootstrap_scss)
+    .pipe( gulp.dest(folder.scss + '/bootstrap') )
+  return stream;
+});
+
+gulp.task('bootstrap-js', function() {
+  stream = gulp.src(glob.bootstrap_js)
+    .pipe( gulp.dest(folder.js + '/bootstrap') )
+    .pipe( concat('bootstrap.js') )
+    .pipe( gulp.dest(folder.js) )
+    .pipe( gulp.dest(folder.dist + '/js') )
+  return stream;
+});
+
+
+// ===================================================
 // Set up a server
 // ===================================================
 
@@ -290,6 +315,13 @@ gulp.task('deploy', ['build'], function() {
   return gulp.src([folder.dist + '/**/*'])
     .pipe( deploy() );
 });
+
+
+// ===================================================
+// Run this one time when you install the project so you have all files in the dist folder
+// ===================================================
+gulp.task('init', ['images', 'content', 'libs', 'font']);
+
 
 gulp.task('scripts', ['script-components', 'script-project', 'script-vendor', 'script-drupal', 'script-init']);
 
