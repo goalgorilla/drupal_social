@@ -9,7 +9,7 @@ Feature: Redirect AN user from 403 after login
     And I am on the homepage
     When I go to "node/add/topic"
     Then I should be on "user/login?destination=/node/add/topic"
-     And I should see the error message "Access denied. You must log in to view this page."
+     And I should see "Access denied. You must log in to view this page."
 
   Scenario: Successfully redirected after login via 403 page
     Given users:
