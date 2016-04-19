@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Michael Angarano</title>
+    <title>Search members</title>
     <!--Favicons-->
     <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
     <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
@@ -72,28 +72,26 @@
     <main role="main" class="main-container">
       <nav class="visible-md-block visible-lg-block style-default-bright">
         <ol class="breadcrumb container">
-          <li><a href="#!">Home</a></li>
-          <li><a href="#!">Overview</a></li>
-          <li class="active">Detail</li>
+          <li><a href="home-lu.html">Home</a></li>
+          <li><a href="search-members.html">Search members</a></li>
         </ol>
       </nav>
-      <div class="container hidden-xs">
+      <div class="container">
         <div class="cover">
-          <div class="cover-wrap">
-            <h1 class="page-title h2">John Johnson</h1><img src="content/images/avatar1.jpg" class="img-circle img-bordered"><br><br>
-            <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
-          </div>
+          <h1 class="page-title h2">Search</h1><br>
+          <form role="search" method="get" action="search-content.html" class="hero-form">
+            <div class="form-group">
+              <input type="text" placeholder="Search" value="all members" name="search" autocomplete="off" class="form-control">
+              <input type="submit" value="" class="form-submit"><span class="search-icon"><i class="material-icons">search</i></span>
+            </div>
+          </form>
         </div>
-        <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-default"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
-        <div class="brand-secondary z-depth-1 hidden-xs">
+        <div class="brand-secondary z-depth-1">
           <nav role="navigation" aria-label="Tabs">
             <h2 class="visually-hidden">Secondary navigation</h2>
             <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-              <li><a href="my-stream.html">Stream  </a></li>
-              <li><a href="my-profile-about.html">About</a></li>
-              <li><a href="my-topics.html">Topics</a></li>
-              <li class="active"><a href="my-events.html">Events </a><span class="visually-hidden">(active tab) </span></li>
-              <li><a href="my-groups.html">Groups</a></li>
+              <li><a href="search-content.html">Content </a></li>
+              <li class="active"><a href="search-members.html">Members </a><span class="visually-hidden">(active tab)  </span></li>
             </ul>
           </nav>
         </div>
@@ -101,85 +99,63 @@
       <div class="main-content">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12">
-              <h2 class="h3 section-title">My events</h2>
+            <div class="col-sm-12">
+              <h4 class="section-title">Member results</h4>
             </div>
-            <div class="col-xs-12 col-sm-3 pull-right margin-bottom-l"><a href="node-add-event.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons pull-left">add</i>Add an event</a>
-              <button class="waves-effect waves-light btn btn-block btn-primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</button><br><br>
+            <div class="col-sm-3 col-sm-push-9">
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
                   <div class="offcanvas-tools visible-xs-block">
-                    <button class="js-close-canvas btn btn-icon-toggle btn-default-light pull-right"><i class="material-icons">close</i></button>
+                    <div class="js-close-canvas btn btn-icon-toggle btn-default-light pull-right"><i class="material-icons">close</i></div>
                   </div>
                 </div>
-                <div class="offcanvas-body">
-                  <form>
-                    <div class="form-group radios">
-                      <label>Event status </label>
-                      <div class="radio">
-                        <input id="radio1" name="event" type="radio" checked>
-                        <label for="radio1">Upcoming</label>
-                      </div>
-                      <div class="radio">
-                        <input id="radio2" name="event" type="radio">
-                        <label for="radio2">Past</label>
-                      </div>
-                      <div class="radio">
-                        <input id="radio3" name="event" type="radio">
-                        <label for="radio3">Unpublished</label>
-                      </div>
-                    </div>
-                    <div class="form-group margin-top-l clearfix visible-xs-block">
-                      <button class="btn btn-default js-close-canvas pull-right">Done</button>
-                    </div>
-                  </form>
-                </div>
+              </div>
+              <div class="offcanvas-body">
+                <form>
+                  <div class="form-group"></div>
+                </form>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-9">
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">19
-                    <div class="text-xs">may</div>
-                  </div></a>
+            <div class="col-sm-9 col-sm-pull-3">
+              <div class="card card--teaser card-with-actionbar"><a href="profile.html" class="card-image"><img src="content/images/member1.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
-                  <div class="text-grey">19 jul 09:00 - 18:00</div>
-                  <div class="text-grey-dark">Patheon, Rome</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="profile.html">Jade Williams</a></h2>
+                  <div class="text-grey-dark">Drupal Ninja</div>
+                  <div class="text-grey">Tech Inc.</div>
+                  <div class="card-actionbar"><a href="profile.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="profile.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">20-21
-                    <div class="text-xs">may-may</div>
-                  </div></a>
+              <div class="card card--teaser card-with-actionbar"><a href="profile.html" class="card-image"><img src="content/images/member2.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
-                  <div class="text-grey">20 May 09:00 - 21 May 18:00</div>
-                  <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title">Catelyn Stark<a href="profile.html"> </a></h2>
+                  <div class="text-grey-dark">Drupal Ninja</div>
+                  <div class="text-grey">House Stark</div>
+                  <div class="card-actionbar"><a href="profile.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="profile.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">26
-                    <div class="text-xs">may</div>
-                  </div></a>
+              <div class="card card--teaser card-with-actionbar"><a href="profile.html" class="card-image"><img src="content/images/member3.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">London Meetup</a></h2>
-                  <div class="text-grey">26 may 09:00 - 18:00</div>
-                  <div class="text-grey-dark">Tower Bridge, London</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="profile.html">Khal Drogo</a></h2>
+                  <div class="text-grey-dark">Drupal Ninja</div>
+                  <div class="text-grey">Nightswatch</div>
+                  <div class="card-actionbar"><a href="profile.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="profile.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">28
-                    <div class="text-xs">Aug</div>
-                  </div></a>
+              <div class="card card--teaser card-with-actionbar"><a href="profile.html" class="card-image"><img src="content/images/member4.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Team conference East</a></h2>
-                  <div class="text-grey">28 Aug 10:00 - 12:00</div>
-                  <div class="text-grey-dark">Old Market, Groningen</div>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="profile.html">Getrud van Assen</a></h2>
+                  <div class="text-grey-dark">Drupal Ninja</div>
+                  <div class="text-grey">House Tully</div>
+                  <div class="card-actionbar"><a href="profile.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="profile.html" class="btn btn-flat pull-right">View profile</a></div>
+                </div>
+              </div>
+              <div class="card card--teaser card-with-actionbar"><a href="profile.html" class="card-image"><img src="content/images/member5.jpg" class="img-responsive"></a>
+                <div class="card-body">
+                  <h2 class="h3 card-title"> <a href="profile.html">Tyrion Lannister</a></h2>
+                  <div class="text-grey-dark">Drupal Ninja</div>
+                  <div class="text-grey">House Lannister</div>
+                  <div class="card-actionbar"><a href="profile.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="profile.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <nav>
