@@ -15,13 +15,13 @@
   <body class="template">
     <div id="header">
       <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
-        <div class="container"><a href="#" class="navbar-brand">
-            <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+        <div class="container"><a href="home-lu.html" class="navbar-brand">
+            <object type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
           <div class="navbar-header">
             <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="#"><i title="Add content" class="material-icons">add</i><span class="sr-only">Add content</span></a></li>
-              <li class="hidden-xs active"><a href="#">Home</a></li>
+              <li class="hidden-xs active"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                 <ul class="dropdown-menu notifications-nav">
@@ -72,13 +72,13 @@
     <main role="main" class="main-container">
       <nav class="visible-md-block visible-lg-block style-default-bright">
         <ol class="breadcrumb container">
-          <li><a href="#!">Home</a></li>
+          <li><a href="home-lu.html">Home</a></li>
           <li><a href="#!">Overview</a></li>
           <li class="active">Detail</li>
         </ol>
       </nav>
       <div class="container">
-        <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img"> 
+        <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img hidden-xs"> 
           <div class="cover-wrap">  <a href="node-edit-event.html" class="pull-right waves-effect waves-light btn btn-raised brand-user btn-floating"><i class="material-icons">mode_edit        </i></a>
             <h1 class="page-title">Amsterdam Meetup</h1>
             <div class="hero-footer">
@@ -93,19 +93,18 @@
             <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll</button>
           </div>
         </div>
+        <div class="visible-xs-block section"><a href="event.html" class="btn btn-raised btn-default"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to event</a></div>
+        <div class="brand-secondary z-depth-1 hidden-xs">
+          <nav role="navigation" aria-label="Tabs">
+            <h2 class="visually-hidden">Secondary navigation</h2>
+            <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
+              <li><a href="event.html">Details</a></li>
+              <li class="active"><a href="event-enrollments.html">Enrollments<span class="visually-hidden">(active tab)</span></a></li>
+            </ul>
+          </nav>
+        </div>
       </div>
       <div class="main-content">
-        <div class="container">
-          <div class="brand-secondary z-depth-1">
-            <nav role="navigation" aria-label="Tabs">
-              <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-                <li><a href="event.html">Details</a></li>
-                <li class="active"><a href="event-enrollments.html">Enrollments<span class="visually-hidden">(active tab)</span></a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
         <div class="container">
           <div class="row">
             <div class="col-sm-12">

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Homepage Logged-in user</title>
+    <!--Favicons-->
+    <link rel="apple-touch-icon-precomposed" type="image/svg+xml" href="/images/social-logo-blue.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="/images/social-logo-blue.svg">
+    <!--CSS-->
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+  </head>
+  <body class="template">
+    <div id="header">
+      <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
+        <div class="container"><a href="home-lu.html" class="navbar-brand">
+            <object type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+          <div class="navbar-header">
+            <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="hidden-xs"><a href="#"><i title="Add content" class="material-icons">add</i><span class="sr-only">Add content</span></a></li>
+              <li class="hidden-xs active"><a href="home-lu.html">Home</a></li>
+              <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+                <ul class="dropdown-menu notifications-nav">
+                  <li>
+                    <div class="dropdown-header">Notifications</div>
+                  </li>
+                  <li><a href="#" class="media">
+                      <div class="media-left"><img src="content/images/avatar2.jpg" alt="" class="img-small img-circle"></div>
+                      <div class="media-body">Clive Owen<br><small class="text-muted">Commented on your post</small></div></a></li>
+                  <li><a href="#" class="media">
+                      <div class="media-left"><img src="content/images/avatar3.jpg" alt="" class="img-small img-circle"></div>
+                      <div class="media-body">Jeremy Bob<br><small class="text-muted">Liked your post</small></div></a></li>
+                  <li><a href="#" class="media">
+                      <div class="media-left"><img src="content/images/avatar4.jpg" alt="" class="img-small img-circle"></div>
+                      <div class="media-body">Bettie McLaren<br><small class="text-muted">likes your event <strong>8th anniversary our beloved company</strong></small></div></a></li>
+                  <li>
+                    <div class="dropdown-header"><a href="#">See more<span class="pull-right"> <i class="material-icons">chevron_right</i></span></a></div>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><img src="content/images/avatar1.jpg" alt="" class="img-tiny img-circle pull-left"><span class="profile hidden-xs">John Johnson</span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="my-stream.html">View profile</a></li>
+                  <li><a href="profile-edit.html">Edit profile</a></li>
+                  <li><a href="account-edit.html">Edit account</a></li>
+                  <li class="divider"></li>
+                  <li><a href="login.html">Log out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Explore</a></li>
+              <li>
+                <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
+                  <div id="navbar-search" class="form-group">
+                    <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control">
+                    <input type="submit" value="" class="form-submit"><span class="search-icon"><i class="material-icons">search</i></span>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <main role="main" class="main-container">
+      <nav class="visible-md-block visible-lg-block style-default-bright">
+        <ol class="breadcrumb container">
+          <li><a href="home-lu.html">Home</a></li>
+          <li><a href="#!">Overview</a></li>
+          <li class="active">Detail</li>
+        </ol>
+      </nav>
+      <div class="main-content">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-9 margin-top-xl">
+              <div class="card no-margin">
+                <div class="card-body">
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <div class="col-xs-12">
+                        <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-xs-7 col-sm-3">
+                        <div class="dropdown">
+                          <button id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-sm btn-default dropdown-toggle"> <i class="material-icons pull-left">public</i><span class="text">Public </span><span class="caret"></span></button>
+                          <ul role="menu" aria-labelledby="post-visibility" class="dropdown-menu dropdown-md">
+                            <li class="dropdown-header">Visibility settings</li>
+                            <li class="list-group-item active">
+                              <div class="form-group">
+                                <label for="public"> <i class="material-icons pull-left">public</i>Public
+                                  <input id="public" type="radio" name="visioptions" value="Public" checked onclick="showMe('post-visibility', this)" class="invisible">
+                                  <div class="help-block">Visible to all visitors of the site</div>
+                                </label>
+                              </div>
+                            </li>
+                            <li class="list-group-item">
+                              <div class="form-group">
+                                <label for="community"> <i class="material-icons pull-left">group</i>Community
+                                  <input id="community" type="radio" name="visioptions" value="Community" onclick="showMe('post-visibility', this)" class="invisible">
+                                  <div class="help-block">Visible only to member who are logged in</div>
+                                </label>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-xs-5 col-sm-2 col-sm-offset-7">
+                        <input type="submit" value="post" class="btn btn-sm btn-primary btn-block">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <ul class="stream">
+                <li class="stream-item"><i class="stream-icon"> </i>
+                  <div class="card stream-card">
+                    <div class="card-body">
+                      <div class="media">
+                        <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar3.jpg" class="media-object img-circle img-small"></a></div>
+                        <div class="media-body">
+                          <h5 class="media-heading"><a href="other-stream.html">Clive Owen </a><br><small>15 hours</small></h5>
+                        </div>
+                      </div>
+                      <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
+                      <div class="text-right visible-xs-block"> <a href="single-post.html" class="btn btn-sm btn-link btn-link-default">5 comments</a></div>
+                      <div class="card-buttonbar margin-top-m"><a href="single-post.html" class="btn btn-sm btn-link btn-link-default"> <i class="material-icons pull-left">favorite</i><span>like</span></a><a href="single-post.html" class="btn btn-sm btn-link btn-link-default"> <i class="material-icons pull-left">share</i><span>share</span></a><a href="single-post.html" class="btn btn-sm btn-link btn-link-default visible-xs-inline-block"> <i class="material-icons pull-left">comment</i><span>comment</span></a>
+                        <div class="hidden-xs justify-end"><a href="single-post.html" class="btn btn-sm btn-link btn-link-default">5 comments</a></div>
+                      </div>
+                      <div class="card-nested-section">
+                        <div class="media-left hidden-xs"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
+                        <div class="media-body hidden-xs">
+                          <form>
+                            <div class="form-group form-group-inline clearfix">
+                              <textarea placeholder="Write a comment..." width="100%" class="form-control form-control--block"></textarea>
+                              <button type="submit" class="btn btn-sm btn-link">Comment</button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar4.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Bryan Roy </a>&bullet; <small>44 minutes </small></h5>
+                            <p>Rutrum faucibus dolor auctor.</p>
+                          </div>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar3.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Clive Owen </a>&bullet; <small>2 hours </small></h5>
+                            <p>Ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="stream-item"><i class="stream-icon"> </i>
+                  <div class="card stream-card">
+                    <div class="card-body">
+                      <div class="media">
+                        <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar3.jpg" class="media-object img-circle img-small"></a></div>
+                        <div class="media-body">
+                          <h5 class="media-heading"><a href="other-stream.html">Clive Owen </a><br><small>15 hours</small></h5>
+                        </div>
+                      </div>
+                      <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
+                      <div class="text-right visible-xs-block"> <a href="single-post.html" class="btn btn-sm btn-link btn-link-default">5 comments</a></div>
+                      <div class="card-buttonbar margin-top-m"><a href="single-post.html" class="btn btn-sm btn-link btn-link-default"> <i class="material-icons pull-left">favorite</i><span>like</span></a><a href="single-post.html" class="btn btn-sm btn-link btn-link-default"> <i class="material-icons pull-left">share</i><span>share</span></a><a href="single-post.html" class="btn btn-sm btn-link btn-link-default visible-xs-inline-block"> <i class="material-icons pull-left">comment</i><span>comment</span></a>
+                        <div class="hidden-xs justify-end"><a href="single-post.html" class="btn btn-sm btn-link btn-link-default">5 comments</a></div>
+                      </div>
+                      <div class="card-nested-section">
+                        <div class="media-left hidden-xs"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
+                        <div class="media-body hidden-xs">
+                          <form>
+                            <div class="form-group form-group-inline clearfix">
+                              <textarea placeholder="Write a comment..." width="100%" class="form-control form-control--block"></textarea>
+                              <button type="submit" class="btn btn-sm btn-link">Comment</button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar4.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Bryan Roy </a>&bullet; <small>44 minutes </small></h5>
+                            <p>Rutrum faucibus dolor auctor.</p>
+                          </div>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar3.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Clive Owen </a>&bullet; <small>2 hours </small></h5>
+                            <p>Ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-3 margin-bottom-l hidden-xs"></div>
+          </div>
+          <style>
+            .card-body {padding: 10px; font-size: 14px; line-height: 18px;}
+            .media-left, .media>.pull-left {padding-right: 10px;}
+            .card-nested-section { margin: 0 -10px -10px -10px; font-size: 13px; padding: 10px;}
+            .card-nested-section:last-child { margin-bottom: -10px;}
+            .form-control {font-size: 14px;}
+            .btn .material-icons, label .material-icons {line-height: 18px; height: 18px;}
+            label .material-icons { font-size: inherit}
+            .img-small {width: 34px; height: 34px;}
+            .card-nested-section .media-body .form-group {margin-bottom: 0;}
+            
+          </style>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="js/vendor.js"></script>
+  <script src="js/drupal-core.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <!-- Does not work for Safari iOS, debug later-->
+  <!-- include _fontfaceobserver.jade-->
+  <script>
+    new UISearch( document.getElementById( 'navbar-search' ) );
+    
+  </script>
+  <script>
+    function showMe (it, radio) {
+      var visibility = radio.value;
+      jQuery('#' + it).find('span.text').html(visibility);
+      jQuery('#' + it).next('.dropdown-menu').find('.list-group-item').removeClass('active');
+      jQuery(radio).closest('.list-group-item').addClass('active');
+    }
+  </script>
+</html>
