@@ -95,42 +95,41 @@
       </nav>
       <div class="main-content">
         <div class="container">
-          <div class="row">
-            <div class="col-sm-9 margin-top-xl">
+          <div class="row margin-top-xl">
+            <div class="col-sm-9">
               <div class="card no-margin">
                 <div class="card-body">
-                  <form class="form-horizontal">
+                  <form>
                     <div class="form-group">
-                      <div class="col-xs-12">
-                        <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea"></textarea>
-                      </div>
+                      <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea"></textarea>
                     </div>
-                    <div class="form-group">
-                      <label class="control-label hidden-xs col-sm-2 col-sm-offset-4 col-md-offset-5">Visibility</label>
-                      <div class="col-xs-7 col-sm-3 col-md-3">
-                        <div class="dropdown">
-                          <button id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle"> <span class="text">Public </span><span class="caret"></span></button>
-                          <ul role="menu" aria-labelledby="post-visibility" class="dropdown-menu">
+                    <div class="form-group media">
+                      <div class="media-body">
+                        <div class="dropdown pull-right">
+                          <button id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle"> <i class="material-icons pull-left">public</i><span class="text">Public </span><span class="caret"></span></button>
+                          <ul role="menu" aria-labelledby="post-visibility" class="dropdown-menu dropdown-md">
                             <li class="dropdown-header">Visibility settings</li>
                             <li class="list-group-item active">
                               <div class="form-group">
-                                <label for="public">Public</label>
-                                <input id="public" type="radio" name="visioptions" value="Public" checked onclick="showMe('post-visibility', this)" class="invisible">
-                                <div class="help-block">Visible to all visitors of the site</div>
+                                <label for="public"> <i class="material-icons pull-left">public</i>Public
+                                  <input id="public" type="radio" name="visioptions" value="Public" checked onclick="showMe('post-visibility', this)" class="invisible">
+                                  <div class="help-block">Visible to all visitors of the site</div>
+                                </label>
                               </div>
                             </li>
                             <li class="list-group-item">
                               <div class="form-group">
-                                <label for="community">Community</label>
-                                <input id="community" type="radio" name="visioptions" value="Community" onclick="showMe('post-visibility', this)" class="invisible">
-                                <div class="help-block">Visible only to member who are logged in</div>
+                                <label for="community"> <i class="material-icons pull-left">group</i>Community
+                                  <input id="community" type="radio" name="visioptions" value="Community" onclick="showMe('post-visibility', this)" class="invisible">
+                                  <div class="help-block">Visible only to member who are logged in</div>
+                                </label>
                               </div>
                             </li>
                           </ul>
                         </div>
                       </div>
-                      <div class="col-xs-5 col-sm-3 col-md-2">
-                        <input type="submit" value="post" class="btn btn-primary btn-block">
+                      <div class="media-right">
+                        <input type="submit" value="post" class="btn btn-primary">
                       </div>
                     </div>
                   </form>
@@ -148,7 +147,7 @@
                       </div>
                       <p class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
                       <div class="card-nested-section">
-                        <div class="media-left"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
+                        <div class="media-left hidden-xs"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
                         <div class="media-body">
                           <form>
                             <div class="form-group form-group-inline clearfix">
@@ -171,7 +170,7 @@
                             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </p>
                           </div>
                         </div>
-                        <div class="margin-top-s text-center"><a href="single-post.html" class="btn btn-default">show all 5 comments</a></div>
+                        <div class="margin-top-m text-right"><a href="single-post.html" class="btn btn-link">show all 5 comments<i class="material-icons">chevron_right</i></a></div>
                       </div>
                     </div>
                   </div>
@@ -187,7 +186,7 @@
                       </div>
                       <p class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
                       <div class="card-nested-section">
-                        <div class="media-left"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
+                        <div class="media-left hidden-xs"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
                         <div class="media-body">
                           <form>
                             <div class="form-group form-group-inline clearfix">
@@ -210,14 +209,154 @@
                             <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </p>
                           </div>
                         </div>
-                        <div class="margin-top-s text-center"><a href="single-post.html" class="btn btn-default">show all 5 comments</a></div>
+                        <div class="margin-top-m text-right"><a href="single-post.html" class="btn btn-link">show all 5 comments<i class="material-icons">chevron_right</i></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="stream-item"><i class="stream-icon"> </i>
+                  <div class="card stream-card">
+                    <div class="card-body">
+                      <div class="media">
+                        <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar3.jpg" class="media-object img-circle img-small"></a></div>
+                        <div class="media-body">
+                          <h5 class="media-heading"><a href="other-stream.html">Clive Owen </a><br><small>15 hours</small></h5>
+                        </div>
+                      </div>
+                      <p class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
+                      <div class="card-nested-section">
+                        <div class="media-left hidden-xs"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
+                        <div class="media-body">
+                          <form>
+                            <div class="form-group form-group-inline clearfix">
+                              <textarea placeholder="Write a comment..." width="100%" class="form-control form-control--block"></textarea>
+                              <button type="submit" class="btn btn-link">Comment</button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar5.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Jenny Baker </a>&bullet; <small>50 mins</small></h5>
+                            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                          </div>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar2.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Mary-Lou Wallace </a>&bullet; <small>13 hours</small></h5>
+                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </p>
+                          </div>
+                        </div>
+                        <div class="margin-top-m text-right"><a href="single-post.html" class="btn btn-link">show all 5 comments<i class="material-icons">chevron_right</i></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="stream-item"><i class="stream-icon"> </i>
+                  <div class="card stream-card">
+                    <div class="card-body">
+                      <div class="media">
+                        <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar3.jpg" class="media-object img-circle img-small"></a></div>
+                        <div class="media-body">
+                          <h5 class="media-heading"><a href="other-stream.html">Clive Owen </a><br><small>15 hours</small></h5>
+                        </div>
+                      </div>
+                      <p class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
+                      <div class="card-nested-section">
+                        <div class="media-left hidden-xs"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
+                        <div class="media-body">
+                          <form>
+                            <div class="form-group form-group-inline clearfix">
+                              <textarea placeholder="Write a comment..." width="100%" class="form-control form-control--block"></textarea>
+                              <button type="submit" class="btn btn-link">Comment</button>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar5.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Jenny Baker </a>&bullet; <small>50 mins</small></h5>
+                            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                          </div>
+                        </div>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar2.jpg" class="media-object img-circle img-small"></a></div>
+                          <div class="media-body">
+                            <h5 class="media-heading"><a href="other-stream.html">Mary-Lou Wallace </a>&bullet; <small>13 hours</small></h5>
+                            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </p>
+                          </div>
+                        </div>
+                        <div class="margin-top-m text-right"><a href="single-post.html" class="btn btn-link">show all 5 comments<i class="material-icons">chevron_right</i></a></div>
                       </div>
                     </div>
                   </div>
                 </li>
               </ul>
             </div>
-            <div class="col-sm-3 margin-bottom-l hidden-xs"></div>
+            <div class="col-sm-3 hidden-xs">
+              <div class="card card-with-actionbar">
+                <div class="card-head">
+                  <header class="text-center">My upcoming events</header>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Open social Amsterdam meetup</h6><small class="text-gray-lighter list-group-item-text">3 aug </small></a><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Open social Milano meetup</h6><small class="text-gray-lighter list-group-item-text">10 aug </small></a></div>
+                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+              <div class="card card-with-actionbar">
+                <div class="card-head">
+                  <header class="text-center">Suggested events</header>
+                  <div class="subtitle text-center">in community</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">World record rainbow watching</h6><small class="text-gray-lighter list-group-item-text">10 sept</small></a><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Monthly tea party</h6><small class="text-gray-lighter list-group-item-text">29 nov</small></a></div>
+                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+              <div class="card card-with-actionbar">
+                <div class="card-head">
+                  <header class="text-center">New topics</header>
+                  <div class="subtitle text-center">in community</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">What makes a good developer?</h6><small class="text-gray-lighter list-group-item-text">29 apr</small></a><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">My first week on the job</h6><small class="text-gray-lighter list-group-item-text">1 may</small></a></div>
+                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+              <div class="card card-with-actionbar">
+                <div class="card-head">
+                  <header class="text-center">New groups</header>
+                  <div class="subtitle text-center">in community</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Local group L.A.</h6></a><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Drupal dev-ops</h6></a></div>
+                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+              <div class="card card-with-actionbar">
+                <div class="card-head">
+                  <header class="text-center">New users</header>
+                  <div class="subtitle text-center">in community</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="#" class="list-group-item media">
+                      <div class="media-left media-middle"><img src="content/images/avatar0.jpg" class="img-circle img-tiny"></div>
+                      <div class="media-body media-middle">Jimmy Jameson</div></a><a href="#" class="list-group-item media">
+                      <div class="media-left media-middle"><img src="content/images/avatar5.jpg" class="img-circle img-tiny"></div>
+                      <div class="media-body media-middle">Claire Davis</div></a></div>
+                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -238,7 +377,9 @@
   <script>
     function showMe (it, radio) {
       var visibility = radio.value;
-      jQuery('#' + it).find('span.text').html(visibility);
+      var icon = jQuery(radio).prevAll('.material-icons').text();
+      jQuery('#' + it).find('.text').html(visibility);
+      jQuery('#' + it).find('.material-icons').html(icon);
       jQuery('#' + it).next('.dropdown-menu').find('.list-group-item').removeClass('active');
       jQuery(radio).closest('.list-group-item').addClass('active');
     }
