@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Edit account</title>
+    <title>Edit post</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -94,58 +94,41 @@
       </nav>
       <div class="container">
         <div class="cover">
-          <h1 class="page-title h2">Edit account         </h1>
+          <h1 class="page-title h2">Edit post </h1>
         </div>
       </div>
       <div class="main-content">
         <div class="container">
-          <div class="row">
-            <div class="col-sm-8 margin-top-l">
-              <form method="get" action="my-profile-about.html">
-                <div id="name" class="card card-underline">
-                  <div class="card-head">
-                    <header>Account information</header>
-                  </div>
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="edit-email" class="form-required">E-mail address</label>
-                      <input id="edit-email" type="email" autocorrect="none" autofocus="autofocus" required="required" value="mail@johnjohnson.com" class="form-control">
-                      <div class="help-block">A valid email address. All emails from the system will be sent to this address. The email address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by email.</div>
-                    </div>
-                    <div class="form-group">
-                      <label for="edit-username" class="form-required">Username</label>
-                      <input id="edit-username" type="text" required="required" value="john-johnson" class="form-control">
-                      <div class="help-block">Several special characters are allowed, including space, period (.), hyphen (-), apostrophe (&rsquo;), underscore (_), and the @ sign.</div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-sm-7">
-                        <label>Current password</label>
-                        <input type="password" autocomplete="off" value="youfigureditout!" class="form-control">
+          <div class="row margin-top-l">
+            <div class="col-sm-8">
+              <div class="card">
+                <div class="card-body extra-padding">
+                  <ul class="media-list">
+                    <li class="media">
+                      <div class="media-left"><a href="my-stream.html"><img src="content/images/avatar1.jpg" class="media-object img-circle img-small"></a></div>
+                      <div class="media-body">
+                        <h5 class="media-heading"><a href="my-stream.html">John Johnson </a>&bullet; <br><small>6 hours ago</small></h5>
+                        <form action="single-post.html">
+                          <div class="form-group">
+                            <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege.</textarea>
+                          </div>
+                          <div class="form-group media">             
+                            <div class="media-right">
+                              <input type="submit" value="Save" class="btn btn-primary">
+                            </div>
+                          </div>
+                        </form>
                       </div>
-                    </div>
-                    <div id="edit-pass" class="js-form-item form-group js-form-type-password-confirm form-type-password-confirm js-form-item-pass form-item-pass form-no-label row">
-                      <div class="js-form-item form-group js-form-type-password form-type-password js-form-item-pass-pass1 form-item-pass-pass1 col-sm-7">
-                        <label for="edit-pass-pass1">New password</label>
-                        <input id="edit-pass-pass1" data-drupal-selector="edit-pass-pass1" type="password" name="pass[pass1]" size="25" maxlength="128" required="required" aria-required="true" value="" class="password-field js-password-field form-control">
-                      </div>
-                      <div class="js-form-item form-group js-form-type-password form-type-password js-form-item-pass-pass2 form-item-pass-pass2 col-sm-7">
-                        <label for="edit-pass-pass2">Confirm new password</label>
-                        <input id="edit-pass-pass2" data-drupal-selector="edit-pass-pass2" type="password" name="pass[pass2]" size="25" maxlength="128" required="required" aria-required="true" value="" class="password-confirm js-password-confirm form-control">
-                      </div>
-                    </div>
-                  </div>
+                    </li>
+                  </ul>
                 </div>
-                <div class="form-actions clearfix"><a href="my-profile-about.html" class="waves-effect waves-light btn btn-raised btn-user">Discard changes</a><a href="#" class="btn btn-flat">Cancel account</a>
-                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
   </body>
-  <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\\/","scriptPath":null,"pathPrefix":"","currentPath":"","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","ajaxTrustedUrl":{"form_action_cc611e1d":true},"password":{"confirmTitle":"Passwords match:","confirmSuccess":"yes", "confirmFailure":"no", "showStrengthIndicator":true, "strengthTitle":"Password strength:","hasWeaknesses":"To make your password stronger:","tooShort":"Make it at least 12 characters","addLowerCase":"Add lowercase letters","addUpperCase":"Add uppercase letters","addNumbers":"Add numbers","addPunctuation":"Add punctuation","sameAsUsername":"Make it different from your username","weak":"Weak","fair":"Fair","good":"Good","strong":"Strong","username":""},"user":{"uid":0,"permissionsHash":"9079ad224d4b0fce406984c277ed66ca1008545fc31b1bfc7dfd6d40a4b15c1b"}}</script>
   <script src="js/vendor.js"></script>
   <script src="js/drupal-core.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -157,5 +140,16 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
+  </script>
+  <script>
+    function showMe (it, radio) {
+      var visibility = radio.value;
+      var icon = jQuery(radio).prevAll('.material-icons').text();
+      jQuery('#' + it).find('.text').html(visibility);
+      jQuery('#' + it).find('.material-icons').html(icon);
+      jQuery('#' + it).next('.dropdown-menu').find('.list-group-item').removeClass('active');
+      jQuery(radio).closest('.list-group-item').addClass('active');
+    }
+      
   </script>
 </html>
