@@ -95,102 +95,107 @@
       </nav>
       <div class="container hidden-xs">
         <div class="cover">
-          <div class="hero-action-button"><a href="profile-edit.html" class="waves-effect waves-light btn brand-user btn-floating"><i class="material-icons">mode_edit</i></a></div>
           <div class="cover-wrap">
-            <h1 class="page-title h2">John Johnson</h1><img src="content/images/avatar1.jpg" class="img-circle img-bordered"><br><br>
+            <h1 class="page-title h2">Jenny Baker</h1><img src="content/images/avatar5.jpg" class="img-circle img-bordered"><br><br>
             <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
           </div>
+        </div>
+        <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-default"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
+        <div class="brand-secondary z-depth-1 hidden-xs">
+          <nav role="navigation" aria-label="Tabs">
+            <h2 class="visually-hidden">Secondary navigation</h2>
+            <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
+              <li><a href="other-stream.html">Stream  </a></li>
+              <li><a href="other-profile-about.html">About</a></li>
+              <li><a href="other-topics.html">Topics</a></li>
+              <li class="active"><a href="other-events.html">Events </a><span class="visually-hidden">(active tab) </span></li>
+              <li><a href="#">Groups</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
       <div class="main-content">
         <div class="container">
-          <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-default"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
-        </div>
-        <div class="container">
-          <div class="brand-secondary z-depth-1 hidden-xs">
-            <nav role="navigation" aria-label="Tabs">
-              <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-                <li><a href="my-stream.html">Stream  </a></li>
-                <li><a href="my-profile-about.html">About</a></li>
-                <li class="active"><a href="my-topics.html">Topics</a><span class="visually-hidden">(active tab) </span></li>
-                <li><a href="my-events.html">Events </a></li>
-                <li><a href="my-groups.html">Groups</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <h2 class="h3 section-title">My topics</h2>
+              <h2 class="h3 section-title">My events</h2>
             </div>
-            <div class="col-xs-12 col-sm-4 pull-right margin-bottom-l"><a href="node-add-topic.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons pull-left">add</i>Add a topic</a>
-              <btn class="waves-effect waves-light btn btn-block btn-primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</btn><br><br>
+            <div class="col-xs-12 col-sm-4 pull-right margin-bottom-l"><a href="node-add-event.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons pull-left">add</i>Add an event</a>
+              <button class="waves-effect waves-light btn btn-block btn-primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</button><br><br>
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
                   <div class="offcanvas-tools visible-xs-block">
-                    <div class="js-close-canvas btn btn-icon-toggle btn-default-light pull-right"><i class="material-icons">close</i></div>
+                    <button class="js-close-canvas btn btn-icon-toggle btn-default-light pull-right"><i class="material-icons">close</i></button>
                   </div>
                 </div>
                 <div class="offcanvas-body">
                   <form>
-                    <div class="form-group">
-                      <label>Topic type</label>
-                      <select onchange="enableMe('reset-button', this)" class="form-control">
-                        <option value="" selected="">All types</option>
-                        <option value="blog">Blog</option>
-                        <option value="discussion">Discussion</option>
-                        <option value="topic">Topic</option>
-                      </select>
+                    <div class="form-group radios">
+                      <label>Event status </label>
+                      <div class="radio">
+                        <input id="radio1" name="event" type="radio" checked>
+                        <label for="radio1">Upcoming</label>
+                      </div>
+                      <div class="radio">
+                        <input id="radio2" name="event" type="radio">
+                        <label for="radio2">Past</label>
+                      </div>
+                      <div class="radio">
+                        <input id="radio3" name="event" type="radio">
+                        <label for="radio3">Unpublished</label>
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select onchange="enableMe('reset-button', this)" class="form-control">
-                        <option value="" selected="">All statusses</option>
-                        <option value="published">Published</option>
-                        <option value="unpublished">Unpublished</option>
-                      </select>
-                    </div>
-                    <div class="form-group margin-top-l clearfix">
-                      <input id="reset-button" type="submit" value="Reset" class="btn btn-primary pull-right disabled">
+                    <div class="form-group margin-top-l clearfix visible-xs-block">
+                      <button class="btn btn-default js-close-canvas pull-right">Done</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-xs-12 col-sm-8">
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
+                  <div class="teaser-date">19
+                    <div class="text-xs">may</div>
+                  </div></a>
                 <div class="card-body">
-                  <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Technology for the handicapped</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Clive Owen</a>
-                  <div class="text-grey-dark">15 feb 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
+                  <div class="text-grey">19 jul 09:00 - 18:00</div>
+                  <div class="text-grey-dark">Patheon, Rome</div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
+                  <div class="teaser-date">20-21
+                    <div class="text-xs">may-may</div>
+                  </div></a>
                 <div class="card-body">
-                  <div class="text-default-dark">Discussion</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Richard Ogylvie</a>
-                  <div class="text-grey-dark">22 mar 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
+                  <div class="text-grey">20 May 09:00 - 21 May 18:00</div>
+                  <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
+                  <div class="teaser-date">26
+                    <div class="text-xs">may</div>
+                  </div></a>
                 <div class="card-body">
-                  <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">5 new cool features in Office 365</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Dennis Rodman</a>
-                  <div class="text-grey-dark">28 mar 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="event.html">London Meetup</a></h2>
+                  <div class="text-grey">26 may 09:00 - 18:00</div>
+                  <div class="text-grey-dark">Tower Bridge, London</div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
+                  <div class="teaser-date">28
+                    <div class="text-xs">Aug</div>
+                  </div></a>
                 <div class="card-body">
-                  <div class="text-default-dark">Topic</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Top 10 zoos to visit in 2016</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Amanda Boxer</a>
-                  <div class="text-grey-dark">12 apr 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h2 class="h3 card-title"> <a href="event.html">Team conference East</a></h2>
+                  <div class="text-grey">28 Aug 10:00 - 12:00</div>
+                  <div class="text-grey-dark">Old Market, Groningen</div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <nav>
@@ -220,10 +225,5 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
-  </script>
-  <script>
-    function enableMe() {
-      jQuery('#reset-button').removeClass('disabled');
-    }
   </script>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Michael Angarano</title>
+    <title>John Johnson</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -95,10 +95,8 @@
       </nav>
       <div class="container hidden-xs">
         <div class="cover">
-          <div class="hero-action-button"><a href="profile-edit.html" class="waves-effect waves-light btn brand-user btn-floating"><i class="material-icons">mode_edit</i></a></div>
           <div class="cover-wrap">
-            <h1 class="page-title h2">John Johnson</h1><img src="content/images/avatar1.jpg" class="img-circle img-bordered"><br><br>
-            <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
+            <h1 class="page-title h2">Jenny Baker</h1><img src="content/images/avatar5.jpg" class="img-circle">
           </div>
         </div>
       </div>
@@ -111,98 +109,55 @@
             <nav role="navigation" aria-label="Tabs">
               <h2 class="visually-hidden">Secondary navigation</h2>
               <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-                <li><a href="my-stream.html">Stream  </a></li>
-                <li><a href="my-profile-about.html">About</a></li>
-                <li class="active"><a href="my-topics.html">Topics</a><span class="visually-hidden">(active tab) </span></li>
-                <li><a href="my-events.html">Events </a></li>
-                <li><a href="my-groups.html">Groups</a></li>
+                <li><a href="other-stream.html">Stream  </a></li>
+                <li class="active"><a href="other-profile-about.html">About</a><span class="visually-hidden">(active tab)</span></li>
+                <li><a href="other-topics.html">Topics</a></li>
+                <li><a href="other-events.html">Events  </a></li>
+                <li><a href="#">Groups</a></li>
               </ul>
             </nav>
           </div>
         </div>
         <div class="container">
           <div class="row">
-            <div class="col-xs-12">
-              <h2 class="h3 section-title">My topics</h2>
-            </div>
-            <div class="col-xs-12 col-sm-4 pull-right margin-bottom-l"><a href="node-add-topic.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons pull-left">add</i>Add a topic</a>
-              <btn class="waves-effect waves-light btn btn-block btn-primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</btn><br><br>
-              <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
-                <div class="offcanvas-head">
-                  <header class="card__label">filter</header>
-                  <div class="offcanvas-tools visible-xs-block">
-                    <div class="js-close-canvas btn btn-icon-toggle btn-default-light pull-right"><i class="material-icons">close</i></div>
-                  </div>
-                </div>
-                <div class="offcanvas-body">
-                  <form>
-                    <div class="form-group">
-                      <label>Topic type</label>
-                      <select onchange="enableMe('reset-button', this)" class="form-control">
-                        <option value="" selected="">All types</option>
-                        <option value="blog">Blog</option>
-                        <option value="discussion">Discussion</option>
-                        <option value="topic">Topic</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select onchange="enableMe('reset-button', this)" class="form-control">
-                        <option value="" selected="">All statusses</option>
-                        <option value="published">Published</option>
-                        <option value="unpublished">Unpublished</option>
-                      </select>
-                    </div>
-                    <div class="form-group margin-top-l clearfix">
-                      <input id="reset-button" type="submit" value="Reset" class="btn btn-primary pull-right disabled">
-                    </div>
-                  </form>
-                </div>
-              </div>
+            <div class="col-sm-12">
+              <h4 class="section-title">About you</h4>
             </div>
             <div class="col-xs-12 col-sm-8">
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                <div class="card-body">
-                  <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Technology for the handicapped</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Clive Owen</a>
-                  <div class="text-grey-dark">15 feb 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
+              <div class="card">
+                <div class="card-body extra-padding">
+                  <ul class="collection">
+                    <li class="collection-item">
+                      <h4>Contact information</h4>
+                    </li>
+                    <li class="collection-item"> 
+                      <div class="collection-label">Phone</div>
+                      <div class="collection-field">+31 658974324</div>
+                    </li>
+                    <li class="collection-item"> 
+                      <div class="collection-label">E-mail</div>
+                      <div class="collection-field"> <a href="example@domain.com">jenny@jennybaker.com    </a></div>
+                    </li>
+                    <li class="collection-item"> 
+                      <div class="collection-label">Address</div>
+                      <div class="collection-field">
+                         
+                        My street name 123 <br>1234 BB<br>Amsterdam
+                      </div>
+                    </li>
+                  </ul>
+                  <h4>Intro</h4>
+                  <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                  <h4>Your interests</h4>
+                  <div class="chip">drupal</div>
+                  <div class="chip">sales</div>
+                  <div class="chip">barbecues</div>
+                  <h4>Your expertise</h4>
+                  <div class="chip">php</div>
+                  <div class="chip">interaction design</div>
+                  <div class="chip">cooking</div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                <div class="card-body">
-                  <div class="text-default-dark">Discussion</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Richard Ogylvie</a>
-                  <div class="text-grey-dark">22 mar 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                <div class="card-body">
-                  <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">5 new cool features in Office 365</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Dennis Rodman</a>
-                  <div class="text-grey-dark">28 mar 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
-                <div class="card-body">
-                  <div class="text-default-dark">Topic</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Top 10 zoos to visit in 2016</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Amanda Boxer</a>
-                  <div class="text-grey-dark">12 apr 2016</div>
-                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
-                </div>
-              </div>
-              <nav>
-                <ul class="pagination">
-                  <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
-                  <li class="pager__item active"><a href="#1">1</a></li>
-                  <li class="pager__item"> <a href="#1">2</a></li>
-                  <li class="pager__item"> <a href="#1">3          </a></li>
-                  <li class="pager__item"> <a href="#1">4</a></li>
-                  <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
@@ -220,10 +175,5 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
-  </script>
-  <script>
-    function enableMe() {
-      jQuery('#reset-button').removeClass('disabled');
-    }
   </script>
 </html>
