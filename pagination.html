@@ -30,6 +30,18 @@
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
+      <!-- Google Tag Manager-->
+      <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+      <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5BGZV3');
+      </script>
+      <!-- End Google Tag Manager-->
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
@@ -229,10 +241,7 @@
       for(var i = 0, l = $lang_js.length; i < l; i++) {
         $lang_js[i].innerHTML = lang_jsnippet[i];
       }
-      
     </script>
-    <!-- Does not work for Safari iOS, debug later-->
-    <!-- include _fontfaceobserver.jade-->
     <!-- Does not work for Safari iOS, debug later-->
     <script>
       (function(){'use strict';var f,g=[];function l(a){g.push(a);1==g.length&&f()}function m(){for(;g.length;)g[0](),g.shift()}f=function(){setTimeout(m)};function n(a){this.a=p;this.b=void 0;this.f=[];var b=this;try{a(function(a){q(b,a)},function(a){r(b,a)})}catch(c){r(b,c)}}var p=2;function t(a){return new n(function(b,c){c(a)})}function u(a){return new n(function(b){b(a)})}function q(a,b){if(a.a==p){if(b==a)throw new TypeError;var c=!1;try{var d=b&&b.then;if(null!=b&&"object"==typeof b&&"function"==typeof d){d.call(b,function(b){c||q(a,b);c=!0},function(b){c||r(a,b);c=!0});return}}catch(e){c||r(a,e);return}a.a=0;a.b=b;v(a)}}

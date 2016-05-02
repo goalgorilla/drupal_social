@@ -29,6 +29,18 @@
     <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
     <body class="styleguide">
       <header class="styleguide-header">
+        <!-- Google Tag Manager-->
+        <noscript>
+          <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+        <script>
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-5BGZV3');
+        </script>
+        <!-- End Google Tag Manager-->
         <div class="header__wrapper">
           <div class="header__innerwrapper container">
             <div class="row">
@@ -97,7 +109,7 @@
                   <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
                   <ul class="nav navbar-nav navbar-right">
                     <li class="hidden-xs"><a href="#"><i title="Add content" class="material-icons">add</i><span class="sr-only">Add content</span></a></li>
-                    <li class="hidden-xs"><a href="#">Home</a></li>
+                    <li class="hidden-xs active"><a href="#">Home</a></li>
                     <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                       <ul class="dropdown-menu notifications-nav">
@@ -165,7 +177,7 @@
               <div class="user-name"> <span>Jeremy Bob</span></div>
               <div class="user-action"><span>Liked your post</span></div></a></li>
           <li>
-            <div class="dropdown-footer"><a href="#">See more</a></div>
+            <div class="dropdown-footer"><a href="">See more</a></div>
           </li>
         </ul>
       </li>
@@ -253,10 +265,7 @@
       for(var i = 0, l = $lang_js.length; i < l; i++) {
         $lang_js[i].innerHTML = lang_jsnippet[i];
       }
-      
     </script>
-    <!-- Does not work for Safari iOS, debug later-->
-    <!-- include _fontfaceobserver.jade-->
     <script>new UISearch( document.getElementById( 'navbar-search' ) );</script>
   </head>
 </html>

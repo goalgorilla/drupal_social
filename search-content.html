@@ -29,6 +29,18 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
+    <!-- Google Tag Manager-->
+    <noscript>
+      <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5BGZV3');
+    </script>
+    <!-- End Google Tag Manager-->
     <div id="header">
       <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
         <div class="container"><a href="home-lu.html" class="navbar-brand">
@@ -36,20 +48,21 @@
           <div class="navbar-header">
             <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
             <ul class="nav navbar-nav navbar-right">
-              <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
+              <li class="hidden-xs"><a href="#"><i title="Add content" class="material-icons">add</i><span class="sr-only">Add content</span></a></li>
+              <li class="hidden-xs active"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
                   </li>
-                  <li><a href="single-post.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar2.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Clive Owen<br><small class="text-muted">Commented on your post</small></div></a></li>
-                  <li><a href="single-post.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar3.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Jeremy Bob<br><small class="text-muted">Liked your post</small></div></a></li>
-                  <li><a href="event.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar4.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Bettie McLaren<br><small class="text-muted">likes your event <strong>8th anniversary our beloved company</strong></small></div></a></li>
                   <li>
@@ -91,7 +104,7 @@
           <li><a href="search-content.html">Search content</a></li>
         </ol>
       </nav>
-      <div class="container">
+      <div class="container hero-container">
         <div class="cover">
           <h1 class="page-title h2">Search </h1><br>
           <form role="search" method="get" action="search-content.html" class="hero-form">
@@ -118,7 +131,7 @@
               <h4 class="section-title">Content results</h4>
               <p>If you are searching for members, <a href="search-members.html">click here</a></p>
             </div>
-            <div class="col-sm-4 col-sm-push-8">
+            <div class="col-sm-3 col-sm-push-9">
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
@@ -133,11 +146,11 @@
                 </form>
               </div>
             </div>
-            <div class="col-sm-8 col-sm-pull-4">
+            <div class="col-sm-9 col-sm-pull-3">
               <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Technology for the handicapped</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Clive Owen</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">Technology for the handicapped</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
                   <div class="text-grey-dark">15 feb 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
@@ -150,7 +163,7 @@
                   <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
                   <div class="text-grey">19 jul 09:00 - 18:00</div>
                   <div class="text-grey-dark">Patheon, Rome</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
@@ -161,13 +174,13 @@
                   <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
                   <div class="text-grey">20 May 09:00 - 21 May 18:00</div>
                   <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Discussion</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Richard Ogylvie</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h2><a href="#" class="text-l text-grey-dark">Richard Ogylvie</a>
                   <div class="text-grey-dark">22 mar 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
@@ -175,7 +188,7 @@
               <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">5 new cool features in Office 365</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Dennis Rodman</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">5 new cool features in Office 365</a></h2><a href="#" class="text-l text-grey-dark">Dennis Rodman</a>
                   <div class="text-grey-dark">28 mar 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
@@ -188,7 +201,7 @@
                   <h2 class="h3 card-title"> <a href="event.html">London Meetup</a></h2>
                   <div class="text-grey">26 may 09:00 - 18:00</div>
                   <div class="text-grey-dark">Tower Bridge, London</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
@@ -199,13 +212,13 @@
                   <h2 class="h3 card-title"> <a href="event.html">Team conference East</a></h2>
                   <div class="text-grey">28 Aug 10:00 - 12:00</div>
                   <div class="text-grey-dark">Old Market, Groningen</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Topic</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Top 10 zoos to visit in 2016</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Amanda Boxer</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">Top 10 zoos to visit in 2016</a></h2><a href="#" class="text-l text-grey-dark">Amanda Boxer</a>
                   <div class="text-grey-dark">12 apr 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>

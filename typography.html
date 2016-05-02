@@ -30,6 +30,18 @@
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
+      <!-- Google Tag Manager-->
+      <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+      <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5BGZV3');
+      </script>
+      <!-- End Google Tag Manager-->
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
@@ -90,7 +102,7 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-10">
+          <div class="col-xs-12 col-sm-9 col-md-10">
             <div class="section">
               <h2 class="header">Montserrat</h2>
               <p class="caption">The standard font Drupal social uses is Montserrat. We have included the font files with our framework.</p>
@@ -224,9 +236,6 @@ font-range: [lower-bound] [upper-bound]</code></pre>
       for(var i = 0, l = $lang_js.length; i < l; i++) {
         $lang_js[i].innerHTML = lang_jsnippet[i];
       }
-      
     </script>
-    <!-- Does not work for Safari iOS, debug later-->
-    <!-- include _fontfaceobserver.jade-->
   </body>
 </html>

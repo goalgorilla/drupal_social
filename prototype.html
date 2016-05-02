@@ -30,6 +30,18 @@
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
+      <!-- Google Tag Manager-->
+      <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+      <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5BGZV3');
+      </script>
+      <!-- End Google Tag Manager-->
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
@@ -106,8 +118,7 @@
               <div class="list-group-item">
                 <h4 class="list-group-item-heading text-primary">Logged in users</h4>
               </div><a href="home-lu.html" class="list-group-item">
-                <p class="list-group-item-text">Homepage</p></a><a href="home-lu-2.html" class="list-group-item">
-                <p class="list-group-item-text">Homepage (exp. vers.)</p></a><a href="my-stream.html" class="list-group-item">
+                <p class="list-group-item-text">Homepage</p></a><a href="my-stream.html" class="list-group-item">
                 <p class="list-group-item-text">Profile</p></a><a href="profile-edit.html" class="list-group-item">
                 <p class="list-group-item-text">Edit Profile</p></a><a href="account-edit.html" class="list-group-item">
                 <p class="list-group-item-text">Edit Account</p></a><a href="my-topics.html" class="list-group-item">
@@ -123,7 +134,8 @@
                 <p class="list-group-item-text">Single comment</p></a><a href="single-post.html" class="list-group-item">
                 <p class="list-group-item-text">Single post</p></a><a href="search-content.html" class="list-group-item">
                 <p class="list-group-item-text">Search content</p></a><a href="search-members.html" class="list-group-item">
-                <p class="list-group-item-text">Search members</p></a>
+                <p class="list-group-item-text">Search members</p></a><a href="group-add.html" class="list-group-item">
+                <p class="list-group-item-text">Create a group</p></a>
             </div>
           </div>
         </div>
@@ -171,9 +183,6 @@
       for(var i = 0, l = $lang_js.length; i < l; i++) {
         $lang_js[i].innerHTML = lang_jsnippet[i];
       }
-      
     </script>
-    <!-- Does not work for Safari iOS, debug later-->
-    <!-- include _fontfaceobserver.jade-->
   </body>
 </html>

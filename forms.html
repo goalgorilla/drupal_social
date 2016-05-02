@@ -30,6 +30,18 @@
   </head>
   <body class="styleguide">
     <header class="styleguide-header">
+      <!-- Google Tag Manager-->
+      <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+      <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5BGZV3');
+      </script>
+      <!-- End Google Tag Manager-->
       <div class="header__wrapper">
         <div class="header__innerwrapper container">
           <div class="row">
@@ -90,455 +102,170 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-10">
+          <div class="col-xs-12 col-sm-9 col-md-10">
             <div id="input" class="section scrollspy">
               <p class="caption">Forms are the standard way to receive user inputted data. The transitions and smoothness of these elements are very important because of the inherent user interaction associated with forms.</p>
               <h2 class="header">Input fields</h2>
-              <p><p>Text fields allow user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.input-field</code> div wrapping your input and label. This helps our jQuery animate the label. This is only used in our input and textarea form elements.</p>
+              <p><p>Input fields allow user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have put a <code>.form-control</code> class on each input.</p>
               </p>
               <div class="row">
                 <form class="col-xs-12">
                   <div class="row">
-                    <div class="input-field col-xs-6">
-                      <input id="first_name" placeholder="Placeholder" type="text" class="form-text">
-                      <label for="first_name">First Name</label>
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input id="first_name" placeholder="Placeholder" type="text" class="form-control">
+                      </div>
                     </div>
-                    <div class="input-field col-xs-6">
-                      <input id="last_name" type="text" class="form-text">
-                      <label for="last_name">Last Name</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="input-field col-xs-12">
-                      <input id="disabled" disabled="" value="I am not editable" type="text" class="form-text">
-                      <label for="disabled">Disabled</label>
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input id="last_name" type="text" class="form-control">
+                      </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="input-field col-xs-12">
-                      <input id="password" type="password" class="form-text">
-                      <label for="password">Password</label>
-                    </div>
+                  <div class="form-group">
+                    <label for="disabled">Disabled</label>
+                    <input id="disabled" disabled="" value="I am not editable" type="text" class="form-control">
                   </div>
-                  <div class="row">
-                    <div class="input-field col-xs-12">
-                      <input id="email" type="email" class="form-text">
-                      <label for="email">Email</label>
-                    </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" class="form-control">
                   </div>
                 </form>
               </div>
-              <pre>     <code class="language-markup"><div class="row">
-  <form class="col-xs-12">
-    <div class="row">
-      <div class="input-field col-xs-6">
-        <input placeholder="Placeholder" id="first_name" type="text" class="form-text">
-        <label for="first_name">First Name</label>
-      </div>
-      <div class="input-field col-xs-6">
-        <input id="last_name" type="text" class="form-text">
-        <label for="last_name">Last Name</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col-xs-12">
-        <input disabled value="I am not editable" id="disabled" type="text" class="form-text">
-        <label for="disabled">Disabled</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col-xs-12">
-        <input id="password" type="password" class="form-text">
-        <label for="password">Password</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col-xs-12">
-        <input id="email" type="email" class="form-text">
-        <label for="email">Email</label>
-      </div>
-    </div>
-  </form>
-</div></code></pre><br>
-              <h4>Prefilling Text Inputs</h4>
-              <p>If you are having trouble with the labels overlapping prefilled content, Try adding `class="active"` to the label. </p>
-              <div class="row">
-                <div class="input-field col-xs-6">
-                  <input id="first_name2" value="Bart Simpson" type="text" class="form-text">
-                  <label for="first_name2" class="active">First Name</label>
-                </div>
-              </div>
-              <pre><code class="language-markup"><div class="row">
-  <div class="input-field col-xs-6">
-    <input id="first_name2" type="text" class="form-text" value="Bart Simpson">
-    <label class="active" for="first_name2">First Name</label>
-  </div>
+              <pre>     <code class="language-markup"><div class="form-group">
+  <label for="first_name">First Name</label>
+  <input id="first_name" type="text" class="form-control">
 </div>
+
 </code></pre>
-              <h4>Autocomplete</h4><p>To add autocomplete to an input field you need to add a couple of things. The <code>input</code> needs to have class <code>.autocomplete</code>. The second thing need is a data attribute <code>array</code>. This attribute will hold all data needed.</p>
-              <div class="row">
-                <div class="col-xs-12">
-                  <p>How the array should look:</p>
-                  <pre><code class="language-markup">[
-  {
-   "value": "Select text",
-   "path": "Image path",
-   "class": "Image class"
-  }
-]
-</code></pre>
-                </div>
-              </div>
-              <p>The array is a json array so it's easy to maintain with PHP. <em>This might need to be changed because it gets quite long.</em></p>
-              <p>To get highlighted text add `highlight-matching` class to the input.</p>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="row">
-                    <div class="input-field col-xs-12">
-                      <input id="autocomplete" type="text" data-array="[{&quot;value&quot;: &quot;Aaron&quot;, &quot;path&quot;: &quot;content/images/avatar1.jpg&quot;,&quot;class&quot;: &quot;left circle&quot;},{&quot;value&quot;: &quot;Alex Nelson&quot;,&quot;path&quot;: &quot;content/images/avatar2.jpg&quot;,&quot;class&quot;: &quot;right circle&quot;},{&quot;value&quot;: &quot;Abbey Christensen&quot;, &quot;path&quot;: &quot;content/images/avatar3.jpg&quot;,&quot;class&quot;: &quot;right circle&quot;}]" class="form-text autocomplete">
-                      <label for="autocomplete">Autocomplete with highlighting</label>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
             <!-- Textarea Section-->
             <div id="textarea" class="section scrollspy">
-              <h2 class="header">Textarea</h2><p>Textareas allow larger expandable user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.input-field</code> div wrapping your input and label. This helps our jQuery animate the label. This is only used in our Input and Textarea form elements.</p>
+              <h2 class="header">Textarea</h2><p>Textareas allow larger expandable user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a <code>.form-control</code> class on the textarea element.</p>
+
+<p>If you want the textarea to autogrow you need to add <code>.materialize-textarea</code> to the element as well.  </p>
               <p><strong>Textareas will auto resize to the text inside.</strong></p>
-              <div class="row">
-                <form class="col-xs-12">
-                  <div class="row">
-                    <div class="input-field col-xs-12">
-                      <textarea id="textarea1" class="form-text form-textarea materialize-textarea"></textarea>
-                      <label for="textarea1">Textarea</label>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <pre><code class="language-markup"><div class="row">
-  <form class="col-xs-12">
-    <div class="row">
-      <div class="input-field col-xs-12">
-        <textarea id="textarea1" class="form-text form-textarea materialize-textarea"></textarea>
-        <label for="textarea1">Textarea</label>
-      </div>
-    </div>
-  </form>
-</div>
-</code></pre><p>advanced note: When dynamically changing the value of a textarea with methods like jQuery&#39;s <code>.val()</code>, you must trigger an autoresize on it afterwords because <code>.val()</code> does not automatically trigger the events we&#39;ve binded to the textarea.</p>
+              <form>
+                <div class="form-group">
+                  <label for="textarea1">Textarea</label>
+                  <textarea id="textarea1" class="form-control materialize-textarea"></textarea>
+                </div>
+              </form>
+              <pre><code class="language-markup"><form>
+  <div class="form-group">
+    <label for="textarea1">Textarea</label>
+    <textarea id="textarea1" class="form-control materialize-textarea"></textarea>         
+  </div>
+</form>
+</code></pre><p><strong>Advanced note</strong>: When dynamically changing the value of a textarea with methods like jQuery&#39;s <code>.val()</code>, you must trigger an autoresize on it afterwords because <code>.val()</code> does not automatically trigger the events we&#39;ve binded to the textarea.</p>
               <pre><code class="language-javascript">$('#textarea1').val('New Text');
 $('#textarea1').trigger('autoresize');
-
 </code></pre>
             </div>
             <div id="select" class="section scrollspy">
-              <h2 class="header">Select</h2><p>Select allows user input through specified options. Make sure you wrap it in a <code>.input-field</code> for proper alignment with other text fields.</p>
+              <h2 class="header">Select</h2><p>Select allows user input through specified options. Make sure you add the class <code>.form-control</code> to the select element.</p>
               <div class="row">
-                <form class="col-xs-12">
-                  <div class="row">
-                    <div class="input-field col-xs-12 col-sm-6">
-                      <select>
-                        <option value="" disabled="" selected="">Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
-                      <label>Materialize Select</label>
-                    </div>
-                    <div class="col-xs-12"><p>You can add the property <code>multiple</code> to get the multiple select and select several options.</p>
-                    </div>
-                    <div class="input-field col-xs-12 col-sm-6">
-                      <select multiple="">
-                        <option value="" disabled="" selected="">Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
-                      <label>Materialize Multiple Select</label>
-                    </div>
-                    <div class="col-xs-12"><br>
-                      <p>We also support optgroups in our selects.</p>
-                    </div>
-                    <div class="input-field col-xs-12 col-sm-6">
-                      <select>
-                        <optgroup label="team 1">
-                          <option value="1">Option 1</option>
-                          <option value="2">Option 2</option>
-                        </optgroup>
-                        <optgroup label="team 2">
-                          <option value="3">Option 3</option>
-                          <option value="4">Option 4</option>
-                        </optgroup>
-                      </select>
-                      <label>Optgroups</label>
-                    </div>
-                    <div class="col-xs-12"><br><p>You can add icons to your options in any type of select. In the option you add the image source with the <code>data-icon</code> attribute. You can add the 
-<code>left</code> or <code>right</code> class to align your icon. You can also add the <code>circle</code> class to your icon.</p>
-                    </div>
-                    <div class="input-field col-xs-12 col-sm-6">
-                      <select class="icons">
-                        <option value="" disabled="" selected="">Choose your option</option>
-                        <option value="" data-icon="content/images/animals1.jpg" class="circle">example 1</option>
-                        <option value="" data-icon="content/images/food1.jpg" class="circle">example 2</option>
-                        <option value="" data-icon="content/images/nature9.jpg" class="circle">example 1</option>
-                      </select>
-                      <label>Images in select</label>
-                    </div>
-                    <div class="input-field col-xs-12 col-sm-6">
-                      <select class="icons">
-                        <option value="" disabled="" selected="">Choose your option</option>
-                        <option value="" data-icon="content/images/animals4.jpg" class="pull-left circle">example 1</option>
-                        <option value="" data-icon="content/images/people3.jpg" class="pull-left circle">example 2</option>
-                        <option value="" data-icon="content/images/nature4.jpg" class="pull-left circle">example 3</option>
-                      </select>
-                      <label>Images in select</label>
-                    </div>
-                    <div class="col-xs-12"><br><p>You can add the class <code>browser-default</code> to get the browser default.</p>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                      <label>Browser Select</label>
-                      <select class="browser-default">
-                        <option value="" disabled="" selected="">Choose your option</option>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
-                      </select>
-                    </div>
-                  </div>
-                </form>
-                <div class="col-xs-12">
-                  <pre><code class="language-markup"><div class="input-field col-xs-12">
-  <select>
-    <option value="" disabled selected>Choose your option</option>
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-  </select>
-  <label>Materialize Select</label>
-</div>
-
-<div class="input-field col-xs-12">
-  <select multiple>
-    <option value="" disabled selected>Choose your option</option>
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-  </select>
-  <label>Materialize Multiple Select</label>
-</div>
-
-<div class="input-field col-xs-12">
-  <select multiple>
-    <optgroup label="team 1">
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-    </optgroup>
-    <optgroup label="team 2">
-      <option value="3">Option 3</option>
-      <option value="4">Option 4</option>
-    </optgroup>
-  </select>
-  <label>Optgroups</label>
-</div>
-
-<div class="input-field col-xs-12 col-sm-6">
-  <select class="icons">
-    <option value="" disabled selected>Choose your option</option>
-    <option value="" data-icon="images/sample-1.jpg" class="circle">example 1</option>
-    <option value="" data-icon="images/office.jpg" class="circle">example 2</option>
-    <option value="" data-icon="images/yuna.jpg" class="circle">example 1</option>
-  </select>
-  <label>Images in select</label>
-</div>
-<div class="input-field col-xs-12 col-sm-6">
-  <select class="icons">
-    <option value="" disabled selected>Choose your option</option>
-    <option value="" data-icon="images/sample-1.jpg" class="left circle">example 1</option>
-    <option value="" data-icon="images/office.jpg" class="left circle">example 2</option>
-    <option value="" data-icon="images/yuna.jpg" class="left circle">example 3</option>
-  </select>
-  <label>Images in select</label>
-</div>
-
-<label>Browser Select</label>
-<select class="browser-default">
-  <option value="" disabled selected>Choose your option</option>
-  <option value="1">Option 1</option>
-  <option value="2">Option 2</option>
-  <option value="3">Option 3</option>
-</select></code></pre>
-                </div>
-                <div class="col-xs-12"><br><br>
-                  <h4>Disabled Styles</h4><p>You can also add <code>disabled</code> to the select element to make the whole thing disabled. Or if you add <code>disabled</code> to the options, the individual options will be unselectable.</p>
-                </div>
-              </div>
-              <div class="row">
-                <form>
-                  <div class="input-field col-xs-12 col-sm-6">
-                    <select disabled="">
-                      <option value="" disabled="" selected="">Choose your option</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
-                    </select>
-                    <label>Materialize Disabled</label>
-                  </div>
-                  <div class="col-xs-12 col-sm-6">
-                    <label>Browser Disabled</label>
-                    <select disabled="" class="browser-default">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Select</label>
+                    <select class="form-control">
                       <option value="" disabled="" selected="">Choose your option</option>
                       <option value="1">Option 1</option>
                       <option value="2">Option 2</option>
                       <option value="3">Option 3</option>
                     </select>
                   </div>
-                </form>
-                <div class="col-xs-12">
-                  <pre><code class="language-markup"><div class="input-field col-xs-12 col-sm-6">
-  <label>Materialize Disabled</label>
-  <select disabled>
-    <option value="" disabled selected>Choose your option</option>
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-  </select>
-</div>
-
-<div class="col-xs-12 col-sm-6">
-  <label>Browser Disabled</label>
-  <select class="browser-default" disabled>
-    <option value="" disabled selected>Choose your option</option>
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-  </select>
-</div>
-</code></pre>
-                </div>
-                <div class="col-xs-12">
-                  <h4>Initialization</h4>
-                  <p>You must initialize the select element as shown below. In addition, you will need a separate call for any dynamically generated select elements your page generates.</p>
-                  <pre><code class="language-javascript">$(document).ready(function() {
-  $('select').material_select();
-});
-</code></pre>
-                </div>
-                <div class="col-xs-12">
-                  <h4>Updating/Destroying Select</h4>
-                  <p>If you want to update the items inside the select, just rerun the initialization code from above after editing the original select. Or you can destroy the material select with this function below, and create a new select altogether</p>
-                  <pre><code class="language-javascript">$('select').material_select('destroy');
-</code></pre>
                 </div>
               </div>
             </div>
             <div id="radio" class="section scrollspy">
               <h2 class="header">Radio Buttons</h2>
               <p>Radio Buttons are used when the user must make only one selection out of a group of items</p>
-              <form action="#">
-                <p>
+              <div class="form-group">
+                <div class="radio">
                   <input id="test1" name="group1" type="radio" checked="">
                   <label for="test1">Red</label>
-                </p>
-                <p>
+                </div>
+                <div class="radio">
                   <input id="test2" name="group1" type="radio">
                   <label for="test2">Yellow</label>
-                </p>
-                <p>
+                </div>
+                <div class="radio">
                   <input id="test3" name="group1" type="radio" class="with-gap">
                   <label for="test3">Green</label>
-                </p>
-                <p>
+                </div>
+                <div class="radio">
                   <input id="test4" name="group1" type="radio" disabled="disabled">
                   <label for="test4">Brown</label>
-                </p>
-              </form>
+                </div>
+              </div>
               <p>Add radio buttons to a group by adding the name attribute along with the same corresponding value for each of the radio  buttons in the group. Create disabled radio buttons by adding the disabled attribute as shown below.</p>
-              <pre><code class="language-markup"><form action="#">
-  <p>
+              <pre><code class="language-markup"><div class="form-group">
+  <div class="radio">
     <input name="group1" type="radio" id="test1" />
     <label for="test1">Red</label>
-  </p>
-  <p>
+  </div>
+  <div class="radio">
     <input name="group1" type="radio" id="test2" />
     <label for="test2">Yellow</label>
-  </p>
-  <p>
+  </div>
+  <div class="radio">
     <input class="with-gap" name="group1" type="radio" id="test3"  />
     <label for="test3">Green</label>
-  </p>
-    <p>
-      <input name="group1" type="radio" id="test4" disabled="disabled" />
-      <label for="test4">Brown</label>
-  </p>
-</form>
-</code></pre>
-              <h4>Options</h4><p>To create a radio button with a gap, add <code>class=&quot;with-gap&quot;</code> to your input. See the example below.</p>
-              <p>
-                <input id="test5" name="group3" type="radio" checked="" class="with-gap">
-                <label for="test5">Red</label>
-              </p>
-              <pre><code class="language-markup"><p>
-  <input class="with-gap" name="group3" type="radio" id="test5" checked />
-  <label for="test5">Red</label>
-</p>
+  </div>
+  <div class="radio">
+    <input name="group1" type="radio" id="test4" disabled="disabled" />
+    <label for="test4">Brown</label>
+  </div>
+</div>
+
 </code></pre>
             </div>
             <!-- Checkboxes-->
             <div id="checkbox" class="section scrollspy">
               <h2 class="header">Checkboxes</h2><p>Use checkboxes when looking for yes or no answers. The <code>for</code> attribute is necessary to bind the our custom checkbox with the input. Add the input&#39;s <code>id</code> as the value of the <code>for</code> attribute of the label.</p>
-              <form action="#">
-                <p>
+              <div class="form-group">
+                <div class="checkbox">
                   <input id="test9" type="checkbox">
                   <label for="test9">Red</label>
-                </p>
-                <p>
+                </div>
+                <div class="checkbox">
                   <input id="test6" type="checkbox" checked>
                   <label for="test6">Yellow</label>
-                </p>
-                <p>
-                  <input id="filled-in-box" type="checkbox" checked class="filled-in">
-                  <label for="filled-in-box">Filled in</label>
-                </p>
-                <p>
-                  <input id="indeterminate-checkbox" type="checkbox">
-                  <label for="indeterminate-checkbox">Indeterminate Style</label>
-                </p>
-                <p>
+                </div>
+                <div class="checkbox">
                   <input id="test7" type="checkbox" checked disabled="disabled">
                   <label for="test7">Green</label>
-                </p>
-                <p>
+                </div>
+                <div class="checkbox">
                   <input id="test8" type="checkbox" disabled="disabled">
                   <label for="test8">Brown</label>
-                </p>
-              </form>
-              <pre><code class="language-markup"><form action="#">
-  <p>
+                </div>
+              </div>
+              <pre><code class="language-markup"><div class="form-group">
+  <div class="checkbox">
     <input type="checkbox" id="test5" />
     <label for="test5">Red</label>
-  </p>
-  <p>
+  </div>
+  <div class="checkbox">
     <input type="checkbox" id="test6" checked />
     <label for="test6">Yellow</label>
-  </p>
-  <p>
-    <input type="checkbox" class="filled-in" id="filled-in-box" checked />
-    <label for="filled-in-box">Filled in</label>
-  </p>
-  <p>
-    <input type="checkbox" id="indeterminate-checkbox">
-    <label for="indeterminate-checkbox">Indeterminate Style</label>
-  </p>
-  <p>
+  </div>
+  <div class="checkbox">
     <input type="checkbox" id="test7" checked disabled="disabled" />
     <label for="test7">Green</label>
-  </p>
-    <p>
-      <input type="checkbox" id="test8" disabled="disabled" />
-      <label for="test8">Brown</label>
-  </p>
-</form></code></pre>
+  </div>
+  <div class="checkbox">
+    <input type="checkbox" id="test8" disabled="disabled" />
+    <label for="test8">Brown</label>
+  </div>
+</div></code></pre>
             </div>
             <!-- Switches-->
             <div id="switches" class="section scrollspy">
@@ -583,50 +310,23 @@ $('#textarea1').trigger('autoresize');
             <div id="file" class="section scrollspy">
               <h2 class="header">File Input</h2>
               <p>If you want to style an input button with a path input we provide this structure.</p>
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn"><span>File</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input type="text" class="file-path form-text">
-                  </div>
+              <div class="form-group form__type-managed-file">
+                <label>File input label</label>
+                <div class="image-widget form-managed-file clearfix">
+                  <input type="file" multiple="" class="form-control">
+                  <button value="upload" class="btn style-default js-hide"><i class="material-icons">file_upload</i></button>
+                  <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                 </div>
-              </form>
-              <pre><code class="language-markup"><form action="#">
-  <div class="file-field input-field">
-    <div class="btn">
-      <span>File</span>
-      <input type="file">
-    </div>
-    <div class="file-path-wrapper">
-      <input class="file-path form-text" type="text">
-    </div>
+              </div>
+              <pre><code class="language-markup"><div class="form-group form__type-managed-file">
+  <label>File input label</label>
+  <div class="image-widget form-managed-file clearfix">
+    <input type="file" multiple="" class="form-control">
+    <button value="upload" class="btn style-default js-hide"><i class="material-icons">file_upload</i></button>
+    <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
   </div>
-</form>
+</div>
 </code></pre><p>You can also use the <code>multiple</code> attribute to allow multiple file uploads.</p>
-              <form action="#">
-                <div class="file-field input-field">
-                  <div class="btn"><span>File</span>
-                    <input type="file" multiple="">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input type="text" placeholder="Upload one or more files" class="file-path form-text">
-                  </div>
-                </div>
-              </form>
-              <pre><code class="language-markup"><form action="#">
-  <div class="file-field input-field">
-    <div class="btn">
-      <span>File</span>
-      <input type="file" multiple>
-    </div>
-    <div class="file-path-wrapper">
-      <input class="file-path form-text" type="text" placeholder="Upload one or more files">
-    </div>
-  </div>
-</form>
-</code></pre>
             </div>
             <div id="range" class="section scrollspy">
               <h2 class="header">Range</h2><p>Add a range slider for values with a wide range. This one is set to be a number between 0 and 100. We have two different types of sliders. nouiSlider is a 3rd party plugin which we&#39;ve modified. To use the noUiSlider, you will have to manually link the <code>nouislider.css</code> and <code>nouislider.js</code> files located in the extras folder.</p>
@@ -664,8 +364,8 @@ noUiSlider.create(slider, {
               <h2 class="header">Date Picker</h2>
               <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below!</p>
               <label for="birthdate">Birthdate</label>
-              <input id="birthdate" type="text" class="datepicker form-text">
-              <pre><code class="language-markup"><input type="date" class="form-text datepicker">
+              <input id="birthdate" type="text" class="datepicker form-control">
+              <pre><code class="language-markup"><input type="date" class="form-control datepicker">
 </code></pre>
               <h4>Initialization</h4>
               <p>At this time, not all pickadate.js options are working with our implementation</p>
@@ -676,51 +376,8 @@ noUiSlider.create(slider, {
 
 </code></pre>
             </div>
-            <div id="character-counter" class="section scrollspy">
-              <h2 class="header">Character Counter</h2>
-              <p class="caption">Use a character counter in fields where a character restriction is in place.</p>
-              <div class="row">
-                <form class="col-xs-12">
-                  <div class="row">
-                    <div class="input-field col-xs-6">
-                      <input id="input_text" type="text" length="10" class="form-text">
-                      <label for="input_text">Input text</label>
-                    </div>
-                  </div><br>
-                  <div class="row">
-                    <div class="input-field col-xs-12">
-                      <textarea id="textarea1" length="120" class="form-text form-textarea materialize-textarea"></textarea>
-                      <label for="textarea1">Textarea</label>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <pre><code class="language-markup"><div class="row">
-  <form class="col-xs-12">
-    <div class="row">
-      <div class="input-field col-xs-6">
-        <input id="input_text" type="text" length="10">
-        <label for="input_text">Input text</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col-xs-12">
-        <textarea id="textarea1" class="form-text form-textarea materialize-textarea" length="120"></textarea>
-        <label for="textarea1">Textarea</label>
-      </div>
-    </div>
-  </form>
-</div>
-</code></pre><br>
-              <h4>Initialization</h4>
-              <p>There are no options for this plugin, but if you are adding these dynamically, you can use this to initialize them.</p>
-              <pre><code class="language-javascript">$(document).ready(function() {
- $('input#input_text, textarea#textarea1').characterCounter();
-});
-</code></pre>
-            </div>
           </div>
-          <div class="col-sm-4 col-md-2 hidden-xs">
+          <div class="col-sm-3 col-md-2 hidden-xs">
             <div class="toc-wrapper">
               <ul class="section table-of-contents">
                 <li><a href="#input">Input Fields</a></li>
@@ -732,7 +389,6 @@ noUiSlider.create(slider, {
                 <li><a href="#file">File Input Button</a></li>
                 <li><a href="#range">Range</a></li>
                 <li><a href="#date-picker">Date picker</a></li>
-                <li><a href="#character-counter">Character counter</a></li>
               </ul>
             </div>
           </div>
@@ -781,10 +437,7 @@ noUiSlider.create(slider, {
       for(var i = 0, l = $lang_js.length; i < l; i++) {
         $lang_js[i].innerHTML = lang_jsnippet[i];
       }
-      
     </script>
-    <!-- Does not work for Safari iOS, debug later-->
-    <!-- include _fontfaceobserver.jade-->
     <script src="libs/date_picker/picker.js"></script>
     <script src="libs/date_picker/picker.date.js"></script>
     <link href="libs/noUiSlider/nouislider.css" rel="stylesheet">

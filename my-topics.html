@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>John Johnson</title>
+    <title>Michael Angarano</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -29,6 +29,18 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
+    <!-- Google Tag Manager-->
+    <noscript>
+      <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5BGZV3');
+    </script>
+    <!-- End Google Tag Manager-->
     <div id="header">
       <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
         <div class="container"><a href="home-lu.html" class="navbar-brand">
@@ -36,20 +48,21 @@
           <div class="navbar-header">
             <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
             <ul class="nav navbar-nav navbar-right">
-              <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
+              <li class="hidden-xs"><a href="#"><i title="Add content" class="material-icons">add</i><span class="sr-only">Add content</span></a></li>
+              <li class="hidden-xs active"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
                   </li>
-                  <li><a href="single-post.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar2.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Clive Owen<br><small class="text-muted">Commented on your post</small></div></a></li>
-                  <li><a href="single-post.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar3.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Jeremy Bob<br><small class="text-muted">Liked your post</small></div></a></li>
-                  <li><a href="event.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar4.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Bettie McLaren<br><small class="text-muted">likes your event <strong>8th anniversary our beloved company</strong></small></div></a></li>
                   <li>
@@ -92,38 +105,39 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="container hidden-xs">
+      <div class="container hero-container hidden-xs">
         <div class="cover">
           <div class="hero-action-button"><a href="profile-edit.html" class="waves-effect waves-light btn brand-user btn-floating"><i class="material-icons">mode_edit</i></a></div>
           <div class="cover-wrap">
-            <h1 class="page-title h2">John Johnson</h1><img src="content/images/avatar1.jpg" class="img-circle img-bordered">
+            <h1 class="page-title h2">John Johnson</h1><img src="content/images/avatar1.jpg" class="img-circle img-bordered"><br><br>
+            <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
           </div>
         </div>
       </div>
+      <div class="container">
+        <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
+      </div>
+      <div class="container hero-container">   
+        <div class="brand-secondary z-depth-1 hidden-xs">
+          <nav role="navigation" aria-label="Tabs">
+            <h2 class="visually-hidden">Secondary navigation</h2>
+            <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
+              <li><a href="my-stream.html">Stream  </a></li>
+              <li><a href="my-profile-about.html">About</a></li>
+              <li class="active"><a href="my-topics.html">Topics</a><span class="visually-hidden">(active tab) </span></li>
+              <li><a href="my-events.html">Events </a></li>
+              <li><a href="my-groups.html">Groups</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
       <div class="main-content">
-        <div class="container">
-          <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-default"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
-        </div>
-        <div class="container">
-          <div class="brand-secondary z-depth-1 hidden-xs">
-            <nav role="navigation" aria-label="Tabs">
-              <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-                <li><a href="my-stream.html">Stream  </a></li>
-                <li><a href="my-profile-about.html">About</a></li>
-                <li class="active"><a href="my-topics.html">Topics</a><span class="visually-hidden">(active tab) </span></li>
-                <li><a href="my-events.html">Events </a></li>
-                <li><a href="#">Groups</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
               <h2 class="h3 section-title">My topics</h2>
             </div>
-            <div class="col-xs-12 col-sm-4 pull-right margin-bottom-l"><a href="node-add-topic.html" class="waves-effect waves-light btn btn-block btn-default btn-raised"> <i class="material-icons pull-left">add</i>Add a topic</a>
+            <div class="col-xs-12 col-sm-3 pull-right margin-bottom-l"><a href="node-add-topic.html" class="waves-effect waves-light btn btn-block btn-user btn-raised"> <i class="material-icons pull-left">add</i>Add a topic</a>
               <btn class="waves-effect waves-light btn btn-block btn-primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</btn><br><br>
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
@@ -158,11 +172,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-8">
+            <div class="col-xs-12 col-sm-9">
               <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Technology for the handicapped</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Clive Owen</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">Technology for the handicapped</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
                   <div class="text-grey-dark">15 feb 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
@@ -170,7 +184,7 @@
               <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Discussion</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Richard Ogylvie</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h2><a href="#" class="text-l text-grey-dark">Richard Ogylvie</a>
                   <div class="text-grey-dark">22 mar 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
@@ -178,7 +192,7 @@
               <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">5 new cool features in Office 365</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Dennis Rodman</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">5 new cool features in Office 365</a></h2><a href="#" class="text-l text-grey-dark">Dennis Rodman</a>
                   <div class="text-grey-dark">28 mar 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
@@ -186,7 +200,7 @@
               <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
                   <div class="text-default-dark">Topic</div>
-                  <h2 class="h3 card-title"> <a href="topic.html">Top 10 zoos to visit in 2016</a></h2><a href="other-stream.html" class="text-l text-grey-dark">Amanda Boxer</a>
+                  <h2 class="h3 card-title"> <a href="topic.html">Top 10 zoos to visit in 2016</a></h2><a href="#" class="text-l text-grey-dark">Amanda Boxer</a>
                   <div class="text-grey-dark">12 apr 2016</div>
                   <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Delete post</title>
+    <title>Create a new Open group</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -29,6 +29,18 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
   </head>
   <body class="template">
+    <!-- Google Tag Manager-->
+    <noscript>
+      <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5BGZV3');
+    </script>
+    <!-- End Google Tag Manager-->
     <div id="header">
       <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
         <div class="container"><a href="home-lu.html" class="navbar-brand">
@@ -36,20 +48,21 @@
           <div class="navbar-header">
             <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
             <ul class="nav navbar-nav navbar-right">
-              <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
+              <li class="hidden-xs"><a href="#"><i title="Add content" class="material-icons">add</i><span class="sr-only">Add content</span></a></li>
+              <li class="hidden-xs active"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
                   </li>
-                  <li><a href="single-post.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar2.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Clive Owen<br><small class="text-muted">Commented on your post</small></div></a></li>
-                  <li><a href="single-post.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar3.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Jeremy Bob<br><small class="text-muted">Liked your post</small></div></a></li>
-                  <li><a href="event.html" class="media">
+                  <li><a href="#" class="media">
                       <div class="media-left"><img src="content/images/avatar4.jpg" alt="" class="img-small img-circle"></div>
                       <div class="media-body">Bettie McLaren<br><small class="text-muted">likes your event <strong>8th anniversary our beloved company</strong></small></div></a></li>
                   <li>
@@ -92,25 +105,46 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="container">
+      <div class="container hero-container">
         <div class="cover">
-          <h1 class="page-title h2">Delete post </h1>
+          <h1 class="page-title h2 text-center">Create a new Open Group    </h1>
         </div>
       </div>
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-sm-8">
-              <div class="card">
-                <div class="card-body extra-padding">
-                  <form>
-                    <p>Are you sure you want to delete this post?</p><br><br>
-                    <div class="form-actions clearfix"><a href="javascript:history.back()" class="btn btn-link">Cancel</a>
-                      <button type="submit" class="btn btn-primary pull-right">Delete</button>
+            <div class="col-md-9 margin-bottom-l">
+              <form action="topic.html" method="get">
+                <div id="content" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Content</header>
+                  </div>
+                  <div class="card-body"> 
+                    <div class="form-group">
+                      <label class="form-required">Title</label>
+                      <input type="text" required class="form-control">
                     </div>
-                  </form>
+                    <div class="form-group">
+                      <label class="form-required">Description</label>
+                      <div class="textarea--cke">
+                        <textarea id="ckeditor" required class="form-control"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group form__type-managed-file">
+                      <label>Image</label>
+                      <div class="image-widget form-managed-file clearfix">
+                        <input type="file" value="upload an image" class="form-control">
+                        <button type="submit" value="remove" class="btn form-submit style-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
+                      </div>
+                      <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+                <div class="form-actions clearfix">
+                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
+                  <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn-secondary pull-right">
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -128,5 +162,18 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
+  </script>
+  <script src="libs/ckeditor/ckeditor.js"></script>
+  <script src="libs/ckeditor/adapters/jquery.js"></script>
+  <script>
+    jQuery(document).ready(function($){
+      $( '#ckeditor' ).ckeditor();  
+    });
+    
+    function showMe (it, it2, box) {
+      var visibility = (box.checked) ? "block" : "none";
+      document.getElementById(it).style.display = visibility;
+      document.getElementById(it2).style.display = visibility;
+    }
   </script>
 </html>
