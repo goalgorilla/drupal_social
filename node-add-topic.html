@@ -138,12 +138,6 @@
                       <label class="form-required">Title</label>
                       <input type="text" required class="form-control">
                     </div>
-                    <div class="form-group">
-                      <label class="form-required">Description</label>
-                      <div class="textarea--cke">
-                        <textarea id="ckeditor" required class="form-control"></textarea>
-                      </div>
-                    </div>
                     <div class="form-group form__type-managed-file">
                       <label>Image</label>
                       <div class="image-widget form-managed-file clearfix">
@@ -154,46 +148,15 @@
                     </div>
                   </div>
                 </div>
-                <div id="placement" class="card card-underline scrollspy">
+                <div id="description" class="card card-underline scrollspy">
                   <div class="card-head">
-                    <header>Placement and visibility</header>
+                    <header>Event description</header>
                   </div>
                   <div class="card-body"> 
                     <div class="form-group">
-                      <label class="form-required">Add topic to</label>
-                      <div class="radio">
-                        <input id="profile" type="radio" name="placement">
-                        <label for="profile">My profile</label>
-                      </div>
-                      <div class="radio">
-                        <input id="group" type="radio" name="placement" onclick="showMe('selectagroup', 'visibilitygroup', this)">
-                        <label for="group">A group I am a member of:</label>
-                      </div>
-                      <div id="selectagroup" style="display:none;">
-                        <select class="form-control">
-                          <option value="" disabled="" selected="">Select a group</option>
-                          <option value="1">Group 1</option>
-                          <option value="2">Group 2</option>
-                          <option value="3">Group 3</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group radios">
-                      <label class="form-required">Visibility</label>
-                      <div class="radio">
-                        <input id="public" type="radio" name="visibility">
-                        <label for="public">Public</label>
-                        <div class="help-block">Community visible to all visitors of the platform</div>
-                      </div>
-                      <div class="radio">
-                        <input id="community" type="radio" name="visibility">
-                        <label for="community">Community</label>
-                        <div class="help-block">visible only to logged in members</div>
-                      </div>
-                      <div class="radio">
-                        <input id="groups" type="radio" name="visibility">
-                        <label for="groups">Groups</label>
-                        <div class="help-block">Visible only to group members</div>
+                      <label class="form-required">Description</label>
+                      <div class="textarea--cke">
+                        <textarea id="ckeditor" required class="form-control"></textarea>
                       </div>
                     </div>
                   </div>
@@ -220,8 +183,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-actions clearfix">
+                <div class="form-actions clearfix">         
+                  <input type="submit" value="Save and publish" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
                   <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
+                  <input type="submit" value="Discard" class="waves-effect waves-light btn btn-raised btn-secondary pull-right">
                   <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn-secondary pull-right">
                 </div>
               </form>
@@ -230,7 +195,7 @@
               <div class="toc-wrapper">
                 <ul class="section table-of-contents">
                   <li><a href="#content">Content</a></li>
-                  <li><a href="#placement">Placement and visibility</a></li>
+                  <li><a href="#placement">Event description</a></li>
                   <li><a href="#comment-settings">Comment settings</a></li>
                 </ul>
               </div>
