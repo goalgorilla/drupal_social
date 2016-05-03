@@ -82,7 +82,6 @@
           </div>
           <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="#">Explore</a></li>
               <li>
                 <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
                   <div id="navbar-search" class="form-group">
@@ -116,11 +115,10 @@
               <div class="toc-wrapper">
                 <ul class="table-of-contents">
                   <li><a href="#content">Title &amp; image</a></li>
-                  <li><a href="#placement">Placement and visibility</a></li>
+                  <li><a href="#description">Description</a></li>
                   <li> <a href="#eventtime">Date &amp; time</a></li>
                   <li> <a href="#location">Location</a></li>
-                  <li> <a href="#description">Description</a></li>
-                  <li><a href="#attachments">Attachments</a></li>
+                  <li> <a href="#attachments">Attachments</a></li>
                   <li><a href="#comment-settings">Comment settings</a></li>
                 </ul>
               </div>
@@ -151,48 +149,20 @@
                     </div>
                   </div>
                 </div>
-                <div id="placement" class="card card-underline scrollspy">
+                <div id="description" class="card card-underline scrollspy">
                   <div class="card-head">
-                    <header>Placement and visibility</header>
+                    <header>Description</header>
                   </div>
-                  <div class="card-body"> 
-                    <div class="form-group radios">
-                      <label class="form-required">Add event to</label>
-                      <div class="radio">
-                        <input id="profile" type="radio" name="placement" checked>
-                        <label for="profile">My profile</label>
-                      </div>
-                      <div class="radio">
-                        <input id="group" type="radio" name="placement" onclick="showMe('selectagroup', 'visibilitygroup', this)">
-                        <label for="group">A group I am a member of:</label>
-                      </div>
-                      <div id="selectagroup" style="display:none;">
-                        <select class="form-control">
-                          <option value="" disabled="" selected="">Select a group</option>
-                          <option value="1">Group 1</option>
-                          <option value="2">Group 2</option>
-                          <option value="3">Group 3</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group radios">
-                      <label class="form-required">Visibility</label>
-                      <div class="form__radios">
-                        <div class="radio">
-                          <input id="public" type="radio" name="visibility">
-                          <label for="public">Public</label>
-                          <div class="help-block">Community visible to all visitors of the platform</div>
-                        </div>
-                        <div class="radio">
-                          <input id="community" type="radio" name="visibility" checked>
-                          <label for="community">Community</label>
-                          <div class="help-block">visible only to logged in members</div>
-                        </div>
-                        <div id="visibilitygroup" style="display: none" class="radio">
-                          <input id="groups" type="radio" name="visibility" class="form-radio">
-                          <label for="groups" class="option">Groups</label>
-                          <div class="help-block">Visible only to group members</div>
-                        </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Description</label>
+                      <div class="textarea--cke">
+                        <textarea id="ckeditor" required class="form-control">
+                          <p> <strong>Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business. Your training can be free, as so many industry experts write and teach and share this information without charging for it. Even the tools you use to build websites can be downloaded free of charge, or purchased for very little.</strong>
+                            <p>As an industry we have become accustomed to getting hundreds of hours of work, and the benefit of years of hard-won knowledge for free.</p>
+                            <p>My free time in the last couple of years has been put into looking at the Grid Layout spec. I start most days answering emailed questions about the examples I’ve posted, before I get down to the work that pays the bills.</p>
+                          </p>
+                        </textarea>
                       </div>
                     </div>
                   </div>
@@ -265,24 +235,6 @@
                     </div>
                   </div>
                 </div>
-                <div id="description" class="card card-underline scrollspy">
-                  <div class="card-head">
-                    <header>Description</header>
-                  </div>
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label class="form-required">Description</label>
-                      <div class="textarea--cke">
-                        <textarea id="ckeditor" required class="form-control">
-                          <p> <strong>Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business. Your training can be free, as so many industry experts write and teach and share this information without charging for it. Even the tools you use to build websites can be downloaded free of charge, or purchased for very little.</strong>
-                            <p>As an industry we have become accustomed to getting hundreds of hours of work, and the benefit of years of hard-won knowledge for free.</p>
-                            <p>My free time in the last couple of years has been put into looking at the Grid Layout spec. I start most days answering emailed questions about the examples I’ve posted, before I get down to the work that pays the bills.</p>
-                          </p>
-                        </textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div id="attachments" class="card card-underline scrollspy">
                   <div class="card-head">
                     <header>Attachments</header>
@@ -320,9 +272,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-actions clearfix"><a href="event.html" class="waves-effect waves-light btn btn-raised btn-user">Discard changes</a><a href="event-confirm-delete.html" class="btn btn-link">Delete</a>
-                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
-                  <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn-secondary pull-right">
+                <div class="form-actions clearfix">
+                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right"><a href="#" class="waves-effect waves-light btn btn-secondary pull-right">Preview</a><a href="#" class="btn btn-link pull-right">Delete</a><a href="#" class="btn btn-link pull-right">Discard changes</a>
                 </div>
               </form>
             </div>
