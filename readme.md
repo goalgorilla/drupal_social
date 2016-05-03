@@ -2,6 +2,8 @@
 Check [drupal.org](https://www.drupal.org/project/social) for more information.
 For day to day technical documentation use the [Github Wiki](https://github.com/goalgorilla/drupal_social/wiki).
 
+Hello DrupalJam
+
 Useful links for developers:
 - [Roadmap](https://drupalsocial.storiesonboard.com/m/drupal-social-mvp)
 - [Lo-fi prototype](http://prototype.goalgorilla.com/drupalsocial/current/)
