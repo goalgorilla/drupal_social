@@ -49,7 +49,7 @@
             <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
-              <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
+              <li><a href="my-groups.html"><i title="My groups" class="custom-icons icon-group hidden-sm hidden-md hidden-lg"></i><span class="hidden-xs">My groups</span></a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
@@ -141,11 +141,24 @@
                       </div>
                     </div>
                     <div class="form-group form__type-managed-file">
-                      <label>Image</label>
+                      <label>Profile image</label>
                       <div class="image-widget form-managed-file clearfix"><img src="content/images/avatar1.jpg" width="50" class="img-responsive pull-left">
                         <div class="pull-left padding-xs">
-                          <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">my-picture.jpg</a>
+                          <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">my-profile-picture.jpg</a>
                           <div class="file-size">(91.78kb)</div>
+                        </div>
+                        <div class="pull-left padding-xs">
+                          <button type="submit" value="remove" class="btn btn-user form-submit"><i class="material-icons pull-left">delete</i>Remove</button>
+                        </div>
+                      </div>
+                      <div style="display:none" class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
+                    </div>
+                    <div class="form-group form__type-managed-file">
+                      <label>Cover image</label>
+                      <div class="image-widget form-managed-file clearfix"><img src="content/images/my-cover-big.jpg" width="150" class="img-responsive pull-left">
+                        <div class="pull-left padding-xs">
+                          <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">my-cover.jpg</a>
+                          <div class="file-size">(123.89kb)</div>
                         </div>
                         <div class="pull-left padding-xs">
                           <button type="submit" value="remove" class="btn btn-user form-submit"><i class="material-icons pull-left">delete</i>Remove</button>
@@ -164,11 +177,11 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <label>Function</label>
-                          <input type="text" value="Executive director animal relations" class="form-control">
+                          <input type="text" value="Receptionist" class="form-control">
                         </div>
                         <div class="col-sm-6">
                           <label>Organisation</label>
-                          <input type="text" value="The pet shop" class="form-control">
+                          <input type="text" value="Bastion Hotels" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -219,21 +232,21 @@
                       <label class="form-required">Write some details about yourself</label>
                       <div class="textarea--cke">
                         <textarea id="ckeditor" required class="form-control">
-                          <p>Nullam quis risus eget urna mollis ornare vel eu leo. Maecenas sed diam eget risus varius blandit sit amet non magna. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                          <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Donec ullamcorper nulla non metus auctor fringilla.</p>
                         </textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <label>Your expertises</label>
-                      <input type="text" value="" class="form-control">
+                      <input type="text" value="drupal, sales, barbecues" class="form-control">
                     </div>
                     <div class="form-group">
                       <label>Your interests</label>
-                      <input type="text" value="" class="form-control">
+                      <input type="text" value="php, interaction design, cooking" class="form-control">
                     </div>
                   </div>
                 </div>
-                <div class="form-actions clearfix"><a href="my-profile-about.html" class="waves-effect waves-light btn btn-raised btn-user">Discard changes</a>
+                <div class="form-actions clearfix"><a href="my-profile-about.html" class="waves-effect waves-light btn btn-raised btn-default">Discard changes</a>
                   <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
                 </div>
               </form>

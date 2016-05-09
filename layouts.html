@@ -95,35 +95,40 @@
             <div id="regions" class="section scrollspy">
               <h2 class="header">Regions</h2>
               <p>We have split up the <em>fluid</em> layout of the interface into regions to which in Drupal we can assign blocks to. The following regions are used. When you scroll down we see how these regions are placed in layouts. </p>
-              <ul class="collection"> 
-                <li class="collection__item avatar"><span style="background-color: #e1bee7" class="circle"> </span><span class="title">Header</span>
-                  <p>Primary navigation, user navigation, site search</p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #80deea" class="circle"></span><span class="title">Breadcrumbs </span>
-                  <p>Pathway navigation for large screen and 'go back' navigation for mobile </p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #ef9a9a" class="circle"></span><span class="title">Hero</span>
-                  <p>Provides a summary of the main content of this page, for example a person, a group or an event.</p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #90caf9" class="circle"></span><span class="title">Primary action</span>
-                  <p>Provides actions that are relevant to the main content such as follow a person, join a group, enrol to an event </p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #80cbc4" class="circle"></span><span class="title">Secondary navigation</span>
-                  <p>Navigation options to the sub contents of a main content.</p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #dce775" class="circle"></span><span class="title">Title </span>
-                  <p>Explains what this page or section is about</p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #a5d6a7" class="circle"></span><span class="title">Main content </span>
-                  <p>Content about this section          </p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #ffe082" class="circle"></span><span class="title">Complementary </span>
-                  <p>Complementary content, filters, actions, quick navigations that specific to the section     </p>
-                </li>
-                <li class="collection__item avatar"><span style="background-color: #b0bec5" class="circle"></span><span class="title">Footer </span>
-                  <p>It is static and contains information about the whole application.</p>
-                </li>
-              </ul>
+              <div class="list-group"> 
+                <div class="list-group-item avatar"><span style="background-color: #e1bee7" class="circle"> </span>
+                  <h6 class="list-group-item-heading">Header</h6>
+                  <p class="list-group-item-text">Primary navigation, user navigation, site search</p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #80deea" class="circle"></span>
+                  <h6 class="list-group-item-heading">Breadcrumbs </h6>
+                  <p class="list-group-item-text">Pathway navigation for large screen and 'go back' navigation for mobile </p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #ef9a9a" class="circle"></span>
+                  <h6 class="list-group-item-heading">Hero</h6>
+                  <p class="list-group-item-text">Provides a summary of the main content of this page, for example a person, a group or an event.</p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #80cbc4" class="circle"></span>
+                  <h6 class="list-group-item-heading">Secondary navigation</h6>
+                  <p class="list-group-item-text">Navigation options to the sub contents of a main content.</p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #dce775" class="circle"></span>
+                  <h6 class="list-group-item-heading">Title </h6>
+                  <p class="list-group-item-text">Explains what this page or section is about</p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #a5d6a7" class="circle"></span>
+                  <h6 class="list-group-item-heading">Main content </h6>
+                  <p class="list-group-item-text">Content about this section          </p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #ffe082" class="circle"></span>
+                  <h6 class="list-group-item-heading">Complementary </h6>
+                  <p class="list-group-item-text">Complementary content, filters, actions, quick navigations that specific to the section  </p>
+                </div>
+                <div class="list-group-item avatar"><span style="background-color: #b0bec5" class="circle"></span>
+                  <h6 class="list-group-item-heading">Footer </h6>
+                  <p class="list-group-item-text">It is static and contains information about the whole application.</p>
+                </div>
+              </div>
             </div>
             <div id="layout-a" class="section scrollspy">
               <h2 class="header">Layout A | Parents</h2>
@@ -152,9 +157,6 @@
                       <p>Hero</p>
                       <p class="flat-text inline25"></p>
                       <p class="flat-text inline25"></p>
-                      <div style="background-color:#90caf9; min-height: 60px;" class="col-xs-12 col-sm-4 pull-right">
-                        <p>Primary action</p>
-                      </div>
                     </div>
                   </div>
                   <div class="row">
@@ -166,10 +168,10 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div style="background-color:#dce775; min-height: 60px;" class="col-xs-12 col-sm-8">
+                    <div style="background-color:#dce775; min-height: 60px;" class="col-xs-12">
                       <p>Title </p>
                     </div>
-                    <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 pull-right">
+                    <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 col-sm-last">
                       <p>Complementary</p>
                       <p class="flat-text small"></p>
                       <p class="flat-text"></p>
@@ -222,9 +224,6 @@
                       <p>Hero</p>
                       <p class="flat-text inline25"></p>
                       <p class="flat-text inline25"></p>
-                      <div style="background-color:#90caf9; min-height: 60px;" class="col-xs-12 col-sm-4 pull-right">
-                        <p>Primary action</p>
-                      </div>
                     </div>
                   </div>
                   <div class="row hidden-xs">
@@ -236,10 +235,10 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div style="background-color:#dce775; min-height: 60px;" class="col-xs-12 col-sm-8">
+                    <div style="background-color:#dce775; min-height: 60px;" class="col-xs-12">
                       <p>Title </p>
                     </div>
-                    <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 pull-right">
+                    <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 col-sm-last">
                       <p>Complementary</p>
                       <p class="flat-text small"></p>
                       <p class="flat-text"></p>
@@ -279,7 +278,7 @@
                     </div>
                   </div>
                   <div class="row visible-md-block visible-lg-block">
-                    <div style="background-color:#80deea; min-height: 30px;" class="col-md-12">
+                    <div style="background-color:#80deea; min-height: 30px;" class="col-xs-12">
                       <p>Breadcrumbs</p>
                     </div>
                   </div>
@@ -288,13 +287,10 @@
                       <p>Hero</p>
                       <p class="flat-text inline25"></p>
                       <p class="flat-text inline25"></p>
-                      <div style="background-color:#90caf9; min-height: 60px;" class="col-xs-12 col-sm-4 pull-right">
-                        <p>Primary action</p>
-                      </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 pull-right">
+                    <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 col-sm-last">
                       <p>Complementary</p>
                       <p class="flat-text small"></p>
                       <p class="flat-text"></p>
