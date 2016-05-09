@@ -84,22 +84,29 @@
           </ul>
         </li>
         <li class="bold"><a href="layouts.html" class="waves-effect waves-teal">Layouts</a></li>
-        <li class="no-padding">
-          <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">JavaScript</a>
-              <div class="collapsible-body">
-                <ul>
-                  <li><a href="waves.html">Waves</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </li>
         <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
       </ul>
       <div class="mask-modal"></div>
     </header>
-    <main role="main" class="styleguide-container"></main>
+    <main role="main" class="styleguide-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-10">           
+            <h2>Installation</h2>
+            <ul>
+              <li>Clone the Open Social repository in your developing branch.</li>
+              <li>Follow the steps described the <a href="https://github.com/goalgorilla/drupal_social/blob/master/readme.md#installation"> Installation guidelines</a> on Github and complete the Drupal installation.</li>
+              <li>Check that your Installation works and Open social is your default theme.  </li>
+              <li>In your terminal go the <code>social_base</code> folder and run <code>npm install</code>.</li>
+            </ul>
+            <h2>Usage</h2>
+            <ul>
+              <li>In the folder <code>social_base</code> first run <code>gulp init</code> and then run <code>gulp</code> (default task)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
     <script src="js/vendor.js"></script>
     <script src="js/drupal-core.js"></script>
     <script src="js/bootstrap.min.js"></script>

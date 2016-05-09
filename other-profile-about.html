@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -106,29 +106,41 @@
       <div class="container hidden-xs">
         <div class="cover">
           <div class="cover-wrap">
-            <h1 class="page-title h2">Jenny Baker</h1><img src="content/images/avatar5.jpg" class="img-circle"><br><br>
-            <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
+            <h1 class="page-title h2">Jenny Baker</h1><br><img src="content/images/avatar5.jpg" class="img-circle img-medium">
+            <div class="hero-footer">
+              <div class="row row-md-center">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">Head of Communications - Freshminds</div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="btn-group">
+                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Following        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Stop following    </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="container">   
+        <div class="visible-xs-block section"><a href="other-stream.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to Jenny`s stream</a></div>
+      </div>
+      <div class="container">
+        <div class="brand-secondary z-depth-1 hidden-xs">
+          <nav role="navigation" aria-label="Tabs">
+            <h2 class="visually-hidden">Secondary navigation</h2>
+            <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
+              <li><a href="other-stream.html">Stream  </a></li>
+              <li class="active"><a href="other-profile-about.html">About</a><span class="visually-hidden">(active tab)</span></li>
+              <li><a href="other-topics.html">Topics</a></li>
+              <li><a href="other-events.html">Events  </a></li>
+              <li><a href="other-groups.html">Groups</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
       <div class="main-content">
-        <div class="container">
-          <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to the stream</a></div>
-        </div>
-        <div class="container">
-          <div class="brand-secondary z-depth-1 hidden-xs">
-            <nav role="navigation" aria-label="Tabs">
-              <h2 class="visually-hidden">Secondary navigation</h2>
-              <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-                <li><a href="other-stream.html">Stream  </a></li>
-                <li class="active"><a href="other-profile-about.html">About</a><span class="visually-hidden">(active tab)</span></li>
-                <li><a href="other-topics.html">Topics</a></li>
-                <li><a href="other-events.html">Events  </a></li>
-                <li><a href="#">Groups</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
         <div class="container">
           <div class="row">
             <div class="col-sm-12">
@@ -147,7 +159,7 @@
                     </li>
                     <li class="collection-item"> 
                       <div class="collection-label">E-mail</div>
-                      <div class="collection-field"> <a href="example@domain.com">jenny@jennybaker.com    </a></div>
+                      <div class="collection-field"> <a href="mailto:example@domain.com">jenny@jennybaker.com    </a></div>
                     </li>
                     <li class="collection-item"> 
                       <div class="collection-label">Address</div>

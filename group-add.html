@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -112,7 +112,7 @@
         <div class="container">
           <div class="row margin-top-l">
             <div class="col-md-9 margin-bottom-l">
-              <form action="topic.html" method="get">
+              <form action="groups-stream.html" method="get">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
                     <header>Content</header>
@@ -124,9 +124,7 @@
                     </div>
                     <div class="form-group">
                       <label class="form-required">Description</label>
-                      <div class="textarea--cke">
-                        <textarea id="ckeditor" required class="form-control"></textarea>
-                      </div>
+                      <textarea required class="form-control"></textarea>
                     </div>
                     <div class="form-group form__type-managed-file">
                       <label>Image</label>
@@ -174,18 +172,5 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
-  </script>
-  <script src="libs/ckeditor/ckeditor.js"></script>
-  <script src="libs/ckeditor/adapters/jquery.js"></script>
-  <script>
-    jQuery(document).ready(function($){
-      $( '#ckeditor' ).ckeditor();  
-    });
-    
-    function showMe (it, it2, box) {
-      var visibility = (box.checked) ? "block" : "none";
-      document.getElementById(it).style.display = visibility;
-      document.getElementById(it2).style.display = visibility;
-    }
   </script>
 </html>

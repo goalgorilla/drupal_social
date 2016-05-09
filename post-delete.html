@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -99,8 +99,7 @@
       <nav class="visible-md-block visible-lg-block style-default-bright">
         <ol class="breadcrumb container">
           <li><a href="home-lu.html">Home</a></li>
-          <li><a href="#!">Overview</a></li>
-          <li class="active">Detail</li>
+          <li class="active">Delete post</li>
         </ol>
       </nav>
       <div class="container">
@@ -111,12 +110,13 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-sm-8">
+            <div class="col-xs-12 col-sm-6">
               <div class="card">
                 <div class="card-body extra-padding">
-                  <form>
-                    <p>Are you sure you want to delete this post?</p><br><br>
-                    <div class="form-actions clearfix"><a href="javascript:history.back()" class="btn btn-link">Cancel</a>
+                  <form action="home-lu.html">
+                    <p>Are you sure you want to delete this post?</p>
+                    <p>&nbsp;</p>
+                    <div class="form-actions clearfix"><a href="javascript:history.back()" class="btn btn-default">Cancel</a>
                       <button type="submit" class="btn btn-primary pull-right">Delete</button>
                     </div>
                   </form>

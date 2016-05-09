@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -106,11 +106,25 @@
       <div class="container hidden-xs">
         <div class="cover">
           <div class="cover-wrap">
-            <h1 class="page-title h2">Jenny Baker</h1><img src="content/images/avatar5.jpg" class="img-circle"><br><br>
-            <button class="btn btn-flat btn--default-bright"><i class="material-icons pull-left">check</i>Following</button>
+            <h1 class="page-title h2">Jenny Baker</h1><br><img src="content/images/avatar5.jpg" class="img-circle img-medium">
+            <div class="hero-footer">
+              <div class="row row-md-center">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">Head of Communications - Freshminds</div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="btn-group">
+                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Following        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Stop following    </a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="visible-xs-block section"><a href="my-stream.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to my stream</a></div>
+      </div>
+      <div class="container">   
+        <div class="visible-xs-block section"><a href="other-stream.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to Jenny`s stream</a></div>
         <div class="brand-secondary z-depth-1 hidden-xs">
           <nav role="navigation" aria-label="Tabs">
             <h2 class="visually-hidden">Secondary navigation</h2>
@@ -119,7 +133,7 @@
               <li><a href="other-profile-about.html">About</a></li>
               <li><a href="other-topics.html">Topics</a></li>
               <li class="active"><a href="other-events.html">Events </a><span class="visually-hidden">(active tab) </span></li>
-              <li><a href="#">Groups</a></li>
+              <li><a href="other-groups.html">Groups</a></li>
             </ul>
           </nav>
         </div>
@@ -128,9 +142,9 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <h2 class="h3 section-title">Jenny Bakers events</h2>
+              <h2 class="h3 section-title">Jenny Baker`s events</h2>
             </div>
-            <div class="col-xs-12 col-sm-4 pull-right margin-bottom-l">
+            <div class="col-xs-12 col-sm-3 col-sm-last col-md-4 margin-bottom-l">
               <button class="waves-effect waves-light btn btn-block btn-primary btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</button>
               <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
                 <div class="offcanvas-head">
@@ -163,16 +177,16 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-8">
+            <div class="col-xs-12 col-sm-9 col-md-8">
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
                   <div class="teaser-date">19
                     <div class="text-xs">may</div>
                   </div></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
-                  <div class="text-grey">19 jul 09:00 - 18:00</div>
-                  <div class="text-grey-dark">Keizersgracht 376, Amsterdam</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="event.html">Security and modern internet</a></h4>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">19 jul 09:00 - 18:00</span>&nbsp; <span class="label label-primary">enrolled</span></p>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">place</i><span class="inline-center">Keizersgracht 376, Amsterdam</span></p>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
@@ -180,10 +194,10 @@
                     <div class="text-xs">may-may</div>
                   </div></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Security and modern internet</a></h2>
-                  <div class="text-grey">20 May 09:00 - 21 May 18:00</div>
-                  <div class="text-grey-dark">Rembrandtplein 1, Amsterdam</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="event.html">Security and modern internet</a></h4>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">20 May 09:00 - 21 May 18:00 </span>&nbsp; <span class="label label-primary">enrolled</span></p>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">place</i><span class="inline-center">Rembrandtplein, Amsterdam</span></p>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
@@ -191,21 +205,22 @@
                     <div class="text-xs">may</div>
                   </div></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">London Meetup</a></h2>
-                  <div class="text-grey">26 may 09:00 - 18:00</div>
-                  <div class="text-grey-dark">Tower Bridge, London</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="event.html">London Meetup</a></h4>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">26 may 09:00 - 18:00 </span>&nbsp; <span class="label label-primary">enrolled</span></p>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">place</i><span class="inline-center">Tower Bridge, London</span></p>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
                   <div class="teaser-date">28
                     <div class="text-xs">Aug</div>
-                  </div></a>
+                  </div>
+                  <div class="status">unpublished</div></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="event.html">Team conference East</a></h2>
-                  <div class="text-grey">28 Aug 10:00 - 12:00</div>
-                  <div class="text-grey-dark">Old Market, Groningen</div>
-                  <div class="card-actionbar"><a href="event-enrollments.html" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="event.html">Team conference East</a></h4>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">28 Aug 10:00 - 12:00 </span>&nbsp; <span class="label label-primary">enrolled</span></p>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">place</i><span class="inline-center">Old Market, Groningen</span></p>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div>
               <nav>

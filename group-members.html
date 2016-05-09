@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Amsterdam meetup</title>
+    <title>Happy Campers</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -104,24 +104,29 @@
         </ol>
       </nav>
       <div class="container hero-container">
-        <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img hidden-xs"> 
-          <div class="cover-wrap">  <a href="node-edit-event.html" class="pull-right waves-effect waves-light btn btn-raised brand-user btn-floating"><i class="material-icons">mode_edit        </i></a>
-            <h1 class="page-title">Amsterdam Meetup</h1>
+        <div style="background-image: url('content/images/group-hero.jpg')" class="cover cover-img hidden-xs">
+          <div class="hero-action-button"><a href="group-edit.html" class="waves-effect waves-light btn brand-user btn-floating"><i class="material-icons">mode_edit</i></a></div>
+          <div class="cover-wrap">         
+            <h1 class="page-title">Happy Campers</h1>
+            <p class="page-title">21 members</p>
             <div class="hero-footer">
-              <div>
-                <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ GoalGorilla, Amsterdam</span>
+              <div class="row row-md-center">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="btn-group">
+                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Joined        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Leave group  </a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by <a itemprop="url" rel="author" href="/author/rachelandrew" class="author">Rachel Andrew</a></div>
             </div>
-          </div>
-          <div class="primary-action-region">
-            <p class="small text-default-bright hidden">You have enrolled to this event.</p>
-            <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll</button>
           </div>
         </div>
       </div>
       <div class="container"> 
-        <div class="visible-xs-block section"><a href="event.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to event</a></div>
+        <div class="visible-xs-block section"><a href="group-stream.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to group stream</a></div>
       </div>
       <div class="container hero-container"> 
         <div class="brand-secondary z-depth-1 hidden-xs">
@@ -139,47 +144,42 @@
       <div class="main-content">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12">
-              <h4 class="section-title">Group members</h4>
+            <div class="col-xs-12 col-sm-12">
+              <h4 class="section-title">Members of Happy Campers</h4>
             </div>
-            <div class="col-sm-9">
+            <div class="col-xs-12 col-sm-8">
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member1.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Jade Williams</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">Tech Inc.</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Jade Williams</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at Tech Inc.</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member2.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Catelyn Stark</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">House Stark</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Catelyn Stark</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at House Stark</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member3.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Khal Drogo</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">Nightswatch</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Khal Drogo</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at Nightswatch</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member4.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Getrud van Assen</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">House Tully</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Getrud van Assen</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at House Tully</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member5.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Tyrion Lannister</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">House Lannister</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Tyrion Lannister</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at House Lannister</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
@@ -214,21 +214,5 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
-  </script>
-  <script>
-    jQuery(document).ready(function($){
-      $('#enrollButton').on('click', function () {
-        
-        // button text will toggle "Cancel enrollment"
-        var buttonState = $(this).data("toggle-text");
-        $(this).data('toggle-text', $(this).text()).text(buttonState);
-        
-        // button active state will toggle
-        $(this).toggleClass('active') 
-        
-        // show / hide previous text element
-        $(this).prev('p').toggleClass('hidden');
-      })  
-    });
   </script>
 </html>

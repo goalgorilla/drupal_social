@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -99,8 +99,7 @@
       <nav class="visible-md-block visible-lg-block style-default-bright">
         <ol class="breadcrumb container">
           <li><a href="home-lu.html">Home</a></li>
-          <li><a href="#!">Overview</a></li>
-          <li class="active">Detail</li>
+          <li class="active">Edit post</li>
         </ol>
       </nav>
       <div class="container">
@@ -111,27 +110,23 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-sm-8">
+            <div class="col-xs-12 col-sm-8">
               <div class="card">
                 <div class="card-body extra-padding">
-                  <ul class="media-list">
-                    <li class="media">
-                      <div class="media-left"><a href="my-stream.html"><img src="content/images/avatar1.jpg" class="media-object img-circle img-small"></a></div>
-                      <div class="media-body">
-                        <h5 class="media-heading"><a href="my-stream.html">John Johnson </a>&bullet; <br><small>6 hours ago</small></h5>
-                        <form action="single-post.html">
-                          <div class="form-group">
-                            <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege.</textarea>
-                          </div>
-                          <div class="form-group media">             
-                            <div class="media-right">
-                              <input type="submit" value="Save" class="btn btn-primary">
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </li>
-                  </ul>
+                  <div class="media"><a href="my-stream.html" class="media-left"><img src="content/images/avatar1.jpg" class="img-circle img-small"></a>
+                    <div class="media-body">
+                      <h5 class="media-heading"><a href="my-stream.html">John Johnson </a><br><small>6 hours ago</small></h5>
+                    </div>
+                  </div>
+                  <form action="javascript:history.back()" class="margin-top-l">
+                    <div class="form-group">
+                      <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege.</textarea>
+                    </div>
+                    <div class="form-actions clearfix">          
+                      <input type="submit" value="Discard" class="btn btn-default">
+                      <input type="submit" value="Save" class="btn btn-primary pull-right">
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>

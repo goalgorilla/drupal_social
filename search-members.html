@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -125,63 +125,74 @@
       <div class="main-content">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-xs-12">
               <h4 class="section-title">Member results</h4>
               <p>If you are searching for content, <a href="search-content.html">click here</a></p>
             </div>
-            <div class="col-sm-4 col-sm-push-8">
-              <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
+            <div class="col-xs-12 col-sm-3 col-sm-last margin-bottom-l">
+              <button class="waves-effect waves-light btn btn-default btn-block btn-raised visible-xs-inline-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filter</button>
+              <div class="off-canvas off-canvas-right off-canvas-xs-only">
                 <div class="offcanvas-head">
                   <header class="card__label">filter</header>
                   <div class="offcanvas-tools visible-xs-block">
                     <div class="js-close-canvas btn btn-icon-toggle btn-user-light pull-right"><i class="material-icons">close</i></div>
                   </div>
                 </div>
-              </div>
-              <div class="offcanvas-body">
-                <form>
-                  <div class="form-group"></div>
-                </form>
+                <div class="offcanvas-body">
+                  <form>
+                    <div class="form-group form-autocomplete">
+                      <label>Expertise</label>
+                      <div class="input-group">
+                        <input type="text" autocomplete="off" class="form-control"><span class="input-group-addon"><i class="material-icons">autorenew</i></span>
+                      </div>
+                    </div>
+                    <div class="form-group form-autocomplete">
+                      <label>Interests</label>
+                      <div class="input-group">
+                        <input type="text" autocomplete="off" class="form-control"><span class="input-group-addon"><i class="material-icons">autorenew</i></span>
+                      </div>
+                    </div>
+                    <div class="form-actions clearfix">
+                      <button type="submit" value="Reset" class="btn btn-default">Reset</button>
+                      <button type="submit" value="Filter" class="btn btn-primary pull-right">Filter</button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-            <div class="col-sm-8 col-sm-pull-4">
+            <div class="col-xs-12 col-sm-9">
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member1.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Jade Williams</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">Tech Inc.</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Jade Williams</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at Tech Inc.</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member2.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Catelyn Stark</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">House Stark</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Catelyn Stark</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at House Stark</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member3.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Khal Drogo</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">Nightswatch</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Khal Drogo</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at Nightswatch</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member4.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Getrud van Assen</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">House Tully</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Getrud van Assen</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at House Tully</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>
               <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member5.jpg" class="img-responsive"></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="other-stream.html">Tyrion Lannister</a></h2>
-                  <div class="text-grey-dark">Drupal Ninja</div>
-                  <div class="text-grey">House Lannister</div>
+                  <h4 class="card-title"> <a href="other-stream.html">Tyrion Lannister</a></h4>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal Ninja at House Lannister</span></p>
                   <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
                 </div>
               </div>

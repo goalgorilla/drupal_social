@@ -50,7 +50,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
               <li><a href="#"><i title="Notifications" class="material-icons hidden-sm hidden-md hidden-lg">people</i><span class="hidden-xs">Groups</span></a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
                 <ul class="dropdown-menu notifications-nav">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -99,8 +99,8 @@
       <nav class="visible-md-block visible-lg-block style-default-bright">
         <ol class="breadcrumb container">
           <li><a href="home-lu.html">Home</a></li>
-          <li><a href="#!">Overview</a></li>
-          <li class="active">Detail</li>
+          <li><a href="group-stream.html">Happy campers</a></li>
+          <li class="active">Amsterdam Meetup</li>
         </ol>
       </nav>
       <div class="container hero-container">
@@ -109,15 +109,23 @@
           <div class="cover-wrap">  
             <h1 class="page-title">Amsterdam Meetup</h1>
             <div class="hero-footer">
-              <div>
-                <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ Keizersgracht 376, Amsterdam</span>
+              <div class="row row-md-center">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                  <div>
+                    <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ Keizersgracht 376, Amsterdam</span>
+                  </div>
+                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <span>By </span><a itemprop="url" rel="author" href="my-stream.html">John Johnson </a><span>in </span><a itemprop="organizer" href="group-stream.html"> <i class="custom-icons icon-group"></i><span>Happy Campers</span></a></div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                  <div class="btn-group">
+                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Enrolled        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Cancel enrollment     </a></li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">published by <a itemprop="url" rel="author" href="my-stream.html" class="author">John Johnson</a></div>
             </div>
-          </div>
-          <div class="primary-action-region">
-            <p class="small text-default-bright hidden">You have enrolled to this event.</p>
-            <button id="enrollButton" type="button" autocomplete="off" data-toggle-text="Cancel enrollment" class="btn btn-accent btn-raised">Enroll</button>
           </div>
         </div>
       </div>
@@ -144,7 +152,7 @@
                   <header>15 people have enrolled</header>
                 </div>
                 <div class="card-body text-center">
-                  <div class="img-grid"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small">
+                  <div class="img-grid"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar5.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar1.jpg" class="img-circle img-small"><img src="content/images/avatar4.jpg" class="img-circle img-small"><img src="content/images/avatar2.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small"><img src="content/images/avatar3.jpg" class="img-circle img-small">
                   </div><a href="event-enrollments.html" class="btn btn-flat">View all</a>
                 </div>
               </div>
@@ -172,7 +180,7 @@
                     <div class="media-body">
                       <h5 class="media-heading"><a href="my-stream.html">John Johnson </a></h5>
                       <div class="btn-group pull-right">
-                        <button type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-icon-toggle dropdown-toggle"><i class="material-icons">mode_edit</i></button>
+                        <button type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-icon-toggle dropdown-toggle"><i class="material-icons">expand_more</i></button>
                         <ul role="menu" class="dropdown-menu">
                           <li> <a href="comment-edit.html">Edit</a></li>
                           <li><a href="comment-delete.html">Delete</a></li>
@@ -181,37 +189,48 @@
                     </div>
                   </div>
                   <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
-                  <div class="clearfix"><a href="comment.html#insert-comment" class="btn btn-link btn-sm">Reply</a></div>
+                  <div class="clearfix"><a href="comment.html#insert-comment" class="btn btn-link btn-sm pull-right">Reply</a></div>
                   <div class="card-nested-section">
                     <div class="media">
                       <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar2.jpg" class="media-object img-circle img-small"></a></div>
                       <div class="media-body">
-                        <h5 class="media-heading"><a href="other-stream.html">Nancy Owen </a><br><small> <a href="comment.html">6 hours ago</a></small></h5>
+                        <h6 class="media-heading"><a href="other-stream.html">Nancy Owen </a><br><small> <a href="comment.html">6 hours ago</a></small></h6>
+                        <p>We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
                       </div>
-                      <p>We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
                     </div>
                     <div class="media">
                       <div class="media-left"><a href="my-stream.html"><img src="content/images/avatar1.jpg" class="media-object img-circle img-small"></a></div>
                       <div class="media-body">
-                        <h5 class="media-heading"><a href="my-stream.html">John Johnson </a><br><small> <a href="comment.html">1 hour ago</a></small></h5>
+                        <h6 class="media-heading"><a href="my-stream.html">John Johnson </a><br><small> <a href="comment.html">1 hour ago</a></small></h6>
                         <div class="btn-group pull-right">
-                          <button type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-icon-toggle dropdown-toggle"><i class="material-icons">mode_edit</i></button>
+                          <button type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-icon-toggle dropdown-toggle"><i class="material-icons">expand_more</i></button>
                           <ul role="menu" class="dropdown-menu">
                             <li> <a href="reply-edit.html">Edit</a></li>
                             <li><a href="reply-delete.html">Delete</a></li>
                           </ul>
                         </div>
+                        <p>We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
                       </div>
-                      <p>We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </p>
                     </div>
                   </div>
+                  <hr>
                   <div class="media"> 
                     <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar5.jpg" class="media-object img-circle img-small"></a></div>
                     <div class="media-body">
                       <h5 class="media-heading"> <a href="other-stream.html">Jenny Baker </a></h5><br><small><a href="comment.html">3 hours ago</a></small>
                     </div>
                   </div>
-                  <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div><a href="comment.html#insert-comment" class="btn btn-link btn-sm">Reply</a>
+                  <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
+                  <div class="clearfix"><a href="comment.html#insert-comment" class="btn btn-link btn-sm pull-right">Reply</a></div>
+                  <hr>
+                  <div class="media"> 
+                    <div class="media-left"><a href="other-stream.html"><img src="content/images/avatar4.jpg" class="media-object img-circle img-small"></a></div>
+                    <div class="media-body">
+                      <h5 class="media-heading"> <a href="other-stream.html">Will Bundy </a></h5><br><small><a href="comment.html">2 hours ago</a></small>
+                    </div>
+                  </div>
+                  <div class="margin-top-s">I completely agree with Jenny, let's schedule a meeting for this.</div>
+                  <div class="clearfix"><a href="comment.html#insert-comment" class="btn btn-link btn-sm pull-right">Reply</a></div>
                   <hr>
                   <div class="media">
                     <div class="media-left"><img src="content/images/avatar1.jpg" class="img-small img-circle"></div>
@@ -257,21 +276,5 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
-  </script>
-  <script>
-    jQuery(document).ready(function($){
-      $('#enrollButton').on('click', function () {
-        
-        // button text will toggle "Cancel enrollment"
-        var buttonState = $(this).data("toggle-text");
-        $(this).data('toggle-text', $(this).text()).text(buttonState);
-        
-        // button active state will toggle
-        $(this).toggleClass('active') 
-        
-        // show / hide previous text element
-        $(this).prev('p').toggleClass('hidden');
-      })  
-    });
   </script>
 </html>
