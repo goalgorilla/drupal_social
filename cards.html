@@ -56,21 +56,23 @@
         <ul id="nav-mobile" class="side-nav fixed">
           <li class="logo"><a id="logo-container" href="index.html" class="brand-logo">
               <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-blue.svg">Your browser does not support SVG</object></a></li>
-          <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Getting Started</a></li>
+          <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
           <li class="no-padding">
             <ul class="collapsible collapsible-accordion">
-              <li class="bold"><a class="collapsible-header  waves-effect waves-teal">CSS</a>
+              <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Style</a>
                 <div class="collapsible-body">
                   <ul>
                     <li><a href="color.html">Color</a></li>
-                    <li><a href="grid.html">Grid</a></li>
                     <li><a href="typography.html">Typography</a></li>
+                    <li><a href="elevation.html">Elevation</a></li>
                   </ul>
                 </div>
               </li>
               <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Components</a>
                 <div class="collapsible-body">
                   <ul>
+                    <li><a href="buttons.html">Buttons</a></li>
+                    <li><a href="grid.html">Grid</a></li>
                     <li><a href="navigation.html">Navigation</a></li>
                     <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                     <li class="active"><a href="cards.html">Cards  </a></li>
@@ -82,20 +84,20 @@
               </li>
             </ul>
           </li>
-          <li class="bold"><a href="layouts.html" class="waves-effect waves-teal">Layouts</a></li>
+          <li class="bold"><a href="layouts.html" class="waves-effect waves-teal">Layout</a></li>
           <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
         </ul>
         <div class="mask-modal"></div>
       </header>
       <main role="main" class="styleguide-container">
-        <div class="container">
+        <div class="container margin-top-xl">
           <div class="row"> 
             <div class="col-xs-12">
               <p class="caption">A card is a sheet of material that serves as an entry point to more detailed information. A card could contain a photo, text, and a link about a single subject.          </p>
             </div>
           </div>
           <div class="row"> 
-            <div class="col-xs-12 col-md-7">
+            <div class="col-xs-12">
               <h3 class="text-primary">Usage</h3>
               <p>Cards are a convenient means of displaying content composed of different elements. They’re also well-suited for showcasing elements whose size or supported actions vary, like photos with captions of variable length.</p>
               <h4>When to use</h4>
@@ -108,7 +110,9 @@
                 <li>Would otherwise be in a grid list but needs to display more content to supplement the image</li>
               </ul>
             </div>
-            <div class="col-xs-12 col-md-5">   
+          </div>
+          <div class="row"> 
+            <div class="col-xs-12">  
               <h3 class="text-primary">Basic card</h3>
               <p>A basic card consists of a card header and a card body. The body can hold any information such as text, images and form elements.</p>
               <div class="card">
@@ -212,34 +216,38 @@
             </div>
           </div>
           <div class="row"> 
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12">
               <h3 class="text-primary">Teaser card</h3>
               <p>A teaser card can be used for Drupal teasers. The teaser can have image but it is not mandatory. Teasers can have one or two buttons which are at the bottom and are flat buttons. Content hierarchy is achieved by the order of fields and the use of typography. Try to limit the amount of information and actions in a teaser. On mobile the image field is not displayed. On tablet and wider the maximum height of the teaser card should match the heigth of the image style.</p>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-md-6">
-              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+            <div class="col-xs-12 col-md-8">
+              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
-                  <div class="text-default-dark">Blog</div>
-                  <h2 class="h3 card-title"> <a href="#">Teaser title</a></h2><a href="#" class="text-l text-grey-dark">Clive Owen</a>
-                  <div class="text-grey-dark">15 feb 2016</div>
-                  <div class="card-actionbar"><a href="#" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="topic.html">Technology for the handicapped</a></h4>
+                  <p class="text-grey-dark"><a href="other-stream.html">Clive Owen </a>&bullet; 15 feb 2016</p>
+                  <p><i class="material-icons pull-left">label</i><span class="inline-center">Blog</span></p>
+                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
-              </div><em class="text-caption">Example of a topic teaser card</em>
+              </div>
             </div>
             <div class="col-xs-12">   
-              <pre><code class="language-markup"><div class="card card-teaser card-with-actionbar">
-  <div class="card-image">
+              <pre><code class="language-markup"><div class="card card--teaser card-with-actionbar">
+  <a class="card-image" href="#">
     <img src="content/images/people3-square.jpg" alt="" class="img-responsive">
     <img src="images/icon-topic.svg" class="teaser-type">
-  </div>
+  </a>
   <div class="card-body">
-    
-    <div class="text-default-dark">Blog</div>
-    <h2 class="h3 card-title"> <a href="#">Teaser title</a></h2>
-    <a href="#" class="text-l text-grey-dark">Clive Owen</a>
-    <div class="text-grey-dark">15 feb 2016</div>
+    <h4 class="card-title"> <a href="#">Teaser title</a></h4>
+    <p class="text-grey-dark">
+      <a href="#"> Clive Owen</a>
+      15 feb 2016
+    </p>
+    <p>
+      <i class="material-icons pull-left">label</i>
+      <span class="inline-center">Blog</span>
+    </p>
     
     <div class="card-actionbar">
       <a href="#" class="btn btn-flat right">Read more</a>
@@ -252,27 +260,24 @@
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-9"> 
-              <div class="card card--teaser card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
-                  <div class="teaser-date">19-21
-                    <div class="text-xs">apr - apr</div>
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
+                  <div class="teaser-date">19
+                    <div class="text-xs">may</div>
                   </div></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="#">Event teaser example</a></h2>
-                  <div class="text-grey">15 may 2016 09:00 - 17:00</div>
-                  <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-actionbar"><a href="#" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="#" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="event.html">Security and modern internet</a></h4>
+                  <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">19 jul 09:00 - 18:00</span>&nbsp; <span class="label label-primary">enrolled</span></p>
+                  <p class="text-grey-dark"> <i class="material-icons pull-left">place</i><span class="inline-center">Keizersgracht 376, Amsterdam</span></p>
+                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div><em class="text-caption">Example of a event teaser card</em>
-              <div class="card card--teaser unpublished card-with-actionbar"><a href="#" class="card-image"><img src="content/images/people3-square.jpg" alt="" class="img-responsive">
-                  <div class="teaser-date">9
-                    <div class="text-xs">jun</div>
-                  </div>
+              <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type">
                   <div class="status">unpublished</div></a>
                 <div class="card-body">
-                  <h2 class="h3 card-title"> <a href="#">Example of an unpublished teaser</a></h2>
-                  <div class="text-grey">15 may 2016 09:00 - 17:00</div>
-                  <div class="text-grey-dark">Rembrandtplein, Amsterdam</div>
-                  <div class="card-actionbar"><a href="#" class="btn btn-flat pull-left btn-primary">Enrolled</a><a href="#" class="btn btn-flat pull-right">Read more</a></div>
+                  <h4 class="card-title"> <a href="topic.html">5 new cool features in Office 365</a></h4>
+                  <p class="text-grey-dark"><a href="other-stream.html">Dennis Rodman </a>&bullet; 28 mar 2016</p>
+                  <p> <i class="material-icons pull-left">label</i><span class="inline-center">Blog</span></p>
+                  <div class="card-actionbar"><a href="topic.html" class="btn btn-flat pull-right">Read more</a></div>
                 </div>
               </div><em class="text-caption">Example of an unpublished teaser card</em>
             </div>

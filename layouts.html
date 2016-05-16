@@ -57,21 +57,23 @@
       <ul id="nav-mobile" class="side-nav fixed">
         <li class="logo"><a id="logo-container" href="index.html" class="brand-logo">
             <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-blue.svg">Your browser does not support SVG</object></a></li>
-        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Getting Started</a></li>
+        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
         <li class="no-padding">
           <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">CSS</a>
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Style</a>
               <div class="collapsible-body">
                 <ul>
                   <li><a href="color.html">Color</a></li>
-                  <li><a href="grid.html">Grid</a></li>
                   <li><a href="typography.html">Typography</a></li>
+                  <li><a href="elevation.html">Elevation</a></li>
                 </ul>
               </div>
             </li>
             <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
               <div class="collapsible-body">
                 <ul>
+                  <li><a href="buttons.html">Buttons</a></li>
+                  <li><a href="grid.html">Grid</a></li>
                   <li><a href="navigation.html">Navigation</a></li>
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="cards.html">Cards  </a></li>
@@ -83,7 +85,7 @@
             </li>
           </ul>
         </li>
-        <li class="bold active"><a href="layouts.html" class="waves-effect waves-teal">Layouts</a></li>
+        <li class="bold active"><a href="layouts.html" class="waves-effect waves-teal">Layout</a></li>
         <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
       </ul>
       <div class="mask-modal"></div>
@@ -91,9 +93,19 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row"> 
-          <div class="col-xs-12 col-sm-8 col-md-10">
-            <div id="regions" class="section scrollspy">
-              <h2 class="header">Regions</h2>
+          <div class="col-xs-12 col-sm-4 col-md-3 col-sm-last">
+            <div class="toc-wrapper">
+              <ul class="table-of-contents">
+                <li><a href="#regions">Regions</a></li>
+                <li><a href="#layout-a">Layout A</a></li>
+                <li><a href="#layout-b">Layout B</a></li>
+                <li><a href="#layout-c">Layout C</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8 col-md-9">
+            <div id="regions" class="scrollspy margin-top-xxl">
+              <h2>Regions</h2>
               <p>We have split up the <em>fluid</em> layout of the interface into regions to which in Drupal we can assign blocks to. The following regions are used. When you scroll down we see how these regions are placed in layouts. </p>
               <div class="list-group"> 
                 <div class="list-group-item avatar"><span style="background-color: #e1bee7" class="circle"> </span>
@@ -130,8 +142,8 @@
                 </div>
               </div>
             </div>
-            <div id="layout-a" class="section scrollspy">
-              <h2 class="header">Layout A | Parents</h2>
+            <div id="layout-a" class="scrollspy margin-top-xxl">
+              <h2>Layout A | Parents</h2>
               <p>This layout is used on the section's parent pages. The parents form the landing pages of the platform such as the timeline page of a person or group or the detail page of an event. These pages always have child pages. </p>
               <div class="browser-window">
                 <div class="top-bar">
@@ -193,8 +205,8 @@
                 </div>
               </div>
             </div>
-            <div id="layout-b" class="section scrollspy">
-              <h2 class="header">Layout B | Children</h2>
+            <div id="layout-b" class="scrollspy margin-top-xxl">
+              <h2>Layout B | Children</h2>
               <p>This layout is used on section's child pages. For example an event node has enrollment as a child, but a topic node doesn't have children. So we use this template for event enrollment, but not for topic.</p>
               <p><strong>Please note</strong> that the difference here is only seen on smaller screens compared to Layout A. The hero area will be hidden and instead of the secondary navigation there is a "Back to main page" button which leads back to  Layout A.</p>
               <div class="browser-window">
@@ -260,8 +272,8 @@
                 </div>
               </div>
             </div>
-            <div id="layout-c" class="section scrollspy">
-              <h2 class="header">Layout C | Orphans</h2>
+            <div id="layout-c" class="scrollspy margin-top-xxl">
+              <h2>Layout C | Orphans</h2>
               <p>This layout is used on sections that has <strong>no</strong> sub content nor has sibling pages in the hierarchy. For example a topic node, or and edit node page. Compared to the other layouts we do not have a secondary navigation nor title region here. The title will be displayed in the Hero region.</p>
               <div class="browser-window">
                 <div class="top-bar">
@@ -311,16 +323,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-sm-4 col-md-2 hidden-xs">
-            <div class="toc-wrapper">
-              <ul class="table-of-contents">
-                <li><a href="#regions">Regions</a></li>
-                <li><a href="#layout-a">Layout A</a></li>
-                <li><a href="#layout-b">Layout B</a></li>
-                <li><a href="#layout-c">Layout C</a></li>
-              </ul>
             </div>
           </div>
         </div>

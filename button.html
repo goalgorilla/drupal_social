@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Open Social - Drupal Social</title>
+    <title>Buttons - Drupal Social</title>
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png">
@@ -46,7 +46,7 @@
         <div class="header__innerwrapper container">
           <div class="row">
             <div class="col-xs-12">
-              <h1 class="header__title">Open Social</h1>
+              <h1 class="header__title">Buttons</h1>
             </div>
           </div>
         </div>
@@ -69,10 +69,10 @@
                 </ul>
               </div>
             </li>
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
+            <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Components</a>
               <div class="collapsible-body">
                 <ul>
-                  <li><a href="buttons.html">Buttons</a></li>
+                  <li class="active"><a href="buttons.html">Buttons</a></li>
                   <li><a href="grid.html">Grid</a></li>
                   <li><a href="navigation.html">Navigation</a></li>
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
@@ -91,92 +91,19 @@
       <div class="mask-modal"></div>
     </header>
     <main role="main" class="styleguide-container">
-      <div id="index-banner" class="section">
-        <div class="container"><br><br><br>
-          <div class="center">
-            <p><p><strong>A modern responsive Drupal theme for Open Social.</strong></p>
-
-<p>This theme is built upon <a href="https://www.drupal.org/project/bootstrap">Drupal bootstrap</a> and makes use of <a href="https://www.google.com/design/spec/material-design/introduction.html">Material Design principles</a>.</p>
-
-<p>We are currently working on the alpha release which in planned for the end of June.</p>
-            </p>
-          </div>
-        </div>
-      </div>
-    </main>
-    <script src="js/vendor.js"></script>
-    <script src="js/drupal-core.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
-    <script src="js/prism.js"></script>
-    <script>
-      // Escape code
-      // ============================================================
-      
-      var $lang_markup       = document.querySelectorAll('pre code.language-markup')
-          $lang_js           = document.querySelectorAll('script.atomic-js'),
-          $lang_jscode       = document.querySelectorAll('pre code.language-javascript')
-          lang_markupsnippet = [],
-          lang_jsnippet      = [];
-      
-      
-      // Markup
-      // order matters!
-      // ============================================================
-      
-      for(var i = 0, l = $lang_markup.length; i < l; i++) {
-        lang_markupsnippet.push(
-          $lang_markup[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        );
-        $lang_markup[i].innerHTML = lang_markupsnippet[i];
-      }
-      
-      
-      // JavaScript
-      // order matters!
-      // ============================================================
-      for(var i = 0, l = $lang_jscode.length; i < l; i++) {
-        lang_jsnippet.push(
-          $lang_jscode[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        );
-      }
-      
-      for(var i = 0, l = $lang_js.length; i < l; i++) {
-        $lang_js[i].innerHTML = lang_jsnippet[i];
-      }
-    </script>
-    <footer class="styleguide-footer brand-secondary">
-      <div class="repo-link">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="commit"><span class="hidden-mobile">Latest commit on Github by &nbsp; &nbsp; </span><a href="" class="sha hidden-mobile"></a><span class="hidden-mobile">-&nbsp;</span><span class="date hidden-mobile"></span><a id="github-button" href="https://github.com/goalgorilla/drupal_social/tree/gh-pages" class="btn btn-flat pull-right waves-effect waves-light">View repository</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-8">
-            <h5 class="white-text">Contribute</h5>
-            <p class="grey-text text-lighten-4">Do you want to join us in this effort? We are welcoming your feedback, (development) time and/or financial support. For <a href="https://www.drupal.org/project/issues/social" class="social-blue-text text-lighten-4"> feedback we will use D.O</a> for other questions or suggestions please <a href="mailto:taco@goalgorilla.com" class="social-blue-text text-lighten-4">contact us</a>.</p>
-            <p> <a href="https://github.com/goalgorilla/drupal_social/wiki/Contributing-to-Open-Social" class="btn btn-default">Read more</a></p>
-          </div>
-          <div class="col-xs-12 col-sm-3 col-sm-push-1">
-            <h5 class="white-text">Connect</h5>
-            <ul>
-              <li><a href="https://www.drupal.org/project/social" class="white-text">Drupal project page</a></li>
-              <li><a href="https://github.com/goalgorilla/drupal_social/" class="white-text">Drupal repository </a></li>
-              <li><a href="https://github.com/goalgorilla/drupal_social/issues/new" class="white-text">Report issues</a></li>
+          <div class="col-xs-12">
+            <h2>Types of buttons</h2>
+            <p>There are different types of buttons that can be used.</p>
+            <ul> 
+              <li>Default button: Rectanglular shaped buttons that is used most of the times. Does not lift (on same layer as the parent element) and should be placed cards. </li>
+              <li>Flat button: Are text-only buttons. They can be used to put less emphasis or visual attraction to the action. They may be used in dialogs, toolbars, or inline. They do not lift, but fill with color on press.</li>
+              <li>Raised button: Rectangular-shaped buttons that behave like a piece of material resting on another sheet – they lift and fill with color on press. Raised buttons add dimension to mostly flat layouts. They emphasize functions on busy or wide spaces. They may be used inline. They lift and display ink reactions on press.</li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="footer-copyright">
-        <div class="container"> <a href="http://www.goalgorilla.com">GoalGorilla is Founder and lead of the Open Social project </a></div>
-      </div>
-    </footer>
+    </main>
   </body>
 </html>
