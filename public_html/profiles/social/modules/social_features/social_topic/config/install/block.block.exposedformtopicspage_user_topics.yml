@@ -5,18 +5,17 @@ dependencies:
     - views.view.topics
   module:
     - system
-    - user
     - views
   theme:
-    - bartik
-id: exposedformtopicspage_1
-theme: bartik
-region: sidebar_second
-weight: -6
+    - socialbase
+id: exposedformtopicspage_user_topics
+theme: socialbase
+region: complementary
+weight: null
 provider: null
-plugin: 'views_exposed_filter_block:topics-page_1'
+plugin: 'views_exposed_filter_block:topics-page_user_topics'
 settings:
-  id: 'views_exposed_filter_block:topics-page_1'
+  id: 'views_exposed_filter_block:topics-page_user_topics'
   label: ''
   provider: views
   label_display: visible
