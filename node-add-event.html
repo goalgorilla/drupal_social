@@ -189,6 +189,7 @@
             <div class="col-xs-12 col-sm-4 col-sm-last">
               <ul class="section table-of-contents">
                 <li><a href="#content">Title &amp; image</a></li>
+                <li> <a href="#visibility">Visibility</a></li>
                 <li> <a href="#eventtime">Date &amp; time</a></li>
                 <li> <a href="#location">Location</a></li>
                 <li> <a href="#description">Description</a></li>
@@ -214,6 +215,26 @@
                         <button type="submit" value="remove" class="btn btn-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
                       </div>
                       <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="visibility" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Visibility</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group radios">
+                      <label class="form-required">Visibility</label>
+                      <div class="radio">
+                        <input id="community" type="radio" name="type">
+                        <label for="community">Community</label>
+                        <div class="help-block">Visible for members only</div>
+                      </div>
+                      <div class="radio">
+                        <input id="public" type="radio" name="type">
+                        <label for="public">Public</label>
+                        <div class="help-block">Visible for everyone, including people who are not a member</div>
+                      </div>
                     </div>
                   </div>
                 </div>

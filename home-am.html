@@ -1,0 +1,182 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta charset="utf-8"/>
+<title>Documentation - Drupal social</title>
+<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="images/favicon/android-chrome-192x192.png" sizes="192x192"/>
+<link rel="icon" type="image/png" href="images/favicon/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16"/>
+<link rel="manifest" href="images/favicon/manifest.json"/>
+<link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#29abe2"/>
+<meta name="msapplication-TileColor" content="#29abe2"/>
+<meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png"/>
+<meta name="theme-color" content="#ffffff"/>
+<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
+<body>
+  <!-- Google Tag Manager-->
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5BGZV3');
+  </script>
+  <!-- End Google Tag Manager-->
+  <div id="header">
+    <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
+      <div class="container"><a href="#" class="navbar-brand">
+          <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+        <div class="navbar-header">
+          <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu     </i></button>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.html">Log in</a></li>
+            <li><a href="sign-up.html">Sign up</a></li>
+          </ul>
+        </div>
+        <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
+                <div id="navbar-search" class="form-group">
+                  <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control"/>
+                  <input type="submit" value="" class="form-submit"/><span class="search-icon"><i class="material-icons">search</i></span>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <main role="main" class="main-container">
+    <nav class="visible-md-block visible-lg-block bg-white">
+      <ol class="breadcrumb container">
+        <li><a href="home-an.html">Home</a></li>
+        <li class="active">Community events</li>
+      </ol>
+    </nav>
+    <div class="main-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4 class="section-title">Community events</h4>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-sm-last margin-bottom-l">
+            <btn class="waves-effect waves-light btn btn-block btn-default btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</btn>
+            <div class="off-canvas off-canvas-right off-canvas-xs-only">
+              <div class="offcanvas-head">
+                <header class="card__label">filter</header>
+                <div class="offcanvas-tools visible-xs-block">
+                  <button class="js-close-canvas btn btn-icon-toggle btn-user-light pull-right"><i class="material-icons">close</i></button>
+                </div>
+              </div>
+              <div class="offcanvas-body">
+                <form>
+                  <div class="form-group radios">
+                    <label>Event status </label>
+                    <div class="radio">
+                      <input id="radio1" name="event" type="radio" checked="checked"/>
+                      <label for="radio1">Upcoming</label>
+                    </div>
+                    <div class="radio">
+                      <input id="radio2" name="event" type="radio"/>
+                      <label for="radio2">Past              </label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive"/>
+                <div class="teaser-date">19
+                  <div class="text-xs">may</div>
+                </div></a>
+              <div class="card-body">
+                <h4 class="card-title"> <a href="event.html">Security and modern internet</a></h4>
+                <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">19 jul 09:00 - 18:00</span>&nbsp; 
+                </p>
+                <p class="text-grey-dark"> <i class="material-icons pull-left">place</i><span class="inline-center">Keizersgracht 376, Amsterdam</span></p>
+                <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+              </div>
+            </div>
+            <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive"/>
+                <div class="teaser-date">20-21
+                  <div class="text-xs">may-may</div>
+                </div></a>
+              <div class="card-body">
+                <h4 class="card-title"> <a href="event.html">Security and modern internet</a></h4>
+                <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">20 May 09:00 - 21 May 18:00 </span>&nbsp; 
+                </p>
+                <p class="text-grey-dark"> <i class="material-icons pull-left">place</i><span class="inline-center">Rembrandtplein, Amsterdam</span></p>
+                <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+              </div>
+            </div>
+            <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive"/>
+                <div class="teaser-date">26
+                  <div class="text-xs">may</div>
+                </div></a>
+              <div class="card-body">
+                <h4 class="card-title"> <a href="event.html">London Meetup</a></h4>
+                <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">26 may 09:00 - 18:00 </span>&nbsp; </p>
+                <p class="text-grey-dark"><i class="material-icons pull-left">place</i><span class="inline-center">Tower Bridge, London</span></p>
+                <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+              </div>
+            </div>
+            <div class="card card--teaser card-with-actionbar unpublished"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive"/>
+                <div class="teaser-date">28
+                  <div class="text-xs">Aug</div>
+                </div>
+                <div class="status">unpublished</div></a>
+              <div class="card-body">
+                <h4 class="card-title"> <a href="event.html">Team conference East</a></h4>
+                <p class="text-grey-dark"><i class="material-icons pull-left">event</i><span class="inline-center">28 Aug 10:00 - 12:00 </span>&nbsp; 
+                </p>
+                <p class="text-grey-dark"><i class="material-icons pull-left">place</i><span class="inline-center">Old Market, Groningen</span></p>
+                <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="main-footer">
+    <div class="container clearfix">
+      <div class="navbar navbar-footer">
+        <div class="nav navbar-nav navbar-right">
+          <li> <a href="#">About</a></li>
+          <li> <a href="#">Terms</a></li>
+          <li> <a href="#">Privacy</a></li>
+          <li> <a href="#">Cookies</a></li>
+          <li> <a href="#">Contact</a></li>
+        </div>
+        <div class="navbar-brand"><a href="home-lu.html">Open Social</a></div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/vendor.js"></script>
+  <script src="js/drupal-core.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script>
+    new UISearch( document.getElementById( 'navbar-search' ) );
+    
+  </script>
+</body>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>A post</title>
+    <title>Create Event</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -176,92 +176,192 @@
       <nav class="visible-md-block visible-lg-block bg-white">
         <ol class="breadcrumb container">
           <li><a href="home-lu.html">Home</a></li>
-          <li class="active">Post</li>
+          <li><a href="#!">Overview</a></li>
+          <li class="active">Detail</li>
         </ol>
       </nav>
       <div class="main-content">
         <div class="container">
           <div class="row">
+            <div class="col-xs-12">
+              <h1 class="h4 section-title">Create Event</h1>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-sm-last">
+              <ul class="section table-of-contents">
+                <li><a href="#content">Title &amp; image</a></li>
+                <li> <a href="#visibility">Visibility</a></li>
+                <li> <a href="#eventtime">Date &amp; time</a></li>
+                <li> <a href="#location">Location</a></li>
+                <li> <a href="#description">Description</a></li>
+                <li><a href="#attachments">Attachments</a></li>
+                <li><a href="#comment-settings">Comment settings</a></li>
+              </ul>
+            </div>
             <div class="col-xs-12 col-sm-8">
-              <h4 class="section-title">Post</h4>
-              <div class="card">
-                <div class="card-body">
-                  <div class="media">
-                    <div class="media-left"><a href="my-stream.html"><img src="content/images/member5.jpg" class="media-object img-circle img-medium"></a>
-                    </div>
-                    <div class="media-body">
-                      <h5 class="media-heading"><a href="my-stream.html">John Johson </a><br><small>12 hours ago</small>
-                      </h5>
-                      <div class="btn-group pull-right">
-                        <button type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-icon-toggle dropdown-toggle"><i class="material-icons">expand_more</i></button>
-                        <ul role="menu" class="dropdown-menu">
-                          <li> <a href="post-edit.html">Edit</a></li>
-                          <li><a href="post-delete.html">Delete</a></li>
-                        </ul>
-                      </div>
-                    </div>
+              <form action="event.html" method="get">
+                <div id="content" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Title and image</header>
                   </div>
-                  <div class="margin-top-s">Our software empowers people to effectively collaborate and organize. Replacing traditional intranets, it fuels bottom-up organizational innovation. <a href="#">www.getopensocial.com</a></div><img src="content/images/os_image.jpg" alt="" width="100%" height="auto" class="img-responsive">
-                  <div class="card-nested-section">
-                    <div class="media">
-                      <div class="media-left"><img src="content/images/member5.jpg" class="img-medium img-circle"></div>
-                      <div class="media-body">
-                        <form>
-                          <div class="form-group form-group-inline clearfix">
-                            <textarea placeholder="Write a comment..." width="100%" rows="1" class="form-control form-control--block"></textarea>
-                            <button type="submit" class="btn btn-link">Comment</button>
-                          </div>
-                        </form>
-                      </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Title</label>
+                      <input type="text" class="form-control required">
                     </div>
-                    <div class="media">
-                      <div class="media-left"><a href="other-stream.html"><img src="content/images/member3.jpg" class="media-object img-circle img-medium"></a>
+                    <div class="form-group form__type-managed-file">
+                      <label>Image</label>
+                      <div class="image-widget form-managed-file clearfix">
+                        <input type="file" value="upload an image" class="form-control">
+                        <button type="submit" value="remove" class="btn btn-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
                       </div>
-                      <div class="media-body">
-                        <h5 class="media-heading"><a href="other-stream.html">Henry Bond</a><br><small>44 minutes </small>
-                        </h5>
-                      </div>
+                      <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                     </div>
-                    <div class="margin-top-s">Rutrum faucibus dolor auctor.</div>
-                    <div class="media">
-                      <div class="media-left"><a href="other-stream.html"><img src="content/images/member2.jpg" class="media-object img-circle img-medium"></a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="media-heading"><a href="other-stream.html">Getrud van Assen</a><br><small>2 hours </small>
-                        </h5>
-                      </div>
-                    </div>
-                    <div class="margin-top-s">Ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</div>
-                    <div class="media">
-                      <div class="media-left"><a href="other-stream.html"><img src="content/images/member3.jpg" class="media-object img-circle img-medium"></a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="media-heading"><a href="other-stream.html">Henry Bond</a><br><small>12 hours</small>
-                        </h5>
-                      </div>
-                    </div>
-                    <div class="margin-top-s">Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</div>
-                    <div class="media">
-                      <div class="media-left"><a href="other-stream.html"><img src="content/images/member4.jpg" class="media-object img-circle img-medium"></a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="media-heading"><a href="other-stream.html">Jenny Baker</a><br><small>50 mins</small>
-                        </h5>
-                      </div>
-                    </div>
-                    <div class="margin-top-s">Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</div>
-                    <div class="media">
-                      <div class="media-left"><a href="other-stream.html"><img src="content/images/member1.jpg" class="media-object img-circle img-medium"></a>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="media-heading"><a href="other-stream.html">Mary-Lou Wallace </a><br><small>13 hours ago</small>
-                        </h5>
-                      </div>
-                    </div>
-                    <div class="margin-top-s">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </div>
                   </div>
                 </div>
-              </div>
+                <div id="visibility" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Visibility</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group radios">
+                      <label class="form-required">Visibility</label>
+                      <div class="help-block">It is not possible to create public events inside a group.</div>
+                      <div class="radio">
+                        <input id="community" type="radio" name="type" checked>
+                        <label for="community">Community</label>
+                        <div class="help-block">Visible for members only</div>
+                      </div>
+                      <div class="radio">
+                        <input id="public" type="radio" name="type" disabled>
+                        <label for="public">Public</label>
+                        <div class="help-block">Visible for everyone, including people who are not a member</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="eventtime" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Date and time</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-required">Start date</label>
+                          <input type="text" class="form-control datepicker">
+                          <div class="help-block">Please fill in the start date of your event</div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-required">Start time</label>
+                          <input type="text" class="form-control timepicker">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>End date</label>
+                          <input type="text" class="form-control datepicker">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>End time</label>
+                          <input type="text" class="form-control timepicker">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="location" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Location</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Venue name</label>
+                      <input type="text" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Country</label>
+                      <select class="form-control">
+                        <option value="" disabled="" selected="">Choose a country</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Post code</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>City</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div id="description" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Description</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label class="form-required">Description</label>
+                      <div class="textarea--cke">
+                        <textarea id="ckeditor" class="form-control"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="attachments" class="card card-underline scrollspy">
+                  <div class="card-head">
+                    <header>Attachments</header>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Files</label>
+                      <div class="image-widget form-managed-file clearfix">
+                        <input type="file" value="upload an image" class="form-control">
+                        <button type="submit" value="remove" class="btn btn-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
+                      </div>
+                      <div class="help-block">15 MB per file limit - Allowed types: xls xlsx doc </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="comment-settings" class="form-item card scrollspy tabs-left">
+                  <ul data-toggle="tabs" class="card-head nav nav-tabs style-default-light">
+                    <li class="active"><a href="#comments">Comment settings</a></li>
+                  </ul>
+                  <div class="card-body tab-content">
+                    <div id="comments" class="tab-pane active">
+                      <div class="form-group radios">
+                        <label class="form-required">Comments</label>
+                        <div class="radio">
+                          <input id="open" type="radio" checked name="comments">
+                          <label for="open">Open</label>
+                          <div class="help-block">Users with the "Post comments" permission can post comments.</div>
+                        </div>
+                        <div class="radio">
+                          <input id="closed" type="radio" name="comments">
+                          <label for="closed">Closed</label>
+                          <div class="help-block">Users cannot post comments.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions clearfix">
+                  <input type="submit" value="Save" class="waves-effect waves-light btn btn-raised btn-primary pull-right">
+                  <input type="submit" value="Preview" class="waves-effect waves-light btn btn-raised btn-default">
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -293,5 +393,23 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
+  </script>
+  <script src="libs/ckeditor/ckeditor.js"></script>
+  <script src="libs/ckeditor/adapters/jquery.js"></script>
+  <script src="libs/date_picker/picker.js"></script>
+  <script src="libs/date_picker/picker.date.js"></script>
+  <script src="libs/date_picker/picker.time.js"></script>
+  <script>
+    jQuery(document).ready(function($){
+      $( '#ckeditor' ).ckeditor();  
+      $('.datepicker').pickadate({selectYears: 20});
+      $('.timepicker').pickatime();
+    });
+    
+    function showMe (it, it2, box) {
+      var visibility = (box.checked) ? "block" : "none";
+      document.getElementById(it).style.display = visibility;
+      document.getElementById(it2).style.display = visibility;
+    }
   </script>
 </html>

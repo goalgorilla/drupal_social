@@ -107,7 +107,7 @@
               <li><strong>Default button</strong>: Rectangular shaped buttons that is used in most cases. Does not lift (on same layer as the parent element) and should be placed cards. </li>
               <li><strong>Flat button</strong>: Are text-only buttons. They should always have a color to distinguish them from normal text. They can be used to put less emphasis or visual attraction to the action. They may be used in dialogs, toolbars, or inline. They do not lift, but fill with color on press.</li>
               <li><strong>Raised button</strong>: Rectangular-shaped buttons that behave like a piece of material resting on another sheet – they lift and fill with color on press. Raised buttons add dimension to mostly flat layouts. They emphasize functions on busy or wide spaces. They may be used inline. They lift and display ink reactions on press.</li>
-              <li><strong>Floating action button</strong>: A circular material button that lifts and displays an ink reaction on press. A floating action button is used for a promoted action.</li>
+              <li><strong>Floating action button</strong>: A circular button that lifts. A floating action button is used for page-wide actions.</li>
             </ul>
           </div>
         </div>
@@ -139,7 +139,7 @@
           <div class="col-xs-12 col-sm-3">
             <div class="card">
               <div class="card-body">
-                <button type="button" class="btn btn-accent btn-floating waves-effect waves-circle"><i class="material-icons">add</i></button>
+                <button type="button" class="btn btn-default btn-floating waves-effect waves-circle"><i class="material-icons">edit</i></button>
               </div>
             </div>
             <div class="text-caption">Floating button</div>
@@ -163,7 +163,7 @@
         <div class="row margin-top-l">
           <div class="col-xs-12">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body bs-example">
                 <button type="button" class="btn btn-default">Default</button>
                 <button type="button" class="btn btn-primary">Primary</button>
                 <button type="button" class="btn btn-accent">Accent</button>
@@ -177,7 +177,7 @@
           </div>
           <div class="col-xs-12">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body bs-example">
                 <button type="button" class="btn btn-default btn-raised">Default</button>
                 <button type="button" class="btn btn-primary btn-raised">Primary</button>
                 <button type="button" class="btn btn-accent btn-raised">Accent</button>
@@ -191,14 +191,29 @@
           </div>
         </div>
         <div class="row margin-top-l">
+          <div class="col-xs-12"> 
+            <p>In the overview above we have listed many options which you can use to style a button. For consistency we recommend the following:</p>
+            <ul>
+              <li>Start with a default button style and type.</li>
+              <li>Is your button next (left, right, below) to a card? Consider making it a raised button to put it on the same elevation level as the card.</li>
+              <li>Does the button need to be one level higher in terms of elevation? Then make it a floating button. This usually means that there is no direct relationship with a specific card or section, but the page as a whole. An example for this would be to edit a node, where this button to do this is put in a block, but you are not only editing the block but the whole node.</li>
+              <li>Only when a button needs more emphasis use the primary style, or even the accent style. Per form or set of buttons you only want one emphasized button and this should be the preferred action in any context.</li>
+              <li>If you want to button to be less visible/prominent you can use a flat button style. You can combine this with a smaller size of course. This is mostly used when buttons are repeated on a page or you have limited space and other elements need more attention.</li>
+              <li>The succes, warning and danger buttons are inhereted from teh bootstrap framework and aren't used in the default style. You can use them however if you indicate positive action, negative action or caution when interaction with the button.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row margin-top-l">
           <div class="col-xs-12">
             <h3>Sizes</h3>
             <p><p>Define a different button size with <code>.btn-lg</code>, <code>.btn-sm</code>, or <code>.btn-xs</code>.</p>
+
+<p>By default use the default size. You can choose to use a large button if the action really needs to catch the user`s attention. Combine this with a primary or accent style as well to get maximum exposure. Do not mix different button sizes in a set of buttons. If the information density in a block or section is high and you need to make up space you can choose a smaller button size. An example of this are buttons that appear in repetetive blocks.   </p>
             </p>
           </div>
         </div>
         <div class="row margin-top-l">
-          <div class="col-xs-12 col-sm-3">
+          <div class="col-xs-12 col-sm-6">
             <div class="card">
               <div class="card-body text-center">
                 <p>
@@ -217,7 +232,7 @@
             </div>
             <div class="text-caption">Default button sizes</div>
           </div>
-          <div class="col-xs-12 col-sm-3">
+          <div class="col-xs-12 col-sm-6">
             <div class="card">
               <div class="card-body text-center">
                 <p>
@@ -236,7 +251,7 @@
             </div>
             <div class="text-caption">Flat button sizes</div>
           </div>
-          <div class="col-xs-12 col-sm-3">
+          <div class="col-xs-12 col-sm-6">
             <div class="card">
               <div class="card-body text-center">
                 <p>
@@ -255,16 +270,15 @@
             </div>
             <div class="text-caption">Raised button sizes</div>
           </div>
-          <div class="col-xs-12 col-sm-3">
+          <div class="col-xs-12 col-sm-6">
             <div class="card">
               <div class="card-body text-center">
                 <p>&nbsp;</p>
-                <p>&nbsp;</p>
                 <p>
-                  <button type="button" class="btn btn-accent btn-floating waves-effect waves-light waves-circle"><i class="material-icons">done</i></button>
+                  <button type="button" class="btn btn-default btn-floating waves-effect waves-light waves-circle"><i class="material-icons">edit</i></button>
                 </p>
                 <p>
-                  <button type="button" class="btn btn-accent btn-floating waves-effect waves-light waves-circle btn-lg"> <i class="material-icons">done</i></button>
+                  <button type="button" class="btn btn-default btn-floating waves-effect waves-light waves-circle btn-lg"> <i class="material-icons">edit</i></button>
                 </p>
               </div>
             </div>
@@ -274,6 +288,7 @@
         <div class="row margin-top-l">
           <div class="col-xs-12">
             <h3>States</h3>
+            <p>In the examples below you can see how styling is applied when a button is active or disabled compared to the default state. For devices that have mouse interaction you can hover and find that state as well. These aren't available for touch devices.</p>
           </div>
           <div class="col-xs-12 col-sm-3">
             <div class="card">
@@ -327,17 +342,17 @@
             <div class="card">
               <div class="card-body text-center">
                 <p>
-                  <button type="button" class="btn btn-accent btn-floating waves-effect waves-light waves-circle"><i class="material-icons">done</i></button>
+                  <button type="button" class="btn btn-default btn-floating waves-effect waves-light waves-circle"><i class="material-icons">edit</i></button>
                 </p>
                 <p>
-                  <button type="button" class="btn btn-accent btn-floating waves-effect waves-light waves-circle active"> <i class="material-icons">done</i></button>
+                  <button type="button" class="btn btn-default btn-floating waves-effect waves-light waves-circle active"> <i class="material-icons">edit</i></button>
                 </p>
                 <p>
-                  <button type="button" class="btn btn-accent btn-floating waves-effect waves-light waves-circle disabled"> <i class="material-icons">done</i></button>
+                  <button type="button" class="btn btn-default btn-floating waves-effect waves-light waves-circle disabled"> <i class="material-icons">edit</i></button>
                 </p>
               </div>
             </div>
-            <div class="text-caption">Floating action button states</div>
+            <div class="text-caption">Floating action button states   </div>
           </div>
         </div>
       </div>
