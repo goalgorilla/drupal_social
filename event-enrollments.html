@@ -117,7 +117,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge"> <strong>4</strong></sup></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                 <ul class="dropdown-menu">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -152,7 +152,7 @@
                   <li><a href="profile-edit.html">Edit profile</a></li>
                   <li><a href="account-edit.html">Edit account</a></li>
                   <li class="divider"></li>
-                  <li><a href="login.html">Log out</a></li>
+                  <li><a href="home-an.html">Log out</a></li>
                 </ul>
               </li>
             </ul>
@@ -182,15 +182,21 @@
       </nav>
       <div class="container hero-container">
         <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img cover-img-gradient hidden-xs"> 
-          <div class="cover-wrap">  <a href="node-edit-event.html" class="pull-right waves-effect waves-light btn btn-raised brand-user btn-floating"><i class="material-icons">mode_edit        </i></a>
+          <div class="hero-action-button"><a href="node-edit-event.html" class="waves-effect waves-dark btn btn-default btn-floating"><i class="material-icons">mode_edit     </i></a></div>
+          <div class="cover-wrap">
             <h1 class="page-title">Amsterdam Meetup</h1>
             <div class="hero-footer">
               <div class="row row-md-center">
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
+                  <div class="badge badge-gray-dark badge--toggle">
+                    <label>
+                      <input type="checkbox"><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
+                    </label>
+                  </div>
                   <div>
                     <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ Keizersgracht 376, Amsterdam</span>
                   </div>
-                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <span>By </span><a itemprop="url" rel="author" href="my-stream.html">John Johnson </a><span>in </span><a itemprop="organizer" href="group-stream.html"> <i class="custom-icons icon-group"> </i><span>Happy Campers</span></a></div>
+                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <span>By </span><a itemprop="url" rel="author" href="my-stream.html">John Johnson </a><span>in group <a itemprop="organizer" href="group-stream.html">Happy Campers</a></span></div>
                 </div>
                 <div class="col-xs-12 col-md-3">
                   <div class="btn-group">
