@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Amsterdam meetup</title>
+    <title>Explore topics</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -190,97 +190,84 @@
       <nav class="visible-md-block visible-lg-block bg-white">
         <ol class="breadcrumb container">
           <li><a href="home-lu.html">Home</a></li>
-          <li><a href="group-stream.html">Happy campers</a></li>
-          <li class="active">Amsterdam Meetup</li>
+          <li><a href="explore.html">Explore</a></li>
+          <li><a href="explore-events.html">Topics</a></li>
         </ol>
       </nav>
-      <div class="container hero-container">
-        <div style="background-image: url('content/images/event-hero.jpg')" class="cover cover-img cover-img-gradient hidden-xs"> 
-          <div class="hero-action-button"><a href="node-edit-event.html" class="waves-effect waves-dark btn btn-default btn-floating"><i class="material-icons">mode_edit     </i></a></div>
-          <div class="cover-wrap">
-            <h1 class="page-title">Amsterdam Meetup</h1>
-            <div class="hero-footer">
-              <div class="row row-md-center">
-                <div class="col-xs-12 col-md-6 col-md-offset-3">
-                  <div class="badge badge-gray-dark badge--toggle">
-                    <label>
-                      <input type="checkbox"><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
-                    </label>
-                  </div>
-                  <div>
-                    <time class="eventdate updated">June 6 2016 - 12:00 </time><span>@ Keizersgracht 376, Amsterdam</span>
-                  </div>
-                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <span>By </span><a itemprop="url" rel="author" href="my-stream.html">John Johnson </a><span>in group <a itemprop="organizer" href="group-stream.html">Happy Campers</a></span></div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                  <div class="btn-group">
-                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Enrolled        <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Cancel enrollment </a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container"> 
-        <div class="visible-xs-block section"><a href="event.html" class="btn btn-raised btn-user"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to event</a></div>
-      </div>
-      <div class="container hero-container"> 
-        <div class="brand-secondary z-depth-1 hidden-xs">
-          <nav role="navigation" aria-label="Tabs">
-            <h2 class="visually-hidden">Secondary navigation</h2>
-            <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-              <li><a href="event.html">Details</a></li>
-              <li class="active"><a href="event-enrollments.html">Enrollments<span class="visually-hidden">(active tab)</span></a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
       <div class="main-content">
         <div class="container">
-          <div class="row margin-top-l">
-            <div class="col-sm-12">
-              <h4 class="section-title">Event enrollments</h4>
+          <div class="row margin-top-l"> 
+            <div class="col-xs-12">
+              <h4 class="section-title">Community topics   </h4>
             </div>
-            <div class="col-sm-8">
-              <div class="card card--teaser card-with-actionbar"><a href="my-stream.html" class="card-image"><img src="content/images/member5.jpg" class="img-responsive"></a>
-                <div class="card-body">
-                  <h4 class="card-title"> <a href="my-stream.html">John Johson</a></h4>
-                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Receptionist at Bastion Hotels</span></p>
-                  <div class="card-actionbar"><a href="my-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="my-stream.html" class="btn btn-flat pull-right">View profile</a></div>
+            <div class="col-xs-12 col-sm-4 col-sm-last margin-bottom-l">
+              <button class="waves-effect waves-light btn btn-default btn-block btn-raised visible-xs-inline-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filter</button>
+              <div class="off-canvas off-canvas-right off-canvas-xs-only">
+                <div class="offcanvas-head">
+                  <header class="complementary-title">Filter topics</header>
+                  <div class="offcanvas-tools visible-xs-block">
+                    <div class="js-close-canvas btn btn-icon-toggle btn-user-light pull-right"><i class="material-icons">close</i></div>
+                  </div>
+                </div>
+                <div class="offcanvas-body">
+                  <form>
+                    <div class="form-group">
+                      <label>Topic type</label>
+                      <select onchange="enableMe('reset-button')" class="form-control">
+                        <option value="" selected="">All types</option>
+                        <option value="blog">Blog</option>
+                        <option value="discussion">Discussion</option>
+                        <option value="topic">Topic</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <input id="reset-button" type="submit" value="Reset" class="btn btn-flat disabled">
+                    </div>
+                  </form>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member4.jpg" class="img-responsive"></a>
+            </div>
+            <div class="col-xs-12 col-sm-8">
+              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
-                  <h4 class="card-title"> <a href="other-stream.html">Jenny Baker</a></h4>
-                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Head of Communications at Freshminds</span></p>
-                  <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
+                  <h4 class="card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h4>
+                  <p class="text-grey-dark"><a href="other-stream.html">Richard Ogylvie </a>&bullet; 22 mar 2016
+                  </p>
+                  <p> <i class="material-icons">label </i>&nbsp;<span class="inline-center">Discussion</span></p>
+                  <div class="card-actionbar">
+                    <div class="badge badge-gray-lighter badge--toggle">
+                      <label>
+                        <input type="checkbox"><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
+                      </label>
+                    </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
+                  </div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member3.jpg" class="img-responsive"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
                 <div class="card-body">
-                  <h4 class="card-title"> <a href="other-stream.html">Henry Bond</a></h4>
-                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Drupal progammer at Go Bananans!</span></p>
-                  <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
+                  <h4 class="card-title"> <a href="topic.html">Technology for the handicapped</a></h4>
+                  <p class="text-grey-dark"><a href="other-stream.html">Clive Owen </a>&bullet; 15 feb 2016
+                  </p>
+                  <p class="clearfix"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Blog</span></p>
+                  <div class="card-actionbar">
+                    <div class="badge badge-gray-lighter badge--toggle">
+                      <label>
+                        <input type="checkbox"><i class="material-icons">public        </i><span class="badge--toggle__label">public</span>
+                      </label>
+                    </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
+                  </div>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member2.jpg" class="img-responsive"></a>
-                <div class="card-body">
-                  <h4 class="card-title"> <a href="other-stream.html">Getrud van Assen</a></h4>
-                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Social worker at Greenvalley</span></p>
-                  <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar"><a href="other-stream.html" class="card-image"><img src="content/images/member1.jpg" class="img-responsive"></a>
-                <div class="card-body">
-                  <h4 class="card-title"> <a href="other-stream.html">Mary-Lou Wallace</a></h4>
-                  <p class="text-grey-dark"> <i class="material-icons pull-left">business_center</i><span class="inline-center">Personal trainer at My Personal Fitness Factory</span></p>
-                  <div class="card-actionbar"><a href="other-profile-about.html" class="btn btn-flat pull-left btn-primary">Contact me</a><a href="other-stream.html" class="btn btn-flat pull-right">View profile</a></div>
-                </div>
-              </div>
+              <nav>
+                <ul class="pagination">
+                  <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
+                  <li class="pager__item active"><a href="#1">1</a></li>
+                  <li class="pager__item"> <a href="#1">2</a></li>
+                  <li class="pager__item"> <a href="#1">3          </a></li>
+                  <li class="pager__item"> <a href="#1">4</a></li>
+                  <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>
@@ -312,5 +299,10 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
+  </script>
+  <script>
+    function enableMe(id) {
+      jQuery('#' + id).removeClass('disabled');
+    }
   </script>
 </html>
