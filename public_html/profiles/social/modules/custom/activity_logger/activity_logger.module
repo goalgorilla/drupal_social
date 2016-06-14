@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ * Contains activity_logger.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\message\MessageTypeInterface;
+use Drupal\message\Entity\Message;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_help().
+ */
+function activity_logger_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the activity_logger module.
+    case 'help.page.activity_logger':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Used to log activities based on the message module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for message_type_form().
+ */
+function activity_logger_form_message_type_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\contact\ContactFormInterface $contact_form */
+  $message_type = $form_state->getFormObject()->getEntity();
+
+  $activity_recipient_manager = \Drupal::service('plugin.manager.activity_context.processor');
+  $options = $activity_recipient_manager->getOptionsList();
+
+  $form['activity_context'] = array(
+    '#type' => 'select',
+    '#required' => TRUE,
+    '#title' => t('The activity context for this message'),
+    '#description' => t('Select a context where to display this message.'),
+    '#default_value' => $message_type->getThirdPartySetting('activity_logger', 'activity_context', NULL),
+    '#options' => $options,
+  );
+
+  $form['activity_destinations'] = array(
+    '#type' => 'select',
+    '#title' => t('The activity destinations for this message'),
+    '#multiple' => TRUE,
+    '#required' => TRUE,
+    '#description' => t('Select destinations where to display this message.'),
+    '#default_value' => $message_type->getThirdPartySetting('activity_logger', 'activity_destinations', NULL),
+    // @TODO activity_creator allowed_values function overlap (should be plugin)
+    '#options' => array(
+      'stream_profile' => 'Stream (profile)',
+      'stream_home' => 'Stream (home)',
+      'stream_group' => 'Stream (group)',
+      'stream_explore' => 'Stream (explore)',
+      'notifications' => 'Notifications',
+    ),
+  );
+
+  $form['#entity_builders'][] = 'activity_logger_form_message_type_form_builder';
+}
+
+/**
+ * Entity builder for the message type edit form with third party options.
+ *
+ * @see activity_logger_form_message_type_form_alter()
+ */
+function activity_logger_form_message_type_form_builder($entity_type, MessageTypeInterface $message_type, &$form, FormStateInterface $form_state) {
+  $message_type->setThirdPartySetting('activity_logger', 'activity_context', $form_state->getValue('activity_context'));
+  $message_type->setThirdPartySetting('activity_logger', 'activity_destinations', $form_state->getValue('activity_destinations'));
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ *
+ * TODO: Move this in a service and make it generic.
+ */
+function activity_logger_entity_insert(EntityInterface $entity) {
+
+  // Turn off this feature for all non-content entities.
+  if (! $entity instanceof \Drupal\Core\Entity\ContentEntityInterface) {
+    return;
+  }
+
+  // Get the services we need here.
+  $activityLoggerFactory = \Drupal::service('activity_logger.activity_factory');
+  $contextGetter = \Drupal::service('activity_logger.context_getter');
+
+  // Get all messages that are responsible for creating items.
+  $message_types = $activityLoggerFactory->getMessageTypes('create', $entity);
+  // Loop through those message types and create messages.
+  foreach ($message_types as $message_type => $message_values) {
+    // Create the ones applicable for this bundle.
+    if ($message_values['bundle'] === $entity->bundle()) {
+
+      // Determine destinations.
+      $destinations = [];
+      if (!empty($message_values['destinations']) && is_array($message_values['destinations'])) {
+        foreach ($message_values['destinations'] as $destination) {
+          $destinations[] = array('value' => $destination);
+        }
+      }
+
+      // Get context
+      $context = $contextGetter->getContext($entity);
+
+      // Set the values.
+      $new_message['type'] = $message_type;
+      $new_message['uid'] = $entity->getOwner()->id();
+      $new_message['field_message_context'] = $context;
+      $new_message['field_message_destination'] = $destinations;
+      $new_message['field_message_related_object'] = [
+        'target_type' => $entity->getEntityTypeId(),
+        'target_id' => $entity->id(),
+      ];
+
+      // Create the message
+      $message = Message::create($new_message);
+      $message->save();
+    }
+  }
+}
