@@ -1,0 +1,37 @@
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.highlights
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - socialbase
+id: views_block__highlights_block_highlights
+theme: socialbase
+region: '-1'
+weight: -16
+provider: null
+plugin: 'views_block:highlights-block_highlights'
+settings:
+  id: 'views_block:highlights-block_highlights'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /explore
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
