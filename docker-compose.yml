@@ -72,6 +72,16 @@ services:
     environment:
      - DRUPAL_SETTINGS=development
     network_mode: "bridge"
+  cron:
+    build: docker_build/cron
+    volumes:
+     - ./public_html:/var/www/html
+     - ./dev-scripts/:/root/dev-scripts
+    links:
+     - db
+    environment:
+     - DRUPAL_SETTINGS=development
+    network_mode: "bridge"
 
 volumes:
   db_data:
