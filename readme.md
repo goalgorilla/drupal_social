@@ -9,42 +9,32 @@ Useful links for developers:
 - [Travis CI](https://travis-ci.org/goalgorilla/drupal_social/builds)
 - [Docker Hub](https://hub.docker.com/r/goalgorilla/drupal_social/builds/)
 
-# Help Wanted #
-Do you want to join us in this effort? We are welcoming your [feedback](http://goalgorilla.github.io/drupal_social/prototype.html), (development) time and/or financial support. For feedback we will use [Drupal.org](https://www.drupal.org/project/social) for other questions or suggestions please contact taco@goalgorilla.com.
-
-Source-code and installation instructions are currently only available on [Github.com](https://github.com/goalgorilla/drupal_social). You are welcome to try the installation profile yourself although it is still work-in-progress. The coming months we will continue to work on the theme to match the [prototype](http://goalgorilla.github.io/drupal_social/prototype.html). If you find any issues feel free to file a bug report in the issue queue.
-
 # Installation #
 
-## Make file ##
+## Install from project page on drupal.org ##
 
 Installing with our make file? Please use the following commands to make sure you get all the composer dependencies
 from the contributed modules untill composer is supported for distributions on drupal.org. 
 See https://www.drupal.org/node/2718229.
 
-    drush make build-social.make [target folder]
-    cd [target folder]
+1. Download Install profile (either tarball, via drush make or drush dl)
+2. Go to the installation folder and download dependencies with composer:
+    ```    
     php modules/contrib/composer_manager/scripts/init.php
     composer drupal-rebuild
     composer update -n --lock --verbose
-    
-## Drush ##
+    ```
 
-Installing with drush? Make sure to run the following commands in your document root to get all the composer dependencies 
-untill composer is supported for distributions on drupal.org. 
-See https://www.drupal.org/node/2718229.
+3. Install the site via UI or Drush and select install profile 'social'.
+4. Optionally generate demo content by following these [instructions](https://github.com/goalgorilla/drupal_social/wiki/Demo-content)
 
-    php modules/contrib/composer_manager/scripts/init.php
-    composer drupal-rebuild
-    composer update -n --lock --verbose    
-
-## Docker toolbox ##
+## Install in Docker containers ##
 Download and install the [toolbox](https://www.docker.com/docker-toolbox).
 
 Note that the docker projects have to be somewhere in your /Users/ directory in order to work (limitation for Mac and Windows). Note that /Users/<name>/Sites/Docker is fine.
 
 
-## Steps ##
+### Steps ###
 
 1. Start a docker machine (docker quickstart icon).
 
@@ -76,40 +66,9 @@ Note that the docker projects have to be somewhere in your /Users/ directory in 
     docker run -d -p 80:80 --name=proxy -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
     ```
 
-## Usage ##
+# Contribute #
+Do you want to join us in this effort? We are welcoming your [feedback](http://goalgorilla.github.io/drupal_social/prototype.html), (development) time and/or financial support. For feedback we will use [Drupal.org](https://www.drupal.org/project/social) for other questions or suggestions please contact taco@goalgorilla.com.
 
-**If you want to see which containers are running:**
-```
-docker ps
-```
-
-**SSH into the container:**
-```
-docker exec -it social_web_1 bash
-```
-Here you can use _drush_ and _drupal list_.
-
-**If you want to re-install, execute these commands in the social_web_1 container:**
-```
-drush sql-drop -y;
-rm -f sites/default/settings.php
-rm -f sites/default/settings.local.php
-rm -rf sites/default/files
-```
-
-**If you want to start the proxy:**
-```
-docker start proxy
-```
-
-**Now run the install script on your host machine again.**
-```
-docker exec -it social_web_1 bash /root/dev-scripts/install/install_script.sh
-```
-
-**To view emails go to:**
-```
-mailcatcher.social.dev
-```
+Source-code and installation instructions are currently only available on [Github.com](https://github.com/goalgorilla/drupal_social). You are welcome to try the installation profile yourself although it is still work-in-progress. The coming months we will continue to work on the theme to match the [prototype](http://goalgorilla.github.io/drupal_social/prototype.html). If you find any issues feel free to file a bug report in the issue queue.
 
 [![Build Status](https://travis-ci.org/goalgorilla/drupal_social.svg?branch=master)](https://travis-ci.org/goalgorilla/drupal_social)
