@@ -1,4 +1,4 @@
 access comments:
   title: 'View comments'
-#post comments:
-#  title: 'Post comments'
+post comments:
+  title: 'Post comments'

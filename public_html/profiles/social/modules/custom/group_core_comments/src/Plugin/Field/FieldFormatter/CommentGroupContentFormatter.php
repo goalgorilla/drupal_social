@@ -42,6 +42,9 @@ class CommentGroupContentFormatter extends CommentDefaultFormatter {
         $membership = $group->getMember($account);
         $renderer->addCacheableDependency($parent, $membership);
         // Remove comments from output if user don't have access.
+        if (!$group->hasPermission('post comments', $account)) {
+          unset($parent[0]['comment_form']);
+        }
         if (!$group->hasPermission('access comments', $account)) {
           unset($parent[0]);
         }

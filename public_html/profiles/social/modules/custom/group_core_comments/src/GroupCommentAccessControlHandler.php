@@ -5,11 +5,7 @@ namespace Drupal\group_core_comments;
 use Drupal\Core\Access\AccessResult;
 use Drupal\comment\CommentAccessControlHandler;
 use Drupal\group\Entity\GroupContent;
-//use Drupal\group\Plugin\GroupContentEnablerHelper;
-//use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Session\AccountInterface;
 
 /**
@@ -65,35 +61,6 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
     }
     // Fallback.
     return AccessResult::forbidden()->cachePerUser();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-
-    $parent = parent::checkCreateAccess($account, $context, $entity_bundle);
-    if ($parent) {
-//      $commented_entity = $entity->getCommentedEntity();
-//      $groupcontents = GroupContent::loadByEntity($commented_entity);
-//
-//      // Only react if it is actually posted inside a group.
-//      if (!empty($groupcontents)) {
-//        // Only when you have permission to post the comments.
-//        foreach ($groupcontents as $groupcontent) {
-//          /** @var \Drupal\group\Entity\GroupContent $groupcontent */
-//          $group = $groupcontent->getGroup();
-//          /** @var \Drupal\group\Entity\Group $group */
-//          if ($group->hasPermission($perm, $account)) {
-//            return AccessResult::allowed()->cachePerUser();
-//          }
-//        }
-//        // Fallback.
-//        return AccessResult::forbidden()->cachePerUser();
-//      }
-    }
-
-    return $parent;
   }
 
 }
