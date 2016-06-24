@@ -33,14 +33,14 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
     if ($parent) {
 
       $commented_entity = $entity->getCommentedEntity();
-      $groupcontents = GroupContent::loadByEntity($commented_entity);
+      $group_contents = GroupContent::loadByEntity($commented_entity);
 
       // Only react if it is actually posted inside a group.
-      if (!empty($groupcontents)) {
+      if (!empty($group_contents)) {
         switch ($operation) {
           case 'view':
             $perm = 'access comments';
-            return $this->getPermissionInGroups($perm, $account, $groupcontents);
+            return $this->getPermissionInGroups($perm, $account, $group_contents);
 
           default:
             // No opinion.
@@ -52,12 +52,12 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
     return $parent;
   }
 
-  protected function getPermissionInGroups($perm, AccountInterface $account, $groupcontents) {
+  protected function getPermissionInGroups($perm, AccountInterface $account, $group_contents) {
 
     // Only when you have permission to view the comments.
-    foreach ($groupcontents as $groupcontent) {
-      /** @var \Drupal\group\Entity\GroupContent $groupcontent */
-      $group = $groupcontent->getGroup();
+    foreach ($group_contents as $group_content) {
+      /** @var \Drupal\group\Entity\GroupContent $group_content */
+      $group = $group_content->getGroup();
       /** @var \Drupal\group\Entity\Group $group */
       if ($group->hasPermission($perm, $account)) {
         return AccessResult::allowed()->cachePerUser();
