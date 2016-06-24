@@ -9,12 +9,13 @@ weight: -101
 internal: true
 group_type: open_group
 permissions:
-  - 'join group'
-  - 'view group_node:event content'
-  - 'view event node'
-  - 'view group_node:topic content'
-  - 'view topic node'
-  - 'view group'
-  - 'access posts in group'
-  - 'edit own topic node'
-  - 'edit own event node'
+  0: 'join group'
+  1: 'view group_node:event content'
+  2: 'view event node'
+  3: 'view group_node:topic content'
+  4: 'view topic node'
+  5: 'view group'
+  6: 'access posts in group'
+  7: 'edit own topic node'
+  8: 'edit own event node'
+  11: 'access comments'
