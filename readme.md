@@ -20,7 +20,7 @@ See https://www.drupal.org/node/2718229.
 1. Download Install profile (either tarball, via drush make or drush dl)
 2. Go to the installation folder and download dependencies with composer:
     ```    
-    php modules/contrib/composer_manager/scripts/init.php
+    php profiles/social/modules/contrib/composer_manager/scripts/init.php
     composer drupal-rebuild
     composer update -n --lock --verbose
     ```
