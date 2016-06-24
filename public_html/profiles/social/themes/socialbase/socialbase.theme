@@ -496,6 +496,7 @@ function socialbase_preprocess_field(&$variables) {
 
   switch ($variables['element']['#formatter']) {
     case 'comment_default':
+    case 'comment_group_content':
       $variables['node'] = TRUE;
       break;
 
