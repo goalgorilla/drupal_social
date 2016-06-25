@@ -32,5 +32,6 @@ permissions:
   20: 'access posts in group'
   21: 'add post entities in group'
   22: 'enroll to events in groups'
-  32: 'post comments'
-  33: 'access comments'
+  23: 'post comments'
+  24: 'access comments'
+  34: 'edit own comments'

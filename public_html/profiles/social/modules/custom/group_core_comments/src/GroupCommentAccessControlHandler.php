@@ -26,7 +26,7 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
     $parent = parent::checkAccess($entity, $operation, $account);
 
     // @TODO only react on if $parent === allowed Is this good/safe enough?
-    if ($parent) {
+    if ($parent->isAllowed()) {
 
       $commented_entity = $entity->getCommentedEntity();
       $group_contents = GroupContent::loadByEntity($commented_entity);
@@ -35,9 +35,9 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
       if (!empty($group_contents)) {
         switch ($operation) {
           case 'view':
-            $perm = 'access comments';
-            return $this->getPermissionInGroups($perm, $account, $group_contents);
-
+            return $this->getPermissionInGroups('access comments', $account, $group_contents);
+          case 'update':
+            return $this->getPermissionInGroups('edit own comments', $account, $group_contents);
           default:
             // No opinion.
             return AccessResult::neutral()->cachePerPermissions();
