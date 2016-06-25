@@ -34,4 +34,5 @@ permissions:
   22: 'enroll to events in groups'
   23: 'post comments'
   24: 'access comments'
-  34: 'edit own comments'
+  25: 'edit own comments'
+  35: 'administer comments'

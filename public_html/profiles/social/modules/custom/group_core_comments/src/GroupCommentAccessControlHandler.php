@@ -23,14 +23,19 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var \Drupal\comment\CommentInterface|\Drupal\user\EntityOwnerInterface $entity */
 
-    $parent = parent::checkAccess($entity, $operation, $account);
+    $parent_access = parent::checkAccess($entity, $operation, $account);
+
+    $commented_entity = $entity->getCommentedEntity();
+    $group_contents = GroupContent::loadByEntity($commented_entity);
+
+    $administer_access = $this->getPermissionInGroups('administer comments', $account, $group_contents);
+    if ($administer_access->isAllowed()) {
+      $access = AccessResult::allowed()->cachePerPermissions();
+      return ($operation != 'view') ? $access : $access->andIf($entity->getCommentedEntity()->access($operation, $account, TRUE));
+    }
 
     // @TODO only react on if $parent === allowed Is this good/safe enough?
-    if ($parent->isAllowed()) {
-
-      $commented_entity = $entity->getCommentedEntity();
-      $group_contents = GroupContent::loadByEntity($commented_entity);
-
+    if ($parent_access->isAllowed()) {
       // Only react if it is actually posted inside a group.
       if (!empty($group_contents)) {
         switch ($operation) {
@@ -45,7 +50,7 @@ class GroupCommentAccessControlHandler extends CommentAccessControlHandler {
       }
     }
     // Fallback.
-    return $parent;
+    return $parent_access;
   }
 
   protected function getPermissionInGroups($perm, AccountInterface $account, $group_contents) {
