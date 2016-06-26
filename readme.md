@@ -31,7 +31,7 @@ See https://www.drupal.org/node/2718229.
 ## Install in Docker containers ##
 Download and install the [toolbox](https://www.docker.com/docker-toolbox).
 
-Note that the docker projects have to be somewhere in your /Users/ directory in order to work (limitation for Mac and Windows). Note that /Users/<name>/Sites/Docker is fine.
+Note that the docker projects have to be somewhere in your **home directory** in order to work (limitation for Mac and Windows). Note that /Users/<name>/Sites/Docker is fine.
 
 
 ### Steps ###
@@ -58,7 +58,7 @@ Note that the docker projects have to be somewhere in your /Users/ directory in 
 
 6. Run the install script on the docker web container, the name could be slightly different on your machine, in the example below the name is social_web_1.
     ```
-    docker exec -it social_web_1 bash /root/dev-scripts/install/install_script.sh
+    docker exec -it drupalsocial_web_1 bash /root/dev-scripts/install/install_script.sh
     ```
 
 7. Add the proxy container.
