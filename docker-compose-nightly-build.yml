@@ -42,7 +42,7 @@ services:
      - ./public_html:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
     links:
-     - db
+     - social_nightly_db:db
     network_mode: "bridge"
 
   # Currently disabled because of rate limits.
