@@ -38,6 +38,7 @@ services:
 
   social_nightly_cron:
     build: docker_build/cron
+    volumes:
      - social_sites_default:/var/www/html/sites/default
     links:
      - social_nightly_db:db
