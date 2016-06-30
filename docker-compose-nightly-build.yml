@@ -39,8 +39,7 @@ services:
   social_nightly_cron:
     build: docker_build/cron
     volumes:
-     - ./public_html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
+     - social_sites_default:/var/www/html/sites/default
     links:
      - social_nightly_db:db
     network_mode: "bridge"
