@@ -1,5 +1,25 @@
 @import 'init';
 
+.icon-white {
+  fill: white;
+}
+
+.icon-black {
+  fill: $default-color;
+}
+
+.icon-medium {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
 .glyphicon {
   position: relative;
   top: 1px;
@@ -12,4 +32,35 @@
 
 .glyphicon-refresh {
   background-image: url(../../../images/icons/icon-autorenew.svg);
+}
+
+.glyphicon-question-sign {
+  background-image: url(../../../images/icons/icon-help.svg);
+  background-size: auto 14px;
+}
+
+.glyphicon-move {
+  background-image: url(../../../images/icons/icon-open_with.svg);
+  background-size: auto 14px;
+}
+
+
+a {
+  &.icon-before .glyphicon {
+    margin-right: .25em;
+  }
+  &.icon-after .glyphicon {
+    margin-left: .25em;
+  }
+}
+
+.btn {
+  &.icon-before .glyphicon {
+    margin-left: -.25em;
+    margin-right: .25em;
+  }
+  &.icon-after .glyphicon {
+    margin-left: .25em;
+    margin-right: -.25em;
+  }
 }

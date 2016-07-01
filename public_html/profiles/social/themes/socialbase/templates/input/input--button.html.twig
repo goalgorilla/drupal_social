@@ -46,6 +46,14 @@
         <button{{ attributes.addClass(classes) }}>{{ icon }}{{ label }}{{ element.caret }}</button>{{ children }}
       {% endif %}
     {% endif %}
+    {% if add_search_icon %}
+      <span class="search-icon">
+        <svg>
+          <title>Search</title>
+          <use xlink:href="#icon-search"></use>
+        </svg>
+      </span>
+    {% endif %}
     {{ children }}
   {% endblock %}
 {% endspaceless %}

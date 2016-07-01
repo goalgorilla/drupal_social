@@ -241,7 +241,7 @@ th {
        url("../../../font/custom-icons/custom-icons.svg") format('svg');
 }
 
-.material-icons, .icon-before:before {
+.material-icons {
   font-family: 'Material-Design-Icons';
   font-weight: normal;
   font-style: normal;
@@ -261,32 +261,6 @@ th {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-feature-settings: 'liga';
           font-feature-settings: 'liga';
-}
-
-.icon-before:before {
-  content: attr(data-icon-type);
-  font-size: 1rem;
-}
-
-.custom-icons {
-  font-family: 'custom-icons' !important;
-  display: inline-block;
-  vertical-align: middle;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  height: 1em;
-  line-height: 1;
-  font-size: 24px;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-group:before {
-  content: "\e900";
 }
 
 @font-face {
@@ -3439,7 +3413,7 @@ label {
   font-weight: 300;
 }
 
-label .material-icons, label .icon-before:before,
+label .material-icons,
 label .custom-icons {
   font-size: inherit;
   line-height: inherit;
@@ -4291,7 +4265,7 @@ span.form-required {
   padding-top: 20px;
 }
 
-.hero-footer .material-icons, .hero-footer .icon-before:before,
+.hero-footer .material-icons,
 .hero-footer .custom-icons {
   font-size: inherit;
 }
@@ -4410,7 +4384,7 @@ span.form-required {
   display: inline-block;
 }
 
-.pagination .material-icons, .pagination .icon-before:before {
+.pagination .material-icons {
   vertical-align: middle;
   font-size: 1em;
 }
@@ -4770,6 +4744,7 @@ hr.ruler-l {
   height: 38px;
   display: block;
   position: absolute;
+  overflow: hidden;
   right: 0;
   top: 0;
   line-height: 38px;
@@ -4780,16 +4755,16 @@ hr.ruler-l {
 
 .navbar-form[role='search'] .search-icon {
   line-height: 38px;
-  color: #29abe2;
+  fill: #29abe2;
   background: white;
   speak: none;
   pointer-events: none;
 }
 
-.navbar-form[role='search'] .search-icon i {
-  line-height: 38px;
-  width: 38px;
-  height: 38px;
+.navbar-form[role='search'] .search-icon svg {
+  margin-top: 7px;
+  width: 24px;
+  height: 24px;
 }
 
 #navbar-search.is-open,
@@ -4805,7 +4780,7 @@ hr.ruler-l {
 #navbar-search.is-open .search-icon,
 .no-js #navbar-search .search-icon {
   background: white;
-  color: #29abe2;
+  fill: #29abe2;
   z-index: 11;
   border-radius: 0 5px 5px 0;
 }
@@ -4900,7 +4875,7 @@ hr.ruler-l {
   color: #555555;
 }
 
-.dropdown-toggle + ul > li > .material-icons, .dropdown-toggle + ul > li > .icon-before:before {
+.dropdown-toggle + ul > li > .material-icons {
   margin-right: 10px;
   font-size: 16px;
 }
@@ -4946,7 +4921,7 @@ hr.ruler-l {
   color: #777777;
 }
 
-.badge-gray-lighter .material-icons, .badge-gray-lighter .icon-before:before {
+.badge-gray-lighter .material-icons {
   background-color: white;
 }
 
@@ -4974,7 +4949,7 @@ hr.ruler-l {
   transition: width 0.3s ease;
 }
 
-.badge--toggle .material-icons, .badge--toggle .icon-before:before {
+.badge--toggle .material-icons {
   font-size: 18px;
   width: auto;
   padding-left: 4px;
@@ -4996,7 +4971,7 @@ hr.ruler-l {
   transition: opacity 0.3s ease;
 }
 
-.js .badge--toggle input[type=checkbox]:checked ~ .material-icons, .js .badge--toggle input[type=checkbox]:checked ~ .icon-before:before,
+.js .badge--toggle input[type=checkbox]:checked ~ .material-icons,
 .js .badge--toggle input[type=checkbox]:checked ~ .badge--toggle__label {
   background-color: #333333;
   color: white;
@@ -5032,7 +5007,7 @@ hr.ruler-l {
   border-radius: 50%;
 }
 
-.chip i.material-icons, .chip i.icon-before:before {
+.chip i.material-icons {
   cursor: pointer;
   font-size: 16px;
   line-height: 32px;
@@ -5201,7 +5176,7 @@ hr.ruler-l {
   background: #e6e6e6;
 }
 
-.card--teaser-stream .badge-gray-lighter .material-icons, .card--teaser-stream .badge-gray-lighter .icon-before:before {
+.card--teaser-stream .badge-gray-lighter .material-icons {
   background-color: #e6e6e6;
 }
 
@@ -5358,7 +5333,7 @@ a.list-group-item {
   vertical-align: middle;
 }
 
-.file-icon .material-icons, .file-icon .icon-before:before {
+.file-icon .material-icons {
   line-height: 1.2rem;
 }
 
@@ -6812,7 +6787,7 @@ input[type=range]:focus::-ms-fill-upper {
     z-index: 90;
     border-radius: 0;
     background: #333333;
-    color: white;
+    fill: white;
     pointer-events: initial;
     -webkit-transition: border-radius 0.3s, background-color 0.3s, color 0.3s;
     transition: border-radius 0.3s, background-color 0.3s, color 0.3s;

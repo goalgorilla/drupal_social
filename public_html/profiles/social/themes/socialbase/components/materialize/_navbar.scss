@@ -285,6 +285,7 @@
     height: 38px;
     display: block;
     position: absolute;
+    overflow: hidden;
     right: 0;
     top: 0;
     line-height: 38px;
@@ -295,15 +296,15 @@
 
   .search-icon {
     line-height: 38px;
-    color: $brand-primary;
+    fill: $brand-primary;
     background: white;
     speak: none;
     pointer-events: none;
 
-    i {
-      line-height: 38px;
-      width: 38px;
-      height: 38px;
+    svg {
+      margin-top: 7px;
+      width: 24px;
+      height: 24px;
     }
 
   }
@@ -346,7 +347,7 @@
       z-index: 90;
       border-radius: 0;
       background: $navbar-default-bg;
-      color: white;
+      fill: white;
       pointer-events: initial;
       transition: border-radius 0.3s, background-color 0.3s, color 0.3s;;
     }
@@ -367,7 +368,7 @@
 
   .search-icon {
   	background: white;
-  	color: $brand-primary;
+  	fill: $brand-primary;
   	z-index: 11;
     border-radius: 0 $input-border-radius $input-border-radius 0;
   }
