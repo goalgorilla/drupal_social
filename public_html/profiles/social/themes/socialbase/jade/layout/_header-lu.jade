@@ -158,13 +158,13 @@
       #menu-dropdown.collapse.navbar-collapse(aria-expanded='false')
         ul.nav.navbar-nav
           li
+            a(href='explore.html') Explore
+          li
             form.navbar-form.navbar-left(role='search', method='get', action='search-content.html')
               #navbar-search.form-group
                 input#search.form-control(type='text', placeholder='Search', name='search', autocomplete='off')
                 input.form-submit(type='submit', value='')
                 span.search-icon
-                  svg.icon-white.icon-medium
+                  svg
                     title Search
                     use(xlink:href='#icon-search')
-          li
-            a(href='explore.html') Explore

@@ -18,28 +18,44 @@
   display: inline-block;
 }
 
-.glyphicon {
+.glyphicon:before {
   position: relative;
   top: 1px;
-  width: 1em;
-  height: 1em;
+  width: 20px;
+  height: 20px;
+  content: '';
   display: inline-block;
+  background-repeat: no-repeat;
   background-size: auto 20px;
   background-position: center;
 }
 
-.glyphicon-refresh {
+.glyphicon-refresh:before {
   background-image: url(../../../images/icons/icon-autorenew.svg);
 }
 
-.glyphicon-question-sign {
+.glyphicon-question-sign:before {
   background-image: url(../../../images/icons/icon-help.svg);
   background-size: auto 14px;
+  height: 15px;
 }
 
-.glyphicon-move {
+.glyphicon-picture:before {
+  background-image: url(../../../images/icons/icon-photo.svg);
+}
+
+.glyphicon-file:before {
+  background-image: url(../../../images/icons/icon-insert_drive_file.svg);
+}
+
+.glyphicon-move:before {
   background-image: url(../../../images/icons/icon-open_with.svg);
-  background-size: auto 14px;
+  background-size: auto 16px;
+}
+
+.glyphicon-warning-sign:before {
+  background-image: url(../../../images/icons/icon-warning.svg);
+  background-size: auto 16px;
 }
 
 a.icon-before .glyphicon {

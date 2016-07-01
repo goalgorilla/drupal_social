@@ -34,6 +34,7 @@ html(lang="en")
     include _components.jade
   
   body(class='#{pagetype}')
+    include ../../images/icons.svg
     //- Google Tag Manager
     noscript
       iframe(src='//www.googletagmanager.com/ns.html?id=GTM-5BGZV3', height='0', width='0', style='display:none;visibility:hidden')
@@ -47,7 +48,6 @@ html(lang="en")
     include _header-lu.jade
     
     main.main-container(role='main')
-      include ../../images/icons.svg
       
       nav.visible-md-block.visible-lg-block.bg-white
         ol.breadcrumb.container
