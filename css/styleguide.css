@@ -2,22 +2,22 @@
   font-family: 'Material-Design-Icons';
   font-style: normal;
   font-weight: 400;
-  src: url("../../font/material-icons/MaterialIcons-Regular.eot");
-  src: url("../../font/material-icons/MaterialIcons-Regular.eot?#iefix") format('embedded-opentype'),
-       url("../../font/material-icons/MaterialIcons-Regular.woff") format('woff'),
-       url("../../font/material-icons/MaterialIcons-Regular.ttf") format('truetype'),
-       url("../../font/material-icons/MaterialIcons-Regular.svg") format('svg');
+  src: url("../font/material-icons/MaterialIcons-Regular.eot");
+  src: url("../font/material-icons/MaterialIcons-Regular.eot?#iefix") format('embedded-opentype'),
+       url("../font/material-icons/MaterialIcons-Regular.woff") format('woff'),
+       url("../font/material-icons/MaterialIcons-Regular.ttf") format('truetype'),
+       url("../font/material-icons/MaterialIcons-Regular.svg") format('svg');
 }
 
 @font-face {
   font-family: 'custom-icons';
   font-weight: normal;
   font-style: normal;
-  src: url("../../font/custom-icons/custom-icons.eot");
-  src: url("../../font/custom-icons/custom-icons.eot?#iefix") format('embedded-opentype'),
-       url("../../font/custom-icons/custom-icons.woff") format('woff'),
-       url("../../font/custom-icons/custom-icons.ttf") format('truetype'),
-       url("../../font/custom-icons/custom-icons.svg") format('svg');
+  src: url("../font/custom-icons/custom-icons.eot");
+  src: url("../font/custom-icons/custom-icons.eot?#iefix") format('embedded-opentype'),
+       url("../font/custom-icons/custom-icons.woff") format('woff'),
+       url("../font/custom-icons/custom-icons.ttf") format('truetype'),
+       url("../font/custom-icons/custom-icons.svg") format('svg');
 }
 
 .material-icons, .icon-before:before {
