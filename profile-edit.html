@@ -25,11 +25,14 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--CSS-->
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="template">
-    <!-- Google Tag Manager-->
     <noscript>
       <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -155,7 +158,7 @@
                     </ul>
                   </li>
                   <li>
-                    <div class="dropdown-header"><a href="#" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
+                    <div class="dropdown-header"><a href="notifications-archive.htm" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
                   </li>
                 </ul>
               </li>
@@ -197,12 +200,9 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-xs-12">
-              <h4 class="section-title">Edit profile</h4>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-sm-last">
-              <div class="toc-wrapper">
-                <ul class="table-of-contents">
+            <div id="scrollspy" class="col-xs-12 col-sm-4 col-sm-last margin-top-complementary">
+              <div class="toc-wrapper hidden-print">
+                <ul class="table-of-contents nav">
                   <li><a href="#name">Name &amp; profile image</a></li>
                   <li><a href="#work">Work </a></li>
                   <li> <a href="#contact">Contact information</a></li>
@@ -211,6 +211,7 @@
               </div>
             </div>
             <div class="col-xs-12 col-sm-8">
+              <h4 class="section-title">Edit profile</h4>
               <form method="get" action="my-profile-about.html">
                 <div id="name" class="card card-underline scrollspy">
                   <div class="card-head">
@@ -231,31 +232,33 @@
                         </div>
                       </div>
                       <div class="col-xs-12">   
-                        <div class="form-group form__type-managed-file">
+                        <div class="form-group">
                           <label>Profile image</label>
-                          <div class="image-widget form-managed-file clearfix"><img src="content/images/member5.jpg" width="50" class="img-responsive pull-left">
-                            <div class="pull-left padding-xs">
-                              <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">my-profile-picture.jpg</a>
-                              <div class="file-size">(91.78kb)</div>
-                            </div>
-                            <div class="pull-left padding-xs">
-                              <button type="submit" value="remove" class="btn btn-default form-submit"><i class="material-icons pull-left">delete</i>Remove</button>
+                          <div class="image-widget form-managed-file clearfix row">
+                            <div class="preview col-sm-4 col-md-3 margin-bottom-m"><img src="content/images/member5.jpg" width="220" class="img-responsive"></div>
+                            <div class="data col-sm-8 col-md-9">
+                              <div class="form-no-label">
+                                <label for="edit-field-topic-image-0-alt" class="visually-hidden">Alternative text</label>
+                                <input id="edit-field-topic-image-0-alt" placeholder="Alternative text" type="text" class="form-text form-control">
+                                <div id="edit-field-topic-image-0-alt--description" class="help-block">This text will be used by screen readers, search engines, or when the image cannot be loaded.</div>
+                              </div><span class="file file--mime-image-jpeg file--image"><span class="file-icon"><span class="icon glyphicon glyphicon-picture text-primary material-icons">image</span></span><span class="file-link"><a href="#" type="image/jpeg; length=270186" title="Open image in new window" class="menu-item__link">animals1-square.jpg</a></span><span class="file-size">263.85 KB</span></span>
+                              <button id="edit-field-test-0-remove-button" type="submit" class="button js-form-submit form-submit btn-default btn btn-non-clickable">Remove</button>
                             </div>
                           </div>
-                          <div style="display:none" class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                         </div>
-                        <div class="form-group form__type-managed-file">
+                        <div class="form-group">
                           <label>Cover image</label>
-                          <div class="image-widget form-managed-file clearfix"><img src="content/images/my-cover-big.jpg" width="150" class="img-responsive pull-left">
-                            <div class="pull-left padding-xs">
-                              <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">my-cover.jpg</a>
-                              <div class="file-size">(123.89kb)</div>
-                            </div>
-                            <div class="pull-left padding-xs">
-                              <button type="submit" value="remove" class="btn btn-default form-submit"><i class="material-icons pull-left">delete</i>Remove</button>
+                          <div class="image-widget form-managed-file clearfix row">
+                            <div class="preview col-sm-4 col-md-3 margin-bottom-m"><img src="content/images/my-cover-square.jpg" width="220" class="img-responsive"></div>
+                            <div class="data col-sm-8 col-md-9">
+                              <div class="form-no-label">
+                                <label for="edit-field-topic-image-0-alt" class="visually-hidden">Alternative text</label>
+                                <input id="edit-field-topic-image-0-alt" placeholder="Alternative text" type="text" class="form-text form-control">
+                                <div id="edit-field-topic-image-0-alt--description" class="help-block">This text will be used by screen readers, search engines, or when the image cannot be loaded.</div>
+                              </div><span class="file file--mime-image-jpeg file--image"><span class="file-icon"><span class="icon glyphicon glyphicon-picture text-primary material-icons">image</span></span><span class="file-link"><a href="#" type="image/jpeg; length=270186" title="Open image in new window" class="menu-item__link">my-cover-square.jpg</a></span><span class="file-size">263.85 KB</span></span>
+                              <button id="edit-field-test-0-remove-button" type="submit" class="button js-form-submit form-submit btn-default btn btn-non-clickable">Remove</button>
                             </div>
                           </div>
-                          <div style="display:none" class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                         </div>
                       </div>
                     </div>
@@ -350,9 +353,9 @@
         </div>
       </div>
     </main>
-    <footer class="main-footer">
+    <footer class="brand-secondary">
       <div class="container clearfix">
-        <div class="navbar navbar-footer">
+        <div class="navbar navbar-footer margin-top-l">
           <div class="nav navbar-nav navbar-right">
             <li> <a href="#">About</a></li>
             <li> <a href="#">Terms</a></li>

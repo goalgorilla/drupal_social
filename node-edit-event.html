@@ -25,11 +25,14 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--CSS-->
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="template">
-    <!-- Google Tag Manager-->
     <noscript>
       <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -155,7 +158,7 @@
                     </ul>
                   </li>
                   <li>
-                    <div class="dropdown-header"><a href="#" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
+                    <div class="dropdown-header"><a href="notifications-archive.htm" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
                   </li>
                 </ul>
               </li>
@@ -196,13 +199,10 @@
       </nav>
       <div class="main-content">
         <div class="container">
-          <div class="row margin-top-l">
-            <div class="col-xs-12">
-              <h1 class="h4 section-title">Edit Event: Amsterdam Meetup</h1>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-sm-last">
-              <div class="toc-wrapper">
-                <ul class="table-of-contents">
+          <div class="row margin-top-l">     
+            <div id="scrollspy" class="col-xs-12 col-sm-4 col-sm-last margin-top-complementary">
+              <div class="toc-wrapper hidden-print">
+                <ul class="table-of-contents nav">
                   <li><a href="#content">Title &amp; image</a></li>
                   <li> <a href="#visibility">Visibility</a></li>
                   <li><a href="#description">Description</a></li>
@@ -214,6 +214,7 @@
               </div>
             </div>
             <div class="col-xs-12 col-sm-8">
+              <h1 class="h4 section-title">Edit Event: Amsterdam Meetup</h1>
               <form action="event.html" method="get">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
@@ -224,18 +225,19 @@
                       <label class="form-required">Title</label>
                       <input type="text" value="Amsterdam Meetup" class="form-control required">
                     </div>
-                    <div class="form-group form__type-managed-file">
+                    <div class="form-group">
                       <label>Image</label>
-                      <div class="image-widget form-managed-file clearfix"><img src="content/images/event-hero.jpg" width="150" class="img-responsive pull-left">
-                        <div class="pull-left padding-xs">
-                          <div class="file file--image"></div><a href="#" type="image/jpeg; length=158378">amasterdam-meetup-121.jpg</a>
-                          <div class="file-size">(154.78kb)</div>
-                        </div>
-                        <div class="pull-left padding-xs">
-                          <button type="submit" value="remove" style="pointer-events: none;" class="btn btn-default"><i class="material-icons pull-left">delete</i>Remove</button>
+                      <div class="image-widget form-managed-file clearfix row">
+                        <div class="preview col-sm-4 col-md-3 margin-bottom-m"><img src="content/images/animals1-square.jpg" width="220" class="img-responsive"></div>
+                        <div class="data col-sm-8 col-md-9">
+                          <div class="form-no-label">
+                            <label for="edit-field-topic-image-0-alt" class="visually-hidden">Alternative text</label>
+                            <input id="edit-field-topic-image-0-alt" placeholder="Alternative text" type="text" class="form-text form-control">
+                            <div id="edit-field-topic-image-0-alt--description" class="help-block">This text will be used by screen readers, search engines, or when the image cannot be loaded.</div>
+                          </div><span class="file file--mime-image-jpeg file--image"><span class="file-icon"><span class="icon glyphicon glyphicon-picture text-primary material-icons">image</span></span><span class="file-link"><a href="#" type="image/jpeg; length=270186" title="Open image in new window" class="menu-item__link">animals1-square.jpg</a></span><span class="file-size">263.85 KB</span></span>
+                          <button id="edit-field-test-0-remove-button" type="submit" class="button js-form-submit form-submit btn-default btn btn-non-clickable">Remove</button>
                         </div>
                       </div>
-                      <div style="display:none" class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                     </div>
                   </div>
                 </div>
@@ -352,11 +354,116 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label>Files</label>
-                      <div class="image-widget form-managed-file clearfix">
-                        <input type="file" value="upload an image" class="form-control">
-                        <button type="submit" value="remove" class="btn form-submit style-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
+                      <div class="table-responsive">
+                        <button type="button" data-toggle="tooltip" data-placement="left" title="Re-order rows by numerical weight instead of dragging." class="tabledrag-toggle-weight btn-sm btn btn-flat pull-right">Show row weights</button>
+                        <table data-tablesaw-mode="stack" class="responsive-enabled table table-hover table-striped tablesaw tabledrag">
+                          <thead>
+                            <tr>
+                              <th>File information</th>
+                              <th>Display</th>
+                              <th class="tabledrag-hide">Weight</th>
+                              <th>Operations</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="draggable odd">
+                              <td><a href="#" data-toggle="tooltip" data-icon-type="open_with" data-original-title="Drag to re-order" class="tabledrag-handle icon-before"><span aria-hidden="true" class="icon glyphicon glyphicon-move"></span></a>
+                                <div class="js-form-managed-file form-managed-file">
+                                  <input type="hidden"><span class="file file--mime-application-pdf file--application-pdf"><span class="file-icon"><span class="icon glyphicon glyphicon-file text-primary material-icons">insert_drive_file</span></span><span class="file-link"><a href="#" type="application/pdf;, length=480544" title="Open file in new window" class="menu-item__link">Very-important-document.pdf</a></span><span class="file-size">412.28 KB</span><span aria-hidden="true" data-icon-type="warning" class="tabledrag-changed text-warning icon glyphicon glyphicon-warning-sign icon-before"></span></span>
+                                </div>
+                                <div class="form-group">
+                                  <label for="edit-field-test-0-description">Description</label>
+                                  <input id="edit-field-test-0-description" type="text" size="60" maxlength="128" class="form-text form-control">
+                                  <div id="edit-field-test-0-description--description" class="help-block">The description may be used as the label of the link to the file.</div>
+                                </div>
+                              </td>
+                              <td class="checkbox">
+                                <div class="checkbox">
+                                  <input id="edit-field-test-0-display" type="checkbox" checked="checked" class="file-display form-checkbox">
+                                  <label for="edit-field-test-0-display"></label>
+                                </div>
+                              </td>
+                              <td class="tabledrag-hide">
+                                <div class="form-no-label form-group">
+                                  <label for="edit-field-test-0-weight" class="visually-hidden">Weight for new file</label>
+                                  <div class="select-wrapper">
+                                    <div class="material-select">
+                                      <select id="edit-field-test-0-weight" class="edit-field-test-weight form-select form-control">
+                                        <option value="-3">-3</option>
+                                        <option value="-2">-2</option>
+                                        <option value="-1">-1</option>
+                                        <option value="0" selected="selected">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <button id="edit-field-test-0-remove-button" type="submit" class="button js-form-submit form-submit btn-default btn btn-non-clickable">Remove</button>
+                              </td>
+                            </tr>
+                            <tr class="draggable even">
+                              <td><a href="#" data-toggle="tooltip" data-icon-type="open_with" data-original-title="Drag to re-order" class="tabledrag-handle icon-before"><span aria-hidden="true" class="icon glyphicon glyphicon-move"></span></a>
+                                <div class="js-form-managed-file form-managed-file">
+                                  <input type="hidden"><span class="file file--mime-application-pdf file--application-pdf"><span class="file-icon"><span class="icon glyphicon glyphicon-file text-primary material-icons">insert_drive_file</span></span><span class="file-link"><a href="#" type="application/pdf;, length=480544" title="Open file in new window" class="menu-item__link">Very-important-document.pdf</a></span><span class="file-size">469.28 KB</span></span>
+                                </div>
+                                <div class="form-group">
+                                  <label for="edit-field-test-1-description">Description</label>
+                                  <input id="edit-field-test-1-description" type="text" size="60" maxlength="128" class="form-text form-control">
+                                  <div id="edit-field-test-1-description--description" class="help-block">The description may be used as the label of the link to the file.</div>
+                                </div>
+                              </td>
+                              <td class="checkbox">
+                                <div class="checkbox">
+                                  <input id="edit-field-test-1-display" type="checkbox" checked="checked" class="file-display form-checkbox">
+                                  <label for="edit-field-test-1-display"></label>
+                                </div>
+                              </td>
+                              <td class="tabledrag-hide">
+                                <div class="form-no-label form-group">
+                                  <label for="edit-field-test-1-weight" class="visually-hidden">Weight for new file</label>
+                                  <div class="select-wrapper">
+                                    <div class="material-select">
+                                      <select id="edit-field-test-1-weight" class="edit-field-test-weight form-select form-control">
+                                        <option value="-3">-3</option>
+                                        <option value="-2">-2</option>
+                                        <option value="-1">-1</option>
+                                        <option value="0" selected="selected">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                <button id="edit-field-test-1-remove-button" type="submit" class="button js-form-submit form-submit btn-default btn btn-non-clickable">Remove</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="help-block">15 MB per file limit - Allowed types: xls xlsx doc </div>
+                      <label>Add a new file</label>
+                      <div class="form-managed-file clearfix">
+                        <input type="file" value="upload an image" class="form-control">
+                        <button type="submit" value="remove" class="btn form-submit btn-default js-hide"><i class="material-icons pull-left">file_upload</i>Upload</button>
+                        <!--.help-block 15 MB per file limit - Allowed types: xls xlsx doc-->
+                        <div id="edit-field-topic-image-1-upload--description" class="description help-block"><a href="#upload-instructions--3" data-icon-type="help" data-toggle="popover" data-html="true" data-placement="bottom" data-title="Upload requirements" aria-describedby="popover388085" class="icon-before">Upload requirements</a>
+                          <div id="upload-instructions--3" aria-hidden="true" class="hidden help-block form-group popover">
+                            <ul>
+                              <li>Unlimited number of files can be uploaded to this field.</li>
+                              <li>2 MB limit.</li><li>Allowed types: <code>png, gif, jpg, jpeg</code>.
+                              </li>
+                              <li>Images larger than <strong>3600x3600</strong> pixels will be resized.
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -391,9 +498,9 @@
         </div>
       </div>
     </main>
-    <footer class="main-footer">
+    <footer class="brand-secondary">
       <div class="container clearfix">
-        <div class="navbar navbar-footer">
+        <div class="navbar navbar-footer margin-top-l">
           <div class="nav navbar-nav navbar-right">
             <li> <a href="#">About</a></li>
             <li> <a href="#">Terms</a></li>
@@ -420,6 +527,7 @@
   </script>
   <script src="libs/ckeditor/ckeditor.js"></script>
   <script src="libs/ckeditor/adapters/jquery.js"></script>
+  <link href="css/datepicker.css" type="text/css" rel="stylesheet" media="screen,projection">
   <script src="libs/date_picker/picker.js"></script>
   <script src="libs/date_picker/picker.date.js"></script>
   <script src="libs/date_picker/picker.time.js"></script>

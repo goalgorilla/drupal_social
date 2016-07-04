@@ -25,11 +25,14 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--CSS-->
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="template">
-    <!-- Google Tag Manager-->
     <noscript>
       <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -155,7 +158,7 @@
                     </ul>
                   </li>
                   <li>
-                    <div class="dropdown-header"><a href="#" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
+                    <div class="dropdown-header"><a href="notifications-archive.htm" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
                   </li>
                 </ul>
               </li>
@@ -202,7 +205,7 @@
             <div class="hero-footer">
               <div class="row row-md-center">
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
-                  <div class="badge badge-gray-dark badge--toggle">
+                  <div class="badge badge--toggle">
                     <label>
                       <input type="checkbox"><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
                     </label>
@@ -213,11 +216,16 @@
                   <div itemprop="author" itemscope="" itemtype="http://schema.org/Person"> <span>By </span><a itemprop="url" rel="author" href="my-stream.html">John Johnson </a><span>in group <a itemprop="organizer" href="group-stream.html">Happy Campers</a></span></div>
                 </div>
                 <div class="col-xs-12 col-md-3">
-                  <div class="btn-group">
-                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Enrolled        <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Cancel enrollment     </a></li>
-                    </ul>
+                  <div class="row">
+                    <div class="col-xs-12"><span class="badge badge-dark">44 places left</span></div>
+                    <div class="col-xs-12">
+                      <div class="btn-group">
+                        <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Enrolled        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Cancel enrollment     </a></li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -239,14 +247,14 @@
         </div>
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-xs-12 col-sm-4 col-sm-last">
+            <div class="col-xs-12 col-sm-4 col-sm-last margin-top-complementary">
               <div class="margin-top-sidebar">
                 <div class="card small-padding">
                   <div class="card-head text-center"> 
                     <header>5 people have enrolled</header>
                   </div>
                   <div class="card-body text-center">
-                    <div class="img-grid"><img src="content/images/member2.jpg" class="img-circle img-medium"><img src="content/images/member3.jpg" class="img-circle img-medium"><img src="content/images/member5.jpg" class="img-circle img-medium"><img src="content/images/member4.jpg" class="img-circle img-medium"><img src="content/images/member1.jpg" class="img-circle img-medium"></div><a href="event-enrollments.html" class="btn btn-flat">View all</a>
+                    <div class="img-grid"><img src="content/images/member2.jpg" class="img-circle img-medium"><img src="content/images/member3.jpg" class="img-circle img-medium"><img src="content/images/member5.jpg" class="img-circle img-medium"><img src="content/images/member4.jpg" class="img-circle img-medium"><img src="content/images/member1.jpg" class="img-circle img-medium"><img src="content/images/member2.jpg" class="img-circle img-medium"><img src="content/images/member3.jpg" class="img-circle img-medium"><img src="content/images/member5.jpg" class="img-circle img-medium"><img src="content/images/member4.jpg" class="img-circle img-medium"><img src="content/images/member1.jpg" class="img-circle img-medium"></div><a href="event-enrollments.html" class="btn btn-flat">View all</a>
                   </div>
                 </div>
               </div>
@@ -355,9 +363,9 @@
         </div>
       </div>
     </main>
-    <footer class="main-footer">
+    <footer class="brand-secondary">
       <div class="container clearfix">
-        <div class="navbar navbar-footer">
+        <div class="navbar navbar-footer margin-top-l">
           <div class="nav navbar-nav navbar-right">
             <li> <a href="#">About</a></li>
             <li> <a href="#">Terms</a></li>

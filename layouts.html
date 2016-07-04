@@ -24,7 +24,12 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
     <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
     <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
@@ -58,9 +63,9 @@
         <li class="logo"><a id="logo-container" href="index.html" class="brand-logo"><img id="front-page-logo" src="images/social-logo-blue.svg"></a></li>
         <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
         <li class="no-padding">
-          <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Style</a>
-              <div class="collapsible-body">
+          <ul id="accordion" aria-multiselectable="true" role="tablist" class="collapsible collapsible-accordion">
+            <li class="bold panel panel-default"><a href="#collapse-style" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Style</a>
+              <div id="collapse-style" class="collapsible-body collapse panel-collapse">
                 <ul>
                   <li><a href="color.html">Color</a></li>
                   <li><a href="typography.html">Typography</a></li>
@@ -68,8 +73,8 @@
                 </ul>
               </div>
             </li>
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
-              <div class="collapsible-body">
+            <li class="bold panel panel-default"><a href="#collapse-components" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Components</a>
+              <div id="collapse-components" class="collapsible-body collapse panel-collapse">
                 <ul>
                   <li><a href="buttons.html">Buttons</a></li>
                   <li><a href="grid.html">Grid</a></li>
@@ -77,6 +82,7 @@
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="cards.html">Cards  </a></li>
                   <li><a href="forms.html">Forms</a></li>
+                  <li><a href="tables.html">Tables</a></li>
                   <li><a href="tabs.html">Tabs</a></li>
                   <li><a href="pagination.html">Pagination</a></li>
                 </ul>
@@ -91,10 +97,10 @@
     </header>
     <main role="main" class="styleguide-container">
       <div class="container">
-        <div class="row"> 
-          <div class="col-xs-12 col-sm-4 col-md-3 col-sm-last">
-            <div class="toc-wrapper">
-              <ul class="table-of-contents">
+        <div class="row">
+          <div id="scrollspy" class="col-xs-12 col-sm-4 col-md-3 col-sm-last">
+            <div class="toc-wrapper hidden-print">
+              <ul class="table-of-contents nav">
                 <li><a href="#regions">Regions</a></li>
                 <li><a href="#layout-a">Layout A</a></li>
                 <li><a href="#layout-b">Layout B</a></li>
@@ -122,10 +128,6 @@
                 <div class="list-group-item avatar"><span style="background-color: #80cbc4" class="circle"></span>
                   <h6 class="list-group-item-heading">Secondary navigation</h6>
                   <p class="list-group-item-text">Navigation options to the sub contents of a main content.</p>
-                </div>
-                <div class="list-group-item avatar"><span style="background-color: #dce775" class="circle"></span>
-                  <h6 class="list-group-item-heading">Title </h6>
-                  <p class="list-group-item-text">Explains what this page or section is about</p>
                 </div>
                 <div class="list-group-item avatar"><span style="background-color: #a5d6a7" class="circle"></span>
                   <h6 class="list-group-item-heading">Main content </h6>
@@ -179,9 +181,6 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div style="background-color:#dce775; min-height: 60px;" class="col-xs-12">
-                      <p>Title </p>
-                    </div>
                     <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 col-sm-last">
                       <p>Complementary</p>
                       <p class="flat-text small"></p>
@@ -226,7 +225,7 @@
                     <div style="background-color:#80deea; min-height: 30px;" class="col-md-12 hidden-xs">
                       <p>Breadcrumbs</p>
                     </div>
-                    <div style="background-color:#80deea; min-height: 30px;" class="col-xs-12 hidden-tablet">
+                    <div style="background-color:#80deea; min-height: 30px;" class="col-xs-12 visible-md-block visible-lg-block">
                       <p>Back to main page</p>
                     </div>
                   </div>
@@ -246,9 +245,6 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div style="background-color:#dce775; min-height: 60px;" class="col-xs-12">
-                      <p>Title </p>
-                    </div>
                     <div style="background-color:#ffe082; min-height: 250px;" class="col-xs-12 col-sm-4 col-sm-last">
                       <p>Complementary</p>
                       <p class="flat-text small"></p>
@@ -287,13 +283,9 @@
                     <div style="background-color:#e1bee7; min-height: 80px;" class="col-xs-12">
                       <p>Header</p>
                     </div>
-                  </div>
-                  <div class="row visible-md-block visible-lg-block">
-                    <div style="background-color:#80deea; min-height: 30px;" class="col-xs-12">
+                    <div style="background-color:#80deea; min-height: 30px;" class="visible-md-block visible-lg-block col-xs-12">
                       <p>Breadcrumbs</p>
                     </div>
-                  </div>
-                  <div class="row">
                     <div style="background-color:#ef9a9a; min-height: 120px;" class="col-xs-12">
                       <p>Hero</p>
                       <p class="flat-text inline25"></p>
@@ -334,6 +326,8 @@
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/prism.js"></script>
+    <script src="js/styleguide.js"></script>
+    <script src="js/init-styleguide.js"></script>
     <script>
       // Escape code
       // ============================================================

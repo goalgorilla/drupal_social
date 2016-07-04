@@ -24,7 +24,12 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
     <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
     <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
@@ -58,9 +63,9 @@
         <li class="logo"><a id="logo-container" href="index.html" class="brand-logo"><img id="front-page-logo" src="images/social-logo-blue.svg"></a></li>
         <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
         <li class="no-padding">
-          <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Style</a>
-              <div class="collapsible-body">
+          <ul id="accordion" aria-multiselectable="true" role="tablist" class="collapsible collapsible-accordion">
+            <li class="bold panel panel-default"><a href="#collapse-style" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Style</a>
+              <div id="collapse-style" class="collapsible-body collapse panel-collapse">
                 <ul>
                   <li><a href="color.html">Color</a></li>
                   <li><a href="typography.html">Typography</a></li>
@@ -68,8 +73,8 @@
                 </ul>
               </div>
             </li>
-            <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Components</a>
-              <div class="collapsible-body">
+            <li class="bold panel panel-default"><a href="#collapse-components" data-parent="#accordion" data-toggle="collapse" class="collapsible-header active waves-effect waves-teal">Components</a>
+              <div id="collapse-components" class="collapsible-body collapse panel-collapse in">
                 <ul>
                   <li><a href="buttons.html">Buttons</a></li>
                   <li><a href="grid.html">Grid</a></li>
@@ -77,6 +82,7 @@
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="cards.html">Cards  </a></li>
                   <li class="active"><a href="forms.html">Forms</a></li>
+                  <li><a href="tables.html">Tables</a></li>
                   <li><a href="tabs.html">Tabs</a></li>
                   <li><a href="pagination.html">Pagination</a></li>
                 </ul>
@@ -92,7 +98,22 @@
     <main role="main" class="styleguide-container">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-10">
+          <div id="scrollspy" role="complementary" class="col-md-3 col-md-last">
+            <div class="toc-wrapper hidden-print">
+              <ul class="table-of-contents nav">
+                <li><a href="#input">Input Fields</a></li>
+                <li><a href="#textarea">Textareas</a></li>
+                <li><a href="#select">Select</a></li>
+                <li><a href="#radio">Radio Buttons</a></li>
+                <li><a href="#checkbox">Checkboxes</a></li>
+                <li><a href="#switches">Switches</a></li>
+                <li><a href="#file">File Input Button</a></li>
+                <li><a href="#range">Range</a></li>
+                <li><a href="#date-picker">Date picker</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-9">
             <div id="input" class="section scrollspy">
               <p class="caption">Forms are the standard way to receive user inputted data. The transitions and smoothness of these elements are very important because of the inherent user interaction associated with forms.</p>
               <h2 class="header">Input fields</h2>
@@ -164,12 +185,14 @@ $('#textarea1').trigger('autoresize');
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>Select</label>
-                    <select class="form-control">
-                      <option value="" disabled="" selected="">Choose your option</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
-                    </select>
+                    <div class="select-wrapper">
+                      <select class="form-control">
+                        <option value="" disabled="" selected="">Choose your option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -351,8 +374,16 @@ noUiSlider.create(slider, {
             <div id="date-picker" class="section scrollspy">
               <h2 class="header">Date Picker</h2>
               <p>We use a modified version of pickadate.js to create a materialized date picker. Test it out below!</p>
-              <label for="birthdate">Birthdate</label>
-              <input id="birthdate" type="text" class="datepicker form-control">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <label for="birthdate">Pick a date</label>
+                  <input type="text" class="datepicker form-control">
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <label for="birthdate">Pick a time</label>
+                  <input type="text" class="timepicker form-control">
+                </div>
+              </div>
               <pre><code class="language-markup"><input type="date" class="form-control datepicker">
 </code></pre>
               <h4>Initialization</h4>
@@ -365,21 +396,6 @@ noUiSlider.create(slider, {
 </code></pre>
             </div>
           </div>
-          <div class="col-sm-4 col-md-2 hidden-xs">
-            <div class="toc-wrapper">
-              <ul class="section table-of-contents">
-                <li><a href="#input">Input Fields</a></li>
-                <li><a href="#textarea">Textareas</a></li>
-                <li><a href="#select">Select</a></li>
-                <li><a href="#radio">Radio Buttons</a></li>
-                <li><a href="#checkbox">Checkboxes</a></li>
-                <li><a href="#switches">Switches</a></li>
-                <li><a href="#file">File Input Button</a></li>
-                <li><a href="#range">Range</a></li>
-                <li><a href="#date-picker">Date picker</a></li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
     </main>
@@ -390,6 +406,8 @@ noUiSlider.create(slider, {
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/prism.js"></script>
+    <script src="js/styleguide.js"></script>
+    <script src="js/init-styleguide.js"></script>
     <script>
       // Escape code
       // ============================================================
@@ -428,6 +446,9 @@ noUiSlider.create(slider, {
     </script>
     <script src="libs/date_picker/picker.js"></script>
     <script src="libs/date_picker/picker.date.js"></script>
+    <script src="libs/date_picker/picker.time.js"></script>
+    <script src="libs/date_picker/picker.init.js"></script>
+    <link href="css/datepicker.css" rel="stylesheet">
     <link href="libs/noUiSlider/nouislider.css" rel="stylesheet">
     <script src="libs/noUiSlider/nouislider.js"></script>
     <script type="text/javascript">
@@ -444,9 +465,6 @@ noUiSlider.create(slider, {
          decimals: 0
        })
       });
-      (function($){
-        $('.datepicker').pickadate({selectYears: 20});
-      })(jQuery); // end of jQuery name space
     </script>
   </body>
 </html>

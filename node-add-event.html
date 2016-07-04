@@ -25,11 +25,14 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--CSS-->
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="template">
-    <!-- Google Tag Manager-->
     <noscript>
       <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -155,7 +158,7 @@
                     </ul>
                   </li>
                   <li>
-                    <div class="dropdown-header"><a href="#" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
+                    <div class="dropdown-header"><a href="notifications-archive.htm" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
                   </li>
                 </ul>
               </li>
@@ -197,21 +200,21 @@
       <div class="main-content">
         <div class="container">
           <div class="row">
-            <div class="col-xs-12">
-              <h1 class="h4 section-title">Create Event</h1>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-sm-last">
-              <ul class="section table-of-contents">
-                <li><a href="#content">Title &amp; image</a></li>
-                <li> <a href="#visibility">Visibility</a></li>
-                <li> <a href="#eventtime">Date &amp; time</a></li>
-                <li> <a href="#location">Location</a></li>
-                <li> <a href="#description">Description</a></li>
-                <li><a href="#attachments">Attachments</a></li>
-                <li><a href="#comment-settings">Comment settings</a></li>
-              </ul>
+            <div id="scrollspy" role="complementary" class="col-md-4 col-md-last margin-top-complementary">
+              <div class="toc-wrapper hidden-print">
+                <ul class="table-of-contents nav">
+                  <li><a href="#content">Title &amp; image</a></li>
+                  <li> <a href="#visibility">Visibility</a></li>
+                  <li> <a href="#eventtime">Date &amp; time</a></li>
+                  <li> <a href="#location">Location</a></li>
+                  <li> <a href="#description">Description</a></li>
+                  <li><a href="#attachments">Attachments</a></li>
+                  <li><a href="#comment-settings">Comment settings</a></li>
+                </ul>
+              </div>
             </div>
             <div class="col-xs-12 col-sm-8">
+              <h1 class="h4 section-title">Create Event</h1>
               <form action="event.html" method="get">
                 <div id="content" class="card card-underline scrollspy">
                   <div class="card-head">
@@ -380,9 +383,9 @@
         </div>
       </div>
     </main>
-    <footer class="main-footer">
+    <footer class="brand-secondary">
       <div class="container clearfix">
-        <div class="navbar navbar-footer">
+        <div class="navbar navbar-footer margin-top-l">
           <div class="nav navbar-nav navbar-right">
             <li> <a href="#">About</a></li>
             <li> <a href="#">Terms</a></li>
@@ -409,6 +412,7 @@
   </script>
   <script src="libs/ckeditor/ckeditor.js"></script>
   <script src="libs/ckeditor/adapters/jquery.js"></script>
+  <link href="css/datepicker.css" type="text/css" rel="stylesheet" media="screen,projection">
   <script src="libs/date_picker/picker.js"></script>
   <script src="libs/date_picker/picker.date.js"></script>
   <script src="libs/date_picker/picker.time.js"></script>

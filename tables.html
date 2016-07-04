@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>Tables - Open Social</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="images/favicon/manifest.json">
+    <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#29abe2">
+    <meta name="msapplication-TileColor" content="#29abe2">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
+  </head>
+  <body class="styleguide">
+    <header class="styleguide-header">
+      <!-- Google Tag Manager-->
+      <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      </noscript>
+      <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5BGZV3');
+      </script>
+      <!-- End Google Tag Manager-->
+      <div class="header__wrapper">
+        <div class="header__innerwrapper container">
+          <div class="row">
+            <div class="col-xs-12">
+              <h1 class="header__title">Tables</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-button-wrapper">
+        <button id="js-showSidebar" role="tab" class="hamburger-button"> <i title="show navigation" class="material-icons">menu</i></button>
+      </div>
+      <ul id="nav-mobile" class="side-nav fixed">
+        <li class="logo"><a id="logo-container" href="index.html" class="brand-logo"><img id="front-page-logo" src="images/social-logo-blue.svg"></a></li>
+        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
+        <li class="no-padding">
+          <ul id="accordion" aria-multiselectable="true" role="tablist" class="collapsible collapsible-accordion">
+            <li class="bold panel panel-default"><a href="#collapse-style" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Style</a>
+              <div id="collapse-style" class="collapsible-body collapse panel-collapse">
+                <ul>
+                  <li><a href="color.html">Color</a></li>
+                  <li><a href="typography.html">Typography</a></li>
+                  <li><a href="elevation.html">Elevation</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="bold panel panel-default"><a href="#collapse-components" data-parent="#accordion" data-toggle="collapse" class="collapsible-header active waves-effect waves-teal">Components</a>
+              <div id="collapse-components" class="collapsible-body collapse panel-collapse in">
+                <ul>
+                  <li><a href="buttons.html">Buttons</a></li>
+                  <li><a href="grid.html">Grid</a></li>
+                  <li><a href="navigation.html">Navigation</a></li>
+                  <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
+                  <li><a href="cards.html">Cards  </a></li>
+                  <li><a href="forms.html">Forms</a></li>
+                  <li class="active"><a href="tables.html">Tables</a></li>
+                  <li><a href="tabs.html">Tabs</a></li>
+                  <li><a href="pagination.html">Pagination</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="bold"><a href="layouts.html" class="waves-effect waves-teal">Layout</a></li>
+        <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
+      </ul>
+      <div class="mask-modal"></div>
+    </header>
+    <main role="main" class="styleguide-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-10">
+            <div id="table" class="section scrollspy">
+              <h2 class="header">Table</h2>
+              <p><p>For basic styling—light padding and only horizontal dividers—add the base class <code>.table</code> to any <code>&lt;table&gt;</code>.</p>
+              </p>
+              <div class="row">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Member</th>
+                      <th>Organisation</th>
+                      <th>Role</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="media">
+                          <div class="media-left"><a href="my-stream.html"><img src="content/images/member-table-view-5.jpg"></a></div>
+                          <div class="media-body"><a href="my-stream.html">John Johnson</a></div>
+                        </div>
+                      </td>
+                      <td>Receptionist at Bastion Hotels</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Remove</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-4.jpg"></a></div>
+                          <div class="media-body"><a href="other-stream.html">Jenny Baker</a></div>
+                        </div>
+                      </td>
+                      <td>Head of Communications at Freshminds</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Remove</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-3.jpg"></a></div>
+                          <div class="media-body"><a href="other-stream.html">Henry Bond</a></div>
+                        </div>
+                      </td>
+                      <td>Drupal progammer at Go Bananans!</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Remove</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-2.jpg"></a></div>
+                          <div class="media-body"><a href="other-stream.html">Getrud van Assen</a></div>
+                        </div>
+                      </td>
+                      <td>Social worker at Greenvalley</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Remove</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-1.jpg"></a></div>
+                          <div class="media-body"><a href="other-stream.html">Mary-Lou Wallace</a></div>
+                        </div>
+                      </td>
+                      <td>Personal trainer at My Personal Fitness Factory</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Remove</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pre>     <code class="language-markup"><table class="table">
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Organisation</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <div class="media">
+          <div class="media-left"><a href="my-stream.html"><img src="content/images/member-table-view-5.jpg"></a></div>
+          <div class="media-body"><a href="my-stream.html">John Johnson</a></div>
+        </div>
+      </td>
+      <td>Receptionist at Bastion Hotels</td>
+      <td>Member</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Remove</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</code></pre>
+            </div>
+            <div id="table-scroll" class="section scrollspy">
+              <h2 class="header">Table scroll/swipe</h2>
+              <p><p>Add classes <code>.table</code> and <code>.tablesaw</code>.
+Allows the user to use the swipe gesture (or use the left and right buttons) to navigate the columns <code>&lt;table data-tablesaw-mode=&quot;swipe&quot;&gt;</code>.</p>
+              </p>
+              <p><p>Columns also respect the <code>data-tablesaw-priority=&quot;persist&quot;</code> attribute <code>&lt;th data-tablesaw-priority=&quot;persist&quot;&gt;</code>, always shows.</p>
+              </p>
+              <p><p>Add a mini map <code>&lt;table data-tablesaw-mode=&quot;swipe&quot; data-tablesaw-minimap&gt;</code>.</p>
+              </p>
+              <div class="row">
+                <table data-tablesaw-mode="swipe" data-tablesaw-minimap class="table tablesaw tablesaw-swipe">
+                  <thead>
+                    <tr>
+                      <th data-tablesaw-priority="persist">Member</th>
+                      <th>Organisation</th>
+                      <th>Role</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="my-stream.html"><img src="content/images/member-table-view-5.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="my-stream.html">John Johnson</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Receptionist at Bastion Hotels</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-4.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Jenny Baker</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Head of Communications at Freshminds</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-3.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Henry Bond</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Drupal progammer at Go Bananans!</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-2.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Getrud van Assen</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Social worker at Greenvalley</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-1.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Mary-Lou Wallace</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Personal trainer at My Personal Fitness Factory</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="my-stream.html"><img src="content/images/member-table-view-5.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="my-stream.html">John Johnson</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Receptionist at Bastion Hotels</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-4.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Jenny Baker</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Head of Communications at Freshminds</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-3.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Henry Bond</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Drupal progammer at Go Bananans!</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-2.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Getrud van Assen</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Social worker at Greenvalley</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="media media-middle">
+                          <div class="media-left"><a href="other-stream.html"><img src="content/images/member-table-view-1.jpg" class="img-medium img-circle"></a></div>
+                          <div class="media-body">
+                            <h6 class="list-group-item-heading no-margin"><a href="other-stream.html">Mary-Lou Wallace</a></h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Personal trainer at My Personal Fitness Factory</td>
+                      <td>Member</td>
+                      <td>
+                        <div class="links btn-group pull-right text-nowrap">
+                          <button type="submit" value="Edit" class="btn-md button js-form-submit btn-raised form-submit btn-default btn">Edit</button>
+                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-default btn-md btn btn-raised dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                          <ul role="menu" class="dropdown-menu">
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pre><code class="language-markup"><table data-tablesaw-mode="swipe" data-tablesaw-minimap class="table tablesaw">
+  <thead>
+    <tr>
+      <th data-tablesaw-priority="persist">Member</th>
+      <th>Organisation</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="tablesaw-cell-persist">
+        <div class="media media-middle">
+          <div class="media-left"><a href="my-stream.html"><img src="content/images/member-table-view-5.jpg"></a></div>
+          <div class="media-body"><a href="my-stream.html">John Johnson</a></div>
+        </div>
+      </td>
+      <td>Receptionist at Bastion Hotels</td>
+      <td>Member</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-primary btn-sm btn-raised dropdown-toggle">Manage<span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Remove</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</code></pre>
+            </div>
+          </div>
+          <div id="scrollspy" class="col-sm-4 col-md-2 hidden-xs">
+            <div class="toc-wrapper">
+              <ul class="section table-of-contents nav">
+                <li><a href="#table">Table</a></li>
+                <li><a href="#table-scroll">Table scroll/swipe</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="js/vendor.js"></script>
+    <script src="js/drupal-core.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/prism.js"></script>
+    <script src="js/styleguide.js"></script>
+    <script src="js/init-styleguide.js"></script>
+    <script>
+      // Escape code
+      // ============================================================
+      
+      var $lang_markup       = document.querySelectorAll('pre code.language-markup')
+          $lang_js           = document.querySelectorAll('script.atomic-js'),
+          $lang_jscode       = document.querySelectorAll('pre code.language-javascript')
+          lang_markupsnippet = [],
+          lang_jsnippet      = [];
+      
+      
+      // Markup
+      // order matters!
+      // ============================================================
+      
+      for(var i = 0, l = $lang_markup.length; i < l; i++) {
+        lang_markupsnippet.push(
+          $lang_markup[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        );
+        $lang_markup[i].innerHTML = lang_markupsnippet[i];
+      }
+      
+      
+      // JavaScript
+      // order matters!
+      // ============================================================
+      for(var i = 0, l = $lang_jscode.length; i < l; i++) {
+        lang_jsnippet.push(
+          $lang_jscode[i].innerHTML.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        );
+      }
+      
+      for(var i = 0, l = $lang_js.length; i < l; i++) {
+        $lang_js[i].innerHTML = lang_jsnippet[i];
+      }
+    </script>
+    <script src="libs/date_picker/picker.js"></script>
+    <script src="libs/date_picker/picker.date.js"></script>
+    <link href="libs/noUiSlider/nouislider.css" rel="stylesheet">
+    <script src="libs/noUiSlider/nouislider.js"></script>
+    <script type="text/javascript">
+      var slider = document.getElementById('range-input');
+      noUiSlider.create(slider, {
+       start: [20, 80],
+       connect: true,
+       step: 1,
+       range: {
+         'min': 0,
+         'max': 100
+       },
+       format: wNumb({
+         decimals: 0
+       })
+      });
+      (function($){
+        $('.datepicker').pickadate({selectYears: 20});
+      })(jQuery); // end of jQuery name space
+    </script>
+  </body>
+</html>

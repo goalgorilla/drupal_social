@@ -25,11 +25,14 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--CSS-->
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
   </head>
   <body class="template">
-    <!-- Google Tag Manager-->
     <noscript>
       <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -155,7 +158,7 @@
                     </ul>
                   </li>
                   <li>
-                    <div class="dropdown-header"><a href="#" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
+                    <div class="dropdown-header"><a href="notifications-archive.htm" class="block clearfix">View all<i class="material-icons pull-right">chevron_right</i></a></div>
                   </li>
                 </ul>
               </li>
@@ -229,19 +232,52 @@
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-xs-12">
-              <h1 class="h4 section-title section-title-stream">Jenny Baker`s stream</h1>
+            <div class="col-xs-12 col-sm-4 col-sm-last margin-bottom-l margin-top-complementary">
+              <div class="card card-with-actionbar hidden-xs">
+                <div class="card-head">
+                  <header class="text-center">Jenny`s upcoming events</header>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="event.html" class="list-group-item">
+                      <h6 class="list-group-item-heading">Open social Amsterdam meetup</h6><small class="text-gray-lighter list-group-item-text"> <span class="inline-center">3 aug &nbsp;</span><span class="label label-primary">enrolled</span></small></a><a href="event.html" class="list-group-item">
+                      <h6 class="list-group-item-heading">Open social Milano meetup</h6><small class="text-gray-lighter list-group-item-text"> <span class="inline-center">10 aug &nbsp;</span><span class="label label-primary">enrolled</span></small></a></div>
+                  <div class="card-actionbar text-center"><a href="other-events.html" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+              <div class="card card-with-actionbar hidden-xs">
+                <div class="card-head">
+                  <header class="text-center">Topics</header>
+                  <div class="subtitle text-center">Jenny created most recently</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="topic.html" class="list-group-item">
+                      <h6 class="list-group-item-heading">My first week on the job</h6><small class="text-gray-lighter list-group-item-text">1 may</small></a><a href="topic.html" class="list-group-item">
+                      <h6 class="list-group-item-heading">What makes a good developer?</h6><small class="text-gray-lighter list-group-item-text">29 apr</small></a></div>
+                  <div class="card-actionbar text-center"><a href="other-topics.html" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
+              <div class="card card-with-actionbar hidden-xs">
+                <div class="card-head">
+                  <header class="text-center">Groups</header>
+                  <div class="subtitle text-center">Jenny joined most recently</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-divider"><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Local group L.A.</h6></a><a href="#" class="list-group-item">
+                      <h6 class="list-group-item-heading">Drupal dev-ops</h6></a></div>
+                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-xs-12 col-sm-8">
+              <h4 class="section-title section-title-stream">Jenny Baker`s stream</h4>
               <ul class="stream">
                 <li class="stream-item"><i class="stream-icon"></i>
                   <div class="card stream-card">
                     <div class="card-body">
                       <form>
                         <div class="form-group">
-                          <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea"></textarea>
+                          <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea textarea-large"></textarea>
                         </div>
                         <div class="form-group media">
                           <div class="media-body">
@@ -289,7 +325,7 @@
                       </div>
                       <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
                       <div class="card-nested-section">
-                        <div class="media"> 
+                        <div class="media margin-bottom-xl">
                           <div class="media-left hidden-xs"><img src="content/images/member5.jpg" class="img-medium img-circle"></div>
                           <div class="media-body">
                             <form>
@@ -339,7 +375,7 @@
                       </div>
                       <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
                       <div class="card-nested-section">
-                        <div class="media"> 
+                        <div class="media margin-bottom-xl">
                           <div class="media-left hidden-xs"><img src="content/images/member5.jpg" class="img-medium img-circle"></div>
                           <div class="media-body">
                             <form>
@@ -389,7 +425,7 @@
                       </div>
                       <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
                       <div class="card-nested-section">
-                        <div class="media"> 
+                        <div class="media margin-bottom-xl">
                           <div class="media-left hidden-xs"><img src="content/images/member5.jpg" class="img-medium img-circle"></div>
                           <div class="media-body">
                             <form>
@@ -439,7 +475,7 @@
                       </div>
                       <div class="margin-top-s">We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. </div>
                       <div class="card-nested-section">
-                        <div class="media"> 
+                        <div class="media margin-bottom-xl">
                           <div class="media-left hidden-xs"><img src="content/images/member5.jpg" class="img-medium img-circle"></div>
                           <div class="media-body">
                             <form>
@@ -478,50 +514,13 @@
                 </li>
               </ul>
             </div>
-            <div class="col-xs-12 col-sm-4 col-sm-last margin-bottom-l">
-              <div class="card card-with-actionbar">
-                <div class="card-head">
-                  <header class="text-center">Jenny`s upcoming events</header>
-                </div>
-                <div class="card-body">
-                  <div class="list-group list-group-divider"><a href="event.html" class="list-group-item">
-                      <h6 class="list-group-item-heading">Open social Amsterdam meetup</h6><small class="text-gray-lighter list-group-item-text"> <span class="inline-center">3 aug &nbsp;</span><span class="label label-primary">enrolled</span></small></a><a href="event.html" class="list-group-item">
-                      <h6 class="list-group-item-heading">Open social Milano meetup</h6><small class="text-gray-lighter list-group-item-text"> <span class="inline-center">10 aug &nbsp;</span><span class="label label-primary">enrolled</span></small></a></div>
-                  <div class="card-actionbar text-center"><a href="other-events.html" class="btn btn-flat">See all</a></div>
-                </div>
-              </div>
-              <div class="card card-with-actionbar">
-                <div class="card-head">
-                  <header class="text-center">Topics</header>
-                  <div class="subtitle text-center">Jenny created most recently</div>
-                </div>
-                <div class="card-body">
-                  <div class="list-group list-group-divider"><a href="topic.html" class="list-group-item">
-                      <h6 class="list-group-item-heading">My first week on the job</h6><small class="text-gray-lighter list-group-item-text">1 may</small></a><a href="topic.html" class="list-group-item">
-                      <h6 class="list-group-item-heading">What makes a good developer?</h6><small class="text-gray-lighter list-group-item-text">29 apr</small></a></div>
-                  <div class="card-actionbar text-center"><a href="other-topics.html" class="btn btn-flat">See all</a></div>
-                </div>
-              </div>
-              <div class="card card-with-actionbar">
-                <div class="card-head">
-                  <header class="text-center">Groups</header>
-                  <div class="subtitle text-center">Jenny joined most recently</div>
-                </div>
-                <div class="card-body">
-                  <div class="list-group list-group-divider"><a href="#" class="list-group-item">
-                      <h6 class="list-group-item-heading">Local group L.A.</h6></a><a href="#" class="list-group-item">
-                      <h6 class="list-group-item-heading">Drupal dev-ops</h6></a></div>
-                  <div class="card-actionbar text-center"><a href="#" class="btn btn-flat">See all</a></div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </main>
-    <footer class="main-footer">
+    <footer class="brand-secondary">
       <div class="container clearfix">
-        <div class="navbar navbar-footer">
+        <div class="navbar navbar-footer margin-top-l">
           <div class="nav navbar-nav navbar-right">
             <li> <a href="#">About</a></li>
             <li> <a href="#">Terms</a></li>

@@ -1,5 +1,80 @@
+@font-face {
+  font-family: 'Material-Design-Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../font/material-icons/MaterialIcons-Regular.eot");
+  src: url("../../../font/material-icons/MaterialIcons-Regular.eot?#iefix") format('embedded-opentype'),
+       url("../../../font/material-icons/MaterialIcons-Regular.woff") format('woff'),
+       url("../../../font/material-icons/MaterialIcons-Regular.ttf") format('truetype'),
+       url("../../../font/material-icons/MaterialIcons-Regular.svg") format('svg');
+}
+
+@font-face {
+  font-family: 'custom-icons';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../../../font/custom-icons/custom-icons.eot");
+  src: url("../../../font/custom-icons/custom-icons.eot?#iefix") format('embedded-opentype'),
+       url("../../../font/custom-icons/custom-icons.woff") format('woff'),
+       url("../../../font/custom-icons/custom-icons.ttf") format('truetype'),
+       url("../../../font/custom-icons/custom-icons.svg") format('svg');
+}
+
+.material-icons, .icon-before:before {
+  font-family: 'Material-Design-Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+          font-feature-settings: 'liga';
+}
+
+.icon-before:before {
+  content: attr(data-icon-type);
+  font-size: 1rem;
+}
+
+.custom-icons {
+  font-family: 'custom-icons' !important;
+  display: inline-block;
+  vertical-align: middle;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  height: 1em;
+  line-height: 1;
+  font-size: 24px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-group:before {
+  content: "\e900";
+}
+
 .title {
   font-weight: 300;
+}
+
+.section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .styleguide {
@@ -249,7 +324,7 @@
   position: fixed;
   left: 4px;
   top: 4px;
-  z-index: 3;
+  z-index: 21;
   display: block;
   width: 48px;
   height: 48px;
@@ -419,7 +494,6 @@
 }
 
 .collapsible-body {
-  display: none;
   border-bottom: 1px solid #ddd;
   box-sizing: border-box;
 }

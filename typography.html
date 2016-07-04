@@ -24,7 +24,12 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
     <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
     <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
@@ -58,9 +63,9 @@
         <li class="logo"><a id="logo-container" href="index.html" class="brand-logo"><img id="front-page-logo" src="images/social-logo-blue.svg"></a></li>
         <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
         <li class="no-padding">
-          <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header active waves-effect waves-teal">Style</a>
-              <div class="collapsible-body">
+          <ul id="accordion" aria-multiselectable="true" role="tablist" class="collapsible collapsible-accordion">
+            <li class="bold panel panel-default"><a href="#collapse-style" data-parent="#accordion" data-toggle="collapse" class="collapsible-header active waves-effect waves-teal">Style</a>
+              <div id="collapse-style" class="collapsible-body collapse panel-collapse in">
                 <ul>
                   <li><a href="color.html">Color</a></li>
                   <li class="active"><a href="typography.html">Typography</a></li>
@@ -68,8 +73,8 @@
                 </ul>
               </div>
             </li>
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Components</a>
-              <div class="collapsible-body">
+            <li class="bold panel panel-default"><a href="#collapse-components" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Components</a>
+              <div id="collapse-components" class="collapsible-body collapse panel-collapse">
                 <ul>
                   <li><a href="buttons.html">Buttons</a></li>
                   <li><a href="grid.html">Grid</a></li>
@@ -77,6 +82,7 @@
                   <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
                   <li><a href="cards.html">Cards  </a></li>
                   <li><a href="forms.html">Forms</a></li>
+                  <li><a href="tables.html">Tables</a></li>
                   <li><a href="tabs.html">Tabs</a></li>
                   <li><a href="pagination.html">Pagination</a></li>
                 </ul>
@@ -191,6 +197,8 @@ font-range: [lower-bound] [upper-bound]</code></pre>
     <script src="js/materialize.js"></script>
     <script src="js/init.js"></script>
     <script src="js/prism.js"></script>
+    <script src="js/styleguide.js"></script>
+    <script src="js/init-styleguide.js"></script>
     <script>
       // Escape code
       // ============================================================
