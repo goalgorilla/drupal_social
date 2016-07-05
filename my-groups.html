@@ -25,15 +25,14 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-        <link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/layout.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/type.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/icons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/alerts.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/buttons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/layout.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/type.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/toc.css" type="text/css" rel="stylesheet" media="screen">
   </head>
-  <body class="template"><svg xmlns="http://www.w3.org/2000/svg" class="hide"><symbol id="icon-account_circle" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-autorenew" viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 0 1 6 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-community" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></symbol><symbol id="icon-edit" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-event" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-expand_more" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-group" viewBox="0 0 22 16"><path d="M17.794 7.333c1.611 0 2.902-1.34 2.902-3s-1.29-3-2.902-3c-1.611 0-2.912 1.34-2.912 3s1.3 3 2.912 3zM7.086 4.34c0-1.664-1.293-3.007-2.908-3.007S1.26 2.676 1.26 4.34c0 1.664 1.303 3.007 2.918 3.007 1.615 0 2.908-1.343 2.908-3.007zm3.92 2.338c1.793 0 3.23-1.492 3.23-3.34 0-1.847-1.437-3.338-3.23-3.338-1.794 0-3.241 1.491-3.241 3.339 0 1.847 1.447 3.339 3.24 3.339zm-5.83 5.6v3.055h11.648v-3.055C16.824 9.43 12.938 8 11 8c-1.938 0-5.824 1.43-5.824 4.278zm9.673-4.262c1.972 1.317 2.702 2.477 2.702 4.292v3.065h4.384v-3.065c0-2.857-3.412-4.292-5.114-4.292-.212 0-1.716-.036-1.972 0zm-7.763 0c-1.971 1.317-2.702 2.477-2.702 4.292v3.065H0v-3.065c0-2.857 3.412-4.292 5.115-4.292.212 0 1.716-.036 1.971 0z"/></symbol><symbol id="icon-help" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></symbol><symbol id="icon-insert_drive_file" viewBox="0 0 24 24"><path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-label" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></symbol><symbol id="icon-location" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-navigate_before" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-navigate_next" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-notifications" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></symbol><symbol id="icon-notifications_none" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></symbol><symbol id="icon-open_with" viewBox="0 0 24 24"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-page" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></symbol><symbol id="icon-photo" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></symbol><symbol id="icon-public" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></symbol><symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-select" viewBox="0 0 24.4 39.3"><path fill="#666" d="M17.3 24.7L12 30l-5.3-5.3zM6.7 14.7L12 9.4l5.3 5.3z"/></symbol><symbol id="icon-topic" viewBox="0 0 99.1 86"><path d="M19 0C8.5 0 0 8.8 0 19.6s8.5 19.6 19 19.6C38 39.2 25.3 77 0 77v9.1C45.2 86 62.9 0 19 0zm54.8 0c-10.5 0-19 8.8-19 19.6s8.5 19.6 19 19.6c19 0 6.3 37.8-19 37.8v9.1C99.9 86 117.7 0 73.7 0z" fill="#fff"/></symbol><symbol id="icon-warning" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></symbol></svg>
+  <body class="template">
     <noscript>
       <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -53,11 +52,7 @@
             <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
             <ul class="nav navbar-nav navbar-right">
               <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                  <svg class="icon-white icon-medium">
-                    <title>My Groups</title>
-                    <use xlink:href="#icon-group"></use>
-                  </svg></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="My groups" class="custom-icons icon-group"></i></a>
                 <ul class="dropdown-menu">
                   <li>
                     <div class="dropdown-header">My groups</div>
@@ -125,11 +120,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                  <svg class="icon-white icon-medium">
-                    <title>My Notifications</title>
-                    <use xlink:href="#icon-notifications"></use><span class="badge">4</span>
-                  </svg></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
                 <ul class="dropdown-menu">
                   <li>
                     <div class="dropdown-header">Notifications</div>
@@ -171,7 +162,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><img src="content/images/member5.jpg" alt="" class="img-small img-circle media-middle"><span class="profile hidden-xs">John Johnson</span></a>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><img src="content/images/member5.jpg" alt="" class="img-small img-circle pull-left"><span class="profile hidden-xs">John Johnson</span></a>
                 <ul class="dropdown-menu">
                   <li><a href="my-stream.html">View profile</a></li>
                   <li><a href="profile-edit.html">Edit profile</a></li>
@@ -184,19 +175,15 @@
           </div>
           <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="explore.html">Explore</a></li>
               <li>
                 <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
                   <div id="navbar-search" class="form-group">
                     <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control">
-                    <input type="submit" value="" class="form-submit"><span class="search-icon">
-                      <svg>
-                        <title>Search</title>
-                        <use xlink:href="#icon-search"></use>
-                      </svg></span>
+                    <input type="submit" value="" class="form-submit"><span class="search-icon"><i class="material-icons">search</i></span>
                   </div>
                 </form>
               </li>
+              <li><a href="explore.html">Explore</a></li>
             </ul>
           </div>
         </div>

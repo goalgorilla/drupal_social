@@ -22,13 +22,12 @@
 <meta name="msapplication-TileColor" content="#29abe2"/>
 <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png"/>
 <meta name="theme-color" content="#ffffff"/>
-<link href="css/alerts.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/buttons.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/layout.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/type.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/toc.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/icons.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/alerts.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/buttons.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/layout.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/type.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/toc.css" type="text/css" rel="stylesheet" media="screen"/>
 <body>
   <!-- Google Tag Manager-->
   <noscript>
@@ -50,11 +49,7 @@
           <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu                </i></button>
           <ul class="nav navbar-nav navbar-right">
             <li class="hidden-xs"><a href="home-lu.html">Home</a></li>
-            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                <svg class="icon-white icon-medium">
-                  <title>My Groups</title>
-                  <use xlink:href="#icon-group"></use>
-                </svg></a>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="My groups" class="custom-icons icon-group"></i></a>
               <ul class="dropdown-menu">
                 <li>
                   <div class="dropdown-header">My groups</div>
@@ -122,11 +117,7 @@
                 </li>
               </ul>
             </li>
-            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-                <svg class="icon-white icon-medium">
-                  <title>My Notifications</title>
-                  <use xlink:href="#icon-notifications"></use><span class="badge">4</span>
-                </svg></a>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i title="Notifications" class="material-icons">notifications</i><sup class="badge">4</sup></a>
               <ul class="dropdown-menu">
                 <li>
                   <div class="dropdown-header">Notifications</div>
@@ -168,7 +159,7 @@
                 </li>
               </ul>
             </li>
-            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><img src="content/images/member5.jpg" alt="" class="img-small img-circle media-middle"/><span class="profile hidden-xs">John Johnson</span></a>
+            <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><img src="content/images/member5.jpg" alt="" class="img-small img-circle pull-left"/><span class="profile hidden-xs">John Johnson</span></a>
               <ul class="dropdown-menu">
                 <li><a href="my-stream.html">View profile</a></li>
                 <li><a href="profile-edit.html">Edit profile</a></li>
@@ -181,19 +172,15 @@
         </div>
         <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="explore.html">Explore</a></li>
             <li>
               <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
                 <div id="navbar-search" class="form-group">
                   <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control"/>
-                  <input type="submit" value="" class="form-submit"/><span class="search-icon">
-                    <svg>
-                      <title>Search</title>
-                      <use xlink:href="#icon-search"></use>
-                    </svg></span>
+                  <input type="submit" value="" class="form-submit"/><span class="search-icon"><i class="material-icons">search</i></span>
                 </div>
               </form>
             </li>
+            <li><a href="explore.html">Explore</a></li>
           </ul>
         </div>
       </div>
