@@ -8,8 +8,10 @@
       .navbar-header
       
         button.navbar-toggle.collapsed(href='#', data-toggle='collapse', data-target='#menu-dropdown', type='button', aria-haspopup='true', aria-expanded='false')
-          span.sr-only Toggle navigation
-          i.material-icons(title='menu') menu                
+          svg.icon-white.icon-medium
+            title Toggle navigation
+            use(xlink:href='#icon-menu')
+          span.sr-only Toggle navigation            
             
         ul.nav.navbar-nav.navbar-right
           li.hidden-xs
@@ -95,7 +97,7 @@
               svg.icon-white.icon-medium
                 title My Notifications
                 use(xlink:href='#icon-notifications')
-                span.badge 4
+              span.badge 4
             ul.dropdown-menu
               li
                 .dropdown-header Notifications

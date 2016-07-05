@@ -155,17 +155,11 @@
 
 // Icons in buttons
 
-.btn .material-icons {
+.btn-icon {
   font-size: $button-font-size * 1.143;
   line-height: 33px - ($padding-base-vertical * 2);
   height: 33px - ($padding-base-vertical * 2);
-  vertical-align: bottom;
-}
-
-.btn .custom-icons {
-  font-size: $button-font-size * 0.8;
-  line-height: 33px - ($padding-base-vertical * 2);
-  height: 33px - ($padding-base-vertical * 2);
+  width: 33px - ($padding-base-vertical * 2);
   vertical-align: bottom;
 }
 
