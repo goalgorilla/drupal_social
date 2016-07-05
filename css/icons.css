@@ -1,15 +1,79 @@
-.glyphicon {
+.icon-white {
+  fill: white;
+}
+
+.icon-black {
+  fill: #4d4d4d;
+}
+
+.icon-medium {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+.glyphicon:before {
   position: relative;
   top: 1px;
-  width: 1em;
-  height: 1em;
+  width: 20px;
+  height: 20px;
+  content: '';
   display: inline-block;
+  background-repeat: no-repeat;
   background-size: auto 20px;
   background-position: center;
 }
 
-.glyphicon-refresh {
+.glyphicon-refresh:before {
   background-image: url(../../../images/icons/icon-autorenew.svg);
+}
+
+.glyphicon-question-sign:before {
+  background-image: url(../../../images/icons/icon-help.svg);
+  background-size: auto 14px;
+  height: 15px;
+}
+
+.glyphicon-picture:before {
+  background-image: url(../../../images/icons/icon-photo.svg);
+}
+
+.glyphicon-file:before {
+  background-image: url(../../../images/icons/icon-insert_drive_file.svg);
+}
+
+.glyphicon-move:before {
+  background-image: url(../../../images/icons/icon-open_with.svg);
+  background-size: auto 16px;
+}
+
+.glyphicon-warning-sign:before {
+  background-image: url(../../../images/icons/icon-warning.svg);
+  background-size: auto 16px;
+}
+
+a.icon-before .glyphicon {
+  margin-right: .25em;
+}
+
+a.icon-after .glyphicon {
+  margin-left: .25em;
+}
+
+.btn.icon-before .glyphicon {
+  margin-left: -.25em;
+  margin-right: .25em;
+}
+
+.btn.icon-after .glyphicon {
+  margin-left: .25em;
+  margin-right: -.25em;
 }
 
 /*# sourceMappingURL=icons.css.map */

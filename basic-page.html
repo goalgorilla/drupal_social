@@ -28,6 +28,7 @@
 <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/type.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/toc.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/icons.css" type="text/css" rel="stylesheet" media="screen"/>
 <body>
   <!-- Google Tag Manager-->
   <noscript>
@@ -58,7 +59,11 @@
               <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
                 <div id="navbar-search" class="form-group">
                   <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control"/>
-                  <input type="submit" value="" class="form-submit"/><span class="search-icon"><i class="material-icons">search</i></span>
+                  <input type="submit" value="" class="form-submit"/><span class="search-icon">
+                    <svg>
+                      <title>Search</title>
+                      <use xlink:href="#icon-search"></use>
+                    </svg></span>
                 </div>
               </form>
             </li>
