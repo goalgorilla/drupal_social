@@ -68,7 +68,7 @@ class AccountHeaderBlock extends BlockBase {
         $links['notifications'] = array(
           'classes' => 'dropdown notification-bell',
           'link_attributes' => 'data-toggle=dropdown aria-expanded=true aria-haspopup=true role=button',
-          'link_classes' => 'dropdown-toggle',
+          'link_classes' => 'dropdown-toggle clearfix',
           'icon_classes' => $notifications_icon,
           'title' => (string) $num_notifications,
           'title_classes' => $label_classes,
@@ -80,7 +80,7 @@ class AccountHeaderBlock extends BlockBase {
       $links['account_box'] = array(
         'classes' => 'dropdown',
         'link_attributes' => 'data-toggle=dropdown aria-expanded=true aria-haspopup=true role=button',
-        'link_classes' => 'dropdown-toggle',
+        'link_classes' => 'dropdown-toggle clearfix',
         'icon_classes' => 'icon-account_circle',
         'title' => $account_name,
         'title_classes' => 'hidden-xs profile',
