@@ -214,6 +214,43 @@ function socialbase_preprocess_block(&$variables) {
 
     }
   } // AN Homepage block.
+
+  // Headline block.
+  if ($variables['attributes']['id'] === 'block-views-block-headline-block-headline') {
+    // dpm($variables);
+    // dpm($variables);
+    // $imageitem = $variables['content']['field_topic_image'][0]['#item']->getEntity();
+    // dpm($imageitem);
+    //$var = $variables['content']['#view']->result->_entity;
+    // dpm($variables['content']['#view']->result);
+    // dpm($var);
+    // dpm($var);
+    // dpm($var->get('field_topic_image'));
+    // $var = $variables['content']['#view'];
+    // dpm($var);
+    // $variables['#view']->viewsData['field_topic_image'];
+    // dpm($variables['content']['#view']->viewsData['field_topic_image']);
+    //dpm($variables['#view']->viewsData['field_topic_image']);
+    // $imageitem = $variables['content']['field_topic_image'][0]['#item']->getEntity();
+    // $imagestyle = $variables['content']['field_topic_image'][0]['#image_style'];
+    // $entity = \Drupal\block_content\Entity\BlockContent::load($imageitem->id());
+    // $file_id = $entity->get('field_topic_image')->target_id;
+
+    // If it's an existing file.
+    // if ($file = \Drupal\file\Entity\File::load($file_id)) {
+    //   // Style and set it in the content.
+    //   $styled_image_url = \Drupal\image\Entity\ImageStyle::load($imagestyle)
+    //     ->buildUrl($file->getFileUri());
+    //   $variables['image_url'] = $styled_image_url;
+
+    //   // Add extra class.
+    //   $variables['has_image'] = TRUE;
+
+    //   // Remove the origingal
+    //   unset($variables['content']['field_topic_image']);
+
+    // }
+  } // Headline block.
 }
 
 /**
@@ -523,7 +560,8 @@ function socialbase_preprocess_node(&$variables) {
   $node = $variables['node'];
   // Get current user.
   $account = \Drupal::currentUser();
-
+  dpm($variables['view_mode']);
+  dpm($variables);
   // Only add submitted data on teasers since we have the page hero block.
   if ($variables['view_mode'] === 'teaser') {
     $variables['display_submitted'] = TRUE;
