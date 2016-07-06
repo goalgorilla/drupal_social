@@ -57,6 +57,7 @@ options.theme = {
   components : options.rootPath.theme + 'components/',
   content    : options.rootPath.theme + 'content/',
   css        : options.rootPath.theme + 'components/asset-builds/css/',
+  libs       : options.rootPath.theme + 'libs/',
   font       : options.rootPath.theme + 'font/',
   icons      : options.rootPath.theme + 'images/icons/',
   images     : options.rootPath.theme + 'images/',
@@ -130,7 +131,7 @@ gulp.task('styles', function () {
     .pipe( rename({dirname: ''}))
     .pipe( sourcemaps.write('.') )
     .pipe( gulp.dest(options.theme.css) )
-    .pipe( gulp.dest(options.rootPath.dist + '/css') )
+    .pipe( gulp.dest(options.rootPath.dist + '/css/components/asset-builds') )
     .pipe( connect.reload() );
 });
 
