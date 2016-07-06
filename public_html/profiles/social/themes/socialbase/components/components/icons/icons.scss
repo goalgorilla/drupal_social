@@ -8,16 +8,38 @@
   fill: $default-color;
 }
 
+.icon-gray {
+  fill: $gray;
+}
+
+.icon-gray-light {
+  fill: $gray-light;
+}
+
 .icon-medium {
   width: 24px;
   height: 24px;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .icon-small {
   width: 16px;
   height: 16px;
   display: inline-block;
+  vertical-align: middle;
+}
+
+.icon-badge-toggle {
+  width: 20px;
+  height: 18px;
+  padding: 1px 1px 1px 4px;
+}
+
+// covers the parent box
+.icon-responsive {
+  width: 100%;
+  height: 100%;
 }
 
 .glyphicon:before {

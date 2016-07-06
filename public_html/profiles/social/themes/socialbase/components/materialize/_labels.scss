@@ -5,5 +5,8 @@
 .label {
   font-size: 87.5%;
   font-weight: 300;
+}
+
+.badge + .label {
   margin-left: 15px;
 }

@@ -3204,7 +3204,7 @@ pre code {
   border-bottom-right-radius: 10px;
 }
 
-.card-body .material-icons, .card-body .icon-before:before, .card-body .custom-icons {
+.card-body .material-icons, .card-body .custom-icons {
   font-size: 1rem;
 }
 
@@ -3332,7 +3332,7 @@ a.card:hover {
 }
 
 .card--teaser-desc {
-  max-height: 4.5em;
+  max-height: 3em;
   overflow: hidden;
 }
 
@@ -4938,7 +4938,7 @@ hr.ruler-l {
   color: #777777;
 }
 
-.badge-gray-lighter .material-icons {
+.badge-gray-lighter .icon-badge-toggle {
   background-color: white;
 }
 
@@ -4966,12 +4966,6 @@ hr.ruler-l {
   transition: width 0.3s ease;
 }
 
-.badge--toggle .material-icons {
-  font-size: 18px;
-  width: auto;
-  padding-left: 4px;
-}
-
 .badge--toggle,
 .badge--toggle * {
   -webkit-user-select: none;
@@ -4988,7 +4982,7 @@ hr.ruler-l {
   transition: opacity 0.3s ease;
 }
 
-.js .badge--toggle input[type=checkbox]:checked ~ .material-icons,
+.js .badge--toggle input[type=checkbox]:checked ~ .icon-badge-toggle,
 .js .badge--toggle input[type=checkbox]:checked ~ .badge--toggle__label {
   background-color: #333333;
   color: white;
@@ -5004,7 +4998,7 @@ hr.ruler-l {
   opacity: 1;
 }
 
-.js .badge--toggle.badge-gray-lighter input[type=checkbox]:checked ~ .material-icons, .js .badge--toggle.badge-gray-lighter input[type=checkbox]:checked ~ .icon-before:before,
+.js .badge--toggle.badge-gray-lighter input[type=checkbox]:checked ~ .icon-badge-toggle,
 .js .badge--toggle.badge-gray-lighter input[type=checkbox]:checked ~ .badge--toggle__label {
   background-color: #e6e6e6;
   color: #4d4d4d;
@@ -5211,6 +5205,19 @@ a.list-group-item {
   font-weight: 300;
 }
 
+.list-group-item .icon-small,
+.list-group-item:focus .icon-small {
+  fill: #4d4d4d;
+  margin-right: .25em;
+}
+
+.list-group-item.active .icon-small,
+.list-group-item:hover .icon-small,
+.list-group-item.active:hover .icon-small,
+.list-group-item.active:focus .icon-small {
+  fill: white;
+}
+
 .list-group-divider .list-group-item {
   border-left-width: 0;
   border-right-width: 0;
@@ -5302,8 +5309,13 @@ a.list-group-item {
 }
 
 .popover {
+  font-size: 0.875rem;
   padding: 0;
   border-radius: 10px;
+}
+
+.popover-title {
+  font-size: 0.875rem;
 }
 
 [data-toggle="popover"].icon-before:before {
@@ -5421,6 +5433,9 @@ a.list-group-item {
 .label {
   font-size: 87.5%;
   font-weight: 300;
+}
+
+.badge + .label {
   margin-left: 15px;
 }
 
