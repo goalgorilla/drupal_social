@@ -30,8 +30,8 @@
         <link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/type.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/toc.css" type="text/css" rel="stylesheet" media="screen">
-    <link href="css/styleguide.css" type="text/css" rel="stylesheet" media="screen">
-    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/components/asset-builds/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="css/components/asset-builds/prism.css" type="text/css" rel="stylesheet" media="screen">
     <body class="styleguide">
       <header class="styleguide-header">
         <!-- Google Tag Manager-->
@@ -228,16 +228,17 @@
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-8">
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type"></a>
+              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
+                  <div class="teaser-type"><img src="images/icon-topic.svg" alt=""></div><img src="content/images/people3-square.jpg" alt="" class="img-responsive"></a>
                 <div class="card-body">
-                  <h4 class="card-title"> <a href="topic.html">Technology for the handicapped</a></h4>
-                  <p class="text-grey-dark"><a href="other-stream.html">Clive Owen </a>&bullet; 15 feb 2016
-                  </p>
-                  <p class="clearfix"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Blog</span></p>
+                  <h4 class="card-title"><a href="topic.html">Technology for the handicapped</a></h4>
+                  <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><a href="other-stream.html">Clive Owen </a>&bullet; 15 feb 2016</span></div>
+                  <div class="text-gray-dark text-truncate"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Blog</span></div>
+                  <div class="text-gray-dark text-truncate"><i class="custom-icons icon-group"></i>&nbsp;<span class="inline-center">Open Social Developers</span></div>
                   <div class="card-actionbar">
                     <div class="badge badge-gray-lighter badge--toggle">
                       <label>
-                        <input type="checkbox"><i class="material-icons">public        </i><span class="badge--toggle__label">public</span>
+                        <input type="checkbox"><i class="material-icons">public</i><span class="badge--toggle__label">public</span>
                       </label>
                     </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
                   </div>
@@ -272,25 +273,30 @@
           </div>
           <div class="row">
             <div class="col-xs-12 col-md-9"> 
-              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" class="img-responsive">
-                  <div class="teaser-date">19
-                    <div class="text-xs">may</div>
-                  </div></a>
+              <div class="card card--teaser card-with-actionbar"><a href="event.html" class="card-image">
+                  <div class="teaser-type"><img src="images/icons/icon-event.svg" alt="Event"></div><img src="content/images/people3-square.jpg" class="img-responsive"></a>
                 <div class="card-body">
                   <h4 class="card-title"> <a href="event.html">Security and modern internet</a></h4>
-                  <p class="text-grey-dark"><i class="material-icons">event</i>&nbsp;<span class="inline-center">19 jul 09:00 - 18:00</span>&nbsp; <span class="label label-primary">enrolled</span>
-                  </p>
-                  <p class="text-grey-dark"> <i class="material-icons">place</i>&nbsp;<span class="inline-center">Keizersgracht 376, Amsterdam</span></p>
-                  <div class="card-actionbar"><a href="event.html" class="btn btn-flat pull-right">Read more</a></div>
+                  <div class="text-gray-dark text-truncate"><i class="material-icons">event</i>&nbsp;<span class="inline-center">19 jul 09:00 - 18:00</span>&nbsp; </div>
+                  <div class="text-gray-dark text-truncate"><i class="material-icons">place</i>&nbsp;<span class="inline-center">Keizersgracht 376, Amsterdam</span></div>
+                  <div class="card-actionbar">
+                    <div class="actionbar">
+                      <div class="badge badge-gray-lighter badge--toggle">
+                        <label>
+                          <input type="checkbox"><i class="material-icons">public</i><span class="badge--toggle__label">public</span>
+                        </label>
+                      </div><span class="label label-default">enrolled</span>
+                    </div><a href="event.html" class="btn btn-flat pull-right">Read more</a>
+                  </div>
                 </div>
               </div><em class="text-caption">Example of a event teaser card</em>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image blue-overlay"><img src="content/images/people3-square.jpg" alt="" class="img-responsive"><img src="images/icon-topic.svg" alt="" class="teaser-type">
+              <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image">
+                  <div class="teaser-type"><img src="images/icon-topic.svg" alt=""></div><img src="content/images/other-cover-square.jpg" alt="" class="img-responsive">
                   <div class="status">unpublished</div></a>
                 <div class="card-body">
                   <h4 class="card-title"> <a href="topic.html">5 new cool features in Office 365</a></h4>
-                  <p class="text-grey-dark"><a href="other-stream.html">Dennis Rodman </a>&bullet; 28 mar 2016
-                  </p>
-                  <p> <i class="material-icons">label </i>&nbsp;<span class="inline-center">Blog</span></p>
+                  <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><a href="other-stream.html">Dennis Rodman </a>&bullet; 28 mar 2016</span></div>
+                  <div class="text-gray-dark text-truncate"><i class="material-icons">label </i>&nbsp;<span class="inline-center">Blog</span></div>
                   <div class="card-actionbar">
                     <div class="badge badge-gray-lighter badge--toggle">
                       <label>

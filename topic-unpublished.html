@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <title>Jenny Baker</title>
+    <title>Why are color runs so popular?</title>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-touch-icon-60x60.png">
@@ -197,19 +197,23 @@
           <li class="active">Detail</li>
         </ol>
       </nav>
-      <div class="container hidden-xs">
-        <div style="background-image: url('content/images/other-cover-big.jpg')" class="cover cover-img cover-img-gradient">
-          <div class="cover-wrap">
-            <h1 class="page-title h2">Jenny Baker</h1><br><img src="content/images/member4.jpg" class="img-circle img-large z-depth-2">
+      <div class="container hero-container node-unpublished">
+        <div style="background-image: url('content/images/topic-hero.jpg')" class="cover cover-img cover-img-gradient"> 
+          <div class="hero-action-button"><a href="node-edit-topic.html" class="waves-effect waves-light btn btn-default btn-floating"><i class="material-icons">mode_edit</i></a></div>
+          <div class="cover-wrap">        
+            <h1 class="page-title">The High Price of Free</h1>
+            <div class="status margin-top-s">unpublished</div>
             <div class="hero-footer">
               <div class="row row-md-center">
-                <div class="col-xs-12 col-md-6 col-md-offset-3">Head of Communications - Freshminds</div>
-                <div class="col-xs-12 col-md-3">
-                  <div class="btn-group">
-                    <button type="button" autocomplete="off" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-accent btn-lg btn-raised dropdown-toggle">Following        <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Stop following    </a></li>
-                    </ul>
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                  <div class="badge badge--toggle">
+                    <label>
+                      <input type="checkbox"><i class="material-icons">public        </i><span class="badge--toggle__label">public</span>
+                    </label>
+                  </div>
+                  <div itemprop="author" itemscope="" itemtype="http://schema.org/Person">By <a itemprop="url" rel="author" href="my-stream.html" class="author">John Johnson </a>on 
+                    <time datetime="2016-01-26T10:00:00-05:00" itemprop="datePublished" class="pubdate updated"> January 26, 2016 </time>
+                    <div> <a itemprop="category" href="group-topics.html"> <i class="material-icons">label</i>Blog</a>&nbsp;<span class="inline-center">in group <a itemprop="organizer" href="group-stream.html">Happy Campers</a></span></div>
                   </div>
                 </div>
               </div>
@@ -217,136 +221,25 @@
           </div>
         </div>
       </div>
-      <div class="container">   
-        <div class="visible-xs-block section"><a href="other-stream.html" class="btn btn-flat"><i class="material-icons pull-left">keyboard_arrow_left</i>Back to Jenny`s stream</a></div>
-      </div>
-      <div class="container">
-        <div class="brand-secondary z-depth-1 hidden-xs">
-          <nav role="navigation" aria-label="Tabs">
-            <h2 class="visually-hidden">Secondary navigation</h2>
-            <ul class="nav nav-tabs tabs-center brand-secondary nav-tabs--xl">
-              <li><a href="other-stream.html">Stream  </a></li>
-              <li><a href="other-profile-about.html">About</a></li>
-              <li class="active"><a href="other-topics.html">Topics</a><span class="visually-hidden">(active tab) </span></li>
-              <li><a href="other-events.html">Events </a></li>
-              <li><a href="other-groups.html">Groups</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
       <div class="main-content">
         <div class="container">
           <div class="row margin-top-l">
-            <div class="col-xs-12 col-sm-4 col-sm-last margin-bottom-l margin-top-complementary">
-              <btn class="waves-effect waves-light btn btn-block btn-default btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</btn>
-              <div class="off-canvas off-canvas-right off-canvas-xs-only visible-sm-card">
-                <div class="offcanvas-head">
-                  <header class="card__label">filter</header>
-                  <div class="offcanvas-tools visible-xs-block">
-                    <div class="js-close-canvas btn btn-icon-toggle btn-user-light pull-right"><i class="material-icons">close</i></div>
-                  </div>
-                </div>
-                <div class="offcanvas-body">
-                  <form>
-                    <div class="form-group">
-                      <label>Topic type</label>
-                      <select onchange="enableMe('reset-button', this)" class="form-control">
-                        <option value="" selected="">All types</option>
-                        <option value="blog">Blog</option>
-                        <option value="discussion">Discussion</option>
-                        <option value="topic">Topic</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select onchange="enableMe('reset-button', this)" class="form-control">
-                        <option value="" selected="">All statusses</option>
-                        <option value="published">Published</option>
-                        <option value="unpublished">Unpublished</option>
-                      </select>
-                    </div>
-                    <div class="form-group margin-top-l clearfix">
-                      <input id="reset-button" type="submit" value="Reset" class="btn btn-flat disabled">
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
             <div class="col-xs-12 col-sm-8">
-              <h4 class="section-title">Jenny Baker`s topics</h4>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
-                  <div class="teaser-type"><img src="images/icon-topic.svg" alt=""></div><img src="content/images/people3-square.jpg" alt="" class="img-responsive"></a>
-                <div class="card-body">
-                  <h4 class="card-title"><a href="topic.html">Technology for the handicapped</a></h4>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><a href="other-stream.html">Clive Owen </a>&bullet; 15 feb 2016</span></div>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Blog</span></div>
-                  <div class="text-gray-dark text-truncate"><i class="custom-icons icon-group"></i>&nbsp;<span class="inline-center">Open Social Developers</span></div>
-                  <div class="card-actionbar">
-                    <div class="badge badge-gray-lighter badge--toggle">
-                      <label>
-                        <input type="checkbox"><i class="material-icons">public</i><span class="badge--toggle__label">public</span>
-                      </label>
-                    </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
-                  </div>
+              <h4 class="section-title section-title-topic">Topic details</h4>
+              <div class="card">
+                <div class="card-body extra-padding">
+                  <p> <strong>Doing business in the web industry has unbelievably low start-up and fixed running costs. You need little more than a computer and an internet connection. The overheads of freelancers and small agencies that build websites and applications for other people, or develop a digital product, are tiny in comparison to a traditional business.</strong></p>
+                  <p>As an industry we have become accustomed to getting hundreds of hours of work, and the benefit of years of hard-won knowledge for free.</p>
+                  <p>My free time in the last couple of years has been put into looking at the Grid Layout spec. I start most days answering emailed questions about the examples I’ve posted, before I get down to the work that pays the bills.</p>
+                  <p> <img src="content/images/iphone6.jpg" class="img-responsive"></p>
+                  <p>I wondered how other independent and freelance web workers dealt with this conflict between earning money and contributing back. I also wondered if I was alone in feeling that the clock is ticking. I put together a survey (the responses to which probably will be the background to several other pieces of research), and a few things stood out immediately.</p>
+                  <p>John Gruber:</p>
+                  <blockquote>
+                    <q>I worry that the inherent slowness of the web and ill-considered trend toward over-produced web design is going to start hurting traffic to DF.</q>
+                  </blockquote>
+                  <p>I asked the question, “Are you involved in open source projects, writing tutorials, mentoring, speaking at events-that you do free of charge or for expenses only?” 59% said they were not involved, with 27% of those people citing time constraints. Some people did explain that they were involved in volunteer work outside of the web. By the time I filtered out the under-40s, the non-involvement figure rose to 70%.</p>
                 </div>
               </div>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
-                  <div class="teaser-type"><img src="images/icon-topic.svg" alt=""></div><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"></a>
-                <div class="card-body">
-                  <h4 class="card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h4>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><a href="other-stream.html">Richard Ogylvie </a>&bullet; 22 mar 2016</span></div>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">label </i>&nbsp;<span class="inline-center">Discussion</span></div>
-                  <div class="card-actionbar">
-                    <div class="badge badge-gray-lighter badge--toggle">
-                      <label>
-                        <input type="checkbox"><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
-                      </label>
-                    </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
-                  </div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image">
-                  <div class="teaser-type"><img src="images/icon-topic.svg" alt=""></div><img src="content/images/other-cover-square.jpg" alt="" class="img-responsive">
-                  <div class="status">unpublished</div></a>
-                <div class="card-body">
-                  <h4 class="card-title"> <a href="topic.html">5 new cool features in Office 365</a></h4>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><a href="other-stream.html">Dennis Rodman </a>&bullet; 28 mar 2016</span></div>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">label </i>&nbsp;<span class="inline-center">Blog</span></div>
-                  <div class="card-actionbar">
-                    <div class="badge badge-gray-lighter badge--toggle">
-                      <label>
-                        <input type="checkbox"><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
-                      </label>
-                    </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
-                  </div>
-                </div>
-              </div>
-              <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
-                  <div class="teaser-type"><img src="images/icon-topic.svg" alt=""></div><img src="content/images/people3-square.jpg" alt="" class="img-responsive"></a>
-                <div class="card-body">
-                  <h4 class="card-title"><a href="topic.html">Top 10 zoos to visit in 2016</a></h4>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><a href="other-stream.html">Amanda Boxer </a>&bullet; 12 apr 2016</span></div>
-                  <div class="text-gray-dark text-truncate"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Topic</span></div>
-                  <div class="text-gray-dark text-truncate"><i class="custom-icons icon-group"></i>&nbsp;<span class="inline-center">Happy Campers</span></div>
-                  <div class="card-actionbar">
-                    <div class="badge badge-gray-lighter badge--toggle">
-                      <label>
-                        <input type="checkbox"><i class="material-icons">public        </i><span class="badge--toggle__label">public</span>
-                      </label>
-                    </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
-                  </div>
-                </div>
-              </div>
-              <nav>
-                <ul class="pagination">
-                  <li class="pager__item pager__item--previous disabled"><a href="#0" aria-label="Previous">   <span aria-hidden="true"> <i class="material-icons">chevron_left</i></span></a></li>
-                  <li class="pager__item active"><a href="#1">1</a></li>
-                  <li class="pager__item"> <a href="#1">2</a></li>
-                  <li class="pager__item"> <a href="#1">3          </a></li>
-                  <li class="pager__item"> <a href="#1">4</a></li>
-                  <li class="pager__item pager__item--next"><a href="#" aria-label="Next"><span aria-hidden="true"><i class="material-icons">chevron_right</i></span></a></li>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
@@ -378,10 +271,5 @@
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     
-  </script>
-  <script>
-    function enableMe() {
-      jQuery('#reset-button').removeClass('disabled');
-    }
   </script>
 </html>

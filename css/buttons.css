@@ -649,17 +649,11 @@ fieldset[disabled] .btn-flat.focus {
   height: 52px;
 }
 
-.btn .material-icons {
+.btn-icon {
   font-size: 1.00012rem;
   line-height: 21px;
   height: 21px;
-  vertical-align: bottom;
-}
-
-.btn .custom-icons {
-  font-size: 0.7rem;
-  line-height: 21px;
-  height: 21px;
+  width: 21px;
   vertical-align: bottom;
 }
 
