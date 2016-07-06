@@ -1,0 +1,30 @@
+uuid: 1c6afd24-7a6b-4272-8453-16ec7f9723f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.headline
+  module:
+    - system
+    - views
+  theme:
+    - socialbase
+id: views_block__headline_block_headline
+theme: socialbase
+region: hero
+weight: -18
+provider: null
+plugin: 'views_block:headline-block_headline'
+settings:
+  id: 'views_block:headline-block_headline'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
