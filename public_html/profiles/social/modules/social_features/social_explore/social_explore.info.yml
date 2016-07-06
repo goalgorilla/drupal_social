@@ -1,0 +1,7 @@
+name: Explore
+description: 'Provides Explore page and blocks'
+type: module
+core: 8.x
+dependencies:
+  - views
+package: Social

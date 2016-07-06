@@ -62,12 +62,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_content_visibility:
-    weight: 26
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
   field_topic_comments:
-    weight: 7
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: comment_default
@@ -85,8 +85,20 @@ content:
     type: options_buttons
   path:
     type: path
-    weight: 8
+    weight: 7
     settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 5
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 6
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -103,6 +115,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  promote: true
-  sticky: true
+hidden: {  }
