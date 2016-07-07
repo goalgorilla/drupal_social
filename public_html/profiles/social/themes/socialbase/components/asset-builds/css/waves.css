@@ -67,10 +67,6 @@
           transform: translateZ(0);
   -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
   text-align: center;
-  width: 38px;
-  height: 38px;
-  line-height: 36px;
-  border-radius: 50%;
   -webkit-mask-image: none;
 }
 

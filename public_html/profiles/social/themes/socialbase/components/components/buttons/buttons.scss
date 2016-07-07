@@ -154,8 +154,8 @@
 .btn-floating {
   width: $button-floating-size;
   height: $button-floating-size;
-  padding: 0;
-  font-size: 1.25rem;
+  line-height: $button-floating-size - 2;
+  padding: 4px;
   border-radius: $button-floating-radius;
   @include z-depth-2;
 

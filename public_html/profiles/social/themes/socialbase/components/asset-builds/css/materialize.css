@@ -3204,10 +3204,6 @@ pre code {
   border-bottom-right-radius: 10px;
 }
 
-.card-body .material-icons, .card-body .custom-icons {
-  font-size: 1rem;
-}
-
 .card-with-actionbar .card-body {
   padding-bottom: 48px;
   overflow: hidden;
@@ -3276,7 +3272,7 @@ a.card:hover {
   width: 100%;
 }
 
-.card--teaser .card-image > img, .card--teaser .card-image .status {
+.card--teaser .card-image img, .card--teaser .card-image .status {
   display: none;
 }
 
@@ -5446,7 +5442,6 @@ a.list-group-item {
 }
 
 .label {
-  font-size: 87.5%;
   font-weight: 300;
 }
 
@@ -6633,7 +6628,7 @@ input[type=range]:focus::-ms-fill-upper {
     width: auto;
     padding-top: 0;
   }
-  .card--teaser .card-image > img, .card--teaser .card-image .status{
+  .card--teaser .card-image img, .card--teaser .card-image .status{
     display: block;
   }
   .card--teaser .card-image.blue-overlay:before{

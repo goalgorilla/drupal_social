@@ -46,10 +46,6 @@
 
   }
 
-  .material-icons, .custom-icons {
-    font-size: 1rem;
-  }
-
 }
 
 .card-with-actionbar .card-body {
@@ -140,7 +136,8 @@ a.card:hover {
 
   .card-image {
     width: 100%;
-    > img, .status {
+
+    img, .status {
       display: none;
     }
 
@@ -154,7 +151,7 @@ a.card:hover {
       width: auto;
       padding-top: 0;
 
-      > img, .status {
+      img, .status {
         display: block;
       }
 

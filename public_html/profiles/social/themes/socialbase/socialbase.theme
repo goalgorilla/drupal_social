@@ -191,7 +191,7 @@ function socialbase_preprocess_block(&$variables) {
 //         'xlink:href' => 'icon.svg#icon-help',
 //       ],
 //     ];
-//     
+//
 //   }
 // }
 
@@ -676,11 +676,11 @@ function _socialbase_get_visibility_icon($title) {
   // Set the materialize icon.
   switch ($title) {
     case 'Community':
-      $icon = 'group';
+      $icon = 'community';
       break;
 
     case 'Recipient':
-      $icon = 'group';
+      $icon = 'community';
       break;
 
     default:

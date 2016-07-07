@@ -61,10 +61,6 @@
   transform: translateZ(0);
   -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
   text-align: center;
-  width: $button-floating-size;
-  height: $button-floating-size;
-  line-height: $button-floating-size - 2;
-  border-radius: $button-floating-radius;
   -webkit-mask-image: none;
 }
 
