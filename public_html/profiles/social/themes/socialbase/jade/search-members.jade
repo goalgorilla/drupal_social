@@ -20,7 +20,8 @@ block pagetitle
           input.form-control(type='text', placeholder='Search', value='all members' name='search', autocomplete='off')
           input.form-submit(type='submit', value='')
           span.search-icon
-            i.material-icons search
+            svg
+              use(xlink:href='#icon-search')
 
     .brand-secondary.z-depth-1
       nav(role="navigation" aria-label="Tabs")
@@ -37,7 +38,7 @@ block content
               
   .row.margin-top-l    
 
-    .col-xs-12.col-sm-4.col-sm-last.margin-bottom-l
+    .col-xs-12.col-sm-4.col-sm-last.margin-bottom-l.margin-top-complementary
       .margin-top-sidebar
       
         button.waves-effect.waves-light.btn.btn-default.btn-block.btn-raised.visible-xs-inline-block.js-open-canvas
@@ -61,13 +62,15 @@ block content
                 .input-group
                   input.form-control(type='text', autocomplete='off', size='30')
                   span.input-group-addon
-                    i.material-icons autorenew
+                    svg.icon-black.icon-medium
+                      use(xlink:href='#icon-autorenew')   
               .form-group.form-autocomplete
                 label Interests
                 .input-group
                   input.form-control(type='text', autocomplete='off', size='30')
                   span.input-group-addon
-                    i.material-icons autorenew
+                    svg.icon-black.icon-medium
+                      use(xlink:href='#icon-autorenew')   
               
               .form-actions.clearfix
                 button.btn.btn-link(type='submit', value='Reset') Reset

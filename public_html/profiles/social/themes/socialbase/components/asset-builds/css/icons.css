@@ -85,12 +85,14 @@ a.icon-after .glyphicon {
   margin-left: .25em;
 }
 
-.btn.icon-before .glyphicon {
+.btn.icon-before .glyphicon,
+.btn.icon-before .btn-icon {
   margin-left: -.25em;
   margin-right: .25em;
 }
 
-.btn.icon-after .glyphicon {
+.btn.icon-after .glyphicon,
+.btn.icon-after .btn-icon {
   margin-left: .25em;
   margin-right: -.25em;
 }

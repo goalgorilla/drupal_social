@@ -91,11 +91,13 @@ a {
 }
 
 .btn {
-  &.icon-before .glyphicon {
+  &.icon-before .glyphicon,
+  &.icon-before .btn-icon {
     margin-left: -.25em;
     margin-right: .25em;
   }
-  &.icon-after .glyphicon {
+  &.icon-after .glyphicon,
+  &.icon-after .btn-icon {
     margin-left: .25em;
     margin-right: -.25em;
   }

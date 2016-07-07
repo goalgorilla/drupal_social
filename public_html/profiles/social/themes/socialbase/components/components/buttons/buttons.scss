@@ -61,6 +61,14 @@
   fill: $btn-accent-color;
 }
 
+.btn-link {
+  fill: $brand-primary;
+
+  &:hover {
+    fill: darken($brand-primary, 10%);
+  }
+}
+
 .btn-flat {
   @include button-variant($brand-primary, transparent, transparent);
   fill: $brand-primary;

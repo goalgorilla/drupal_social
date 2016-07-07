@@ -37,12 +37,14 @@ block content
             .input-group.form-group  
               input#expertise-input.form-control(type="text", onchange="enableMe('reset-button', this)")
               span.input-group-addon 
-                i.glyphicon.material-icons(title="loading") loop
+                svg.icon-black.icon-medium
+                  use(xlink:href='#icon-autorenew')   
             label(for="interests-input") Interests
             .input-group.form-group
               input#interests-input.form-control(type="text", onchange="enableMe('reset-button', this)")
               span.input-group-addon
-                i.glyphicon.material-icons(title="loading") loop
+                svg.icon-black.icon-medium
+                  use(xlink:href='#icon-autorenew')   
             .form-group
               input#reset-button.btn.btn-flat.disabled(type="submit", value="Reset")
               

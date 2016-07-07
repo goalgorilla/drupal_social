@@ -4230,7 +4230,7 @@ span.form-required {
   display: block;
   position: absolute;
   content: '';
-  background-color: rgba(77, 77, 77, 0.8);
+  background-color: rgba(85, 85, 85, 0.8);
   width: 100%;
   left: 0;
   right: 0;
@@ -4288,11 +4288,6 @@ span.form-required {
   padding-top: 20px;
 }
 
-.hero-footer .material-icons,
-.hero-footer .custom-icons {
-  font-size: inherit;
-}
-
 .hero-canvas {
   border-radius: 10px;
   background-color: rgba(51, 51, 51, 0.8);
@@ -4314,6 +4309,7 @@ span.form-required {
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 3;
 }
 
 .hero-form[role='search'] .form-group {
@@ -4358,7 +4354,7 @@ span.form-required {
 
 .hero-form[role='search'] .search-icon {
   line-height: 38px;
-  color: #29abe2;
+  fill: #29abe2;
   background: white;
   speak: none;
   pointer-events: none;
@@ -4366,10 +4362,10 @@ span.form-required {
   transition: 0.3s;
 }
 
-.hero-form[role='search'] .search-icon i {
-  line-height: 38px;
-  width: 38px;
-  height: 38px;
+.hero-form[role='search'] .search-icon svg {
+  margin-top: 7px;
+  width: 24px;
+  height: 24px;
 }
 
 .pagination {
@@ -4913,9 +4909,8 @@ hr.ruler-l {
   background: #ddd;
 }
 
-.dropdown-toggle + ul > li > .material-icons {
+.dropdown-toggle + ul > li > svg {
   margin-right: 10px;
-  font-size: 16px;
 }
 
 .scrollable-menu {

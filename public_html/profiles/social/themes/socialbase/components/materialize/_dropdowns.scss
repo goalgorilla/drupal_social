@@ -105,9 +105,8 @@
   background: $dropdown-header-bg;
 }
 
-.dropdown-toggle + ul > li > .material-icons {
+.dropdown-toggle + ul > li > svg {
   margin-right: 10px;
-  font-size: 16px;
 }
 
 .scrollable-menu {

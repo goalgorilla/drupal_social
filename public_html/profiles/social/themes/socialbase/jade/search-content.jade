@@ -20,7 +20,8 @@ block pagetitle
           input.form-control(type='text', placeholder='Search', value='all the content' name='search', autocomplete='off')
           input.form-submit(type='submit', value='')
           span.search-icon
-            i.material-icons search
+            svg
+              use(xlink:href='#icon-search')
 
     .brand-secondary.z-depth-1
       nav(role="navigation" aria-label="Tabs")
