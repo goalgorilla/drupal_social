@@ -20,7 +20,7 @@
   width: 24px;
   height: 24px;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: text-bottom;
 }
 
 .icon-small {
@@ -44,13 +44,13 @@
 
 .glyphicon:before {
   position: relative;
-  top: 1px;
+  top: 3px;
   width: 20px;
   height: 20px;
   content: '';
   display: inline-block;
   background-repeat: no-repeat;
-  background-size: auto 20px;
+  background-size: auto 100%;
   background-position: center;
 }
 
@@ -60,7 +60,7 @@
 
 .glyphicon-question-sign:before {
   background-image: url(../../../images/icons/icon-help.svg);
-  background-size: auto 14px;
+  width: 15px;
   height: 15px;
 }
 
@@ -74,12 +74,10 @@
 
 .glyphicon-move:before {
   background-image: url(../../../images/icons/icon-open_with.svg);
-  background-size: auto 16px;
 }
 
 .glyphicon-warning-sign:before {
   background-image: url(../../../images/icons/icon-warning.svg);
-  background-size: auto 16px;
 }
 
 

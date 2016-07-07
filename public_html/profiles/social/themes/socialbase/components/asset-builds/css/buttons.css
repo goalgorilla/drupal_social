@@ -592,8 +592,7 @@ fieldset[disabled] .btn-flat.focus {
   box-shadow: none;
 }
 
-.btn-flat,
-.btn-icon-toggle {
+.btn-flat {
   box-shadow: none;
   background-color: transparent;
   border-color: transparent;
@@ -601,29 +600,33 @@ fieldset[disabled] .btn-flat.focus {
 }
 
 .btn-flat:hover, .btn-flat:focus,
-.open .dropdown-toggle .btn-flat,
-.btn-icon-toggle:hover,
-.btn-icon-toggle:focus,
-.open .dropdown-toggle
-.btn-icon-toggle {
+.open .dropdown-toggle .btn-flat {
   background-color: rgba(0, 0, 0, 0.07);
   border-color: transparent;
   box-shadow: none;
   color: inherit;
 }
 
-.btn-flat:active, .btn-flat.active,
-.btn-icon-toggle:active,
-.btn-icon-toggle.active {
+.btn-flat:active, .btn-flat.active {
   background-color: rgba(12, 12, 12, 0.25);
   border-color: transparent;
   color: white;
 }
 
 .btn-icon-toggle {
+  background-color: transparent;
   border-radius: 50% !important;
-  padding: 0;
-  width: 30px;
+  padding: 4px;
+}
+
+.btn-icon-toggle:hover, .btn-icon-toggle:focus {
+  background-color: rgba(0, 0, 0, 0.07);
+  border-color: transparent;
+}
+
+.btn-icon-toggle:active, .btn-icon-toggle.active {
+  background-color: rgba(12, 12, 12, 0.25);
+  border-color: transparent;
 }
 
 .btn-floating {

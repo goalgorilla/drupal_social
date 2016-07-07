@@ -18,14 +18,18 @@ block content
     .col-xs-12.col-sm-4.col-sm-last.margin-bottom-l.margin-top-complementary
     
       button.waves-effect.waves-light.btn.btn-default.btn-block.btn-raised.visible-xs-inline-block.js-open-canvas
-        i.material-icons.pull-left tune
+        svg.pull-left.btn-icon.icon-black
+          title Filter list
+          use(xlink:href='#icon-filter_list')
         | Filter
       .off-canvas.off-canvas-right.off-canvas-xs-only
         .offcanvas-head
           header.complementary-title Filter users
           .offcanvas-tools.visible-xs-block
             .js-close-canvas.btn.btn-icon-toggle.btn-user-light.pull-right
-              i.material-icons close
+              svg.pull-left.btn-icon.icon-black
+                title Close
+                use(xlink:href='#icon-close')
       
         .offcanvas-body
           form

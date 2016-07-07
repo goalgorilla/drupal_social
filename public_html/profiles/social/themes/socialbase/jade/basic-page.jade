@@ -7,6 +7,7 @@ include layout/_head.jade
 body
   include layout/_gtm.jade
   include layout/_header-an.jade
+  include ../images/icons.svg
   
   main.main-container(role='main')
   
@@ -26,7 +27,8 @@ body
                 .badge.badge--toggle
                   label
                     input(type='checkbox')
-                    i.material-icons public        
+                    svg.icon-white.icon-badge-toggle
+                      use(xlink:href='#icon-public')          
                     span.badge--toggle__label public
     
     .main-content
