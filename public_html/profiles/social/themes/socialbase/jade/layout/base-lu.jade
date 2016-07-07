@@ -69,12 +69,13 @@ html(lang="en")
     include _footer.jade
   block scriptinline_before
 
-  script(src='js/vendor.js')
   script(src='js/drupal-core.js')
   script(src='js/bootstrap.min.js')
-  script(src='js/components.js')
-  script(src='js/materialize.js')
+  script(src='js/contrib/waves.js')
+  script(src='js/custom/offcanvas.js')
+  script(src='js/custom/textarea-autogrow.js')
   script(src='js/init.js')
+  script(src='js/custom/navbar-search.js')
   
   // Does not work for Safari iOS, debug later
   // include _fontfaceobserver.jade

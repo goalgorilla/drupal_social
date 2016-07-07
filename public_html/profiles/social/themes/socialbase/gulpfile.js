@@ -55,7 +55,6 @@ options.theme = {
   styleguide : options.rootPath.theme + 'jade/',
   images     : options.rootPath.theme + 'images/',
   content    : options.rootPath.theme + 'content/',
-  libs       : options.rootPath.theme + 'libs/',
   font       : options.rootPath.theme + 'font/',
   bootstrap  : options.rootPath.theme + 'node_modules/bootstrap-sass/assets/'
 };
@@ -181,48 +180,15 @@ gulp.task('styleguide-components', function() {
     options.theme.js + "styleguide/jquery.touch-swipe.js"
   ])
   .pipe( concat('styleguide.js') )
-  .pipe( gulp.dest(options.theme.js) );
+  .pipe( gulp.dest(options.rootPath.dist + '/js') );
 });
 
-// get component scripts and make available for dist in one file
-gulp.task('script-components', function() {
-  return gulp.src([
-      options.theme.js + "components/waves.js",
-      options.theme.js + "components/offcanvas.js",
-      options.theme.js + "components/forms.js"
-    ])
-    .pipe( concat('components.js') )
-    .pipe( gulp.dest(options.theme.js) );
-});
-
-// get project scripts and make available for dist in one file
-gulp.task('script-materialize', function() {
-  return gulp.src([
-      options.theme.js + "materialize/navbar-search.js",
-    ])
-    .pipe( concat('materialize.js') )
-    .pipe( gulp.dest(options.theme.js) );
-});
-
-//copy vendor scripts from drupal to make them available for the styleguide
-gulp.task('script-vendor', function() {
+//copy drupal scripts from drupal to make them available for the styleguide
+gulp.task('script-drupal', function() {
   return gulp.src([
     options.rootPath.drupalcore + 'assets/vendor/domready/ready.min.js',
     options.rootPath.drupalcore + 'assets/vendor/jquery/jquery.min.js',
-    options.rootPath.drupalcore + 'assets/vendor/jquery-once/jquery.once.min.js'
-  ])
-  .pipe( concat('vendor.js') )
-  .pipe( gulp.dest(options.rootPath.dist + '/js') );
-});
-
-gulp.task('jqueryminmap', function() {
-  return gulp.src(options.rootPath.drupalcore + 'assets/vendor/jquery/jquery.min.map')
-  .pipe( gulp.dest(options.rootPath.dist + '/js') );
-});
-
-//copy vendor scripts from drupal to make them available for the styleguide
-gulp.task('script-drupal', function() {
-  return gulp.src([
+    options.rootPath.drupalcore + 'assets/vendor/jquery-once/jquery.once.min.js',
     options.rootPath.drupalcore + '/misc/drupalSettingsLoader.js',
     options.rootPath.drupalcore + '/misc/drupal.js',
     options.rootPath.drupalcore + '/misc/debounce.js',
@@ -236,8 +202,8 @@ gulp.task('script-drupal', function() {
 });
 
 //copy scripts to dist
-gulp.task('copy-scripts', ['script-materialize', 'script-components', 'styleguide-components'], function() {
-  return gulp.src(options.theme.js + "/*.js")
+gulp.task('copy-scripts', function() {
+  return gulp.src(options.theme.js + "/**/*")
   .pipe( gulp.dest(options.rootPath.dist + '/js') );
 });
 
@@ -260,11 +226,6 @@ gulp.task('font', function() {
   .pipe( gulp.dest(options.rootPath.dist + 'font') );
 });
 
-gulp.task('libs', function() {
-  return gulp.src(options.theme.libs + '**/*')
-  .pipe( gulp.dest(options.rootPath.dist + 'libs') );
-});
-
 // ===================================================
 // Import Bootstrap assets
 // ===================================================
@@ -276,7 +237,7 @@ gulp.task('bootstrap-sass', function() {
 
 gulp.task('bootstrap-js', function() {
   return gulp.src(options.theme.bootstrap + 'javascripts/bootstrap.min.js')
-    .pipe( gulp.dest(options.theme.js) );
+    .pipe( gulp.dest(options.theme.js + '/contrib') );
 });
 
 
@@ -335,7 +296,7 @@ gulp.task('watch:styleguide', ['setWatch', 'styleguide'], function () {
   ], ['styleguide']);
 });
 
-gulp.task('scripts', ['copy-scripts', 'script-vendor', 'script-drupal']);
+gulp.task('scripts', ['copy-scripts', 'script-drupal']);
 
 gulp.task('watch:js', function () {
   return gulp.watch(options.eslint.files, ['scripts'] );
