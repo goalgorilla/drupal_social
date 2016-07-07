@@ -10,7 +10,9 @@ block pagetitle
   .container    
     .visible-xs-block.section
       a.btn.btn-flat(href="other-stream.html")
-        i.material-icons.pull-left keyboard_arrow_left
+        svg
+  use(xlink:href='#icon-navigate_before')     .icon-medium
+  use(xlink:href='#icon-navigate_before')     
         | Back to Jenny`s stream
       
   .container
@@ -83,7 +85,9 @@ block content
           li.pager__item.pager__item--previous.disabled
             a(href="#0", aria-label='Previous')    
               span(aria-hidden="true") 
-                i.material-icons chevron_left
+                svg
+  use(xlink:href='#icon-navigate_before')     .icon-medium
+  use(xlink:href='#icon-navigate_before')     
           li.pager__item.active
             a(href="#1") 1
           li.pager__item 

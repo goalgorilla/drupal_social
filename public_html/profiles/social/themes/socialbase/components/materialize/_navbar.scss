@@ -55,11 +55,6 @@
     background-color: $dropdown-bg;
     border: 1px solid $dropdown-border;
     @include box-shadow(0 6px 12px rgba(0,0,0,.175));
-    > li > a,
-    .dropdown-header {
-      padding: 5px 20px;
-    }
-
   }
 
   .navbar-fixed-top .navbar-nav .open .dropdown-menu {
@@ -71,7 +66,7 @@
     width: 100%;
     max-width: none;
     max-height: 100%;
-    height: calc(95% - 50px);
+    height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
     backface-visibility: hidden;
