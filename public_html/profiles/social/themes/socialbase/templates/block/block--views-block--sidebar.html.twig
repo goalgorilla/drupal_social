@@ -29,23 +29,26 @@
  * @ingroup themeable
  */
 #}
-<div class="card-with-actionbar">
+
+<div class="card card-with-actionbar hidden-xs">
     <div class="card-head">
-        <header class="text-center">   {{ title_prefix }} {{ label }} {{ title_suffix }} </header>
+        <header class="text-center">{{ title_prefix }} {{ label }} {{ title_suffix }}</header>
+        {% if content.subtitle is defined %}
         <div class="subtitle text-center">
-            {% trans %}in the group{% endtrans %}
+            {{ content.subtitle }}
         </div>
+        {% endif %}
     </div>
     <div class="card-body">
         <div class="list-group list-group-divider">
             {{ content }}
         </div>
         <div class="card-actionbar text-center">
-            <a href="/group/{{ group_id }}/members" class="btn btn-flat">
-                {% trans %}
-                    View all
-                {% endtrans %}
+            {% if content.view_all_path is defined %}
+            <a href="{{ content.view_all_path }}" class="btn btn-flat">
+                {% trans %}View all{% endtrans %}
             </a>
+            {% endif %}
         </div>
     </div>
 </div>
