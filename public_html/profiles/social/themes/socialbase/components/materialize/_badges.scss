@@ -86,3 +86,19 @@
     }
   }
 }
+
+.js .card--teaser-stream .badge--toggle {
+  &.badge-gray-lighter {
+    input[type=checkbox] {
+      ~ .icon-badge-toggle, ~ .badge--toggle__label {
+        background: $gray-lighter;
+      }
+
+      &:checked {
+        ~ .icon-badge-toggle, ~ .badge--toggle__label {
+          background-color: white;
+        }
+      }
+    }
+  }
+}

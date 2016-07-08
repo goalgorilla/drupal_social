@@ -5015,6 +5015,14 @@ hr.ruler-l {
   color: #4d4d4d;
 }
 
+.js .card--teaser-stream .badge--toggle.badge-gray-lighter input[type=checkbox] ~ .icon-badge-toggle, .js .card--teaser-stream .badge--toggle.badge-gray-lighter input[type=checkbox] ~ .badge--toggle__label {
+  background: #e6e6e6;
+}
+
+.js .card--teaser-stream .badge--toggle.badge-gray-lighter input[type=checkbox]:checked ~ .icon-badge-toggle, .js .card--teaser-stream .badge--toggle.badge-gray-lighter input[type=checkbox]:checked ~ .badge--toggle__label {
+  background-color: white;
+}
+
 .chip {
   display: inline-block;
   height: 32px;

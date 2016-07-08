@@ -117,7 +117,9 @@
 
         {# TODO: insert group name
           <div class="text-gray-dark text-truncate">
-            <i class="custom-icons icon-group"></i>
+            <svg class="icon-gray icon-small">
+              <use xlink:href="#icon-group"></use>
+            </svg>
             <span class="inline-center"> @dev insert group name here </span>
           </div>
         #}
@@ -129,7 +131,9 @@
                     <div class="badge badge-gray-lighter badge--toggle">
                         <label>
                             <input type="checkbox">
-                            <i class="material-icons">{{ visibility_icon }}</i>
+                            <svg class="icon-gray icon-small icon-badge-toggle">
+                                <use xlink:href="#icon-{{ visibility_icon }}"></use>
+                            </svg>
                             <span class="badge--toggle__label">{{ visibility_label }}</span>
                         </label>
                     </div>
