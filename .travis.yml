@@ -1,8 +1,7 @@
 sudo: required
 
 addons:
-  artifacts:
-    s3_region: "eu-central-1"
+  artifacts: true
 
 language: php
 
