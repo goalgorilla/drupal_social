@@ -40789,7 +40789,7 @@ $connection->insert('users')
 ->values(array(
   'uid' => '2',
   'name' => 'Odo',
-  'pass' => '$S$DZ4P7zZOh92vgrgZDBbv8Pu6lQB337OJ1wsOy21602G4A5F7.M9K',
+  'pass' => '$S$DGFZUE.FhrXbe4y52eC7p0ZVRGD/gOPtVctDlmC89qkujnBokAlJ',
   'mail' => 'odo@local.host',
   'theme' => '',
   'signature' => '',
@@ -41321,6 +41321,10 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'language_content_type_test_content_type',
   'value' => 's:1:"0";',
+))
+->values(array(
+  'name' => 'i18n_node_options_blog',
+  'value' => 'a:2:{i:0;s:8:"required";i:1;s:4:"lock";}',
 ))
 ->values(array(
   'name' => 'language_count',

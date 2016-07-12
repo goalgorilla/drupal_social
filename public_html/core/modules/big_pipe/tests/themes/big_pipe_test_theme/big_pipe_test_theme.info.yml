@@ -1,0 +1,11 @@
+name: 'BigPipe test theme'
+type: theme
+description: 'Theme for testing BigPipe edge cases.'
+# version: VERSION
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2016-07-11
+version: '8.1.6'
+core: '8.x'
+project: 'drupal'
+datestamp: 1468243401

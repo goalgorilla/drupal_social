@@ -185,8 +185,6 @@ function file_copy(FileInterface $source, $destination = NULL, $replace = FILE_E
 /**
  * Moves a file to a new location and update the file's database entry.
  *
- * Moving a file is performed by copying the file to the new location and then
- * deleting the original.
  * - Checks if $source and $destination are valid and readable/writable.
  * - Performs a file move if $source is not equal to $destination.
  * - If file already exists in $destination either the call will error out,
@@ -1177,7 +1175,7 @@ function file_managed_file_save_upload($element, FormStateInterface $form_state)
 
   $destination = isset($element['#upload_location']) ? $element['#upload_location'] : NULL;
   if (isset($destination) && !file_prepare_directory($destination, FILE_CREATE_DIRECTORY)) {
-    \Drupal::logger('file')->notice('The upload directory %directory for the file field !name could not be created or is not accessible. A newly uploaded file could not be saved in this directory as a consequence, and the upload was canceled.', array('%directory' => $destination, '!name' => $element['#field_name']));
+    \Drupal::logger('file')->notice('The upload directory %directory for the file field %name could not be created or is not accessible. A newly uploaded file could not be saved in this directory as a consequence, and the upload was canceled.', array('%directory' => $destination, '%name' => $element['#field_name']));
     $form_state->setError($element, t('The file could not be uploaded.'));
     return FALSE;
   }
