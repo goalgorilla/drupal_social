@@ -142,8 +142,6 @@ abstract class FieldUnitTestBase extends KernelTestBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to save.
-   *
-   * @return void
    */
   protected function entityValidateAndSave(EntityInterface $entity) {
     $violations = $entity->validate();
@@ -161,7 +159,7 @@ abstract class FieldUnitTestBase extends KernelTestBase {
    * @param $cardinality
    *   Number of values to generate.
    * @return
-   *  An array of random values, in the format expected for field values.
+   *   An array of random values, in the format expected for field values.
    */
   protected function _generateTestFieldValues($cardinality) {
     $values = array();
