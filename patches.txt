@@ -7,6 +7,10 @@ Please avoid patches at any cost, for it will most likely break upgrade paths!
  block-region-none-2724283-22.patch
  Fix region string issue to be able to add blocks with region none to views.
 
+[views]
+ grouped_filters-2369119-73.patch
+ Make sure exposed filters work in yml files, also for site install in other language.
+
 --- Contrib ---
 
 [profile]
