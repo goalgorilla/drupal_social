@@ -56,6 +56,11 @@ class SiteWideJSForm extends ConfigFormBase {
       '#title' => $this->t('Footer region'),
       '#description' => $this->t('Footer region to put the JS in.'),
       '#default_value' => $config->get('swjs_footer_region'),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="swjs_location"]' => array('value' => '1'),
+        ),
+      ),
     );
 
     $form['swjs_javascript'] = array(
