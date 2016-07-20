@@ -34,6 +34,8 @@ class SiteWideJSForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('sitewide_js.settings');
 
+    $form['warning']['#markup'] = $this->t('<h2>Warning</h2><p>Be careful, in this section you can make sitewide changes to the HTML template and therefore break both the front-end javascript applications and the layout for your website.</p>');
+
     $form['swjs_enabled'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Enable site wide JS'),
