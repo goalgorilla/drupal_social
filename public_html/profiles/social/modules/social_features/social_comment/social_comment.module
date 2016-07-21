@@ -101,10 +101,11 @@ function social_comment_preprocess_comment(&$variables) {
   $comment = $variables['elements']['#comment'];
   // Display comment created date in format 'time ago'.
   $created_time_ago = \Drupal::service('date.formatter')
-    ->formatTimeDiffSince($comment->getCreatedTime(), array('granularity' => 2));
-  $submitted = t('@time ago', array('@time' => $created_time_ago));
+    ->formatTimeDiffSince($comment->getCreatedTime(), array('granularity' => 1, 'return_as_object' => TRUE));
+  $date = t('%time ago', array('%time' => $created_time_ago->getString()));
 
-  $variables['submitted'] = Link::fromTextAndUrl($submitted, $comment->urlInfo('canonical'));
+  $variables['submitted'] = Link::fromTextAndUrl($date, $comment->urlInfo('canonical'));
+  $variables['#cache']['max-age'] = $created_time_ago->getMaxAge();
 
   $account = $comment->getOwner();
   if ($account) {

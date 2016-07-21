@@ -145,6 +145,12 @@ class SocialDemoComment implements ContainerInjectionInterface {
         $pid = $parent_comment->id();
       }
 
+      if ($content['created'] > time()) {
+        // Make sure comments are not posted in the future.
+        $content['created'] = time();
+      }
+
+
       // Let's create some nodes.
       $comment = Comment::create([
         'uuid' => $content['uuid'],
