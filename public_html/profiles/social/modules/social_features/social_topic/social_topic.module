@@ -48,7 +48,7 @@ function social_topic_preprocess_node(&$variables) {
  * Enhance the exposed filter form of the topic overview.
  */
 function social_topic_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form['#id'] === 'views-exposed-form-topics-page-1') {
+  if ($form['#id'] === 'views-exposed-form-topics-page-profile') {
     $form['type']['#options']['All'] = t('All types');
 
     $account_uid = \Drupal::routeMatch()->getParameter('user');
@@ -74,7 +74,7 @@ function social_topic_form_views_exposed_form_alter(&$form, FormStateInterface $
  */
 function social_topic_block_view_alter(array &$build, BlockPluginInterface $block) {
   // @todo check out why this happens, is this is a views bug?
-  if ($build['#plugin_id'] === 'views_exposed_filter_block:topics-page_1') {
+  if ($build['#plugin_id'] === 'views_exposed_filter_block:topics-page_profile') {
     $build['#configuration']['label'] = $build['#configuration']['views_label'];
   }
 
