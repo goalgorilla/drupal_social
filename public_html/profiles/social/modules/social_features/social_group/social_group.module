@@ -223,10 +223,8 @@ function _social_group_action_form_submit($form, FormStateInterface $form_state)
 
   if (is_object($group)) {
     // Invalidate cache tags.
-    $cache_tags = array(
-      'group_membership:' . $group->id(),
-      'group_view',
-    );
+    $cache_tags = _social_group_cache_tags($group->id());
+
     foreach ($cache_tags as $cache_tag) {
       Cache::invalidateTags(array($cache_tag));
     }
@@ -472,3 +470,30 @@ function _social_group_get_current_group() {
 
   return $group;
 }
+
+/**
+ * Get group cache tags
+ *
+ * @param $group_id int
+ *
+ * @return array An array of cache tags related to groups.
+ */
+function _social_group_cache_tags($group_id = NULL) {
+  // Group views.
+  $tags = [
+    'group_list',
+    'group_content_list',
+    'group_view',
+    'group_content_view',
+  ];
+
+  // Add cachetags that are based on id.
+  if (!is_null($group_id)) {
+    $tags[] = 'group_content:' . $group_id;
+    $tags[] = 'group_membership:' . $group_id;
+    $tags[] = 'group_hero:' . $group_id;
+  }
+
+  return $tags;
+}
+
