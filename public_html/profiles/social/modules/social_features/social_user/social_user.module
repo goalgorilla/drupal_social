@@ -149,3 +149,13 @@ function social_user_user_format_name_alter(&$name, $account) {
     }
   }
 }
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function social_user_menu_local_tasks_alter(&$data, $route_name) {
+  // Change the default 'View' tab title.
+  if (isset($data['tabs'][0]['entity.user.canonical']['#link'])) {
+    $data['tabs'][0]['entity.user.canonical']['#link']['title'] = t('Stream');
+  }
+}
