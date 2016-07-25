@@ -36,10 +36,10 @@
           <i class="material-icons">business_center</i>
           <span class="inline-center">
             {{ content.field_profile_function }}
-            {% if content.field_profile_function and content.field_profile_organization %}
+            {% if content.field_profile_organization|render %}
               at
+              {{ content.field_profile_organization }}
             {% endif %}
-            {{ content.field_profile_organization }}
           </span>
         </div>
         {% endif %}
