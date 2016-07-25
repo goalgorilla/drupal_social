@@ -849,9 +849,12 @@ function socialbase_preprocess_form(&$variables) {
       if (is_object($comment)) {
         // Display comment created date in format 'time ago'.
         $created_time_ago = \Drupal::service('date.formatter')
-          ->formatTimeDiffSince($comment->getCreatedTime(), array('granularity' => 2));
-        $submitted = t('@time ago', array('@time' => $created_time_ago));
+          ->formatTimeDiffSince($comment->getCreatedTime(), array('granularity' => 1, 'return_as_object' => TRUE));
+
+        $submitted = t('@time ago', array('@time' => $created_time_ago->getString()));
         $variables['submitted'] = Link::fromTextAndUrl($submitted, $comment->urlInfo('canonical'));
+        $variables['#cache']['max-age'] = $created_time_ago->getMaxAge();
+
 
         // Display author information.
         $account = $comment->getOwner();
@@ -889,12 +892,13 @@ function socialbase_preprocess_form(&$variables) {
       $post = entity_load('post', $post_id);
 
       $form['#post_id'] = $post->id();
-      // Display comment created date in format 'time ago'.
+      // Display post created date in format 'time ago'.
       $created_time_ago = \Drupal::service('date.formatter')
-        ->formatTimeDiffSince($post->getCreatedTime(), array('granularity' => 2));
-      $date = t('%time ago', array('%time' => $created_time_ago));
-
+        ->formatTimeDiffSince($post->getCreatedTime(), array('granularity' => 1, 'return_as_object' => TRUE));
+      $date = t('%time ago', array('%time' => $created_time_ago->getString()));
       $variables['date']['#markup'] = $date;
+      $variables['#cache']['max-age'] = $created_time_ago->getMaxAge();
+
 
       // To change user picture settings (e.g. image style), edit the 'compact'
       // view mode on the User entity. Note that the 'compact' view mode might
