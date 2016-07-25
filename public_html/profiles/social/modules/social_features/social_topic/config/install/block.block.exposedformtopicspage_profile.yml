@@ -8,15 +8,15 @@ dependencies:
     - user
     - views
   theme:
-    - socialbase
-id: socialbase_exposedformtopicspage_1
-theme: socialbase
-region: complementary
-weight: -12
+    - bartik
+id: exposedformtopicspage_profile
+theme: bartik
+region: sidebar_second
+weight: -6
 provider: null
-plugin: 'views_exposed_filter_block:topics-page_1'
+plugin: 'views_exposed_filter_block:topics-page_profile'
 settings:
-  id: 'views_exposed_filter_block:topics-page_1'
+  id: 'views_exposed_filter_block:topics-page_profile'
   label: ''
   provider: views
   label_display: visible
