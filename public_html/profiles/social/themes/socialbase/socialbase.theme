@@ -12,6 +12,7 @@ use Drupal\block\Entity\Block;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html as HtmlUtility;
 use \Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -144,9 +145,38 @@ function socialbase_theme_suggestions_details_alter(array &$suggestions, array $
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function socialbase_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  $block_id = $variables['elements']['#id'];
+  $blocks_id = array(
+    'views_block__upcoming_events_block_my_upcoming_events',
+    'views_block__upcoming_events_block_community_events',
+    'views_block__latest_topics_default',
+    'views_block__newest_groups_block_newest_groups',
+    'views_block__newest_users_block_newest_users',
+    'views_block__newest_users_block_newest_users',
+
+    'views_block__events_block_events_on_profile',
+    'views_block__topics_block_user_topics',
+    'views_block__groups_block_user_groups',
+    'views_block__group_members_newest_members', // override block--views-block--group_members-block-newest-members.html.twig
+  );
+  if (in_array($block_id, $blocks_id)) {
+    $suggestions = array($variables['theme_hook_original'] . '__' . 'views_block__sidebar');
+  }
+}
+
+/**
  * Implements hook_preprocess_block().
  */
 function socialbase_preprocess_block(&$variables) {
+  $profile_user_id = \Drupal::routeMatch()->getParameter('user');
+  $group = \Drupal::routeMatch()->getParameter('group');
+
+  if (!is_null($profile_user_id) && is_object($profile_user_id)) {
+    $profile_user_id = $profile_user_id->id();
+  }
   $variables['content']['#attributes']['block'] = $variables['attributes']['id'];
 
   // Fix label for Views exposed filter blocks.
@@ -237,6 +267,48 @@ function socialbase_preprocess_block(&$variables) {
 
     }
   } // AN Homepage block.
+
+
+
+  // Add variables to sidebar blocks
+  switch ($variables['elements']['#id']) {
+    case 'views_block__upcoming_events_block_my_upcoming_events':
+      $variables['content']['view_all_path'] = 'my-events';
+      break;
+    case 'views_block__upcoming_events_block_community_events':
+      $variables['content']['subtitle'] = t('in the community');
+      $variables['content']['view_all_path'] = 'community-events';
+      break;
+    case 'views_block__latest_topics_default':
+      $variables['content']['subtitle'] = t('in the community');
+      $variables['content']['view_all_path'] = 'newest-topics';
+      break;
+    case 'views_block__newest_groups_block_newest_groups':
+      $variables['content']['subtitle'] = t('in the community');
+      $variables['content']['view_all_path'] = 'all-groups';
+      break;
+    case 'views_block__newest_users_block_newest_users':
+      $variables['content']['subtitle'] = t('in the community');
+      $variables['content']['view_all_path'] = 'newest-members';
+      break;
+    case 'views_block__events_block_events_on_profile':
+      $variables['content']['subtitle'] = t('for this user');
+      $variables['content']['view_all_path'] = Url::fromRoute('view.events.events_overview', array('user' => $profile_user_id));
+      break;
+    case 'views_block__topics_block_user_topics':
+      $variables['content']['subtitle'] = t('for this user');
+      $variables['content']['view_all_path'] = Url::fromRoute('view.topics.page_1', array('user' => $profile_user_id));
+      break;
+    case 'views_block__groups_block_user_groups':
+      $variables['content']['subtitle'] = t('for this user');
+      $variables['content']['view_all_path'] = Url::fromRoute('view.groups.page_user_groups', array('user' => $profile_user_id));
+      break;
+
+    case 'views_block__group_members_newest_members':
+      $variables['content']['subtitle'] = t('in the group');
+      $variables['content']['view_all_path'] = '/group/'.$group->id().'/members';
+      break;
+  }
 }
 
 /**
