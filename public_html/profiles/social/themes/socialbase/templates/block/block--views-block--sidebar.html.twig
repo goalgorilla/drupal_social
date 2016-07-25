@@ -33,9 +33,9 @@
 <div class="card card-with-actionbar hidden-xs">
     <div class="card-head">
         <header class="text-center">{{ title_prefix }} {{ label }} {{ title_suffix }}</header>
-        {% if content.subtitle is defined %}
+        {% if subtitle %}
         <div class="subtitle text-center">
-            {{ content.subtitle }}
+            {{ subtitle }}
         </div>
         {% endif %}
     </div>
@@ -44,8 +44,8 @@
             {{ content }}
         </div>
         <div class="card-actionbar text-center">
-            {% if content.view_all_path is defined %}
-            <a href="{{ content.view_all_path }}" class="btn btn-flat">
+            {% if view_all_path %}
+            <a href="{{ view_all_path }}" class="btn btn-flat">
                 {% trans %}View all{% endtrans %}
             </a>
             {% endif %}

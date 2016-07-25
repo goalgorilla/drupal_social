@@ -273,40 +273,40 @@ function socialbase_preprocess_block(&$variables) {
   // Add variables to sidebar blocks
   switch ($variables['elements']['#id']) {
     case 'views_block__upcoming_events_block_my_upcoming_events':
-      $variables['content']['view_all_path'] = 'my-events';
+      $variables['view_all_path'] = 'my-events';
       break;
     case 'views_block__upcoming_events_block_community_events':
-      $variables['content']['subtitle'] = t('in the community');
-      $variables['content']['view_all_path'] = 'community-events';
+      $variables['subtitle'] = t('in the community');
+      $variables['view_all_path'] = 'community-events';
       break;
     case 'views_block__latest_topics_default':
-      $variables['content']['subtitle'] = t('in the community');
-      $variables['content']['view_all_path'] = 'newest-topics';
+      $variables['subtitle'] = t('in the community');
+      $variables['view_all_path'] = 'newest-topics';
       break;
     case 'views_block__newest_groups_block_newest_groups':
-      $variables['content']['subtitle'] = t('in the community');
-      $variables['content']['view_all_path'] = 'all-groups';
+      $variables['subtitle'] = t('in the community');
+      $variables['view_all_path'] = 'all-groups';
       break;
     case 'views_block__newest_users_block_newest_users':
-      $variables['content']['subtitle'] = t('in the community');
-      $variables['content']['view_all_path'] = 'newest-members';
+      $variables['subtitle'] = t('in the community');
+      $variables['view_all_path'] = 'newest-members';
       break;
     case 'views_block__events_block_events_on_profile':
-      $variables['content']['subtitle'] = t('for this user');
-      $variables['content']['view_all_path'] = Url::fromRoute('view.events.events_overview', array('user' => $profile_user_id));
+      $variables['subtitle'] = t('for this user');
+      $variables['view_all_path'] = Url::fromRoute('view.events.events_overview', array('user' => $profile_user_id));
       break;
     case 'views_block__topics_block_user_topics':
-      $variables['content']['subtitle'] = t('for this user');
-      $variables['content']['view_all_path'] = Url::fromRoute('view.topics.page_1', array('user' => $profile_user_id));
+      $variables['subtitle'] = t('for this user');
+      $variables['view_all_path'] = Url::fromRoute('view.topics.page_profile', array('user' => $profile_user_id));
       break;
     case 'views_block__groups_block_user_groups':
-      $variables['content']['subtitle'] = t('for this user');
-      $variables['content']['view_all_path'] = Url::fromRoute('view.groups.page_user_groups', array('user' => $profile_user_id));
+      $variables['subtitle'] = t('for this user');
+      $variables['view_all_path'] = Url::fromRoute('view.groups.page_user_groups', array('user' => $profile_user_id));
       break;
 
     case 'views_block__group_members_newest_members':
-      $variables['content']['subtitle'] = t('in the group');
-      $variables['content']['view_all_path'] = '/group/'.$group->id().'/members';
+      $variables['subtitle'] = t('in the group');
+      $variables['view_all_path'] = '/group/'.$group->id().'/members';
       break;
   }
 }
