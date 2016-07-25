@@ -223,8 +223,7 @@ function _social_group_action_form_submit($form, FormStateInterface $form_state)
 
   if (is_object($group)) {
     // Invalidate cache tags.
-    $cache_tags = _social_group_cache_tags($group->id());
-
+    $cache_tags = _social_group_cache_tags($group);
     foreach ($cache_tags as $cache_tag) {
       Cache::invalidateTags(array($cache_tag));
     }
@@ -400,10 +399,6 @@ function social_group_menu_local_tasks_alter(&$data, $route_name) {
         // For group managers we will show membership management interface.
         unset($data['tabs'][0]['social_group.members']);
       }
-      else {
-        // For members we will show page with profile teasers of other members.
-        unset($data['tabs'][0]['group.members']);
-      }
     }
   }
   // Hide Group "Nodes" tab.
@@ -474,11 +469,11 @@ function _social_group_get_current_group() {
 /**
  * Get group cache tags
  *
- * @param $group_id int
+ * @param \Drupal\group\Entity\GroupInterface $group
  *
  * @return array An array of cache tags related to groups.
  */
-function _social_group_cache_tags($group_id = NULL) {
+function _social_group_cache_tags(GroupInterface $group) {
   // Group views.
   $tags = [
     'group_list',
@@ -488,12 +483,13 @@ function _social_group_cache_tags($group_id = NULL) {
   ];
 
   // Add cachetags that are based on id.
-  if (!is_null($group_id)) {
-    $tags[] = 'group_content:' . $group_id;
-    $tags[] = 'group_membership:' . $group_id;
-    $tags[] = 'group_hero:' . $group_id;
+  $tags[] = 'group_hero:' . $group->id();
+
+  $current_user = \Drupal::currentUser();
+  if ($group_membership = $group->getMember($current_user)) {
+    $group_content = $group_membership->getGroupContent();
+    $tags[] = 'group_content:' . $group_content->id();
   }
 
   return $tags;
 }
-
