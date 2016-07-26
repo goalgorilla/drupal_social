@@ -162,6 +162,7 @@ function socialbase_theme_suggestions_block_alter(array &$suggestions, array $va
     'views_block__groups_block_user_groups',
     'views_block__group_members_newest_members', // override block--views-block--group_members-block-newest-members.html.twig
     'views_block__upcoming_events_upcoming_events_group',
+    'views_block__latest_topics_group_topics_block',
   );
   if (in_array($block_id, $blocks_id)) {
     $suggestions = array($variables['theme_hook_original'] . '__' . 'views_block__sidebar');
@@ -312,6 +313,10 @@ function socialbase_preprocess_block(&$variables) {
     case 'views_block__upcoming_events_upcoming_events_group':
       $variables['subtitle'] = t('in the group');
       $variables['view_all_path'] = '/group/'.$group->id().'/events';
+      break;
+    case 'views_block__latest_topics_group_topics_block':
+      $variables['subtitle'] = t('in the group');
+      $variables['view_all_path'] = '/group/'.$group->id().'/topics';
       break;
   }
 }
