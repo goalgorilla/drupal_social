@@ -84,6 +84,12 @@
         </div>
       {% endif %}
       {{ content.field_event_image }}
+
+        {% if status_label %}
+            <div class="status">
+                {{ status_label }}
+            </div>
+        {% endif %}
     </div>
     <div class='card-body'>
         {{ title_prefix }}

@@ -689,6 +689,10 @@ function socialbase_preprocess_node(&$variables) {
     }
   }
 
+  if($node->status->value == NODE_NOT_PUBLISHED){
+    $variables['status_label'] = t('unpublished');
+  }
+
 }
 
 /**
