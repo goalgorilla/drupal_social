@@ -13,6 +13,7 @@ libraries:
   - socialbase/type
   - socialbase/alerts
   - socialbase/icons
+  - socialbase/waves
 
 libraries-extend:
   core/drupal.ajax:

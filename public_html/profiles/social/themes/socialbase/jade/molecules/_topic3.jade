@@ -1,14 +1,16 @@
 .card.card--teaser.card-with-actionbar.unpublished
   a.card-image(href="topic.html")
     .teaser-type
-      img(src='images/icon-topic.svg', alt='')
+      svg.icon-white.icon-responsive
+        use(xlink:href='#icon-topic')
     img.img-responsive(src='content/images/other-cover-square.jpg', alt='')
     .status unpublished
   .card-body
     h4.card-title 
       a(href="topic.html") 5 new cool features in Office 365
-    .text-gray-dark.text-truncate
-      i.material-icons account_circle
+    .text-gray.text-truncate
+      svg.icon-gray.icon-small
+        use(xlink:href='#icon-account_circle')
       | &nbsp;
       span.inline-center
         if user == "isAnonymous"
@@ -16,8 +18,9 @@
         else
           a(href="other-stream.html") Dennis Rodman 
           | &bullet; 28 mar 2016
-    .text-gray-dark.text-truncate
-      i.material-icons label 
+    .text-gray.text-truncate
+      svg.icon-gray.icon-small
+        use(xlink:href='#icon-label')
       | &nbsp;
       span.inline-center Blog
     
@@ -25,6 +28,7 @@
       .badge.badge-gray-lighter.badge--toggle
         label
           input(type='checkbox')
-          i.material-icons group        
+          svg.icon-gray-light.icon-badge-toggle
+            use(xlink:href='#icon-community')     
           span.badge--toggle__label community
       a.btn.btn-flat.pull-right(href="topic.html") Read more

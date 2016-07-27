@@ -25,20 +25,24 @@
     h4.card-title 
       a(href="event.html") London Meetup
     .text-gray.text-m.text-truncate
-      i.material-icons event
+      svg.icon-gray.icon-small
+        use(xlink:href='#icon-event')
       | &nbsp;
       span.inline-center 26 sept 09:00 - 18:00  
     .text-gray.text-m.text-truncate
-      i.material-icons place
+      svg.icon-gray.icon-small
+        use(xlink:href='#icon-location')
       | &nbsp;
       span.inline-center Tower Bridge, London
     .card-actionbar
-      if user != "isAnonymous"
-        .badge.badge-gray-lighter.badge--toggle
-          label
-            input(type='checkbox')
-            i.material-icons public        
-            span.badge--toggle__label public
+      unless user == "isAnonymous"
+        .actionbar
+          .badge.badge--toggle
+            label
+              input(type='checkbox')
+              svg.icon-gray-light.icon-badge-toggle
+                use(xlink:href='#icon-public')
+              span.badge--toggle__label community
       a.btn.btn-flat.btn-sm.pull-right(href="event.html") Read more
 
 if user != "isAnonymous"

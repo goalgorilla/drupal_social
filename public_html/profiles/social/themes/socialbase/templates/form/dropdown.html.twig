@@ -13,20 +13,30 @@
 <div{{ attributes.addClass('dropdown pull-right') }}> {# 'pull-right' #}
     {# See PostForm.php we set edit_mode to true so people can't actually change the dropdown button for edit mode. #}
     {% if edit_mode %}
-        <button id="post-visibility" type="button" disabled data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle disabled"> <i class="material-icons pull-left">{{ selected_material_icon }}</i><span class="text">{{ selected }} </span></button>
+        <button id="post-visibility" type="button" disabled data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle disabled icon-before">
+          <svg class="icon-black icon-small btn-icon">
+            <use id="btnicon" xlink:href="#icon-{{ selected_material_icon }}"></use>
+          </svg>
+          <span class="text">{{ selected }} </span></button>
     {% else %}
-    <button id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle"> <i class="material-icons pull-left">{{ selected_material_icon }}</i><span class="text">{{ selected }} </span><span class="caret"></span></button>
+      <button id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle icon-before">
+      <svg class="icon-black icon-small btn-icon">
+        <use id="btnicon" xlink:href="#icon-{{ selected_material_icon }}"></use>
+      </svg>
+      <span class="text">{{ selected }} </span>
+      <span class="caret"></span>
+  </button>
     <ul role="menu" aria-labelledby="post-visibility" class="dropdown-menu dropdown-md">
-        <li class="dropdown-header">{{ label }}</li>
-        {% for key, child in items %}
-            {% if key == active %}
-                <li class="list-group-item active">
-            {% else %}
-                <li class="list-group-item">
-            {% endif %}
-                    {{ child }}
-                </li>
-        {% endfor %}
+      <li class="dropdown-header">{{ label }}</li>
+      {% for key, child in items %}
+          {% if key == active %}
+              <li class="list-group-item active">
+          {% else %}
+              <li class="list-group-item">
+          {% endif %}
+                  {{ child }}
+              </li>
+      {% endfor %}
     </ul>
     {% endif %}
 </div>
