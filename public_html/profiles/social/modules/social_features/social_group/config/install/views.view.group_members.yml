@@ -168,7 +168,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'No results found.'
+            value: 'No memebers in this group'
             format: basic_html
           plugin_id: text
       relationships: {  }
@@ -254,7 +254,18 @@ display:
           entity_type: group_content
           entity_field: created
           plugin_id: date
-      empty: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content: 'No memebers in this group'
+          plugin_id: text_custom
     cache_metadata:
       max-age: -1
       contexts:

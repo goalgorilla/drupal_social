@@ -531,7 +531,7 @@ function socialbase_theme_suggestions_views_view_alter(array &$suggestions, arra
   }
 
   // List group views.
-  if (!empty($view_id) && ($view_id == 'upcoming_events' || $view_id == 'latest_topics' || $view_id == 'newest_groups' || $view_id == 'newest_users')) {
+  if (!empty($view_id) && ($view_id == 'upcoming_events' || $view_id == 'latest_topics' || $view_id == 'newest_groups' || $view_id == 'newest_users' || $view_id == 'group_members')) {
     $suggestions[] = $variables['theme_hook_original'] . '__list_group';
   }
 
