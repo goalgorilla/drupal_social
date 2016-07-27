@@ -42,6 +42,7 @@ class ActivityLoggerFactory {
 
       // Set the values.
       $new_message['type'] = $message_type;
+      $new_message['created'] = $entity->getCreatedTime();
       $new_message['uid'] = $entity->getOwner()->id();
       $new_message['field_message_context'] = $mt_context;
       $new_message['field_message_destination'] = $destinations;

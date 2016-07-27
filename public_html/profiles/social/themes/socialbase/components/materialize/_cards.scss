@@ -20,7 +20,7 @@
 
 // This style can be used to separate the card title from the card body.
 .card-underline .card-head {
-  border-bottom: 1px solid $grey-light-2;
+  border-bottom: 1px solid $gray-lighter;
   padding-bottom: 15px;
 }
 
@@ -46,10 +46,6 @@
 
   }
 
-  .material-icons, .custom-icons {
-    font-size: 1rem;
-  }
-
 }
 
 .card-with-actionbar .card-body {
@@ -71,7 +67,7 @@ a.card:hover {
 .card__label {
   text-transform: uppercase;
   font-size: 14px;
-  color: $grey-dark-1;
+  color: $default-color;
 }
 
 .card-nested-section {
@@ -154,7 +150,7 @@ a.card:hover {
       width: auto;
       padding-top: 0;
 
-      > img, .status {
+      img, .status {
         display: block;
       }
 
@@ -240,7 +236,7 @@ a.card:hover {
 }
 
 .card--teaser-desc {
-  max-height: (3 * $line-height-base) * 1em;
+  max-height: (2 * $line-height-base) * 1em;
   overflow: hidden;
 }
 
@@ -248,7 +244,7 @@ a.card:hover {
 
   .unpublished .card-image.blue-overlay {
     &:before {
-      background: rgba($grey-dark-1, 0.8);
+      background: rgba($default-color, 0.8);
     }
     .status {
       background-color: transparent;
@@ -300,14 +296,14 @@ a.card:hover {
 }
 
 .card-actionbar--with-border {
-  border-top: 1px solid $grey-light-2;
+  border-top: 1px solid $gray-lighter;
 }
 
 .card-buttonbar {
   padding: 6px 0;
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid $grey-light-2;
+  border-top: 1px solid $gray-lighter;
 
   @include MQ($small) {
     justify-content: flex-start;

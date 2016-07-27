@@ -8,7 +8,7 @@ script.
   '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-5BGZV3');
 // End Google Tag Manager
-
+include ../../images/icons.svg
 .header__wrapper
   .header__innerwrapper.container
     .row
@@ -20,7 +20,9 @@ script.
 
 .nav-button-wrapper
   button#js-showSidebar.hamburger-button(role='tab') 
-    i.material-icons(title='show navigation') menu
+    svg.icon-white.icon-medium
+      title Toggle navigation
+      use(xlink:href='#icon-menu')
 
 ul#nav-mobile.side-nav.fixed
   li.logo
@@ -53,8 +55,6 @@ ul#nav-mobile.side-nav.fixed
               a(href='buttons.html') Buttons
             li(class=(page == "Grid" ? "active" : ""))
               a(href='grid.html') Grid
-            li(class=(page == "Navigation" ? "active" : ""))
-              a(href='navigation.html') Navigation
             li(class=(page == "Breadcrumbs" ? "active" : ""))
               a(href='breadcrumbs.html') Breadcrumbs
             li(class=(page == "Cards" ? "active" : ""))
