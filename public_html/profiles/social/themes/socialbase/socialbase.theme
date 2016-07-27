@@ -660,10 +660,8 @@ function socialbase_preprocess_node(&$variables) {
 
   // Try to add unpublished as a article class for now when nodes are published
   // or unpublished.
-  if ($variables['view_mode'] === 'teaser' || $variables['view_mode'] === 'full') {
-    if (!$variables['elements']['#node']->isPublished()) {
-      $variables['attributes']['class'][] = 'unpublished';
-    }
+  if (!$variables['elements']['#node']->isPublished()) {
+    $variables['attributes']['class'][] = 'unpublished';
   }
 
   if ($variables['view_mode'] === 'small_teaser') {
