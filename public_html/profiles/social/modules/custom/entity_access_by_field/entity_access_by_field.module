@@ -7,6 +7,7 @@
 use Drupal\entity_access_by_field\EntityAccessHelper;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Cache\Cache;
 
 // @TODO Prevent creating multiple visibility fields on one node.
 // @TODO Add support for multiple entity types.
@@ -58,20 +59,22 @@ function entity_access_by_field_node_access_records(NodeInterface $node) {
   foreach ($field_definitions as $field_name => $field_definition) {
     // Lets add a node access realm if the field is implemented.
     if ($field_definition->getType() === 'entity_access_field') {
-      $field_values = $node->get($field_name)->getValue();
-      if (!empty($field_values)) {
-        foreach ($field_values as $key => $field_value) {
-          if (isset($field_value['value'])) {
-            $entityAccessPermissions = \Drupal::getContainer()->get('entity_access_by_field.permissions');
-            $realm = $entityAccessPermissions->getRealmForFieldValue('view', 'node', $node->getType(), $field_name, $field_value['value']);
-            $grants[] = array(
-              'realm' => $realm,
-              'gid' => ENTITY_ACCESS_BY_FIELD_ALLOWED_REALM,
-              'grant_view' => 1,
-              'grant_update' => 0,
-              'grant_delete' => 0,
-              'priority' => 0,
-            );
+      if ($node->isPublished()) {
+        $field_values = $node->get($field_name)->getValue();
+        if (!empty($field_values)) {
+          foreach ($field_values as $key => $field_value) {
+            if (isset($field_value['value'])) {
+              $entityAccessPermissions = \Drupal::getContainer()->get('entity_access_by_field.permissions');
+              $realm = $entityAccessPermissions->getRealmForFieldValue('view', 'node', $node->getType(), $field_name, $field_value['value']);
+              $grants[] = array(
+                'realm' => $realm,
+                'gid' => ENTITY_ACCESS_BY_FIELD_ALLOWED_REALM,
+                'grant_view' => 1,
+                'grant_update' => 0,
+                'grant_delete' => 0,
+                'priority' => 0,
+              );
+            }
           }
         }
       }
@@ -111,5 +114,25 @@ function entity_access_by_field_field_widget_info_alter(&$info) {
 function entity_access_by_field_field_formatter_info_alter(array &$info) {
   if (isset($info['list_default'])) {
     $info['list_default']['field_types'][] = 'entity_access_field';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function entity_access_by_field_node_presave(NodeInterface $node) {
+  $original = $node->original;
+
+  // Get the field definitions of the node.
+  $field_definitions = $node->getFieldDefinitions();
+  /* @var \Drupal\Core\Field\FieldConfigInterface $field_definition */
+  foreach ($field_definitions as $field_name => $field_definition) {
+    // Lets add a node access realm if the field is implemented.
+    if ($field_definition->getType() === 'entity_access_field') {
+      if(isset($node->status) && isset($original->status) && $node->status->value != $original->status->value){
+        // Invalidate cache tags.
+        Cache::invalidateTags(array('activity_list'));
+      }
+    }
   }
 }
