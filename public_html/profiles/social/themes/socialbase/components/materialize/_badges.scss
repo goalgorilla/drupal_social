@@ -21,7 +21,7 @@
   background-color: $gray-lighter;
   color: $gray-light;
 
-  .material-icons {
+  .icon-badge-toggle {
     background-color: white;
   }
 }
@@ -44,13 +44,6 @@
   padding: 0;
   background-color: transparent;
   transition: width 0.3s ease;
-
-  .material-icons {
-    font-size: 18px;
-    width: auto;
-    padding-left: ($badge-font-size/3);
-  }
-
 }
 
 .badge--toggle,
@@ -68,7 +61,7 @@
     transition: opacity 0.3s ease;
   }
 
-  input[type=checkbox]:checked ~ .material-icons,
+  input[type=checkbox]:checked ~ .icon-badge-toggle,
   input[type=checkbox]:checked ~ .badge--toggle__label {
     background-color: $gray-dark;
     color: white;
@@ -86,10 +79,26 @@
 
 
   &.badge-gray-lighter {
-    input[type=checkbox]:checked ~ .material-icons,
+    input[type=checkbox]:checked ~ .icon-badge-toggle,
     input[type=checkbox]:checked ~ .badge--toggle__label {
       background-color: $gray-lighter;
-      color: $grey-dark-1;
+      color: $default-color;
+    }
+  }
+}
+
+.js .card--teaser-stream .badge--toggle {
+  &.badge-gray-lighter {
+    input[type=checkbox] {
+      ~ .icon-badge-toggle, ~ .badge--toggle__label {
+        background: $gray-lighter;
+      }
+
+      &:checked {
+        ~ .icon-badge-toggle, ~ .badge--toggle__label {
+          background-color: white;
+        }
+      }
     }
   }
 }

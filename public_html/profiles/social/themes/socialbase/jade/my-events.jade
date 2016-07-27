@@ -11,7 +11,8 @@ block pagetitle
 
     .visible-xs-block.section
       a.btn.btn-flat(href="my-stream.html")
-        i.material-icons.pull-left keyboard_arrow_left
+        svg.btn-icon
+          use(xlink:href='#icon-navigate_before')
         | Back to my stream
 
   .container.hero-container
@@ -40,15 +41,19 @@ block content
       br 
       br
       button.waves-effect.waves-light.btn.btn-block.btn-default.btn-raised.visible-xs-block.js-open-canvas
-        i.material-icons.pull-left tune
+        svg.pull-left.btn-icon.icon-black
+          title Filter list
+          use(xlink:href='#icon-filter_list')
         | Filters
 
       .off-canvas.off-canvas-right.off-canvas-xs-only
         .offcanvas-head
           header.card__label filter
           .offcanvas-tools.visible-xs-block
-            button.js-close-canvas.btn.btn-icon-toggle.btn-user-light.pull-right
-              i.material-icons close
+            button.js-close-canvas.btn.btn-icon-toggle.pull-right
+              svg.pull-left.btn-icon.icon-black
+                title Close
+                use(xlink:href='#icon-close')
     
         .offcanvas-body
           form
@@ -72,21 +77,4 @@ block content
       include molecules/_event3.jade
       include molecules/_event4.jade
         
-      nav
-        ul.pagination
-          li.pager__item.pager__item--previous.disabled
-            a(href="#0", aria-label='Previous')    
-              span(aria-hidden="true") 
-                i.material-icons chevron_left
-          li.pager__item.active
-            a(href="#1") 1
-          li.pager__item 
-            a(href="#1") 2
-          li.pager__item 
-            a(href="#1") 3          
-          li.pager__item 
-            a(href="#1") 4
-          li.pager__item.pager__item--next
-            a(href='#', aria-label='Next')
-              span(aria-hidden="true")
-                i.material-icons chevron_right
+      include molecules/_pager.jade
