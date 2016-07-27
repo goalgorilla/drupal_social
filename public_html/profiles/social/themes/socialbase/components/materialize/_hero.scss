@@ -28,7 +28,7 @@
     display: block;
     position: absolute;
     content: '';
-    background-color: rgba($grey-dark-1, 0.8);
+    background-color: rgba($gray, 0.8);
     width: 100%;
     left: 0;
     right: 0;
@@ -112,11 +112,6 @@
     bottom: 0;
   }
 
-  .material-icons,
-  .custom-icons {
-    font-size: inherit;
-  }
-
 }
 
 .hero-canvas {
@@ -145,6 +140,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 3;
 }
 
 
@@ -199,16 +195,16 @@
 
   .search-icon {
     line-height: 38px;
-    color: $brand-primary;
+    fill: $brand-primary;
     background: white;
     speak: none;
     pointer-events: none;
     transition: 0.3s;
 
-    i {
-      line-height: 38px;
-      width: 38px;
-      height: 38px;
+    svg {
+      margin-top: 7px;
+      width: 24px;
+      height: 24px;
     }
 
   }

@@ -25,21 +25,24 @@
     h4.card-title 
       a(href="event.html") Security and modern internet
     .text-gray.text-m.text-truncate
-      i.material-icons event
+      svg.icon-gray.icon-small
+        use(xlink:href='#icon-event')
       | &nbsp;
       span.inline-center 19 jul 09:00 - 18:00
       | &nbsp; 
       unless user == "isAnonymous"
         span.label.label-primary enrolled
     .text-gray.text-m.text-truncate
-      i.material-icons place
+      svg.icon-gray.icon-small
+        use(xlink:href='#icon-location')
       | &nbsp;
       span.inline-center Keizersgracht 376, Amsterdam
     .card-actionbar
       .badge.badge-gray-lighter.badge--toggle
         label
           input(type='checkbox')
-          i.material-icons group        
+          svg.icon-badge-toggle
+            use(xlink:href='#icon-community')        
           span.badge--toggle__label community
       a.btn.btn-flat.btn-sm.pull-right(href="event.html") Read more
 
@@ -52,4 +55,5 @@ if user != "isAnonymous"
   
     .margin-top-l.text-center
       a.btn.btn-link(href='event.html#comment-1') show all 2 comments
-        i.material-icons chevron_right
+        svg.icon-small
+          use(xlink:href='#icon-navigate_next')

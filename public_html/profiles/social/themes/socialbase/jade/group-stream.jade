@@ -8,8 +8,9 @@ block pagetitle
   .container.hero-container
     .cover.cover-img.cover-img-gradient(style="background-image: url('content/images/group-hero.jpg')")  
       .hero-action-button
-        a.waves-effect.waves-light.btn.btn-default.btn-floating(href='group-edit.html')
-          i.material-icons mode_edit
+        a.waves-effect.waves-circle.btn.btn-default.btn-floating(href='group-edit.html')
+          svg.icon-gray.icon-medium
+            use(xlink:href='#icon-edit') 
       .cover-wrap          
         h1.page-title Happy Campers
         p.page-title 21 members
@@ -87,9 +88,9 @@ block scriptinline
   script.  
     function showMe (it, radio) {
       var visibility = radio.value;
-      var icon = jQuery(radio).prevAll('.material-icons').text();
+      var icon = jQuery(radio).prevAll('svg').text();
       jQuery('#' + it).find('.text').html(visibility);
-      jQuery('#' + it).find('.material-icons').html(icon);
+      jQuery('#' + it).find('svg').html(icon);
       jQuery('#' + it).next('.dropdown-menu').find('.list-group-item').removeClass('active');
       jQuery(radio).closest('.list-group-item').addClass('active');
     }

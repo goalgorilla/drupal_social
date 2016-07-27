@@ -69,3 +69,8 @@ tablesaw:
   js:
     libs/tablesaw/tablesaw.js: {}
     libs/tablesaw/tablesaw-init.js: {}
+
+waves:
+  css:
+    component:
+      components/asset-builds/css/waves.css: {}

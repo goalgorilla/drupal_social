@@ -88,7 +88,7 @@ Feature: Edit my group as a group manager
   # DS-607 As a Group Manager I shouldn't be able to manage group content from other users
     And I logout
     And I am logged in as "Group Member Two"
-    And I click "Group Member Two"
+    And I am on "user"
     And I click "Groups"
     And I click "Test open group"
     And I click "Topics"
@@ -103,7 +103,7 @@ Feature: Edit my group as a group manager
     And I should see "Test group topic"
     And I logout
     And I am logged in as "Group Manager One"
-    And I click "Group Manager One"
+    And I am on "user"
     And I click "Groups"
     And I click "Test open group"
     And I click "Topics"
@@ -113,7 +113,7 @@ Feature: Edit my group as a group manager
   # DS-705 As a Group Manager I want to delete my own group
     And I logout
     And I am logged in as "Group Manager One"
-    And I click "Group Manager One"
+    And I am on "user"
     And I click "Groups"
     And I click "Test open group"
     And I click "Edit group"

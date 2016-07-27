@@ -160,7 +160,9 @@ function socialbase_theme_suggestions_block_alter(array &$suggestions, array $va
     'views_block__events_block_events_on_profile',
     'views_block__topics_block_user_topics',
     'views_block__groups_block_user_groups',
-    'views_block__group_members_newest_members', // override block--views-block--group_members-block-newest-members.html.twig
+    'views_block__group_members_block_newest_members', // override block--views-block--group_members-block-newest-members.html.twig
+    'views_block__upcoming_events_upcoming_events_group',
+    'views_block__latest_topics_group_topics_block',
   );
   if (in_array($block_id, $blocks_id)) {
     $suggestions = array($variables['theme_hook_original'] . '__' . 'views_block__sidebar');
@@ -206,10 +208,11 @@ function socialbase_preprocess_block(&$variables) {
       $variables['content']['search_content_form']['#attributes']['role'] = 'search';
       $variables['content']['search_content_form']['#attributes']['class'][] = 'navbar-form';
       $variables['content']['search_content_form']['#attributes']['class'][] = 'navbar-left';
-      $variables['content']['search_content_form']['actions']['submit']['#suffix'] = '<span class="search-icon"><i class="material-icons">search</i></span>';
       $variables['content']['search_content_form']['actions']['submit']['#is_button'] = FALSE;
+      $variables['content']['search_content_form']['actions']['submit']['#addsearchicon'] = TRUE;
     }
     else {
+      // @TODO: Replace with SVG icon.
       $variables['content']['search_content_form']['actions']['submit']['#suffix'] = '<span class="search-icon"><i class="material-icons">search</i></span>';
       $variables['content']['search_content_form']['#attributes']['class'][] = 'hero-form';
       $variables['content']['search_content_form']['#attributes']['role'] = 'search';
@@ -223,6 +226,7 @@ function socialbase_preprocess_block(&$variables) {
     $variables['content']['search_users_form']['#attributes']['role'] = 'search';
     $variables['content']['search_users_form']['actions']['submit']['#is_button'] = FALSE;
     $variables['content']['search_users_form']['search_input_users']['#name'] = 'search_input_users';
+    // @TODO: Replace with SVG icon.
     $variables['content']['search_users_form']['actions']['submit']['#suffix'] = '<span class="search-icon"><i class="material-icons">search</i></span>';
   }
 
@@ -304,12 +308,38 @@ function socialbase_preprocess_block(&$variables) {
       $variables['view_all_path'] = Url::fromRoute('view.groups.page_user_groups', array('user' => $profile_user_id));
       break;
 
-    case 'views_block__group_members_newest_members':
+    case 'views_block__group_members_block_newest_members':
       $variables['subtitle'] = t('in the group');
       $variables['view_all_path'] = '/group/'.$group->id().'/members';
       break;
+    case 'views_block__upcoming_events_upcoming_events_group':
+      $variables['subtitle'] = t('in the group');
+      $variables['view_all_path'] = '/group/'.$group->id().'/events';
+      break;
+    case 'views_block__latest_topics_group_topics_block':
+      $variables['subtitle'] = t('in the group');
+      $variables['view_all_path'] = '/group/'.$group->id().'/topics';
+      break;
   }
 }
+
+// @todo get the reference element in the svg
+
+// function socialbase_preprocess_file_upload_help(&$variables) {
+//   if (in_array('glyphicon-question-sign',   $variables['popover']['toggle']['#icon']['#attributes']['class'])) {
+//     $variables['popover']['toggle']['#icon']['#tag'] = 'svg';
+//     $variables['popover']['toggle']['#icon']['#attributes']['class'] = 'icon-small';
+//     $variables['popover']['toggle']['#icon']['reference'] = [
+//       '#type' => 'html_tag',
+//       '#tag' => 'use',
+//       '#value' => '',
+//       '#attributes' => [
+//         'xlink:href' => 'icon.svg#icon-help',
+//       ],
+//     ];
+//
+//   }
+// }
 
 /**
  * Implements hook_preprocess_hook().
@@ -521,7 +551,7 @@ function socialbase_theme_suggestions_views_view_alter(array &$suggestions, arra
   }
 
   // List group views.
-  if (!empty($view_id) && ($view_id == 'upcoming_events' || $view_id == 'latest_topics' || $view_id == 'newest_groups' || $view_id == 'newest_users')) {
+  if (!empty($view_id) && ($view_id == 'upcoming_events' || $view_id == 'latest_topics' || $view_id == 'newest_groups' || $view_id == 'newest_users' || $view_id == 'group_members')) {
     $suggestions[] = $variables['theme_hook_original'] . '__list_group';
   }
 
@@ -757,6 +787,10 @@ function socialbase_preprocess_input(&$variables) {
     }
   }
 
+  if (isset($variables['element']['#addsearchicon']) && $variables['element']['#addsearchicon'] == TRUE) {
+    $variables['add_search_icon'] = TRUE;
+  }
+
   if (isset($variables['element']['#type']) && isset($variables['element']['#button_type'])) {
     if (!empty($variables['element']['#array_parents']) && in_array('actions', $variables['element']['#array_parents']) && $variables['element']['#button_type'] == 'primary') {
       $variables['float_right'] = TRUE;
@@ -801,11 +835,11 @@ function _socialbase_get_visibility_icon($title) {
   // Set the materialize icon.
   switch ($title) {
     case 'Community':
-      $icon = 'group';
+      $icon = 'community';
       break;
 
     case 'Recipient':
-      $icon = 'group';
+      $icon = 'community';
       break;
 
     default:

@@ -183,3 +183,13 @@ function social_core_preprocess_field(&$variables) {
     $variables['more_link'] = $element[0]['more_link'];
   }
 }
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function social_core_menu_local_tasks_alter(&$data, $route_name) {
+  // Change the default 'View' tab title.
+  if (isset($data['tabs'][0]['entity.node.canonical']['#link'])) {
+    $data['tabs'][0]['entity.node.canonical']['#link']['title'] = t('Details');
+  }
+}

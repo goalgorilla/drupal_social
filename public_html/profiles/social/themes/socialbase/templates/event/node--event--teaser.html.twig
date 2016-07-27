@@ -80,7 +80,9 @@
     <div class='card-image'>
       {% if view_mode == 'teaser' %}
         <div class="teaser-type">
-            <img src="/{{ directory }}/images/icons/icon-event.svg" alt="Event">
+          <svg class="icon-white icon-responsive">
+            <use xlink:href="#icon-event"></use>
+          </svg>
         </div>
       {% endif %}
       {{ content.field_event_image }}
@@ -99,8 +101,10 @@
             </h4>
         {% endif %}
         {{ title_suffix }}
-        <div class="text-gray-dark text-truncate">
-          <i class="material-icons">event</i>
+        <div class="text-gray-dark text-truncate text-m">
+          <svg class="icon-gray icon-small">
+            <use xlink:href="#icon-event"></use>
+          </svg>
           <span class="inline-center">
               {% if event_date %}
                 {{ event_date }}
@@ -108,8 +112,10 @@
           </span>
         </div>
         {% if content.field_event_location %}
-          <div class="text-gray-dark text-truncate">
-            <i class="material-icons">place</i>
+          <div class="text-gray-dark text-truncate text-m">
+            <svg class="icon-gray icon-small">
+              <use xlink:href="#icon-location"></use>
+            </svg>
             <span class="inline-center">
               {{ content.field_event_location }}
             </span>
@@ -118,7 +124,9 @@
 
         {# TODO: insert group name
           <div class="text-gray-dark text-truncate">
-            <i class="custom-icons icon-group"></i>
+            <svg class="icon-gray icon-small">
+              <use xlink:href="#icon-group"></use>
+            </svg>
             <span class="inline-center"> @dev insert group name here </span>
           </div>
         #}
@@ -129,7 +137,11 @@
                 {% if visibility_icon and visibility_label %}
                     <div class="badge badge-gray-lighter badge--toggle">
                         <label>
-                            <input type="checkbox"><i class="material-icons">{{ visibility_icon }}</i><span class="badge--toggle__label">{{ visibility_label }}</span>
+                            <input type="checkbox">
+                            <svg class="icon-gray icon-small icon-badge-toggle">
+                                <use xlink:href="#icon-{{ visibility_icon }}"></use>
+                            </svg>
+                            <span class="badge--toggle__label">{{ visibility_label }}</span>
                         </label>
                     </div>
                 {% endif %}

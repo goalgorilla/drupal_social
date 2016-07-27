@@ -15,8 +15,9 @@ block pagetitle
   .container.hero-container
     .cover.cover-img.cover-img-gradient(style="background-image: url('content/images/event-hero.jpg')")  
       .hero-action-button
-        a.waves-effect.waves-dark.btn.btn-default.btn-floating(href='node-edit-event.html')
-          i.material-icons mode_edit
+        a.btn.btn-default.btn-floating.waves-effect.waves-circle(href='node-edit-event.html')
+          svg.icon-gray.icon-medium
+            use(xlink:href='#icon-edit')  
       .cover-wrap   
         h1.page-title Amsterdam Meetup
         .hero-footer
@@ -25,7 +26,8 @@ block pagetitle
               .badge.badge--toggle
                 label
                   input(type='checkbox')
-                  i.material-icons group        
+                  svg.icon-white.icon-badge-toggle
+                    use(xlink:href='#icon-community')   
                   span.badge--toggle__label community
               div
                 time.eventdate.updated June 6 2016 - 12:00 
@@ -122,6 +124,6 @@ block content
             .media-body
               form#comment-form
                 .form-group.form-group-inline
-                  textarea.form-control.form-control--block(placeholder='Add a new comment...', width='100%')
+                  textarea.form-control.form-control--block.materialize-textarea(placeholder='Add a new comment...', width='100%')
                   button.btn.btn-primary(type='submit') Comment
       

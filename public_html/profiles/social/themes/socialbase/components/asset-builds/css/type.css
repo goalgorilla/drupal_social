@@ -599,15 +599,6 @@ a.text-gray-lightest:focus {
   color: #cdcdcd;
 }
 
-.text-gray-dark {
-  color: #666666;
-}
-
-a.text-gray-dark:hover,
-a.text-gray-dark:focus {
-  color: #4d4d4d;
-}
-
 .text-accent {
   color: #ffc142;
 }
