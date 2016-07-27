@@ -2,20 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - views.view.group_members
+    - views.view.latest_topics
   module:
     - system
     - views
   theme:
     - socialbase
-id: views_block__group_members_block_newest_members
+id: views_block__latest_topics_group_topics_block
 theme: socialbase
 region: complementary
 weight: -17
 provider: null
-plugin: 'views_block:group_members-block_newest_members'
+plugin: 'views_block:latest_topics-group_topics_block'
 settings:
-  id: 'views_block:group_members-block_newest_members'
+  id: 'views_block:latest_topics-group_topics_block'
   label: ''
   provider: views
   label_display: visible

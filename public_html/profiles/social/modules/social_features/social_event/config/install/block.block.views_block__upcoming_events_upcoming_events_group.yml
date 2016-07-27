@@ -2,20 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - views.view.group_members
+    - views.view.upcoming_events
   module:
     - system
     - views
   theme:
     - socialbase
-id: views_block__group_members_block_newest_members
+id: views_block__upcoming_events_upcoming_events_group
 theme: socialbase
 region: complementary
-weight: -17
+weight: -18
 provider: null
-plugin: 'views_block:group_members-block_newest_members'
+plugin: 'views_block:upcoming_events-upcoming_events_group'
 settings:
-  id: 'views_block:group_members-block_newest_members'
+  id: 'views_block:upcoming_events-upcoming_events_group'
   label: ''
   provider: views
   label_display: visible
