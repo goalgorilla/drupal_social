@@ -1,3 +1,5 @@
+@import 'init';
+
 .waves-effect {
   position: relative;
   cursor: pointer;
@@ -30,7 +32,7 @@
     background-color: rgba(255, 255, 255, 0.45);
   }
 
-  &.waves-grey .waves-ripple {
+  &.waves-gray .waves-ripple {
     background-color: rgba(0, 0, 0, .15);
   }
 
@@ -43,10 +45,23 @@
     text-transform: inherit;
   }
 
+  img,
+  svg {
+    position: relative;
+    z-index: -1;
+  }
+
 }
 
 .waves-notransition {
   transition: none #{"!important"};
+}
+
+.waves-circle {
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+  text-align: center;
+  -webkit-mask-image: none;
 }
 
 .waves-input-wrapper {

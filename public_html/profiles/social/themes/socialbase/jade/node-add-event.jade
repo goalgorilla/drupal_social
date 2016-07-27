@@ -7,7 +7,7 @@ block content
       
   .row
   
-    #scrollspy.col-md-4.col-md-last.margin-top-complementary(role='complementary')
+    #scrollspy.col-sm-4.col-sm-last.margin-top-complementary(role='complementary')
       .toc-wrapper.hidden-print
         ul.table-of-contents.nav
           li
@@ -46,10 +46,22 @@ block content
               label Image
               .image-widget.form-managed-file.clearfix
                 input.form-control(type='file', value='upload an image')
-                button.btn.btn-default.js-hide(type='submit', value='remove')
-                  i.material-icons.pull-left file_upload
-                  | Upload
-              .help-block One file only - 2 MB limit - Allowed types: png gif jpg jpeg
+                .help-block
+                  a.icon-before(href="#upload-instructions--1", data-toggle="popover", data-html="true", data-placement="bottom", data-title="Upload requirements")
+                    span.icon.glyphicon.glyphicon-question-sign
+                    | Upload requirements
+
+                  #upload-instructions--1.hidden.help-block.form-group(aria-hidden="true")
+                    ul
+                      li Unlimited number of files can be uploaded to this field.
+                      li 2 MB limit.</li><li>Allowed types:
+                        =" "
+                        code png, gif, jpg, jpeg
+                        |.
+                      li Images larger than
+                        =" "
+                        strong 3600x3600
+                        |  pixels will be resized.
 
         #visibility.card.card-underline.scrollspy
         
@@ -150,10 +162,10 @@ block content
               label Files
               .image-widget.form-managed-file.clearfix
                 input.form-control(type='file', value='upload an image')
-                button.btn.btn-default.js-hide(type='submit', value='remove')
-                  i.material-icons.pull-left file_upload
-                  | Upload
-              .help-block 15 MB per file limit - Allowed types: xls xlsx doc 
+                .help-block
+                  a.icon-before(href="#upload-instructions--3", data-toggle="popover", data-html="true", data-placement="bottom", data-title="Upload requirements", aria-describedby="popover388085")
+                    span.icon.glyphicon.glyphicon-question-sign
+                    | Upload requirements
             
         #comment-settings.form-item.card.scrollspy.tabs-left
           ul.card-head.nav.nav-tabs.vertical-tabs-list(data-toggle="tabs")

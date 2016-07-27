@@ -51,7 +51,7 @@ drush php-eval 'node_access_rebuild()';
 
 # Add 'dev; to your install script as third argument to enable
 # development modules e.g. pause nfs dev.
-if [[ $DEV != "dev" ]]
+if [[ $DEV == "dev" ]]
 then
   drush en devel, views_ui, field_ui, dblog -y
 fi
