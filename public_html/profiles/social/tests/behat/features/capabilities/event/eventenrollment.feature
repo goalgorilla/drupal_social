@@ -80,7 +80,7 @@ Feature: Enroll for an event
     Then I should see "1 people have enrolled"
     And I should see the link "View all"
 
-  @LU @cache @kaas
+  @LU @cache
   Scenario: Successfully changed enrollment and see changes in teaser
     Given users:
       | name            | pass            | mail                        | status |
