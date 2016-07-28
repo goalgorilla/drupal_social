@@ -188,8 +188,24 @@ function social_core_preprocess_field(&$variables) {
  * Implements hook_menu_local_tasks_alter().
  */
 function social_core_menu_local_tasks_alter(&$data, $route_name) {
+  $node = \Drupal::service('current_route_match')->getParameter('node');
+  if (!is_null($node) && !is_object($node)) {
+    $node = Node::load($node);
+  }
+  if (is_object($node) && ($node->getType() === 'event' || $node->getType() === 'topic')) {
+    // Remove Edit tab. Edit will always go through Floating Edit Button.
+    if (isset($data['tabs'][0]['entity.node.edit_form'])) {
+      unset($data['tabs'][0]['entity.node.edit_form']);
+    }
+  }
   // Change the default 'View' tab title.
   if (isset($data['tabs'][0]['entity.node.canonical']['#link'])) {
     $data['tabs'][0]['entity.node.canonical']['#link']['title'] = t('Details');
   }
+
+  // Remove Delete tab. Delete will always go through Edit.
+  if (isset($data['tabs'][0]['entity.node.delete_form'])) {
+    unset($data['tabs'][0]['entity.node.delete_form']);
+  }
+
 }

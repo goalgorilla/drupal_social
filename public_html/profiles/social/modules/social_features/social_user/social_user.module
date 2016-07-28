@@ -158,4 +158,9 @@ function social_user_menu_local_tasks_alter(&$data, $route_name) {
   if (isset($data['tabs'][0]['entity.user.canonical']['#link'])) {
     $data['tabs'][0]['entity.user.canonical']['#link']['title'] = t('Stream');
   }
+
+  // Remove Edit tab. Edit will always go through Floating Edit Button.
+  if (isset($data['tabs'][0]['entity.user.edit_form'])) {
+    unset($data['tabs'][0]['entity.user.edit_form']);
+  }
 }
