@@ -15,10 +15,12 @@
       var the_submitbutton = $('#edit-submit');
 
       the_textarea.on("keydown", function(e) {
-        if (e.keyCode == 13 && e.ctrlKey) {
-          e.preventDefault();
-          the_submitbutton.prop('disabled', true);
-          the_form.submit();
+        if ($.trim(the_textarea.val()) != "") {
+          if (e.keyCode == 13 && e.ctrlKey) {
+            e.preventDefault();
+            the_submitbutton.prop('disabled', true);
+            the_form.submit();
+          }
         }
       });
     }
