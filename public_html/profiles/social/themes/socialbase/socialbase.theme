@@ -727,8 +727,9 @@ function socialbase_preprocess_node(&$variables) {
   if($node->getType() === 'event'){
     $variables['details_label'] = t('Event details');
   }
-  if($node->getType() === 'topic'){
+  if($node->getType() === 'topic') {
     $variables['details_label'] = t('Topic details');
+  }
 
   if($node->status->value == NODE_NOT_PUBLISHED){
     $variables['status_label'] = t('unpublished');
