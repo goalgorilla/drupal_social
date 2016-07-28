@@ -25,7 +25,6 @@ Feature: Edit my group as a group manager
     And I click "Test open group" in the "Main content"
     Then I should see "Test open group"
     And I should see "Description text"
-    And I should see "Edit group"
 
     When I click "Edit group"
     And I fill in "edit-field-group-description-0-value" with "Description text - edited"
