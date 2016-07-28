@@ -28,6 +28,7 @@ class PostForm extends ContentEntityForm {
     $display = $this->getFormDisplay($form_state);
     $form = parent::buildForm($form, $form_state);
     $form['#attached']['library'][] = 'social_post/visibility-settings';
+    $form['#attached']['library'][] = 'social_post/keycode-submit';
     // Default is create/add mode.
     $form['field_visibility']['widget'][0]['#edit_mode'] = FALSE;
 
