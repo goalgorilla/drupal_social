@@ -107,13 +107,13 @@ class PostForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Post.', [
+        drupal_set_message($this->t('Your post %label has been posted.', [
           '%label' => $this->entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Post.', [
+        drupal_set_message($this->t('Your post %label has been saved.', [
           '%label' => $this->entity->label(),
         ]));
     }
