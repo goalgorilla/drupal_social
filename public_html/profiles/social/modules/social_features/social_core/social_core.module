@@ -119,7 +119,7 @@ function template_preprocess_page_hero_data(&$variables) {
     $topic_type_entities = $variables['topic_type']->referencedEntities();
     if (count($topic_type_entities) === 1) {
       foreach ($topic_type_entities as $topic) {
-        $variables['topic_type'] = $topic->link();
+        $variables['topic_type'] = $topic->label();
       }
     }
     else {
