@@ -404,8 +404,14 @@ function social_group_menu_local_tasks_alter(&$data, $route_name) {
   // Hide Group "Nodes" tab.
   unset($data['tabs'][0]['gnode.collection']);
 
+  // Change the default 'View' tab title.
   if (isset($data['tabs'][0]['group.view']['#link'])) {
     $data['tabs'][0]['group.view']['#link']['title'] = t('Stream');
+  }
+
+  // Remove Edit tab. Edit will always go through Floating Edit Button.
+  if (isset($data['tabs'][0]['group.edit_form'])) {
+    unset($data['tabs'][0]['group.edit_form']);
   }
 }
 
