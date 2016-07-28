@@ -690,16 +690,21 @@ function socialbase_preprocess_node(&$variables) {
 
   // Try to add unpublished as a article class for now when nodes are published
   // or unpublished.
-  if ($variables['view_mode'] === 'teaser' || $variables['view_mode'] === 'full') {
-    if (!$variables['elements']['#node']->isPublished()) {
-      $variables['attributes']['class'][] = 'unpublished';
-    }
+  if (!$variables['elements']['#node']->isPublished()) {
+    $variables['attributes']['class'][] = 'unpublished';
   }
 
+  // Date formats.
+  $date = $variables['node']->getCreatedTime();
   if ($variables['view_mode'] === 'small_teaser') {
-    $date = $variables['node']->getCreatedTime();
     $variables['date'] = \Drupal::service('date.formatter')
-      ->format($date, 'day_month');
+      ->format($date, 'social_short_date');
+  }
+  // Teasers and activity stream.
+  $teaser_view_modes = ['teaser', 'activity', 'activity_comment'];
+  if (in_array($variables['view_mode'], $teaser_view_modes)) {
+    $variables['date'] = \Drupal::service('date.formatter')
+      ->format($date, 'social_medium_date');
   }
 
   // Content visibility.
@@ -724,6 +729,9 @@ function socialbase_preprocess_node(&$variables) {
   }
   if($node->getType() === 'topic'){
     $variables['details_label'] = t('Topic details');
+
+  if($node->status->value == NODE_NOT_PUBLISHED){
+    $variables['status_label'] = t('unpublished');
   }
 
 }

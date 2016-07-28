@@ -32,8 +32,10 @@ class GroupHeroBlock extends BlockBase {
         ->view($group, 'hero');
 
       $build['content'] = $content;
+      // Cache tags.
+      $build['#cache']['tags'][] = 'group_block:' . $group->id();
     }
-    // Cache contexts
+    // Cache contexts.
     $build['#cache']['contexts'][] = 'url.path';
 
     return $build;
