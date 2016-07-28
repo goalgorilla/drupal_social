@@ -111,7 +111,8 @@ function template_preprocess_page_hero_data(&$variables) {
   }
 
   if (isset($variables['created_date']) && !isset($variables['created_date_formatted'])) {
-    $variables['created_date_formatted'] = \Drupal::service('date.formatter')->format($variables['created_date']);
+    $variables['created_date_formatted'] = \Drupal::service('date.formatter')
+      ->format($variables['created_date'], 'social_long_date');
   }
 
   if (isset($variables['topic_type'])) {
