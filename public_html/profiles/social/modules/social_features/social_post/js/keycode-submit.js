@@ -31,7 +31,6 @@
       // Comment forms.
       $('.comment-form').each(function () {
         keySubmit($(this), $('.form-textarea', this), $('.form-submit', this));
-        $(this).addClass("foo");
       });
 
     }
