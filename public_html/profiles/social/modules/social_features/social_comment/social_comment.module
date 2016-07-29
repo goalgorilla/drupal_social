@@ -47,6 +47,7 @@ function social_comment_form_comment_form_alter(&$form, FormStateInterface $form
     $form['#title'] = t('Edit comment');
     $form['field_comment_body']['widget'][0]['#attributes']['class'][] = 'form-control materialize-textarea';
   }
+  $form['#attached']['library'][] = 'social_post/keycode-submit';
 }
 
 /**

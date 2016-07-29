@@ -1,28 +1,39 @@
 /**
-* @file
-* Handles replacing the visible value of the picked visibility setting.
-*/
+ * @file
+ * Enable CTRL+Enter to submit a form.
+ */
 
 (function ($) {
 
-'use strict';
+  'use strict';
 
   Drupal.behaviors.keycodeSubmit = {
     attach: function (context, settings) {
 
-      var the_form = $('#social-post-entity-form');
-      var the_textarea = $('#edit-field-post-0-value');
-      var the_submitbutton = $('#edit-submit');
-
-      the_textarea.on("keydown", function(e) {
-        if ($.trim(the_textarea.val()) != "") {
-          if (e.keyCode == 13 && e.ctrlKey) {
-            e.preventDefault();
-            the_submitbutton.prop('disabled', true);
-            the_form.submit();
+      // Enable CTRL+Enter to submit a form.
+      var keySubmit = function (form, textarea, submit) {
+        textarea.on("keydown", function (e) {
+          // Make sure the textarea contains text.
+          if ($.trim(textarea.val()) != "") {
+            if (e.keyCode == 13 && e.ctrlKey) {
+              e.preventDefault();
+              submit.prop('disabled', true);
+              form.submit();
+            }
           }
-        }
+        });
+      }
+
+      // Post form.
+      var postForm = $('#social-post-entity-form');
+      keySubmit($(postForm), $('.form-textarea', postForm), $('.form-submit', postForm));
+
+      // Comment forms.
+      $('.comment-form').each(function () {
+        keySubmit($(this), $('.form-textarea', this), $('.form-submit', this));
+        $(this).addClass("foo");
       });
+
     }
   };
 })(jQuery);
