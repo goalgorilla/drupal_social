@@ -86,7 +86,7 @@ class CommentNodeFormatter extends CommentDefaultFormatter {
           $output['more_link'] = $more_link;
         }
         else {
-          $more_link = $this->t('Show all :num_comments comments', $t_args);
+          $more_link = $this->t('See all :num_comments comments', $t_args);
         }
 
         $more_button = Link::fromTextAndUrl($more_link, $entity->urlInfo('canonical'));
