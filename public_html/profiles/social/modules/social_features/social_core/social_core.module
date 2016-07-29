@@ -9,6 +9,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Implements hook_theme().
@@ -119,7 +121,10 @@ function template_preprocess_page_hero_data(&$variables) {
     $topic_type_entities = $variables['topic_type']->referencedEntities();
     if (count($topic_type_entities) === 1) {
       foreach ($topic_type_entities as $topic) {
-        $variables['topic_type'] = $topic->label();
+        $topic_type_url = Url::fromRoute('view.latest_topics.page_latest_topics', array('field_topic_type_target_id' => $topic->id()));
+        $topic_type_link = Link::fromTextAndUrl($topic->label(), $topic_type_url)
+          ->toString();
+        $variables['topic_type'] = $topic_type_link;
       }
     }
     else {
