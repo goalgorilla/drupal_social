@@ -7,6 +7,8 @@
 
 use \Drupal\Core\Block\BlockPluginInterface;
 use \Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Prepares variables for node templates.
@@ -24,20 +26,24 @@ use \Drupal\Core\Form\FormStateInterface;
  *   - view_mode: View mode; e.g., 'full', 'teaser', etc.
  */
 function social_topic_preprocess_node(&$variables) {
-  if ($variables['view_mode'] === 'teaser') {
-    /* @var \Drupal\node\NodeInterface $node */
-    $node = $variables['node'];
-    if ($node->getType() === 'topic') {
-      $topic_type = $node->get('field_topic_type');
-      $topic_type_entities = $topic_type->referencedEntities();
-      if (count($topic_type_entities) === 1) {
-        foreach ($topic_type_entities as $topic) {
-          $variables['metadata'] = t('in @topic', array('@topic' => $topic->link()));
-        }
+  /* @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  if ($node->getType() === 'topic') {
+    $topic_type = $node->get('field_topic_type');
+    $topic_type_entities = $topic_type->referencedEntities();
+    if (count($topic_type_entities) === 1) {
+      foreach ($topic_type_entities as $topic) {
+        $variables['metadata'] = t('in @topic', array('@topic' => $topic->link()));
+        // Set topic type link
+        $topic_type_url = Url::fromRoute('view.latest_topics.page_latest_topics', array('field_topic_type_target_id' => $topic->id()));
+        $topic_type_link = Link::fromTextAndUrl($topic->label(), $topic_type_url)
+          ->toString();
+        $variables['topic_type'] = $topic_type_link;
       }
-      else {
-        $variables['metadata'] = NULL;
-      }
+    }
+    else {
+      $variables['metadata'] = NULL;
+      $variables['topic_type'] = NULL;
     }
   }
 }
