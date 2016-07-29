@@ -34,7 +34,7 @@ Feature: Create Post
     And I click "Edit"
     And I fill in "What's on your mind?" with "This is a community post edited."
     And I press "Post"
-   Then I should see the success message "Saved the Post."
+   Then I should see the success message "Your post has been saved."
 
         # Scenario: See post on profile stream
    When I am on "/user"
