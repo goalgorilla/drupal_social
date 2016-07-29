@@ -532,7 +532,7 @@ display:
               authenticated: authenticated
           is_grouped: true
           group_info:
-            label: 'What events do you want to see?'
+            label: 'Event status'
             description: ''
             identifier: field_event_date_value
             optional: false
