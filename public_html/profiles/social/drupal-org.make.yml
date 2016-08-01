@@ -46,7 +46,7 @@ projects:
   field_group:
     version: 1.0-rc4
   group:
-    version: 1.0-alpha4
+    version: 1.0-alpha7
   message:
     type: module
     download:
