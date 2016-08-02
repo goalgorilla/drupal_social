@@ -176,7 +176,7 @@ gulp.task('setWatch', function() {
 // ===================================================
 
 // get component scripts used for styleguide only
-gulp.task('styleguide-components', function() {
+gulp.task('script-styleguide', function() {
   return gulp.src([
     options.theme.js + "styleguide/sideNav.js",
     options.theme.js + "styleguide/jquery.timeago.min.js",
@@ -297,7 +297,7 @@ gulp.task('lint:sass', function () {
 gulp.task('connect', function() {
   connect.server({
     root: [options.rootPath.dist],
-    livereload: true,
+    livereload: false,
     port: 5000
   });
 });
@@ -321,7 +321,7 @@ gulp.task('watch:styleguide', ['setWatch', 'styleguide'], function () {
 
 gulp.task('scripts', ['copy-scripts', 'script-drupal']);
 
-gulp.task('watch:js', function () {
+gulp.task('watch:js', ['scripts'] , function () {
   return gulp.watch(options.eslint.files, ['scripts'] );
 });
 
@@ -351,4 +351,4 @@ gulp.task('deploy', ['build'], function() {
 // ===================================================
 // Run this one time when you install the project so you have all files in the dist folder
 // ===================================================
-gulp.task('init', ['images', 'content', 'libs', 'font', 'jqueryminmap', 'bootstrap-js', 'bootstrap-sass']);
+gulp.task('init', ['images', 'content', 'font', 'bootstrap-js', 'bootstrap-sass', 'scripts']);
