@@ -28,10 +28,9 @@ var gulp          = require('gulp'),
     filter        = require('gulp-filter'),
     plumber       = require('gulp-plumber'),
     deploy        = require('gulp-gh-pages'),
-
-    svgmin      = require('gulp-svgmin'),
-    svgstore    = require('gulp-svgstore'),
-    cheerio     = require('gulp-cheerio');
+    svgmin        = require('gulp-svgmin'),
+    svgstore      = require('gulp-svgstore'),
+    cheerio       = require('gulp-cheerio');
 
     var options = {};
 
@@ -56,11 +55,7 @@ options.theme = {
   build      : options.rootPath.theme + 'components/asset-builds/',
   components : options.rootPath.theme + 'components/',
   content    : options.rootPath.theme + 'content/',
-<<<<<<< HEAD
-=======
   css        : options.rootPath.theme + 'components/asset-builds/css/',
-  libs       : options.rootPath.theme + 'libs/',
->>>>>>> master
   font       : options.rootPath.theme + 'font/',
   icons      : options.rootPath.theme + 'images/icons/',
   images     : options.rootPath.theme + 'images/',
