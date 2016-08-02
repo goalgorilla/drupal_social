@@ -60,7 +60,7 @@ block content
                     #edit-field-topic-image-0-alt--description.help-block This text will be used by screen readers, search engines, or when the image cannot be loaded.
                   span.file.file--mime-image-jpeg.file--image
                     span.file-icon
-                      span.icon.glyphicon.glyphicon-picture.text-primary.material-icons image
+                      span.icon.glyphicon.glyphicon-picture
                     span.file-link
                       a.menu-item__link(href="#", type="image/jpeg; length=270186", title="Open image in new window") animals1-square.jpg
                     span.file-size 263.85 KB
@@ -186,7 +186,7 @@ block content
                           input(type="hidden")
                           span.file.file--mime-application-pdf.file--application-pdf
                             span.file-icon
-                              span.icon.glyphicon.glyphicon-file.text-primary.material-icons insert_drive_file
+                              span.icon.glyphicon.glyphicon-file
                             span.file-link
                               a.menu-item__link(href="#", type="application/pdf;, length=480544", title="Open file in new window") Very-important-document.pdf
                             span.file-size 412.28 KB
@@ -224,7 +224,7 @@ block content
                           input(type="hidden")
                           span.file.file--mime-application-pdf.file--application-pdf
                             span.file-icon
-                              span.icon.glyphicon.glyphicon-file.text-primary.material-icons insert_drive_file
+                              span.icon.glyphicon.glyphicon-file
                             span.file-link
                               a.menu-item__link(href="#", type="application/pdf;, length=480544", title="Open file in new window") Very-important-document.pdf
                             span.file-size 469.28 KB
@@ -257,12 +257,9 @@ block content
               label Add a new file
               .form-managed-file.clearfix
                 input.form-control(type='file', value='upload an image')
-                button.btn.form-submit.btn-default.js-hide(type='submit', value='remove')
-                  i.material-icons.pull-left file_upload
-                  | Upload
-                //.help-block 15 MB per file limit - Allowed types: xls xlsx doc
-                div#edit-field-topic-image-1-upload--description.description.help-block
-                  a.icon-before(href="#upload-instructions--3", data-icon-type="help", data-toggle="popover", data-html="true", data-placement="bottom", data-title="Upload requirements", aria-describedby="popover388085")
+                .help-block
+                  a.icon-before(href="#upload-instructions--3", data-toggle="popover", data-html="true", data-placement="bottom", data-title="Upload requirements", aria-describedby="popover388085")
+                    span.icon.glyphicon.glyphicon-question-sign
                     | Upload requirements
 
                   div#upload-instructions--3.hidden.help-block.form-group.popover(aria-hidden="true")

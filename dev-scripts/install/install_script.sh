@@ -9,6 +9,7 @@ cd /var/www/html/;
 
 LOCAL=$1
 NFS=$2
+DEV=$3
 
 fn_sleep() {
   if [[ $LOCAL != "nopause" ]]
@@ -36,7 +37,7 @@ drush pm-enable social_demo -y
 fn_sleep
 echo "enabled module"
 drush cc drush
-drush sda file user group topic event eventenrollment comment post # Add the demo content
+drush sda file user group topic event eventenrollment post comment # Add the demo content
 #drush sdr eventenrollment topic event post comment group user file # Remove the demo content
 drush pm-uninstall social_demo -y
 fn_sleep
@@ -47,3 +48,10 @@ drush queue-run activity_creator_activities
 fn_sleep
 echo "Rebuild node access"
 drush php-eval 'node_access_rebuild()';
+
+# Add 'dev; to your install script as third argument to enable
+# development modules e.g. pause nfs dev.
+if [[ $DEV == "dev" ]]
+then
+  drush en devel, views_ui, field_ui, dblog -y
+fi
