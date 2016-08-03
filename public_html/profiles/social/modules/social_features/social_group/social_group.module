@@ -14,6 +14,7 @@ use Drupal\views\Plugin\views\cache\CachePluginBase;
 use Drupal\Core\Url;
 use Drupal\Core\Cache\Cache;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Block\BlockPluginInterface;
 
 /**
  * @file
@@ -400,6 +401,10 @@ function social_group_menu_local_tasks_alter(&$data, $route_name) {
         unset($data['tabs'][0]['social_group.members']);
       }
     }
+    // For User 1 we will show membership management interface.
+    if ($account->id() == 1) {
+      unset($data['tabs'][0]['social_group.members']);
+    }
   }
   // Hide Group "Nodes" tab.
   unset($data['tabs'][0]['gnode.collection']);
@@ -498,4 +503,13 @@ function _social_group_cache_tags(GroupInterface $group) {
   }
 
   return $tags;
+}
+
+/**
+ * Implements hook_block_view_BASE_BLOCK_ID_alter().
+ *
+ * Add Group cache context for system "Tabs" block.
+ */
+function social_group_block_view_local_tasks_block_alter(array &$build, BlockPluginInterface $block) {
+  $build['#cache']['contexts'][] = 'group_membership.roles.permissions';
 }
