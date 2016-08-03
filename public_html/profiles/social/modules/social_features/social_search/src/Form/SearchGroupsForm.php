@@ -38,7 +38,7 @@ class SearchGroupsForm extends FormBase {
     $form['actions'] = array('#type' => 'actions');
     $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Search'),
+      '#value' => t('Search Groups'),
     );
 
     return $form;
