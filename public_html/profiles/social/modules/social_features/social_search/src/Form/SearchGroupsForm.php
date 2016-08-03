@@ -30,7 +30,7 @@ class SearchGroupsForm extends FormBase {
       '#type' => 'textfield',
     );
 
-    // Prefill search input on the search content page.
+    // Prefill search input on the search group page.
     if (\Drupal::routeMatch()->getRouteName() == 'view.search_groups.page') {
       $form['search_input_groups']['#default_value'] = \Drupal::routeMatch()->getParameter('keys');
     }
@@ -49,15 +49,15 @@ class SearchGroupsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if (empty($form_state->getValue('search_input_groups'))) {
-      // Redirect to the search content page with empty search values.
-      $search_content_page = Url::fromRoute('view.search_groups.page_no_value');
+      // Redirect to the search group page with empty search values.
+      $search_group_page = Url::fromRoute('view.search_groups.page_no_value');
     }
     else {
       // Redirect to the search content page with filters in the GET parameters.
       $search_input = $form_state->getValue('search_input_groups');
-      $search_content_page = Url::fromRoute('view.search_groups.page', array('keys' => $search_input));
+      $search_group_page = Url::fromRoute('view.search_groups.page', array('keys' => $search_input));
     }
-    $redirect_path = $search_content_page->toString();
+    $redirect_path = $search_group_page->toString();
 
     $query = UrlHelper::filterQueryParameters(\Drupal::request()->query->all());
 

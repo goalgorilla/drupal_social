@@ -10,7 +10,7 @@ dependencies:
     - search_api.server.social_database
 id: social_groups
 name: 'Social Groups'
-description: ''
+description: 'Default group index created for the Social distribution.'
 read_only: false
 field_settings:
   search_api_language:
