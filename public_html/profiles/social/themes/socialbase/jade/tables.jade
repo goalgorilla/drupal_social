@@ -13,7 +13,7 @@ html(lang="en")
 
       .container
         .row
-          .col-xs-12.col-sm-8.col-md-10
+          .col-xs-12.col-sm-8.col-md-9
             #table.section.scrollspy
               h2.header Table
               p
@@ -138,7 +138,8 @@ html(lang="en")
                   </table>
                   
 
-          #scrollspy.col-sm-4.col-md-2.hidden-xs
+          #scrollspy.col-md-3.col-md-last(role='complementary')
+           
             .toc-wrapper
               ul.section.table-of-contents.nav
                 li
@@ -149,24 +150,3 @@ html(lang="en")
 
   
     include ./layout/_scripts.jade
-    script(src="libs/date_picker/picker.js")
-    script(src="libs/date_picker/picker.date.js")
-    link(href='libs/noUiSlider/nouislider.css', rel='stylesheet')
-    script(src="libs/noUiSlider/nouislider.js")
-    script(type='text/javascript').
-      var slider = document.getElementById('range-input');
-      noUiSlider.create(slider, {
-       start: [20, 80],
-       connect: true,
-       step: 1,
-       range: {
-         'min': 0,
-         'max': 100
-       },
-       format: wNumb({
-         decimals: 0
-       })
-      });
-      (function($){
-        $('.datepicker').pickadate({selectYears: 20});
-      })(jQuery); // end of jQuery name space

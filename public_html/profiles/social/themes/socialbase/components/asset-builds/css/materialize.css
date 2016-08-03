@@ -440,7 +440,6 @@ a:hover, a:focus {
 }
 
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -587,7 +586,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -4359,7 +4357,6 @@ span.form-required {
 }
 
 .hero-form[role='search'] .search-icon svg {
-  margin-top: 7px;
   width: 24px;
   height: 24px;
 }
@@ -4793,7 +4790,6 @@ hr.ruler-l {
 }
 
 .navbar-form[role='search'] .search-icon svg {
-  margin-top: 7px;
   width: 24px;
   height: 24px;
 }

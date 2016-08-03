@@ -1,18 +1,21 @@
-script(src='js/vendor.js')
 script(src='js/drupal-core.js')
-script(src='js/bootstrap.min.js')
-script(src='js/components.js')
-script(src='js/materialize.js')
+script(src='js/contrib/bootstrap.min.js')
+script(src='js/contrib/waves/waves.js')
+script(src='js/custom/offcanvas.js')
+script(src='js/custom/textarea-autogrow.js')
+script(src='js/custom/navbar-search.js')
 script(src='js/init.js')
 
 if pagetype == "template"
+
+  script(src='js/custom/navbar-search.js')
 
   script.
     new UISearch( document.getElementById( 'navbar-search' ) );
 
 else
   
-  script(src='js/prism.js')
+  script(src='js/contrib/prism/prism.js')
   script(src='js/styleguide.js')
   script(src='js/init-styleguide.js')
   script.
