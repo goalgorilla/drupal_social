@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Storage\GroupContentStorageInterface.
- */
-
 namespace Drupal\group\Entity\Storage;
 
 use Drupal\Core\Entity\ContentEntityStorageInterface;
@@ -20,7 +15,7 @@ interface GroupContentStorageInterface extends ContentEntityStorageInterface {
    *
    * @param \Drupal\group\Entity\GroupInterface $group
    *   The group entity to load the group content entities for.
-   * @param string $content_enabler
+   * @param string $plugin_id
    *   (optional) A content enabler plugin ID to filter on.
    * @param array $filters
    *   (optional) An associative array of extra filters where the keys are
@@ -29,6 +24,6 @@ interface GroupContentStorageInterface extends ContentEntityStorageInterface {
    * @return \Drupal\group\Entity\GroupContentInterface[]
    *   A list of GroupContent entities matching the criteria.
    */
-  public function loadByGroup(GroupInterface $group, $content_enabler = NULL, $filters = []);
+  public function loadByGroup(GroupInterface $group, $plugin_id = NULL, $filters = []);
 
 }

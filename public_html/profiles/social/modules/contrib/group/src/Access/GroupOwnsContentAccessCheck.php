@@ -1,16 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Access\GroupOwnsContentAccessCheck.
- */
-
 namespace Drupal\group\Access;
 
 use Drupal\group\Entity\GroupInterface;
 use Drupal\group\Entity\GroupContentInterface;
 use Drupal\Core\Access\AccessResult;
-// @todo Follow up on https://www.drupal.org/node/2266817.
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;

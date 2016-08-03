@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\GroupContentEnablerManager.
- */
-
 namespace Drupal\group\Plugin;
 
 use Drupal\Core\Cache\Cache;
@@ -114,7 +109,7 @@ class GroupContentEnablerManager extends DefaultPluginManager implements GroupCo
   public function getInstalled() {
     // Retrieve a vanilla instance of all known content enabler plugins.
     $plugins = clone $this->getAll();
-    
+
     // Retrieve all installed content enabler plugin IDs.
     $installed = $this->getInstalledIds();
 
@@ -286,5 +281,5 @@ class GroupContentEnablerManager extends DefaultPluginManager implements GroupCo
     // definitions change, so we can safely reset that here.
     $this->allPlugins = NULL;
   }
-  
+
 }

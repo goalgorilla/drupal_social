@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Access\GroupPermissionsHashGenerator.
- */
-
 namespace Drupal\group\Access;
 
 use Drupal\Core\Cache\Cache;

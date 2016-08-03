@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Cache\Context\GroupCacheContextBase.
- */
-
 namespace Drupal\group\Cache\Context;
 
 use Drupal\Core\Routing\RouteMatchInterface;

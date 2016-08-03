@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @file
- * Contains \Drupal\group\ProxyClass\UninstallValidator\GroupContentUninstallValidator.
- */
-
-/**
  * This file was generated via php core/scripts/generate-proxy-class.php 'Drupal\group\UninstallValidator\GroupContentUninstallValidator' "modules/group/src".
  */
 

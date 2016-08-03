@@ -1,0 +1,5 @@
+services:
+  access_check.gnode.add:
+    class: Drupal\gnode\Access\GroupNodeAddAccessCheck
+    tags:
+      - { name: access_check, applies_to: _group_node_add_access }

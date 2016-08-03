@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\views\relationship\GroupContentToEntity.
- */
-
 namespace Drupal\group\Plugin\views\relationship;
 
 use Drupal\Core\Form\FormStateInterface;

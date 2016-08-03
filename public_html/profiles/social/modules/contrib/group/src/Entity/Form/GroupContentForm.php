@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\group\Entity\Form\GroupContentForm.
- */
 
 namespace Drupal\group\Entity\Form;
 
@@ -42,6 +38,12 @@ class GroupContentForm extends ContentEntityForm {
       ];
     }
 
+    // Do not allow to edit the group content subject through the UI.
+    // @todo Perhaps make this configurable per plugin.
+    if ($this->operation !== 'add') {
+      $form['entity_id']['#access'] = FALSE;
+    }
+
     return $form;
   }
 
@@ -51,14 +53,13 @@ class GroupContentForm extends ContentEntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     $return = parent::save($form, $form_state);
 
+    /** @var \Drupal\group\Entity\GroupContent $group_content */
+    $group_content = $this->getEntity();
+
     // The below redirect ensures the user will be redirected to the entity this
     // form was for. But only if there was no destination set in the URL.
-    $route_name = $this->getContentPlugin()->getRouteName('canonical');
-    $route_params = [
-      'group' => $this->getEntity()->getGroup()->id(),
-      'group_content' => $this->getEntity()->id(),
-    ];
-    $form_state->setRedirect($route_name, $route_params);
+    $route_params = ['group' => $group_content->getGroup()->id(), 'group_content' => $group_content->id()];
+    $form_state->setRedirect('entity.group_content.canonical', $route_params);
 
     return $return;
   }

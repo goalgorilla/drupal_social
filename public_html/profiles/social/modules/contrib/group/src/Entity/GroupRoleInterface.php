@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupRoleInterface.
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -81,6 +76,14 @@ interface GroupRoleInterface extends ConfigEntityInterface {
    */
   public function getGroupTypeId();
 
+  /**
+   * Returns whether the role shows up in the default permissions UI.
+   *
+   * @return bool
+   *   Whether the role shows up in the default permissions UI.
+   */
+  public function inPermissionsUI();
+  
   /**
    * Returns a list of permissions assigned to the role.
    *

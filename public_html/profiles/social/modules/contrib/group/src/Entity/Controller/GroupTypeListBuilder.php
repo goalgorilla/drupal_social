@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\GroupTypeListBuilder.
- */
-
 namespace Drupal\group\Entity\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;

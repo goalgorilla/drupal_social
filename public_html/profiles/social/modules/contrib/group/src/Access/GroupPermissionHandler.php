@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Access\GroupPermissionHandler.
- */
-
 namespace Drupal\group\Access;
 
 use Drupal\Component\Discovery\YamlDiscovery;
@@ -12,6 +7,8 @@ use Drupal\Core\Controller\ControllerResolverInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\group\Entity\GroupTypeInterface;
+use Drupal\group\Plugin\GroupContentEnablerManagerInterface;
 
 /**
  * Provides the available permissions based on yml files.
@@ -74,6 +71,13 @@ class GroupPermissionHandler implements GroupPermissionHandlerInterface {
   protected $controllerResolver;
 
   /**
+   * The group content enabler plugin manager.
+   *
+   * @var \Drupal\group\Plugin\GroupContentEnablerManagerInterface
+   */
+  protected $pluginManager;
+  
+  /**
    * Constructs a new PermissionHandler.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
@@ -82,11 +86,14 @@ class GroupPermissionHandler implements GroupPermissionHandlerInterface {
    *   The string translation.
    * @param \Drupal\Core\Controller\ControllerResolverInterface $controller_resolver
    *   The controller resolver.
+   * @param \Drupal\group\Plugin\GroupContentEnablerManagerInterface $plugin_manager
+   *   The group content enabler plugin manager.
    */
-  public function __construct(ModuleHandlerInterface $module_handler, TranslationInterface $string_translation, ControllerResolverInterface $controller_resolver) {
+  public function __construct(ModuleHandlerInterface $module_handler, TranslationInterface $string_translation, ControllerResolverInterface $controller_resolver, GroupContentEnablerManagerInterface $plugin_manager) {
     $this->moduleHandler = $module_handler;
     $this->stringTranslation = $string_translation;
     $this->controllerResolver = $controller_resolver;
+    $this->pluginManager = $plugin_manager;
   }
 
   /**
@@ -105,15 +112,54 @@ class GroupPermissionHandler implements GroupPermissionHandlerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPermissions() {
+  public function getPermissions($include_plugins = FALSE) {
     $all_permissions = $this->buildPermissionsYaml();
+
+    // Add the plugin defined permissions to the whole. We query all defined
+    // plugins to avoid scenarios where modules want to ship with default
+    // configuration but can't because their plugins may not be installed along
+    // with the module itself (i.e.: non-enforced plugins).
+    if ($include_plugins) {
+      foreach ($this->pluginManager->getAll() as $plugin) {
+        /** @var \Drupal\group\Plugin\GroupContentEnablerInterface $plugin */
+        foreach ($plugin->getPermissions() as $permission_name => $permission) {
+          $permission += ['provider' => $plugin->getProvider()];
+          $all_permissions[$permission_name] = $this->completePermission($permission);
+        }
+      }
+    }
+
     return $this->sortPermissions($all_permissions);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function completePermission($permission) {
+  public function getPermissionsByGroupType(GroupTypeInterface $group_type) {
+    $all_permissions = $this->buildPermissionsYaml();
+
+    // Add the plugin defined permissions to the whole.
+    foreach ($group_type->getInstalledContentPlugins() as $plugin) {
+      /** @var \Drupal\group\Plugin\GroupContentEnablerInterface $plugin */
+      foreach ($plugin->getPermissions() as $permission_name => $permission) {
+        $permission += ['provider' => $plugin->getProvider()];
+        $all_permissions[$permission_name] = $this->completePermission($permission);
+      }
+    }
+
+    return $this->sortPermissions($all_permissions);
+  }
+
+  /**
+   * Completes a permission by adding in defaults and translating its strings.
+   *
+   * @param array $permission
+   *   The raw permission to complete.
+   *
+   * @return array
+   *   A permission which is guaranteed to have all the required keys set.
+   */
+  protected function completePermission($permission) {
     $permission += [
       'title_args' => [],
       'description' => '',

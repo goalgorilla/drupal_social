@@ -1,26 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupContentTypeInterface.
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Core\Entity\EntityDescriptionInterface;
 
 /**
  * Provides an interface defining a group content type entity.
  */
-interface GroupContentTypeInterface extends ConfigEntityInterface {
-
-  /**
-   * Gets the description.
-   *
-   * @return string
-   *   The description of this group content type.
-   */
-  public function getDescription();
+interface GroupContentTypeInterface extends ConfigEntityInterface, EntityDescriptionInterface {
 
   /**
    * Gets the group type the content type was created for.

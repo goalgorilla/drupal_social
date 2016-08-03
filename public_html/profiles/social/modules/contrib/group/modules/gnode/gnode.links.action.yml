@@ -1,0 +1,11 @@
+group_content.group_node_relate_page:
+  route_name: 'entity.group_content.group_node_relate_page'
+  title: 'Relate node'
+  appears_on:
+    - 'view.group_nodes.page_1'
+
+group_content.group_node_add_page:
+  route_name: 'entity.group_content.group_node_add_page'
+  title: 'Create node'
+  appears_on:
+    - 'view.group_nodes.page_1'

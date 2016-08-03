@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupContentInterface.
- */
 
 namespace Drupal\group\Entity;
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\GroupMembershipLoader.
- */
-
 namespace Drupal\group;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Annotation\GroupContentEnabler.
- */
-
 namespace Drupal\group\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
@@ -69,15 +64,11 @@ class GroupContentEnabler extends Plugin {
   /**
    * (optional) The key to use in automatically generated paths.
    *
-   * This will be used by the base content enabler plugin to generate common
-   * paths with. If left blank, no paths will be generated for you and you have
-   * to specify them yourself in GroupContentEnablerInterface::getPaths().
+   * Will be added to the entity tokens so modules like Pathauto may use it.
    *
    * @var string
-   *
-   * @see \Drupal\group\Plugin\GroupContentEnablerBase::getPaths()
    */
-  public $pathKey;
+  public $pretty_path_key;
 
   /**
    * (optional) Whether this plugin is always on.

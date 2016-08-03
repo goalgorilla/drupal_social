@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupType.
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\group\Plugin\GroupContentEnablerCollection;
@@ -19,6 +14,12 @@ use Drupal\Core\Entity\EntityStorageInterface;
  * @ConfigEntityType(
  *   id = "group_type",
  *   label = @Translation("Group type"),
+ *   label_singular = @Translation("group type"),
+ *   label_plural = @Translation("group types"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count group type",
+ *     plural = "@count group types"
+ *   ),
  *   handlers = {
  *     "access" = "Drupal\group\Entity\Access\GroupTypeAccessControlHandler",
  *     "form" = {
@@ -100,6 +101,14 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
    */
   public function getDescription() {
     return $this->description;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDescription($description) {
+    $this->description = $description;
+    return $this;
   }
 
   /**
@@ -201,6 +210,7 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
         'label' => t('Anonymous'),
         'weight' => -102,
         'internal' => TRUE,
+        'audience' => 'anonymous',
         'group_type' => $group_type_id,
       ])->save();
       GroupRole::create([
@@ -208,6 +218,7 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
         'label' => t('Outsider'),
         'weight' => -101,
         'internal' => TRUE,
+        'audience' => 'outsider',
         'group_type' => $group_type_id,
       ])->save();
       GroupRole::create([
@@ -295,21 +306,6 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
     // Run the post install tasks on the plugin.
     $plugin->postInstall();
 
-    // Rebuild the routes if the plugin defines any.
-    if (!empty($plugin->getRoutes())) {
-      \Drupal::service('router.builder')->setRebuildNeeded();
-    }
-
-    // Rebuild the local actions if the plugin defines any.
-    if (!empty($plugin->getLocalActions())) {
-      \Drupal::service('plugin.manager.menu.local_action')->clearCachedDefinitions();
-    }
-
-    // Clear the entity type cache if the plugin adds to the GroupContent info.
-    if (!empty($plugin->getEntityForms())) {
-      $this->entityTypeManager()->clearCachedDefinitions();
-    }
-
     return $this;
   }
 
@@ -318,11 +314,14 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
    */
   public function updateContentPlugin($plugin_id, array $configuration) {
     if ($this->hasContentPlugin($plugin_id)) {
-      // @todo Refactor the way GroupContentEnablerBase saves config.
       $plugin = $this->getContentPlugin($plugin_id);
-      $old = $plugin->getConfiguration();
-      $old['data'] = $configuration + $old['data'];
-      $this->getInstalledContentPlugins()->setInstanceConfiguration($plugin_id, $old);
+      
+      // Merge in the new configuration with the old. @todo Merge deep?
+      $old_conf = $plugin->getConfiguration();
+      $new_conf['data'] = $configuration + $old_conf['data'];
+      
+      // Set the new configuration and save the group type.
+      $this->getInstalledContentPlugins()->setInstanceConfiguration($plugin_id, $new_conf);
       $this->save();
     }
   }

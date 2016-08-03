@@ -1,5 +1,5 @@
 group.add_group:
-  route_name: 'group.group_add_page'
+  route_name: 'entity.group.add_page'
   title: 'Add group'
   appears_on:
     - 'entity.group.collection'
@@ -16,6 +16,17 @@ group.add_group_role:
   appears_on:
     - 'entity.group_role.collection'
 
-group_content.dynamic:
-  class: '\Drupal\group\Plugin\Menu\LocalAction\GroupContentDynamic'
-  deriver: '\Drupal\group\Plugin\Menu\LocalAction\GroupContentDynamicDeriver'
+group.add_member:
+  route_name: 'entity.group_content.add_form'
+  route_parameters:
+    plugin_id: 'group_membership'
+  class: '\Drupal\group\Plugin\Menu\LocalAction\WithDestination'
+  title: 'Add member'
+  appears_on:
+    - 'view.group_members.page_1'
+
+group_content.add_page:
+  route_name: 'entity.group_content.add_page'
+  title: 'Add entity relation'
+  appears_on:
+    - 'entity.group_content.collection'

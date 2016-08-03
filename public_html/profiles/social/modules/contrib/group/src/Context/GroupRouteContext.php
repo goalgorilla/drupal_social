@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Context\GroupRouteContext.
- */
-
 namespace Drupal\group\Context;
 
 use Drupal\Core\Cache\CacheableMetadata;

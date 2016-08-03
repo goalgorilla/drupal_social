@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Storage\GroupRoleStorage.
- */
-
 namespace Drupal\group\Entity\Storage;
 
 use Drupal\Component\Uuid\UuidInterface;

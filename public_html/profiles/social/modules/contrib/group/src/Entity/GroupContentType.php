@@ -1,12 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupContentType.
- *
- * @todo Create these automatically for fixed plugins!
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
@@ -18,6 +11,12 @@ use Drupal\Core\Entity\EntityStorageInterface;
  * @ConfigEntityType(
  *   id = "group_content_type",
  *   label = @Translation("Group content type"),
+ *   label_singular = @Translation("group content type"),
+ *   label_plural = @Translation("group content types"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count group content type",
+ *     plural = "@count group content types"
+ *   ),
  *   handlers = {
  *     "access" = "Drupal\group\Entity\Access\GroupContentTypeAccessControlHandler",
  *     "form" = {
@@ -97,6 +96,14 @@ class GroupContentType extends ConfigEntityBundleBase implements GroupContentTyp
   /**
    * {@inheritdoc}
    */
+  public function setDescription($description) {
+    $this->description = $description;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getGroupType() {
     return GroupType::load($this->group_type);
   }
@@ -130,7 +137,7 @@ class GroupContentType extends ConfigEntityBundleBase implements GroupContentTyp
       ->getStorage('group_content_type')
       ->loadByProperties(['content_plugin' => $plugin_id]);
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -166,7 +173,9 @@ class GroupContentType extends ConfigEntityBundleBase implements GroupContentTyp
       // When a new GroupContentType is saved, we clear the views data cache to
       // make sure that all of the views data which relies on group content
       // types is up to date.
-      \Drupal::service('views.views_data')->clear();
+      if (\Drupal::moduleHandler()->moduleExists('views')) {
+        \Drupal::service('views.views_data')->clear();
+      }
 
       /** @var \Drupal\group\Plugin\GroupContentEnablerManagerInterface $plugin_manager */
       $plugin_manager = \Drupal::service('plugin.manager.group_content_enabler');
@@ -199,7 +208,9 @@ class GroupContentType extends ConfigEntityBundleBase implements GroupContentTyp
     // When a GroupContentType is deleted, we clear the views data cache to make
     // sure that all of the views data which relies on group content types is up
     // to date.
-    \Drupal::service('views.views_data')->clear();
+    if (\Drupal::moduleHandler()->moduleExists('views')) {
+      \Drupal::service('views.views_data')->clear();
+    }
 
     /** @var \Drupal\group\Plugin\GroupContentEnablerManagerInterface $plugin_manager */
     $plugin_manager = \Drupal::service('plugin.manager.group_content_enabler');

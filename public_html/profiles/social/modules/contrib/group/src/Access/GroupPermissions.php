@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Access\GroupPermissions.
- */
-
 namespace Drupal\group\Access;
 
 use Drupal\Core\Routing\UrlGeneratorTrait;
