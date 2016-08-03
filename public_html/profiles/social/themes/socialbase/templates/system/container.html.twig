@@ -17,6 +17,7 @@
  * @see template_preprocess_container()
  */
 #}
+
 {%
   set classes = [
     not attributes.hasClass('toolbar-menu-administration') ? 'form-group',
@@ -26,12 +27,17 @@
     attributes.hasClass('field--name-field-comment-body') ? 'media-body',
   ]
 %}
-{% if search_context %}
-  {{ children }}
+{% if modal_actions %}
+ <div{{ attributes.addClass('modal-footer') }}>{{ children }}</div>
 {% else %}
-  {% if attributes.hasClass('more-link') %}
-    <div{{ attributes.addClass('btn btn-block btn-link') }}>{{ children }}</div>
-  {% else %}
+
+  {% if search_context %}
     {{ children }}
+  {% else %}
+    {% if attributes.hasClass('more-link') %}
+      <div{{ attributes.addClass('btn btn-block btn-link') }}>{{ children }}</div>
+    {% else %}
+      {{ children }}
+    {% endif %}
   {% endif %}
 {% endif %}

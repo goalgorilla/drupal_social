@@ -74,3 +74,8 @@ waves:
   css:
     component:
       components/asset-builds/css/waves.css: {}
+
+modals:
+  css:
+    component:
+      components/asset-builds/css/modals.css: {}

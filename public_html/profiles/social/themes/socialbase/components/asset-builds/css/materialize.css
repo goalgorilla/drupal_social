@@ -2542,7 +2542,7 @@ a.label:hover, a.label:focus {
 .close {
   float: right;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 500;
   line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
@@ -6720,6 +6720,15 @@ input[type=range]:focus::-ms-fill-upper {
   }
   .form-group-inline .btn:last-child{
     margin-left: 8px;
+  }
+  .form-inline .radio input[type="radio"],
+  .form-inline .checkbox input[type="checkbox"]{
+    position: absolute;
+  }
+  .form-inline .radio label,
+  .form-inline .checkbox label{
+    padding-left: 22px;
+    margin-right: 25px;
   }
   #edit-pass .password-strength,
   #edit-pass div.password-confirm{
