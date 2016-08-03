@@ -429,8 +429,9 @@ function social_group_local_tasks_alter(&$local_tasks) {
  * Implements hook_menu_local_actions_alter().
  */
 function social_group_menu_local_actions_alter(&$local_actions) {
+  // Remove "Add Relationship" button.
   if(isset($local_actions['group_content.add_page'])){
-    $local_actions['group_content.add_page']['title'] = t('Add member');
+    unset($local_actions['group_content.add_page']);
   }
 }
 

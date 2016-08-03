@@ -9,8 +9,17 @@ id: group.open_group.default
 targetEntityType: group
 bundle: open_group
 mode: default
-content: {  }
+content:
+  label:
+    label: hidden
+    type: string
+    weight: -5
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
+  changed: true
+  created: true
   field_group_description: true
   field_group_image: true
   uid: true

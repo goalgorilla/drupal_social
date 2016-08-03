@@ -43,7 +43,7 @@ class RouteSubscriber extends RouteSubscriberBase {
     }
 
     // Override default title for Groups "Add Member" page.
-    if ($route = $collection->get('entity.group_content.group_membership.add_form')) {
+    if ($route = $collection->get('entity.group_content.add_form')) {
       $defaults = $route->getDefaults();
       $defaults['_title_callback'] = '\Drupal\social_group\Controller\SocialGroupController::groupAddMemberTitle';
       $route->setDefaults($defaults);

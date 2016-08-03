@@ -9,6 +9,7 @@ dependencies:
   module:
     - field_group
     - image
+    - path
     - text
 third_party_settings:
   field_group:
@@ -51,6 +52,11 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden:
   uid: true
