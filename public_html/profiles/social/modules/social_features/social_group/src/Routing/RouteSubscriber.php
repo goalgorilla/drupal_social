@@ -26,7 +26,7 @@ class RouteSubscriber extends RouteSubscriberBase {
     }
 
     // Route the group members page to the group/{group}/membership.
-    if ($route = $collection->get('entity.group_content.group_membership.collection')) {
+    if ($route = $collection->get('entity.group_content.collection')) {
       // Override default title for Group Membership page.
       $defaults = $route->getDefaults();
       $defaults['_title_callback'] = '\Drupal\social_group\Controller\SocialGroupController::groupMembersTitle';
