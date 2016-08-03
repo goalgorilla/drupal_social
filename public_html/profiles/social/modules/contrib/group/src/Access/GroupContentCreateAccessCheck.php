@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Access\GroupContentAddAccessCheck.
- */
-
 namespace Drupal\group\Access;
 
 use Drupal\group\Entity\GroupInterface;
@@ -17,7 +12,7 @@ use Symfony\Component\Routing\Route;
 /**
  * Determines access for group content creation.
  */
-class GroupContentAddAccessCheck implements AccessInterface {
+class GroupContentCreateAccessCheck implements AccessInterface {
 
   /**
    * The entity manager.
@@ -39,31 +34,38 @@ class GroupContentAddAccessCheck implements AccessInterface {
   /**
    * Checks access for group content creation routes.
    *
-   * All routes using this access check should have a group parameter and have
-   * the group content plugin set in the _group_content_add_access requirement.
+   * All routes using this access check should have a group and plugin_id
+   * parameter and have the _group_content_create_access requirement set to
+   * either 'TRUE' or 'FALSE'.
    *
    * @param \Symfony\Component\Routing\Route $route
    *   The route to check against.
    * @param \Drupal\Core\Session\AccountInterface $account
    *   The currently logged in account.
    * @param \Drupal\group\Entity\GroupInterface $group
-   *   (optional) The group type. If not specified, access is allowed if there
-   *   exists at least one group type for which the user may create a group.
+   *   The group in which the content should be created.
+   * @param string $plugin_id
+   *   The group content enabler ID to use for the group content entity.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.
    */
-  public function access(Route $route, AccountInterface $account, GroupInterface $group) {
-    $group_content_enabler = $route->getRequirement('_group_content_add_access');
+  public function access(Route $route, AccountInterface $account, GroupInterface $group, $plugin_id) {
+    $needs_access = $route->getRequirement('_group_content_create_access') === 'TRUE';
 
     // We can only get the group content type ID if the plugin is installed.
-    if ($group->getGroupType()->hasContentPlugin($group_content_enabler)) {
-      $group_content_type_id = $group->getGroupType()->getContentPlugin($group_content_enabler)->getContentTypeConfigId();
-      $access_control_handler = $this->entityTypeManager->getAccessControlHandler('group_content');
-      return $access_control_handler->createAccess($group_content_type_id, $account, ['group' => $group], TRUE);
+    if (!$group->getGroupType()->hasContentPlugin($plugin_id)) {
+      return AccessResult::neutral();
     }
 
-    return AccessResult::forbidden();
+    // Determine whether the user can create group content using the plugin.
+    $group_content_type_id = $group->getGroupType()->getContentPlugin($plugin_id)->getContentTypeConfigId();
+    $access_control_handler = $this->entityTypeManager->getAccessControlHandler('group_content');
+    $access = $access_control_handler->createAccess($group_content_type_id, $account, ['group' => $group]);
+
+    // Only allow access if the user can create group content using the
+    // provided plugin or if he doesn't need access to do so.
+    return AccessResult::allowedIf($access xor !$needs_access);
   }
 
 }

@@ -1,9 +1,4 @@
 services:
-  access_check.group.add:
-    class: 'Drupal\group\Access\GroupAddAccessCheck'
-    arguments: ['@entity.manager']
-    tags:
-      - { name: 'access_check', applies_to: '_group_add_access' }
   access_check.group.permission:
     class: 'Drupal\group\Access\GroupPermissionAccessCheck'
     tags:
@@ -20,11 +15,16 @@ services:
     class: 'Drupal\group\Access\GroupOwnsContentAccessCheck'
     tags:
       - { name: 'access_check', applies_to: '_group_owns_content' }
-  access_check.group_content.add:
-    class: 'Drupal\group\Access\GroupContentAddAccessCheck'
+  access_check.group_content.create:
+    class: 'Drupal\group\Access\GroupContentCreateAccessCheck'
     arguments: ['@entity.manager']
     tags:
-      - { name: 'access_check', applies_to: '_group_content_add_access' }
+      - { name: 'access_check', applies_to: '_group_content_create_access' }
+  access_check.group_content.create_any:
+    class: 'Drupal\group\Access\GroupContentCreateAnyAccessCheck'
+    arguments: ['@entity.manager']
+    tags:
+      - { name: 'access_check', applies_to: '_group_content_create_any_access' }
 
   cache_context.group:
     class: 'Drupal\group\Cache\Context\GroupCacheContext'
@@ -73,7 +73,7 @@ services:
     arguments: ['@entity_type.manager', '@current_user']
   group.permissions:
     class: 'Drupal\group\Access\GroupPermissionHandler'
-    arguments: ['@module_handler', '@string_translation', '@controller_resolver']
+    arguments: ['@module_handler', '@string_translation', '@controller_resolver', '@plugin.manager.group_content_enabler']
   group.permissions_hash_generator:
     class: 'Drupal\group\Access\GroupPermissionsHashGenerator'
     arguments: ['@private_key', '@cache.default', '@cache.static', '@entity_type.manager']

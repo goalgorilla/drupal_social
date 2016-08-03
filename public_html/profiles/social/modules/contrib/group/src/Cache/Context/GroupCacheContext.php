@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Cache\Context\GroupCacheContext.
- */
-
 namespace Drupal\group\Cache\Context;
 
 use Drupal\Core\Cache\CacheableMetadata;

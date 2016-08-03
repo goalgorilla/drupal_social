@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\UninstallValidator\GroupContentUninstallValidator.
- */
-
 namespace Drupal\group\UninstallValidator;
 
 use Drupal\Core\Entity\Query\QueryFactory;

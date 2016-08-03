@@ -1,19 +1,15 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupTypeInterface.
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Core\Entity\EntityDescriptionInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 
 /**
  * Provides an interface defining a group type entity.
  */
-interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
+interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface, EntityDescriptionInterface {
 
   /**
    * The maximum length of the ID, in characters.
@@ -23,14 +19,6 @@ interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginColl
    * default limit there. We leave of 10 characters to account for '-anonymous'.
    */
   const ID_MAX_LENGTH = 22;
-
-  /**
-   * Gets the description.
-   *
-   * @return string
-   *   The description of this group type.
-   */
-  public function getDescription();
 
   /**
    * Gets the group roles.
@@ -49,7 +37,7 @@ interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginColl
   public function getRoleIds();
   
   /**
-   * Gets the anonymous group role for this group type.
+   * Gets the generic anonymous group role for this group type.
    *
    * @return \Drupal\group\Entity\GroupRoleInterface
    *   The anonymous group role this group type uses.
@@ -57,7 +45,7 @@ interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginColl
   public function getAnonymousRole();
 
   /**
-   * Gets the anonymous role ID.
+   * Gets the generic anonymous role ID.
    *
    * @return string
    *   The ID of the anonymous group role this group type uses.
@@ -65,7 +53,7 @@ interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginColl
   public function getAnonymousRoleId();
 
   /**
-   * Gets the outsider group role for this group type.
+   * Gets the generic outsider group role for this group type.
    *
    * @return \Drupal\group\Entity\GroupRoleInterface
    *   The outsider group role this group type uses.
@@ -73,7 +61,7 @@ interface GroupTypeInterface extends ConfigEntityInterface, EntityWithPluginColl
   public function getOutsiderRole();
 
   /**
-   * Gets the outsider role ID.
+   * Gets the generic outsider role ID.
    *
    * @return string
    *   The ID of the outsider group role this group type uses.

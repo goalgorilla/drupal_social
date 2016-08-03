@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\views\argument_default\GroupIdFromUrl.
- */
-
 namespace Drupal\group\Plugin\views\argument_default;
 
 use Drupal\Core\Cache\Cache;
@@ -24,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class GroupIdFromUrl extends ArgumentDefaultPluginBase implements CacheableDependencyInterface {
 
   /**
-   * The group entity.
+   * The group entity from the route.
    *
    * @var \Drupal\group\Entity\GroupInterface
    */

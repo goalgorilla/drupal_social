@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Form\GroupJoinForm.
- */
-
 namespace Drupal\group\Form;
 
 use Drupal\group\Entity\Form\GroupContentForm;

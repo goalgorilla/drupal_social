@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Storage\GroupRoleStorageInterface.
- */
-
 namespace Drupal\group\Entity\Storage;
 
 use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;

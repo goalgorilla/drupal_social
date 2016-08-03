@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Access\GroupAccessControlHandler
- */
-
 namespace Drupal\group\Entity\Access;
 
 use Drupal\group\Access\GroupAccessResult;
@@ -42,7 +37,8 @@ class GroupAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIf($account->hasPermission('create ' . $entity_bundle . ' group'))->cachePerPermissions();
+    $permissions = ['bypass group access', 'create ' . $entity_bundle . ' group'];
+    return AccessResult::allowedIfHasPermissions($account, $permissions, 'OR');
   }
 
 }

@@ -17,9 +17,10 @@ function group_views_data_alter(array &$data) {
 
   /** @var \Drupal\group\Plugin\GroupContentEnablerManagerInterface $plugin_manager */
   $plugin_manager = \Drupal::service('plugin.manager.group_content_enabler');
-  
-  // Add views data for each installed plugin.
-  foreach ($plugin_manager->getInstalled() as $plugin_id => $plugin) {
+
+  // Add views data for all defined plugins so modules can provide default
+  // views even though their plugins may not have been installed yet.
+  foreach ($plugin_manager->getAll() as $plugin_id => $plugin) {
     $entity_type_id = $plugin->getEntityTypeId();
     $entity_type = $entity_types[$entity_type_id];
     $entity_data_table = $entity_type->getDataTable() ?: $entity_type->getBaseTable();

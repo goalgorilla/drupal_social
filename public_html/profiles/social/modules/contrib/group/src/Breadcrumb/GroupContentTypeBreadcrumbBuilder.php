@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Breadcrumb\GroupContentTypeBreadcrumbBuilder.
- */
-
 namespace Drupal\group\Breadcrumb;
 
 use Drupal\group\Entity\GroupContentTypeInterface;
@@ -15,7 +10,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Provides a custom taxonomy breadcrumb builder that uses the term hierarchy.
+ * Provides a custom breadcrumb builder for group content type paths.
  */
 class GroupContentTypeBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   use StringTranslationTrait;

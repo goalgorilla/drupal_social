@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\gnode\Plugin\GroupContentEnabler\GroupNodeDeriver.
- */
-
 namespace Drupal\gnode\Plugin\GroupContentEnabler;
 
 use Drupal\node\Entity\NodeType;

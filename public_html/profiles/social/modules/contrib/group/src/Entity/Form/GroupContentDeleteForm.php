@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Form\GroupContentDeleteForm.
- */
-
 namespace Drupal\group\Entity\Form;
 
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
@@ -39,8 +34,14 @@ class GroupContentDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelURL() {
-    // @todo Read a redirect from the plugin?
-    return new Url('entity.group.collection');
+    /** @var \Drupal\group\Entity\GroupContent $group_content */
+    $group_content = $this->getEntity();
+    $group = $group_content->getGroup();
+    $route_params = [
+      'group' => $group->id(),
+      'group_content' => $group_content->id(),
+    ];
+    return new Url('entity.group_content.canonical', $route_params);
   }
 
   /**
@@ -54,15 +55,17 @@ class GroupContentDeleteForm extends ContentEntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $entity = $this->getEntity();
-    $entity->delete();
+    /** @var \Drupal\group\Entity\GroupContent $group_content */
+    $group_content = $this->getEntity();
+    $group = $group_content->getGroup();
+    $group_content->delete();
 
     \Drupal::logger('group_content')->notice('@type: deleted %title.', [
-      '@type' => $this->entity->bundle(),
-      '%title' => $this->entity->label(),
+      '@type' => $group_content->bundle(),
+      '%title' => $group_content->label(),
     ]);
-    // @todo Read a redirect from the plugin?
-    $form_state->setRedirect('entity.group.collection');
+
+    $form_state->setRedirect('entity.group.canonical', ['group' => $group->id()]);
   }
 
 }

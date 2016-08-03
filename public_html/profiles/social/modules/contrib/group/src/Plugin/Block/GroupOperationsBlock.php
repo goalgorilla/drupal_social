@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\Block\GroupOperationsBlock.
- */
-
 namespace Drupal\group\Plugin\Block;
 
 use Drupal\group\Cache\Context\GroupTypeCacheContext;

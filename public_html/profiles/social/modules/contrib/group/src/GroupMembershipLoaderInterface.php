@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\GroupMembershipLoaderInterface.
- */
-
 namespace Drupal\group;
 
 use Drupal\Core\Session\AccountInterface;

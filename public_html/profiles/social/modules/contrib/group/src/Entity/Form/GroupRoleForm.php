@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Form\GroupRoleForm.
- */
-
 namespace Drupal\group\Entity\Form;
 
 use Drupal\group\Entity\GroupRole;
@@ -20,18 +15,32 @@ class GroupRoleForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function form(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\group\Entity\GroupRoleInterface $group_role */
-    $form = parent::form($form, $form_state);
     $group_role = $this->entity;
-    $group_role_id = '';
-
     if ($group_role->isInternal()) {
       return [
         '#title' => t('Error'),
-        'description' => ['#markup' => '<p>' . t('Cannot edit an internal group role directly.') . '</p>'],
+        'description' => [
+          '#prefix' => '<p>',
+          '#suffix' => '</p>',
+          '#markup' => t('Cannot edit an internal group role directly.'),
+        ],
       ];
     }
+    
+    return parent::buildForm($form, $form_state);
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
+  public function form(array $form, FormStateInterface $form_state) {
+    $form = parent::form($form, $form_state);
+
+    /** @var \Drupal\group\Entity\GroupRoleInterface $group_role */
+    $group_role = $this->entity;
+    $group_role_id = '';
 
     if ($this->operation == 'add') {
       $form['#title'] = $this->t('Add group role');
@@ -84,11 +93,6 @@ class GroupRoleForm extends EntityForm {
    * {@inheritdoc}
    */
   protected function actions(array $form, FormStateInterface $form_state) {
-    // Do not show action buttons for an internal group role.
-    if ($this->entity->isInternal()) {
-      return [];
-    }
-
     $actions = parent::actions($form, $form_state);
     $actions['submit']['#value'] = t('Save group role');
     $actions['delete']['#value'] = t('Delete group role');

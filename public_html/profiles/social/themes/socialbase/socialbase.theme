@@ -1179,7 +1179,7 @@ function socialbase_theme() {
 
 
 function socialbase_preprocess_menu_local_action (&$variables) {
-  if(\Drupal::routeMatch()->getRouteName() === 'entity.group_content.group_membership.collection') {
+  if(\Drupal::routeMatch()->getRouteName() === 'entity.group_content.collection') {
     $link_classes = $variables['link']['#options']['attributes']['class'];
     foreach ($link_classes as $delta => $class_name) {
       if(in_array($class_name, array('btn-xs', 'btn-default'))){

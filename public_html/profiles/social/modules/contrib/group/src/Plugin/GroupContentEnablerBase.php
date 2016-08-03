@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\GroupContentEnablerBase.
- */
-
 namespace Drupal\group\Plugin;
 
 use Drupal\group\Access\GroupAccessResult;
@@ -19,9 +14,6 @@ use Symfony\Component\Routing\Route;
 
 /**
  * Provides a base class for GroupContentEnabler plugins.
- *
- * @todo Refactor the way config is set, it's causing GroupType to have ugly
- *       code in installContentPlugin() and updateContentPlugin().
  *
  * @see \Drupal\group\Annotation\GroupContentEnabler
  * @see \Drupal\group\GroupContentEnablerManager
@@ -175,22 +167,11 @@ abstract class GroupContentEnablerBase extends PluginBase implements GroupConten
   /**
    * {@inheritdoc}
    */
-  public function getEntityForms() {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getPermissions() {
     $plugin_id = $this->getPluginId();
     $defaults = [
       'title_args' => ['%plugin_name' => $this->getLabel()],
     ];
-
-    $permissions["access $plugin_id overview"] = [
-      'title' => 'Access the %plugin_name overview page',
-    ] + $defaults;
 
     $permissions["view $plugin_id content"] = [
       'title' => '%plugin_name: View content',
@@ -217,218 +198,6 @@ abstract class GroupContentEnablerBase extends PluginBase implements GroupConten
     ] + $defaults;
 
     return $permissions;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPaths() {
-    $path_key = $this->pluginDefinition['path_key'];
-    return empty($path_key) ? [] : [
-      'collection' => "/group/{group}/$path_key",
-      'add-form' => "/group/{group}/$path_key/add",
-      'canonical' => "/group/{group}/$path_key/{group_content}",
-      'edit-form' => "/group/{group}/$path_key/{group_content}/edit",
-      'delete-form' => "/group/{group}/$path_key/{group_content}/delete",
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPath($name) {
-    $paths = $this->getPaths();
-    return isset($paths[$name]) ? $paths[$name] : FALSE;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRouteName($name) {
-    $route_prefix = 'entity.group_content.' . str_replace(':', '__', $this->getPluginId());
-    return $route_prefix . '.' . str_replace(['-', 'drupal:'], ['_', ''], $name);
-  }
-
-  /**
-   * Gets the collection route.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getCollectionRoute() {
-    if ($path = $this->getPath('collection')) {
-      $plugin_id = $this->getPluginId();
-      $route = new Route($path);
-
-      $route
-        ->setDefaults([
-          '_entity_list' => 'group_content',
-          '_title_callback' => '\Drupal\Core\Entity\Controller\EntityController::title',
-          'plugin_id' => $plugin_id,
-        ])
-        ->setRequirement('_group_permission', "access $plugin_id overview")
-        ->setRequirement('_group_installed_content', $plugin_id)
-        ->setOption('_group_operation_route', TRUE)
-        ->setOption('parameters', [
-          'group' => ['type' => 'entity:group'],
-        ]);
-
-      return $route;
-    }
-  }
-
-  /**
-   * Gets the canonical route.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getCanonicalRoute() {
-    if ($path = $this->getPath('canonical')) {
-      $route = new Route($path);
-
-      $route
-        ->setDefaults([
-          '_entity_view' => 'group_content.full',
-          '_title_callback' => '\Drupal\Core\Entity\Controller\EntityController::title',
-        ])
-        ->setRequirement('_entity_access', 'group_content.view')
-        ->setRequirement('_group_owns_content', 'TRUE')
-        ->setOption('parameters', [
-          'group' => ['type' => 'entity:group'],
-          'group_content' => ['type' => 'entity:group_content'],
-        ]);
-
-      return $route;
-    }
-  }
-
-  /**
-   * Gets the add form route.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getAddFormRoute() {
-    if ($path = $this->getPath('add-form')) {
-      $route = new Route($path);
-
-      $route
-        ->setDefaults([
-          '_controller' => '\Drupal\group\Entity\Controller\GroupContentController::add',
-          '_title_callback' => '\Drupal\group\Entity\Controller\GroupContentController::addPageTitle',
-          'plugin_id' => $this->getPluginId(),
-        ])
-        ->setRequirement('_group_content_add_access', $this->getPluginId())
-        ->setRequirement('_group_installed_content', $this->getPluginId())
-        ->setOption('_group_operation_route', TRUE)
-        ->setOption('parameters', [
-          'group' => ['type' => 'entity:group'],
-        ]);
-
-      return $route;
-    }
-  }
-
-  /**
-   * Gets the edit form route.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getEditFormRoute() {
-    if ($path = $this->getPath('edit-form')) {
-      $route = new Route($path);
-
-      $route
-        ->setDefaults([
-          '_entity_form' => 'group_content.edit',
-          '_title_callback' => '\Drupal\Core\Entity\Controller\EntityController::editTitle',
-        ])
-        ->setRequirement('_entity_access', 'group_content.update')
-        ->setRequirement('_group_owns_content', 'TRUE')
-        ->setOption('_group_operation_route', TRUE)
-        ->setOption('parameters', [
-          'group' => ['type' => 'entity:group'],
-          'group_content' => ['type' => 'entity:group_content'],
-        ]);
-
-      return $route;
-    }
-  }
-
-  /**
-   * Gets the delete form route.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getDeleteFormRoute() {
-    if ($path = $this->getPath('delete-form')) {
-      $route = new Route($path);
-
-      $route
-        ->setDefaults([
-          '_entity_form' => 'group_content.delete',
-          '_title_callback' => '\Drupal\Core\Entity\Controller\EntityController::deleteTitle',
-        ])
-        ->setRequirement('_entity_access', 'group_content.delete')
-        ->setRequirement('_group_owns_content', 'TRUE')
-        ->setOption('_group_operation_route', TRUE)
-        ->setOption('parameters', [
-          'group' => ['type' => 'entity:group'],
-          'group_content' => ['type' => 'entity:group_content'],
-        ]);
-
-      return $route;
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRoutes() {
-    $routes = [];
-
-    if ($route = $this->getCollectionRoute()) {
-      $routes[$this->getRouteName('collection')] = $route;
-    }
-
-    if ($route = $this->getCanonicalRoute()) {
-      $routes[$this->getRouteName('canonical')] = $route;
-    }
-
-    if ($route = $this->getAddFormRoute()) {
-      $routes[$this->getRouteName('add-form')] = $route;
-    }
-
-    if ($route = $this->getEditFormRoute()) {
-      $routes[$this->getRouteName('edit-form')] = $route;
-    }
-
-    if ($route = $this->getDeleteFormRoute()) {
-      $routes[$this->getRouteName('delete-form')] = $route;
-    }
-
-    return $routes;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getLocalActions() {
-    $actions = [];
-
-    if (($appears_on = $this->getRouteName('collection')) && ($route_name = $this->getRouteName('add-form'))) {
-      $prefix = str_replace(':', '-', $this->getPluginId());
-      $actions["$prefix.add"] = [
-        'title' => 'Add ' . $this->getLabel(),
-        'route_name' => $route_name,
-        'appears_on' => [$appears_on],
-      ];
-    }
-
-    return $actions;
   }
 
   /**

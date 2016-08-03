@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Cache\Context\GroupMembershipCacheContextBase.
- */
-
 namespace Drupal\group\Cache\Context;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;

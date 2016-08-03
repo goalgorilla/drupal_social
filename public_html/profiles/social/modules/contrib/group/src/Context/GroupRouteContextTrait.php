@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Context\GroupRouteContextTrait.
- */
-
 namespace Drupal\group\Context;
 
 use Drupal\group\Entity\Group;

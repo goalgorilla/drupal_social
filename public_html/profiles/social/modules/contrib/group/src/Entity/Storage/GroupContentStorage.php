@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Storage\GroupContentStorage.
- */
-
 namespace Drupal\group\Entity\Storage;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
@@ -21,13 +16,13 @@ class GroupContentStorage extends SqlContentEntityStorage implements GroupConten
   /**
    * {@inheritdoc}
    */
-  public function loadByGroup(GroupInterface $group, $content_enabler = NULL, $filters = []) {
+  public function loadByGroup(GroupInterface $group, $plugin_id = NULL, $filters = []) {
     $properties = ['gid' => $group->id()] + $filters;
 
     // If a plugin ID was provided, set the group content type ID for it.
-    if (isset($content_enabler)) {
+    if (isset($plugin_id)) {
       /** @var \Drupal\group\Plugin\GroupContentEnablerInterface $plugin */
-      $plugin = $group->getGroupType()->getContentPlugin($content_enabler);
+      $plugin = $group->getGroupType()->getContentPlugin($plugin_id);
       $properties['type'] = $plugin->getContentTypeConfigId();
     }
 
