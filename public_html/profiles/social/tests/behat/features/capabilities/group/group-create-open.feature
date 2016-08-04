@@ -15,6 +15,13 @@ Feature: Create Open Group
     And I click "Add a group"
     When I fill in "Title" with "Test open group"
     And I fill in "edit-field-group-description-0-value" with "Description text"
+    And I select "NL" from "Country"
+    And I wait for AJAX to finish
+    Then I should see "City"
+    And I fill in the following:
+      | City | Enschede |
+      | Street address | Oldenzaalsestraat |
+      | Postal code | 7514DR |
     And I press "Save"
     And I should see "Test open group" in the "Main content"
     And I should see "Description text"
