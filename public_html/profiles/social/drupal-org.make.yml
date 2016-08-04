@@ -33,8 +33,6 @@ projects:
     version: '1.15'
   config_update:
     version: '1.1'
-  composer_manager:
-    version: 1.0-rc1
   devel:
     version: 1.0-alpha1
   dynamic_entity_reference:
