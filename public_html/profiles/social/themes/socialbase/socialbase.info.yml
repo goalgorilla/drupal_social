@@ -15,6 +15,10 @@ libraries:
   - socialbase/icons
   - socialbase/waves
 
+# Add the type css to be loaded by the ckeditor iframe.
+ckeditor_stylesheets:
+  - components/asset-builds/css/type.css
+
 libraries-extend:
   core/drupal.ajax:
     - socialbase/drupal.ajax
