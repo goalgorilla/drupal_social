@@ -38,6 +38,9 @@ Feature: Create Open Group
     And I click the xth "2" element with the css ".dropdown-toggle"
     And I should see the link "Leave group"
     And I should see the link "Edit group" in the "Hero block"
+    And I should see "Oldenzaalsestraat" in the "Hero block"
+    And I should see "7514DR" in the "Hero block"
+    And I should see "Enschede" in the "Hero block"
 
   # @TODO: Uncomment this when Group hero caching will be fixed.
   # DS-648 As a LU I want to see the members of a group
