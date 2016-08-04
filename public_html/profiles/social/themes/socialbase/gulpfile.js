@@ -10,9 +10,8 @@ var gulp          = require('gulp'),
     sourcemaps    = require('gulp-sourcemaps'),
     autoprefixer  = require('autoprefixer'),
     mqpacker      = require('css-mqpacker'),
-    precss        = require('precss'),
     rucksack      = require('gulp-rucksack'),
-    jade          = require('gulp-jade'),
+    pug           = require('gulp-pug'),
     importOnce    = require('node-sass-import-once'),
     path          = require('path'),
     rename        = require('gulp-rename'),
@@ -20,7 +19,6 @@ var gulp          = require('gulp'),
     concat        = require('gulp-concat'),
     notify        = require('gulp-notify'),
     gutil         = require('gulp-util'),
-    jadeInheritance = require('gulp-jade-inheritance'),
     connect       = require('gulp-connect'),
     changed       = require('gulp-changed'),
     cached        = require('gulp-cached'),
@@ -60,7 +58,7 @@ options.theme = {
   icons      : options.rootPath.theme + 'images/icons/',
   images     : options.rootPath.theme + 'images/',
   js         : options.rootPath.theme + 'js/',
-  styleguide : options.rootPath.theme + 'jade/'
+  styleguide : options.rootPath.theme + 'pug/'
 };
 
 // Set the URL used to access the Drupal website under development. This will
@@ -91,7 +89,7 @@ options.eslint = {
 
 options.styleguide = {
   files  : [
-    options.theme.styleguide + '**/*.jade'
+    options.theme.styleguide + '**/*.pug'
   ]
 };
 
@@ -134,7 +132,7 @@ gulp.task('styles', function () {
 });
 
 // ===================================================
-// Template file (Jade)
+// Template file (Pug)
 // ===================================================
 
 gulp.task('styleguide', function() {
@@ -148,23 +146,19 @@ gulp.task('styleguide', function() {
     .pipe(changed(options.rootPath.dist, {extension: '.html'}))
 
     //filter out unchanged partials, but it only works when watching
-    .pipe(gulpif(global.isWatching, cached('jade')))
-
-    //find files that depend on the files that have changed
-    .pipe(jadeInheritance({basedir: options.theme.styleguide}))
+    .pipe(gulpif(global.isWatching, cached('pug')))
 
     //filter out partials (folders and files starting with "_" )
     .pipe(filter(function (file) {
       return !/\/_/.test(file.path) || !/^_/.test(file.relative);
     }))
 
-    .pipe(jade({
+    .pipe(pug({
       pretty: true
-    })) // pipe to jade plugin
+    })) // pipe to pug plugin
 
     .pipe(gulp.dest(options.rootPath.dist)) // tell gulp our output folder
 
-    .pipe( connect.reload() );
 });
 
 gulp.task('setWatch', function() {
@@ -315,7 +309,7 @@ gulp.task('watch:css', ['styles'], function () {
 
 gulp.task('watch:styleguide', ['setWatch', 'styleguide'], function () {
   return gulp.watch([
-    options.theme.root + '**/*.jade',
+    options.theme.root + '**/*.pug',
   ], ['styleguide']);
 });
 
