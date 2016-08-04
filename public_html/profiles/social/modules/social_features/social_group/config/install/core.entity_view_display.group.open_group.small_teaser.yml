@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.group.small_teaser
+    - field.field.group.open_group.field_group_address
     - field.field.group.open_group.field_group_description
     - field.field.group.open_group.field_group_image
     - group.type.open_group
@@ -21,6 +22,7 @@ content:
 hidden:
   changed: true
   created: true
+  field_group_address: true
   field_group_description: true
   field_group_image: true
   uid: true

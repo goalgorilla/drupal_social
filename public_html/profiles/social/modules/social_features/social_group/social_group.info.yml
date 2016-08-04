@@ -5,6 +5,7 @@ core: 8.x
 dependencies:
   - block
   - field
+  - field_group
   - file
   - gnode
   - group
@@ -12,7 +13,6 @@ dependencies:
   - social_core
   - social_group
   - system
-  - text
   - user
   - views
   - social_event
