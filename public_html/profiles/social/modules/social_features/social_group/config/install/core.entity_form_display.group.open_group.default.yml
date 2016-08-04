@@ -5,6 +5,7 @@ dependencies:
     - field.field.group.open_group.field_group_address
     - field.field.group.open_group.field_group_description
     - field.field.group.open_group.field_group_image
+    - field.field.group.open_group.field_group_location
     - group.type.open_group
     - image.style.social_x_large
   module:
@@ -30,6 +31,7 @@ third_party_settings:
         required_fields: true
     group_location:
       children:
+        - field_group_location
         - field_group_address
       parent_name: ''
       weight: 4
@@ -46,7 +48,7 @@ bundle: open_group
 mode: default
 content:
   field_group_address:
-    weight: 31
+    weight: 33
     settings:
       default_country: null
     third_party_settings: {  }
@@ -65,6 +67,13 @@ content:
       preview_image_style: social_x_large
     third_party_settings: {  }
     type: image_image
+  field_group_location:
+    weight: 32
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   label:
     type: string_textfield
     weight: 1
