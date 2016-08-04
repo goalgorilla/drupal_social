@@ -14,6 +14,7 @@ libraries:
   - socialbase/alerts
   - socialbase/icons
   - socialbase/waves
+  - socialbase/modals
 
 libraries-extend:
   core/drupal.ajax:
@@ -30,6 +31,7 @@ libraries-override:
   core/jquery.ui/ui:
     js:
       datepicker-min.js: false
+
   system/base:
     css:
       component:
