@@ -1,19 +1,20 @@
 <?php
 
-namespace Drupal\dynamic_entity_reference\Tests;
+namespace Drupal\Tests\dynamic_entity_reference\Functional;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests dynamic entity reference field widgets.
  *
  * @group dynamic_entity_reference
  */
-class DynamicEntityReferenceWidgetTest extends WebTestBase {
+class DynamicEntityReferenceWidgetTest extends BrowserTestBase {
 
   /**
    * A user with permission to administer content types, node fields, etc.
@@ -99,11 +100,12 @@ class DynamicEntityReferenceWidgetTest extends WebTestBase {
    * Tests default autocomplete widget.
    */
   public function testEntityReferenceDefaultWidget() {
+    $assert_session = $this->assertSession();
     $field_name = $this->fieldName;
-    entity_get_form_display('node', 'reference_content', 'default')
-      ->setComponent($field_name, array(
+    EntityFormDisplay::load('node.reference_content.default')
+      ->setComponent($field_name, [
         'type' => 'dynamic_entity_reference_default',
-      ))
+      ])
       ->save();
     $this->drupalLogin($this->adminUser);
     // Create a node to be referenced.
@@ -114,23 +116,28 @@ class DynamicEntityReferenceWidgetTest extends WebTestBase {
       $field_name . '[0][target_type]' => $referenced_node->getEntityTypeId(),
       $field_name . '[0][target_id]' => $referenced_node->getTitle() . ' (' . $referenced_node->id() . ')',
     );
-    $this->drupalPostForm(Url::fromRoute('node.add', array('node_type' => 'reference_content')), $edit, t('Save'));
-    $this->assertRaw(t('@type %title has been created.', array('@type' => 'reference_content', '%title' => $title)));
-    $nodes = \Drupal::entityManager()->getStorage('node')->loadByProperties(array('title' => $title));
+    $this->drupalGet(Url::fromRoute('node.add', array('node_type' => 'reference_content')));
+    $this->submitForm($edit, t('Save'));
+    $node = $this->drupalGetNodeByTitle($title);
+    $assert_session->responseContains(t('@type %title has been created.', array('@type' => 'reference_content', '%title' => $node->toLink($node->label())->toString())));
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
     $reference_node = reset($nodes);
-    $this->assertEqual($reference_node->get($field_name)->offsetGet(0)->target_type, $referenced_node->getEntityTypeId());
-    $this->assertEqual($reference_node->get($field_name)->offsetGet(0)->target_id, $referenced_node->id());
+    $this->assertEquals($reference_node->get($field_name)->offsetGet(0)->target_type, $referenced_node->getEntityTypeId());
+    $this->assertEquals($reference_node->get($field_name)->offsetGet(0)->target_id, $referenced_node->id());
   }
 
   /**
    * Tests option button widget.
    */
   public function testEntityReferenceOptionsButtonsWidget() {
+    $assert_session = $this->assertSession();
     $field_name = $this->fieldName;
-    entity_get_form_display('node', 'reference_content', 'default')
-      ->setComponent($field_name, array(
+    EntityFormDisplay::load('node.reference_content.default')
+      ->setComponent($field_name, [
         'type' => 'dynamic_entity_reference_options_buttons',
-      ))
+      ])
       ->save();
     $this->drupalLogin($this->adminUser);
     // Create a node to be referenced.
@@ -140,23 +147,28 @@ class DynamicEntityReferenceWidgetTest extends WebTestBase {
       'title[0][value]' => $title,
       $field_name => $referenced_node->getEntityTypeId() . '-' . $referenced_node->id(),
     );
-    $this->drupalPostForm(Url::fromRoute('node.add', array('node_type' => 'reference_content')), $edit, t('Save'));
-    $this->assertRaw(t('@type %title has been created.', array('@type' => 'reference_content', '%title' => $title)));
-    $nodes = \Drupal::entityManager()->getStorage('node')->loadByProperties(array('title' => $title));
+    $this->drupalGet(Url::fromRoute('node.add', array('node_type' => 'reference_content')));
+    $this->submitForm($edit, t('Save'));
+    $node = $this->drupalGetNodeByTitle($title);
+    $assert_session->responseContains(t('@type %title has been created.', array('@type' => 'reference_content', '%title' => $node->toLink($node->label())->toString())));
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
     $reference_node = reset($nodes);
-    $this->assertEqual($reference_node->get($field_name)->offsetGet(0)->target_type, $referenced_node->getEntityTypeId());
-    $this->assertEqual($reference_node->get($field_name)->offsetGet(0)->target_id, $referenced_node->id());
+    $this->assertEquals($reference_node->get($field_name)->offsetGet(0)->target_type, $referenced_node->getEntityTypeId());
+    $this->assertEquals($reference_node->get($field_name)->offsetGet(0)->target_id, $referenced_node->id());
   }
 
   /**
    * Tests option select widget.
    */
   public function testEntityReferenceOptionsSelectWidget() {
+    $assert_session = $this->assertSession();
     $field_name = $this->fieldName;
-    entity_get_form_display('node', 'reference_content', 'default')
-      ->setComponent($field_name, array(
+    EntityFormDisplay::load('node.reference_content.default')
+      ->setComponent($field_name, [
         'type' => 'dynamic_entity_reference_options_select',
-      ))
+      ])
       ->save();
     $this->drupalLogin($this->adminUser);
     // Create a node to be referenced.
@@ -166,12 +178,16 @@ class DynamicEntityReferenceWidgetTest extends WebTestBase {
       'title[0][value]' => $title,
       $field_name => $referenced_node->getEntityTypeId() . '-' . $referenced_node->id(),
     );
-    $this->drupalPostForm(Url::fromRoute('node.add', array('node_type' => 'reference_content')), $edit, t('Save'));
-    $this->assertRaw(t('@type %title has been created.', array('@type' => 'reference_content', '%title' => $title)));
-    $nodes = \Drupal::entityManager()->getStorage('node')->loadByProperties(array('title' => $title));
+    $this->drupalGet(Url::fromRoute('node.add', array('node_type' => 'reference_content')));
+    $this->submitForm($edit, t('Save'));
+    $node = $this->drupalGetNodeByTitle($title);
+    $assert_session->responseContains(t('@type %title has been created.', array('@type' => 'reference_content', '%title' => $node->toLink($node->label())->toString())));
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => $title]);
     $reference_node = reset($nodes);
-    $this->assertEqual($reference_node->get($field_name)->offsetGet(0)->target_type, $referenced_node->getEntityTypeId());
-    $this->assertEqual($reference_node->get($field_name)->offsetGet(0)->target_id, $referenced_node->id());
+    $this->assertEquals($reference_node->get($field_name)->offsetGet(0)->target_type, $referenced_node->getEntityTypeId());
+    $this->assertEquals($reference_node->get($field_name)->offsetGet(0)->target_id, $referenced_node->id());
   }
 
 }

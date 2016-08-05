@@ -3,9 +3,11 @@
 namespace Drupal\Tests\dynamic_entity_reference\FunctionalJavascript;
 
 use Drupal\Component\Utility\Crypt;
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
+use Drupal\entity_test\Entity\EntityTest;
 use Drupal\entity_test\Entity\EntityTestBundle;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -17,6 +19,11 @@ use Drupal\FunctionalJavascriptTests\JavascriptTestBase;
  * @group dynamic_entity_reference
  */
 class DynamicEntityReferenceTest extends JavascriptTestBase {
+
+  /**
+   * Escape key code.
+   */
+  const ESCAPE_KEY = 27;
 
   /**
    * The admin user.
@@ -31,6 +38,13 @@ class DynamicEntityReferenceTest extends JavascriptTestBase {
    * @var \Drupal\user\Entity\User
    */
   protected $anotherUser;
+
+  /**
+   * Test entity.
+   *
+   * @var \Drupal\entity_test\Entity\EntityTest
+   */
+  protected $testEntity;
 
   /**
    * Modules to enable.
@@ -77,6 +91,15 @@ class DynamicEntityReferenceTest extends JavascriptTestBase {
       'label' => 'Test label',
       'description' => 'My test description',
     ])->save();
+    // We will query on the first two characters of the second username.
+    $autocomplete_query = Unicode::substr($this->anotherUser->label(), 0, 3);
+    $this->testEntity = EntityTest::create([
+      // Make this partially match the second user name.
+      'name' => $autocomplete_query . $this->randomMachineName(5),
+      'type' => 'entity_test',
+    ]);
+    $this->testEntity->save();
+
     $this->drupalLogin($this->adminUser);
     // Add a new dynamic entity reference field.
     $this->drupalGet('entity_test/structure/entity_test/fields/add-field');
@@ -116,7 +139,7 @@ class DynamicEntityReferenceTest extends JavascriptTestBase {
     $this->assertSame($autocomplete_field_1->getAttribute('data-autocomplete-path'), $this->createAutoCompletePath('entity_test'));
     $page = $this->getSession()->getPage();
     $page->checkField('settings[entity_test][handler_settings][target_bundles][entity_test]');
-    $this->assertJsCondition('(typeof(jQuery)=="undefined" || (0 === jQuery.active && 0 === jQuery(\':animated\').length))', 20000);
+    $assert_session->assertWaitOnAjaxRequest(20000);
     $page->checkField('settings[entity_test][handler_settings][auto_create]');
     $this->submitForm([], t('Save settings'), 'field-config-edit-form');
     $assert_session->pageTextContains('Saved Foobar configuration');
@@ -131,6 +154,36 @@ class DynamicEntityReferenceTest extends JavascriptTestBase {
     $this->assertEquals($settings['entity_test']['handler_settings']['target_bundles'], ['entity_test' => 'entity_test']);
     $this->assertTrue($settings['entity_test']['handler_settings']['auto_create']);
     $this->assertEmpty($settings['entity_test']['handler_settings']['auto_create_bundle']);
+    $this->drupalGet('entity_test/add');
+    $autocomplete_field = $page->findField('field_foobar[0][target_id]');
+    $entity_type_field = $page->findField('field_foobar[0][target_type]');
+    // Change to user.
+    $entity_type_field->selectOption('user');
+    foreach (str_split($autocomplete_query) as $char) {
+      // Autocomplete uses keydown/up directly.
+      $autocomplete_field->keyDown($char);
+      $autocomplete_field->keyUp($char);
+    }
+    // Wait for ajax.
+    $assert_session->assertWaitOnAjaxRequest(20000);
+    // And autocomplete selection.
+    $this->assertJsCondition('jQuery(".ui-autocomplete.ui-menu li.ui-menu-item:visible").length > 0', 5000);
+    $assert_session->pageTextContains($this->anotherUser->label());
+    // Clear previous autocomplete.
+    $autocomplete_field->setValue('');
+    $autocomplete_field->keyDown(self::ESCAPE_KEY);
+    // Change to entity_test.
+    $entity_type_field->selectOption('entity_test');
+    foreach (str_split($autocomplete_query) as $char) {
+      // Autocomplete uses keydown/up directly.
+      $autocomplete_field->keyDown($char);
+      $autocomplete_field->keyUp($char);
+    }
+    // Wait for ajax.
+    $assert_session->assertWaitOnAjaxRequest(20000);
+    // And autocomplete selection.
+    $this->assertJsCondition('jQuery(".ui-autocomplete.ui-menu li.ui-menu-item:visible").length > 0', 5000);
+    $assert_session->pageTextContains($this->testEntity->label());
   }
 
   /**

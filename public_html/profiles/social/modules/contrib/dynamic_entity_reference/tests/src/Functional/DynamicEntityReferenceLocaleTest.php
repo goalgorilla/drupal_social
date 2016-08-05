@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\dynamic_entity_reference\Tests;
+namespace Drupal\Tests\dynamic_entity_reference\Functional;
 
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\locale\Gettext;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\dynamic_entity_reference\Tests;
+namespace Drupal\Tests\dynamic_entity_reference\Functional;
 
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Unicode;
@@ -12,17 +12,16 @@ use Drupal\entity_test\Entity\EntityTest;
 use Drupal\entity_test\Entity\EntityTestBundle;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\simpletest\WebTestBase;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
-use Symfony\Component\CssSelector\CssSelector;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Ensures that Dynamic Entity References field works correctly.
  *
  * @group dynamic_entity_reference
  */
-class DynamicEntityReferenceTest extends WebTestBase {
+class DynamicEntityReferenceTest extends BrowserTestBase {
 
   /**
    * The admin user.
@@ -76,6 +75,7 @@ class DynamicEntityReferenceTest extends WebTestBase {
    * Tests field settings of dynamic entity reference field.
    */
   public function testFieldSettings() {
+    $assert_session = $this->assertSession();
     // Add EntityTestBundle for EntityTestWithBundle.
     EntityTestBundle::create([
       'id' => 'test',
@@ -90,17 +90,18 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'field_name' => 'foobar',
       'new_storage_type' => 'dynamic_entity_reference',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
-    $this->drupalPostForm(NULL, array(
+    $this->submitForm($edit, t('Save and continue'));
+    $this->submitForm(array(
       'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
       'settings[entity_type_ids][]' => 'user',
     ), t('Save field settings'));
-    $this->assertFieldByName('default_value_input[field_foobar][0][target_type]');
-    $this->assertFieldByXPath(CssSelector::toXPath('select[name="default_value_input[field_foobar][0][target_type]"] > option[value=entity_test]'), 'entity_test');
-    $this->assertNoFieldByXPath(CssSelector::toXPath('select[name="default_value_input[field_foobar][0][target_type]"] > option[value=user]'), 'user');
+    $assert_session->fieldExists('default_value_input[field_foobar][0][target_type]');
+    $assert_session->optionExists('default_value_input[field_foobar][0][target_type]', 'entity_test');
+    $assert_session->optionNotExists('default_value_input[field_foobar][0][target_type]', 'user');
     $edit = array(
       'settings[entity_test_label][handler_settings][target_bundles][entity_test_label]' => TRUE,
       'settings[entity_test_view_builder][handler_settings][target_bundles][entity_test_view_builder]' => TRUE,
+      'settings[entity_test_multivalue_basefield][handler_settings][target_bundles][entity_test_multivalue_basefield]' => TRUE,
       'settings[entity_test_no_id][handler_settings][target_bundles][entity_test_no_id]' => TRUE,
       'settings[entity_test_no_label][handler_settings][target_bundles][entity_test_no_label]' => TRUE,
       'settings[entity_test_label_callback][handler_settings][target_bundles][entity_test_label_callback]' => TRUE,
@@ -126,38 +127,38 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'settings[entity_test_cache][handler_settings][target_bundles][entity_test_cache]' => TRUE,
       'settings[entity_test_string_id][handler_settings][target_bundles][entity_test_string_id]' => TRUE,
     );
-    $this->drupalPostForm(NULL, $edit, t('Save settings'));
-    $this->assertRaw(t('Saved %name configuration', array('%name' => 'Foobar')));
+    $this->submitForm($edit, t('Save settings'));
+    $assert_session->responseContains(t('Saved %name configuration', array('%name' => 'Foobar')));
     $excluded_entity_type_ids = FieldStorageConfig::loadByName('entity_test', 'field_foobar')
       ->getSetting('entity_type_ids');
     $this->assertNotNull($excluded_entity_type_ids);
-    $this->assertIdentical(array_keys($excluded_entity_type_ids), array('user'));
+    $this->assertSame(array_keys($excluded_entity_type_ids), array('user'));
     // Check the include entity settings.
     $this->drupalGet('entity_test/structure/entity_test/fields/entity_test.entity_test.field_foobar/storage');
-    $this->drupalPostForm(NULL, array(
+    $this->submitForm([
       'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
       'settings[exclude_entity_types]' => FALSE,
       'settings[entity_type_ids][]' => 'user',
-    ), t('Save field settings'));
+    ], t('Save field settings'));
     $this->drupalGet('entity_test/structure/entity_test/fields/entity_test.entity_test.field_foobar');
-    $this->assertFieldByName('default_value_input[field_foobar][0][target_type]');
-    $this->assertFieldByXPath(CssSelector::toXPath('select[name="default_value_input[field_foobar][0][target_type]"] > option[value=user]'), 'user');
-    $this->assertNoFieldByXPath(CssSelector::toXPath('select[name="default_value_input[field_foobar][0][target_type]"] > option[value=entity_test]'), 'entity_test');
-    $this->drupalPostForm(NULL, array(), t('Save settings'));
-    $this->assertRaw(t('Saved %name configuration', array('%name' => 'Foobar')));
+    $assert_session->fieldExists('default_value_input[field_foobar][0][target_type]');
+    $assert_session->optionNotExists('default_value_input[field_foobar][0][target_type]', 'entity_test');
+    $assert_session->optionExists('default_value_input[field_foobar][0][target_type]', 'user');
+    $this->submitForm([], t('Save settings'));
+    $assert_session->responseContains(t('Saved %name configuration', array('%name' => 'Foobar')));
     $excluded_entity_type_ids = FieldStorageConfig::loadByName('entity_test', 'field_foobar')
       ->getSetting('entity_type_ids');
     $this->assertNotNull($excluded_entity_type_ids);
-    $this->assertIdentical(array_keys($excluded_entity_type_ids), array('user'));
+    $this->assertSame(array_keys($excluded_entity_type_ids), array('user'));
     // Check the default settings.
     $this->drupalGet('entity_test/structure/entity_test/fields/entity_test.entity_test.field_foobar');
-    $this->drupalPostForm(NULL, array(
+    $this->submitForm(array(
       'default_value_input[field_foobar][0][target_type]' => 'user',
       'default_value_input[field_foobar][0][target_id]' => $this->adminUser->label() . ' (' . $this->adminUser->id() . ')',
     ), t('Save settings'));
 
     $field_config = FieldConfig::loadByName('entity_test', 'entity_test', 'field_foobar')->toArray();
-    $this->assertEqual($field_config['default_value']['0'], array('target_type' => 'user', 'target_uuid' => $this->adminUser->uuid()));
+    $this->assertEquals($field_config['default_value']['0'], array('target_type' => 'user', 'target_uuid' => $this->adminUser->uuid()));
 
   }
 
@@ -165,6 +166,7 @@ class DynamicEntityReferenceTest extends WebTestBase {
    * Tests adding and editing values using dynamic entity reference.
    */
   public function testDynamicEntityReference() {
+    $assert_session = $this->assertSession();
     // Add EntityTestBundle for EntityTestWithBundle.
     EntityTestBundle::create([
       'id' => 'test',
@@ -179,14 +181,15 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'field_name' => 'foobar',
       'new_storage_type' => 'dynamic_entity_reference',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
-    $this->drupalPostForm(NULL, array(
+    $this->submitForm($edit, t('Save and continue'));
+    $this->submitForm(array(
       'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
     ), t('Save field settings'));
 
     $edit = array(
       'settings[entity_test_label][handler_settings][target_bundles][entity_test_label]' => TRUE,
       'settings[entity_test_view_builder][handler_settings][target_bundles][entity_test_view_builder]' => TRUE,
+      'settings[entity_test_multivalue_basefield][handler_settings][target_bundles][entity_test_multivalue_basefield]' => TRUE,
       'settings[entity_test_no_id][handler_settings][target_bundles][entity_test_no_id]' => TRUE,
       'settings[entity_test_no_label][handler_settings][target_bundles][entity_test_no_label]' => TRUE,
       'settings[entity_test_label_callback][handler_settings][target_bundles][entity_test_label_callback]' => TRUE,
@@ -213,8 +216,8 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'settings[entity_test_string_id][handler_settings][target_bundles][entity_test_string_id]' => TRUE,
 
     );
-    $this->drupalPostForm(NULL, $edit, t('Save settings'));
-    $this->assertRaw(t('Saved %name configuration', array('%name' => 'Foobar')));
+    $this->submitForm($edit, t('Save settings'));
+    $assert_session->responseContains(t('Saved %name configuration', array('%name' => 'Foobar')));
     \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
 
     // Create some items to reference.
@@ -229,11 +232,11 @@ class DynamicEntityReferenceTest extends WebTestBase {
 
     // Test the new entity commenting inherits default.
     $this->drupalGet('entity_test/add');
-    $this->assertField('field_foobar[0][target_id]', 'Found foobar field target id');
-    $this->assertField('field_foobar[0][target_type]', 'Found foobar field target type');
+    $assert_session->fieldExists('field_foobar[0][target_id]');
+    $assert_session->fieldExists('field_foobar[0][target_type]');
 
     // Ensure that the autocomplete path is correct.
-    $input = $this->xpath('//input[@name=:name]', array(':name' => 'field_foobar[0][target_id]'))[0];
+    $input = $assert_session->fieldExists('field_foobar[0][target_id]');
     $settings = FieldConfig::loadByName('entity_test', 'entity_test', 'field_foobar')->getSettings();
     $selection_settings = $settings['entity_test_label']['handler_settings'] ?: [];
     $data = serialize($selection_settings) . 'entity_test_label' . $settings['entity_test_label']['handler'];
@@ -243,11 +246,11 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'selection_handler' => $settings['entity_test_label']['handler'],
       'selection_settings_key' => $selection_settings_key,
     ))->toString();
-    $this->assertTrue(strpos((string) $input['data-autocomplete-path'], $expected_autocomplete_path) !== FALSE);
+    $this->assertContains($input->getAttribute('data-autocomplete-path'), $expected_autocomplete_path);
 
     // Add some extra dynamic entity reference fields.
-    $this->drupalPostAjaxForm(NULL, array(), array('field_foobar_add_more' => t('Add another item')), NULL, array(), array(), 'entity-test-entity-test-form');
-    $this->drupalPostAjaxForm(NULL, array(), array('field_foobar_add_more' => t('Add another item')), NULL, array(), array(), 'entity-test-entity-test-form');
+    $this->getSession()->getPage()->findButton('Add another item')->click();
+    $this->getSession()->getPage()->findButton('Add another item')->click();
 
     $edit = array(
       'field_foobar[0][target_id]' => $this->anotherUser->label() . ' (' . $this->anotherUser->id() . ')',
@@ -261,22 +264,22 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'user_id[0][target_id]' => $this->adminUser->label() . ' (' . $this->adminUser->id() . ')',
     );
 
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
     $entities = \Drupal::entityTypeManager()
       ->getStorage('entity_test')
       ->loadByProperties(array('name' => 'Barfoo'));
-    $this->assertEqual(1, count($entities), 'Entity was saved');
+    $this->assertCount(1, $entities, 'Entity was saved');
     $entity = reset($entities);
     $this->drupalGet('entity_test/' . $entity->id());
-    $this->assertText('Barfoo');
-    $this->assertText($this->anotherUser->label());
-    $this->assertText('item1');
-    $this->assertText('item2');
+    $assert_session->pageTextContains('Barfoo');
+    $assert_session->pageTextContains($this->anotherUser->label());
+    $assert_session->pageTextContains('item1');
+    $assert_session->pageTextContains('item2');
 
-    $this->assertEqual(count($entity->field_foobar), 3, 'Three items in field');
-    $this->assertEqual($entity->field_foobar[0]->entity->label(), $this->anotherUser->label());
-    $this->assertEqual($entity->field_foobar[1]->entity->label(), 'item1');
-    $this->assertEqual($entity->field_foobar[2]->entity->label(), 'item2');
+    $this->assertCount(3, $entity->field_foobar, 'Three items in field');
+    $this->assertEquals($entity->field_foobar[0]->entity->label(), $this->anotherUser->label());
+    $this->assertEquals($entity->field_foobar[1]->entity->label(), 'item1');
+    $this->assertEquals($entity->field_foobar[2]->entity->label(), 'item2');
 
     $this->drupalGet('entity_test/manage/' . $entity->id() . '/edit');
 
@@ -285,13 +288,13 @@ class DynamicEntityReferenceTest extends WebTestBase {
       $selection_settings = $settings[$expected_entity_type]['handler_settings'] ?: [];
       $data = serialize($selection_settings) . $expected_entity_type . $settings[$expected_entity_type]['handler'];
       $selection_settings_key = Crypt::hmacBase64($data, Settings::getHashSalt());
-      $input = $this->xpath('//input[@name=:name]', array(':name' => 'field_foobar[' . $index . '][target_id]'))[0];
+      $input = $assert_session->fieldExists('field_foobar[' . $index . '][target_id]');
       $expected_autocomplete_path = Url::fromRoute('system.entity_autocomplete', array(
         'target_type' => $expected_entity_type,
         'selection_handler' => $settings[$expected_entity_type]['handler'],
         'selection_settings_key' => $selection_settings_key,
       ))->toString();
-      $this->assertTrue(strpos((string) $input['data-autocomplete-path'], $expected_autocomplete_path) !== FALSE);
+      $this->assertContains($input->getAttribute('data-autocomplete-path'), $expected_autocomplete_path);
     }
 
     $edit = array(
@@ -299,15 +302,15 @@ class DynamicEntityReferenceTest extends WebTestBase {
       // Remove one child.
       'field_foobar[2][target_id]' => '',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
     $this->drupalGet('entity_test/' . $entity->id());
-    $this->assertText('Bazbar');
+    $assert_session->pageTextContains('Bazbar');
     // Reload entity.
     \Drupal::entityTypeManager()
       ->getStorage('entity_test')
       ->resetCache(array($entity->id()));
     $entity = EntityTest::load($entity->id());
-    $this->assertEqual(count($entity->field_foobar), 2, 'Two values in field');
+    $this->assertCount(2, $entity->field_foobar, 'Two values in field');
 
     // Create two entities with the same label.
     $labels = array();
@@ -325,14 +328,14 @@ class DynamicEntityReferenceTest extends WebTestBase {
     $edit = array(
       'field_foobar[1][target_id]' => 'duplicate label',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
 
     // We don't know the order in which the entities will be listed, so just
     // assert parts and make sure both are shown.
     $error_message = t('Multiple entities match this reference;');
-    $this->assertRaw($error_message);
-    $this->assertRaw($labels[0]);
-    $this->assertRaw($labels[1]);
+    $assert_session->responseContains($error_message);
+    $assert_session->responseContains($labels[0]);
+    $assert_session->responseContains($labels[1]);
 
     // Create a few more to trigger the case where there are more than 5
     // matching results.
@@ -345,7 +348,7 @@ class DynamicEntityReferenceTest extends WebTestBase {
     }
 
     // Submit again with the same values.
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
 
     $params = array(
       '%value' => 'duplicate label',
@@ -353,7 +356,7 @@ class DynamicEntityReferenceTest extends WebTestBase {
     // We don't know which id it will display, so just assert a part of the
     // error.
     $error_message = t('Many entities are called %value. Specify the one you want by appending the id in parentheses', $params);
-    $this->assertRaw($error_message);
+    $assert_session->responseContains($error_message);
 
     // Submit with a label that does not match anything.
     // Now try to submit and just specify the label.
@@ -361,8 +364,8 @@ class DynamicEntityReferenceTest extends WebTestBase {
     $edit = array(
       'field_foobar[1][target_id]' => 'does not exist',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save'));
-    $this->assertRaw(t('There are no entities matching "%value".', array('%value' => 'does not exist')));
+    $this->submitForm($edit, t('Save'));
+    $assert_session->responseContains(t('There are no entities matching "%value".', array('%value' => 'does not exist')));
 
     $this->drupalGet('entity_test/manage/' . $entity->id() . '/edit');
     $edit = array(
@@ -370,24 +373,23 @@ class DynamicEntityReferenceTest extends WebTestBase {
       // Reference itself.
       'field_foobar[1][target_id]' => 'Bazbar (' . $entity->id() . ')',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
     $this->drupalGet('entity_test/' . $entity->id());
-    $this->assertText('Bazbar');
+    $assert_session->pageTextContains('Bazbar');
     // Reload entity.
     \Drupal::entityTypeManager()
       ->getStorage('entity_test')
       ->resetCache(array($entity->id()));
     $entity = EntityTest::load($entity->id());
-    $this->assertEqual($entity->field_foobar[1]->entity->label(), 'Bazbar');
+    $this->assertEquals($entity->field_foobar[1]->entity->label(), 'Bazbar');
   }
 
   /**
    * Tests entity auto creation using dynamic entity reference.
    */
   public function testDynamicEntityReferenceAutoCreate() {
+    $assert_session = $this->assertSession();
     \Drupal::service('module_installer')->install(array('taxonomy'));
-    // Update router to reflect newly installed module.
-    \Drupal::service('router.builder')->rebuild();
     $vocabulary = Vocabulary::create(array(
       'name' => $this->randomMachineName(),
       'vid' => Unicode::strtolower($this->randomMachineName()),
@@ -408,8 +410,8 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'field_name' => 'foobar',
       'new_storage_type' => 'dynamic_entity_reference',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
-    $this->drupalPostForm(NULL, array(
+    $this->submitForm($edit, t('Save and continue'));
+    $this->submitForm(array(
       'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
       'settings[exclude_entity_types]' => FALSE,
       'settings[entity_type_ids][]' => array('taxonomy_term', 'user'),
@@ -418,13 +420,13 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'settings[taxonomy_term][handler_settings][target_bundles][' . $vocabulary->id() . ']' => $vocabulary->id(),
       'settings[taxonomy_term][handler_settings][auto_create]' => TRUE,
     );
-    $this->drupalPostForm(NULL, $edit, t('Save settings'));
+    $this->submitForm($edit, t('Save settings'));
     \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
     $this->drupalGet('entity_test/add');
 
     // Add some extra dynamic entity reference fields.
-    $this->drupalPostAjaxForm(NULL, array(), array('field_foobar_add_more' => t('Add another item')), NULL, array(), array(), 'entity-test-entity-test-form');
-    $this->drupalPostAjaxForm(NULL, array(), array('field_foobar_add_more' => t('Add another item')), NULL, array(), array(), 'entity-test-entity-test-form');
+    $this->getSession()->getPage()->findButton('Add another item')->click();
+    $this->getSession()->getPage()->findButton('Add another item')->click();
     $edit = array(
       'field_foobar[0][target_id]' => $this->adminUser->label() . ' (' . $this->adminUser->id() . ')',
       'field_foobar[0][target_type]' => 'user',
@@ -437,24 +439,24 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'user_id[0][target_id]' => $this->adminUser->label() . ' (' . $this->adminUser->id() . ')',
     );
 
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, t('Save'));
 
     $entities = \Drupal::entityTypeManager()
       ->getStorage('entity_test')
       ->loadByProperties(['name' => 'Barfoo']);
-    $this->assertEqual(1, count($entities), 'Entity was saved');
+    $this->assertCount(1, $entities, 'Entity was saved');
     $entity = reset($entities);
 
-    $this->assertEqual(count($entity->field_foobar), 3, 'Three items in field');
-    $this->assertEqual($entity->field_foobar[0]->entity->label(), $this->adminUser->label());
-    $this->assertEqual($entity->field_foobar[1]->entity->label(), 'tag');
-    $this->assertEqual($entity->field_foobar[2]->entity->label(), $term->label());
+    $this->assertCount(3, $entity->field_foobar, 'Three items in field');
+    $this->assertEquals($entity->field_foobar[0]->entity->label(), $this->adminUser->label());
+    $this->assertEquals($entity->field_foobar[1]->entity->label(), 'tag');
+    $this->assertEquals($entity->field_foobar[2]->entity->label(), $term->label());
 
     $this->drupalGet('entity_test/' . $entity->id());
-    $this->assertText('Barfoo');
-    $this->assertText($this->adminUser->label());
-    $this->assertText('tag');
-    $this->assertText($term->label());
+    $assert_session->pageTextContains('Barfoo');
+    $assert_session->pageTextContains($this->adminUser->label());
+    $assert_session->pageTextContains('tag');
+    $assert_session->pageTextContains($term->label());
 
   }
 
@@ -462,6 +464,7 @@ class DynamicEntityReferenceTest extends WebTestBase {
    * Tests node preview of dynamic entity reference field.
    */
   public function testNodePreview() {
+    $assert_session = $this->assertSession();
     \Drupal::service('module_installer')->install(array('taxonomy', 'node'));
     $this->drupalCreateContentType(array('type' => 'article'));
     $this->permissions = array(
@@ -495,22 +498,23 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'field_name' => 'der',
       'new_storage_type' => 'dynamic_entity_reference',
     );
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
-    $this->drupalPostForm(NULL, array(
+    $this->submitForm($edit, t('Save and continue'));
+    $this->submitForm([
       'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
       'settings[exclude_entity_types]' => FALSE,
-      'settings[entity_type_ids][]' => array('taxonomy_term'),
-    ), t('Save field settings'));
+      'settings[entity_type_ids][]' => ['taxonomy_term'],
+    ], t('Save field settings'));
     $edit = array(
       'settings[taxonomy_term][handler_settings][target_bundles][' . $vocabulary->id() . ']' => $vocabulary->id(),
       'settings[taxonomy_term][handler_settings][auto_create]' => TRUE,
     );
-    $this->drupalPostForm(NULL, $edit, t('Save settings'));
+    $this->submitForm($edit, t('Save settings'));
+    \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
 
     // Test the node preview for existing term.
     $this->drupalGet('node/add/article');
-    $this->assertField('field_der[0][target_id]', 'Found field_der field target id');
-    $this->assertField('field_der[0][target_type]', 'Found field_der field target type');
+    $assert_session->fieldExists('field_der[0][target_id]');
+    $assert_session->fieldExists('field_der[0][target_type]');
     $title = $this->randomMachineName();
     $edit = array(
       'field_der[0][target_id]' => $term->label() . ' (' . $term->id() . ')',
@@ -519,17 +523,17 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'uid[0][target_id]' => $this->adminUser->label() . ' (' . $this->adminUser->id() . ')',
     );
 
-    $this->drupalPostForm(NULL, $edit, t('Preview'));
-    $this->assertText($title);
-    $this->assertText($term->label());
+    $this->submitForm($edit, t('Preview'));
+    $assert_session->pageTextContains($title);
+    $assert_session->pageTextContains($term->label());
     // Back to node add page.
     $this->clickLink('Back to content editing');
-    $this->assertFieldByName('field_der[0][target_id]', $term->label() . ' (' . $term->id() . ')');
+    $assert_session->fieldValueEquals('field_der[0][target_id]', $term->label() . ' (' . $term->id() . ')');
 
     // Test the node preview for new term.
     $this->drupalGet('node/add/article');
-    $this->assertField('field_der[0][target_id]', 'Found field_der field target id');
-    $this->assertField('field_der[0][target_type]', 'Found field_der field target type');
+    $assert_session->fieldExists('field_der[0][target_id]');
+    $assert_session->fieldExists('field_der[0][target_type]');
 
     $new_term = $this->randomMachineName();
     $edit = array(
@@ -539,12 +543,12 @@ class DynamicEntityReferenceTest extends WebTestBase {
       'uid[0][target_id]' => $this->adminUser->label() . ' (' . $this->adminUser->id() . ')',
     );
 
-    $this->drupalPostForm(NULL, $edit, t('Preview'));
-    $this->assertText($title);
-    $this->assertText($new_term);
+    $this->submitForm($edit, t('Preview'));
+    $assert_session->pageTextContains($title);
+    $assert_session->pageTextContains($new_term);
     // Back to node add page.
     $this->clickLink('Back to content editing');
-    $this->assertFieldByName('field_der[0][target_id]', $new_term);
+    $assert_session->fieldValueEquals('field_der[0][target_id]', $new_term);
 
   }
 
