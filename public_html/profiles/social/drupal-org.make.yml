@@ -30,7 +30,7 @@ projects:
   address:
     version: 1.0-beta3
   admin_toolbar:
-    version: '1.15'
+    version: '1.16'
   config_update:
     version: '1.1'
   composer_manager:
@@ -38,11 +38,11 @@ projects:
   devel:
     version: 1.0-alpha1
   dynamic_entity_reference:
-    version: 1.0-rc4
+    version: 1.0-rc5
   entity:
     version: 1.0-alpha3
   features:
-    version: 3.0-beta6
+    version: 3.0-beta7
   field_group:
     version: 1.0-rc4
   group:
@@ -67,7 +67,7 @@ projects:
       revision: 4b2077aa70e3f7b00b8a9cba25af5b948ba2e3b9
       branch: 8.x-1.x
   search_api:
-    version: 1.0-alpha14
+    version: 1.0-alpha16
   token:
     version: 1.0-alpha2
 
