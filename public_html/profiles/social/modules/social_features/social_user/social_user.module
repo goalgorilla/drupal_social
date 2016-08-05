@@ -96,11 +96,13 @@ function social_user_theme() {
 function template_preprocess_account_header_links(&$variables) {
   // Add the search content block to account_header_links.
   $block = Block::load('search_content_block_header');
-  $block_output = \Drupal::entityManager()
-    ->getViewBuilder('block')
-    ->view($block);
+  if(!empty($block)){
+    $block_output = \Drupal::entityManager()
+      ->getViewBuilder('block')
+      ->view($block);
 
-  $variables['links']['search_block'] = $block_output;
+    $variables['links']['search_block'] = $block_output;
+  }
 }
 
 /**
