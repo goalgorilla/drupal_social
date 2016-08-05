@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Tests\FeaturesBundleUITest.
- */
-
 namespace Drupal\features\Tests;
 
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -15,7 +10,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 /**
  * Tests configuring bundles.
  *
- * @group features
+ * @group features_ui
  */
 class FeaturesBundleUITest extends WebTestBase {
   use StringTranslationTrait;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Tests\FeaturesCreateUITest.
- */
-
 namespace Drupal\features\Tests;
 
 use Drupal\Component\Serialization\Yaml;
@@ -15,7 +10,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 /**
  * Tests the creation of a feature.
  *
- * @group features
+ * @group features_ui
  */
 class FeaturesCreateUITest extends WebTestBase {
   use StringTranslationTrait;

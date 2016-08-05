@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains
- * \Drupal\features\Plugin\FeaturesAssignment\FeaturesAssignmentOptionalType.
- */
-
 namespace Drupal\features\Plugin\FeaturesAssignment;
 
 use Drupal\Core\Config\InstallStorage;

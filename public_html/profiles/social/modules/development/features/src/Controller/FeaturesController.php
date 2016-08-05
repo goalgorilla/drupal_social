@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Controller\FeaturesController.
- */
-
 namespace Drupal\features\Controller;
 
 use Drupal\Core\Access\CsrfTokenGenerator;

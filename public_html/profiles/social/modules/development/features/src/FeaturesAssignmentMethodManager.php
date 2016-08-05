@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesAssignmentMethodManager.
- */
-
 namespace Drupal\features;
 
 use Drupal\Core\Cache\CacheBackendInterface;
