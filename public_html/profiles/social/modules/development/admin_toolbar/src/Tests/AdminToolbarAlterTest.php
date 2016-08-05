@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\admin_toolbar\Tests\AdminToolbarAlterTest.
- */
-
 namespace Drupal\admin_toolbar\Tests;
 
 use Drupal\simpletest\WebTestBase;
