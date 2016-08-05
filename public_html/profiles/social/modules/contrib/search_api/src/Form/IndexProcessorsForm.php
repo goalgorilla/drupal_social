@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api\Processor\ProcessorInterface;
 use Drupal\search_api\Processor\ProcessorPluginManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -37,27 +38,36 @@ class IndexProcessorsForm extends EntityForm {
   protected $processorPluginManager;
 
   /**
+   * The logger to use.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * Constructs an IndexProcessorsForm object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\search_api\Processor\ProcessorPluginManager $processor_plugin_manager
    *   The processor plugin manager.
+   * @param \Psr\Log\LoggerInterface $logger
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ProcessorPluginManager $processor_plugin_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ProcessorPluginManager $processor_plugin_manager, LoggerInterface $logger) {
     $this->entityTypeManager = $entity_type_manager;
     $this->processorPluginManager = $processor_plugin_manager;
+    $this->logger = $logger;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
     $entity_type_manager = $container->get('entity_type.manager');
-    /** @var \Drupal\search_api\Processor\ProcessorPluginManager $processor_plugin_manager */
     $processor_plugin_manager = $container->get('plugin.manager.search_api.processor');
-    return new static($entity_type_manager, $processor_plugin_manager);
+    $logger = $container->get('logger.channel.search_api');
+
+    return new static($entity_type_manager, $processor_plugin_manager, $logger);
   }
 
   /**
@@ -75,11 +85,12 @@ class IndexProcessorsForm extends EntityForm {
 
     // Retrieve lists of all processors, and the stages and weights they have.
     if (!$form_state->has('processors')) {
-      $all_processors = $this->entity->getProcessors(FALSE);
+      $all_processors = $this->getAllProcessors();
       $sort_processors = function (ProcessorInterface $a, ProcessorInterface $b) {
         return strnatcasecmp($a->label(), $b->label());
       };
       uasort($all_processors, $sort_processors);
+      $form_state->set('processors', $all_processors);
     }
     else {
       $all_processors = $form_state->get('processors');
@@ -87,26 +98,33 @@ class IndexProcessorsForm extends EntityForm {
 
     $stages = $this->processorPluginManager->getProcessingStages();
     $processors_by_stage = array();
-    foreach ($stages as $stage => $definition) {
-      $processors_by_stage[$stage] = $this->entity->getProcessorsByStage($stage, FALSE);
-    }
-
-    if ($this->entity->getServerInstance()) {
-      $backend_discouraged_processors = $this->entity->getServerInstance()
-        ->getDiscouragedProcessors();
-
-      foreach ($backend_discouraged_processors as $processor_id) {
-        // Remove processors from the overview.
-        unset($all_processors[$processor_id]);
-
-        // Remove processors from the stages.
-        foreach ($processors_by_stage as $stage => $processors) {
-          unset($processors_by_stage[$stage][$processor_id]);
+    foreach ($all_processors as $processor_id => $processor) {
+      foreach ($stages as $stage => $definition) {
+        if ($processor->supportsStage($stage)) {
+          $processors_by_stage[$stage][$processor_id] = $processor;
         }
       }
     }
 
     $enabled_processors = $this->entity->getProcessors();
+
+    $backend_discouraged_processors = array();
+    if ($this->entity->getServerInstance()) {
+      $backend_discouraged_processors = $this->entity->getServerInstance()
+        ->getDiscouragedProcessors();
+
+      foreach ($backend_discouraged_processors as $processor_id) {
+        if (!isset($enabled_processors[$processor_id])) {
+          // Remove processors from the overview.
+          unset($all_processors[$processor_id]);
+
+          // Remove processors from the stages.
+          foreach ($processors_by_stage as $stage => $processors) {
+            unset($processors_by_stage[$stage][$processor_id]);
+          }
+        }
+      }
+    }
 
     $form['#tree'] = TRUE;
     $form['#attached']['library'][] = 'search_api/drupal.search_api.index-active-formatters';
@@ -139,6 +157,9 @@ class IndexProcessorsForm extends EntityForm {
         '#disabled' => $processor->isLocked(),
         '#access' => !$processor->isHidden(),
       );
+      if (in_array($processor_id, $backend_discouraged_processors)) {
+        $form['status'][$processor_id]['#description'] .= '<br /><strong>' . $this->t('It is recommended not to use this processor with the selected server.') . '</strong>';
+      }
     }
 
     $form['weights'] = array(
@@ -169,7 +190,7 @@ class IndexProcessorsForm extends EntityForm {
     foreach ($processors_by_stage as $stage => $processors) {
       /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
       foreach ($processors as $processor_id => $processor) {
-        $weight = $processor->getDefaultWeight($stage);
+        $weight = $processor->getWeight($stage);
         if ($processor->isHidden()) {
           $form['processors'][$processor_id]['weights'][$stage] = array(
             '#type' => 'value',
@@ -234,8 +255,7 @@ class IndexProcessorsForm extends EntityForm {
     parent::validateForm($form, $form_state);
 
     $values = $form_state->getValues();
-    /** @var \Drupal\search_api\Processor\ProcessorInterface[] $processors */
-    $processors = $this->entity->getProcessors(FALSE);
+    $processors = $this->getAllProcessors();
 
     // Iterate over all processors that have a form and are enabled.
     foreach ($form['settings'] as $processor_id => $processor_form) {
@@ -252,52 +272,36 @@ class IndexProcessorsForm extends EntityForm {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    $new_settings = array();
-
     $old_processors = $this->entity->getProcessors();
-    $old_configurations = array();
-    foreach ($old_processors as $id => $processor) {
-      $old_configurations[$id] = $processor->getConfiguration();
-    }
 
     // Store processor settings.
-    /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
-    $processors = $this->entity->getProcessors(FALSE);
+    $processors = $this->getAllProcessors();
     foreach ($processors as $processor_id => $processor) {
       if (empty($values['status'][$processor_id])) {
         if (isset($old_processors[$processor_id])) {
           $this->entity->removeProcessor($processor_id);
+          $form_state->set('processors_changed', TRUE);
         }
         continue;
       }
-      $new_settings[$processor_id] = array(
-        'plugin_id' => $processor_id,
-        'settings' => array(),
-      );
-      $processor_values = $values['processors'][$processor_id];
+      $old_configuration = $processor->getConfiguration();
       if (isset($form['settings'][$processor_id])) {
         $sub_keys = array('processors', $processor_id, 'settings');
         $processor_form_state = new SubFormState($form_state, $sub_keys);
         $processor->submitConfigurationForm($form['settings'][$processor_id], $processor_form_state);
-        $new_settings[$processor_id]['settings'] = $processor->getConfiguration();
-        $new_settings[$processor_id]['settings'] += array('index' => $this->entity);
       }
-      if (!empty($processor_values['weights'])) {
-        $new_settings[$processor_id]['settings']['weights'] = $processor_values['weights'];
+      if (!empty($values['processors'][$processor_id]['weights'])) {
+        foreach ($values['processors'][$processor_id]['weights'] as $stage => $weight) {
+          $processor->setWeight($stage, (int) $weight);
+        }
       }
-    }
-
-    $new_configurations = array();
-    foreach ($new_settings as $plugin_id => $new_processor_settings) {
-      /** @var \Drupal\search_api\Processor\ProcessorInterface $new_processor */
-      $new_processor_settings['settings']['index'] = $this->entity;
-      $new_processor = $this->processorPluginManager->createInstance($plugin_id, $new_processor_settings['settings']);
-      $this->entity->addProcessor($new_processor);
-      $new_configurations[$plugin_id] = $new_processor->getConfiguration();
-    }
-
-    if ($old_configurations != $new_configurations) {
-      $form_state->set('processors_changed', TRUE);
+      if (!isset($old_processors[$processor_id])) {
+        $this->entity->addProcessor($processor);
+        $form_state->set('processors_changed', TRUE);
+      }
+      elseif ($old_configuration != $processor->getConfiguration()) {
+        $form_state->set('processors_changed', TRUE);
+      }
     }
   }
 
@@ -330,6 +334,35 @@ class IndexProcessorsForm extends EntityForm {
     unset($actions['delete']);
 
     return $actions;
+  }
+
+  /**
+   * Retrieves all available processor
+   */
+  protected function getAllProcessors() {
+    $processors = $this->entity->getProcessors();
+    $settings['index'] = $this->entity;
+
+    foreach ($this->processorPluginManager->getDefinitions() as $name => $processor_definition) {
+      if (isset($processors[$name])) {
+        continue;
+      }
+      elseif (class_exists($processor_definition['class'])) {
+        if (call_user_func(array($processor_definition['class'], 'supportsIndex'), $this->entity)) {
+          /** @var $processor \Drupal\search_api\Processor\ProcessorInterface */
+          $processor = $this->processorPluginManager->createInstance($name, $settings);
+          $processors[$name] = $processor;
+        }
+      }
+      else {
+        $this->logger->warning('Processor %id specifies a non-existing class %class.', array(
+          '%id' => $name,
+          '%class' => $processor_definition['class']
+        ));
+      }
+    }
+
+    return $processors;
   }
 
 }

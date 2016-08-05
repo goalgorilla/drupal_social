@@ -221,6 +221,14 @@ interface FieldInterface extends \Traversable {
   public function getType();
 
   /**
+   * Retrieves the Search API data type plugin for this field's type.
+   *
+   * @return \Drupal\search_api\DataType\DataTypeInterface|null
+   *   The data type plugin, or NULL if the type is unknown.
+   */
+  public function getDataTypePlugin();
+
+  /**
    * Sets the Search API data type of this field.
    *
    * @param string $type
@@ -246,7 +254,8 @@ interface FieldInterface extends \Traversable {
    * Sets the values of this field.
    *
    * @param array $values
-   *   The values of the field.
+   *   The values of the field. These already have to have been processed by the
+   *   data type plugin corresponding to this field's type.
    *
    * @return $this
    */
@@ -255,8 +264,11 @@ interface FieldInterface extends \Traversable {
   /**
    * Adds a value to this field.
    *
+   * Will take care of processing the value correctly with this field's data
+   * type plugin.
+   *
    * @param mixed $value
-   *   A value to add to this field.
+   *   A value to add to this field, not yet processed by the data type plugin.
    *
    * @return $this
    */
@@ -340,6 +352,24 @@ interface FieldInterface extends \Traversable {
    * @return $this
    */
   public function setTypeLocked($type_locked = TRUE);
+
+  /**
+   * Gets this field's property-specific configuration.
+   *
+   * @return array
+   *   An array of this field's configuration.
+   */
+  public function getConfiguration();
+
+  /**
+   * Sets this field's property-specific configuration.
+   *
+   * @param array $configuration
+   *   An associative array containing the field's configuration.
+   *
+   * @return $this
+   */
+  public function setConfiguration(array $configuration);
 
   /**
    * Retrieves the field's dependencies.

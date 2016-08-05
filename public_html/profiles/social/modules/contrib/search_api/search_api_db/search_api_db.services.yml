@@ -1,4 +1,8 @@
 services:
+  logger.channel.search_api_db:
+    parent: logger.channel_base
+    arguments: ['search_api_db']
+
   search_api_db.database_compatibility:
     class: Drupal\search_api_db\DatabaseCompatibility\GenericDatabase
     arguments: ['@database', '@transliteration']

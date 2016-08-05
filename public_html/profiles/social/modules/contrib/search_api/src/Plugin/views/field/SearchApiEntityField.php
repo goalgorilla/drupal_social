@@ -98,11 +98,43 @@ class SearchApiEntityField extends Field {
   public function defineOptions() {
     $options = parent::defineOptions();
 
+    // Gather the fallback handler's options, but exclude those just inherited
+    // from the field plugin base (since they would otherwise be duplicated).
+    // To find out which options should be excluded, we take the $options keys
+    // from the parent and remove the keys that come directly from the parent.
+    $fallback_options = array();
+    if (is_callable(array($this->fallbackHandler, 'defineOptions'))) {
+      $fallback_options = $this->fallbackHandler->defineOptions();
+      $parent_keys = $this->getParentOptionKeys();
+      $remove_from_fallback = array_diff_key($options, array_flip($parent_keys));
+      $fallback_options = array_diff_key($fallback_options, $remove_from_fallback);
+    }
+
     $options['field_rendering'] = array('default' => TRUE);
     $options['fallback_handler'] = array('default' => $this->fallbackHandler->getPluginId());
-    $options['fallback_options'] = array('contains' => $this->fallbackHandler->defineOptions());
+    $options['fallback_options'] = array('contains' => $fallback_options);
 
     return $options;
+  }
+
+  /**
+   * Retrieves the keys of the options defined by our direct parent.
+   *
+   * I.e., this will exclude all options defined by
+   * \Drupal\views\Plugin\views\field\FieldPluginBase, and only include those
+   * defined by \Drupal\views\Plugin\views\field\Field.
+   *
+   * @return string[]
+   *   The keys of options directly defined by our parent class.
+   */
+  protected function getParentOptionKeys() {
+    return array(
+      'multiple_field_settings',
+      'click_sort_column',
+      'type',
+      'field_api_classes',
+      'settings',
+    );
   }
 
   /**
@@ -132,13 +164,7 @@ class SearchApiEntityField extends Field {
     // our direct parent (\Drupal\views\Plugin\views\field\Field) to the
     // "parent_options" fieldset.
     parent::buildOptionsForm($form, $form_state);
-    $parent_keys = array(
-      'multiple_field_settings',
-      'click_sort_column',
-      'type',
-      'field_api_classes',
-      'settings',
-    );
+    $parent_keys = $this->getParentOptionKeys();
     foreach ($parent_keys as $key) {
       if (!empty($form[$key])) {
         $form[$key]['#fieldset'] = 'parent_options';

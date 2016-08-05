@@ -39,6 +39,8 @@ search_api.index.*:
           boost:
             type: float
             label: 'The boost of the field'
+          configuration:
+            type: search_api.property_configuration.[%parent.property_path]
           indexed_locked:
             type: boolean
             label: 'Whether the field is locked or can be removed'

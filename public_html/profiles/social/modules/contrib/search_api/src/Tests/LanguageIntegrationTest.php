@@ -18,7 +18,7 @@ class LanguageIntegrationTest extends WebTestBase {
   public static $modules = array(
     'node',
     'search_api',
-    'search_api_test_backend',
+    'search_api_test',
     'language',
   );
 
@@ -35,7 +35,9 @@ class LanguageIntegrationTest extends WebTestBase {
     // Do not use a batch for tracking the initial items after creating an
     // index when running the tests via the GUI. Otherwise, it seems Drupal's
     // Batch API gets confused and the test fails.
-    \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
+    if (php_sapi_name() != 'cli') {
+      \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
+    }
 
     // Create an index and server to work with.
     $this->getTestServer();
@@ -81,7 +83,10 @@ class LanguageIntegrationTest extends WebTestBase {
     $this->assertText($this->t('Successfully indexed 5 items'));
 
     // Change the datasource to disallow indexing of dutch.
-    $form_values = array('datasource_configs[entity:node][languages][nl]' => 1);
+    $form_values = array(
+      'datasource_configs[entity:node][languages][default]' => 1,
+      'datasource_configs[entity:node][languages][selected][nl]' => 1,
+    );
     $this->drupalGet($this->getIndexPath('edit'));
     $this->drupalPostForm(NULL, $form_values, $this->t('Save'));
     $this->assertResponse(200);
@@ -95,9 +100,10 @@ class LanguageIntegrationTest extends WebTestBase {
 
     // Change the datasource to only allow indexing of dutch.
     $form_values = array(
-      'datasource_configs[entity:node][default]' => 0,
-      'datasource_configs[entity:node][bundles][article]' => 1,
-      'datasource_configs[entity:node][languages][nl]' => 1,
+      'datasource_configs[entity:node][languages][default]' => 0,
+      'datasource_configs[entity:node][languages][selected][nl]' => 1,
+      'datasource_configs[entity:node][bundles][default]' => 0,
+      'datasource_configs[entity:node][bundles][selected][article]' => 1,
     );
     $this->drupalGet($this->getIndexPath('edit'));
     $this->drupalPostForm(NULL, $form_values, $this->t('Save'));

@@ -21,7 +21,7 @@ class ResultSet implements \IteratorAggregate, ResultSetInterface {
    *
    * @var int
    */
-  protected $resultCount;
+  protected $resultCount = 0;
 
   /**
    * The result items.
@@ -184,6 +184,15 @@ class ResultSet implements \IteratorAggregate, ResultSetInterface {
       unset($this->extraData[$key]);
     }
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCloneForQuery(QueryInterface $query) {
+    $clone = clone $this;
+    $clone->query = $query;
+    return $clone;
   }
 
   /**

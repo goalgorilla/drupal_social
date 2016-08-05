@@ -45,9 +45,9 @@ class FieldValuesExtractionTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->installEntitySchema('entity_test');
+    $this->installEntitySchema('entity_test_mulrev_changed');
     $this->installConfig(array('search_api_test_extraction'));
-    $entity_storage = \Drupal::entityTypeManager()->getStorage('entity_test');
+    $entity_storage = \Drupal::entityTypeManager()->getStorage('entity_test_mulrev_changed');
 
     $this->entities[0] = $entity_storage->create(array(
       'type' => 'article',
@@ -88,19 +88,32 @@ class FieldValuesExtractionTest extends KernelTestBase {
    */
   public function testFieldValuesExtraction() {
     $object = $this->entities[3]->getTypedData();
-    /** @var \Drupal\search_api\Item\FieldInterface[] $fields */
+    /** @var \Drupal\search_api\Item\FieldInterface[][] $fields */
     $fields = array(
-      'type' => Utility::createField($this->index, 'type'),
-      'name' => Utility::createField($this->index, 'name'),
-      'links:entity:name' => Utility::createField($this->index, 'links'),
-      'links:entity:links:entity:name' => Utility::createField($this->index, 'links_links'),
+      'type' => array(Utility::createField($this->index, 'type')),
+      'name' => array(Utility::createField($this->index, 'name')),
+      'links:entity:name' => array(
+        Utility::createField($this->index, 'links'),
+        Utility::createField($this->index, 'links_1'),
+      ),
+      'links:entity:links:entity:name' => array(
+        Utility::createField($this->index, 'links_links'),
+      ),
     );
     Utility::extractFields($object, $fields);
 
     $values = array();
-    foreach ($fields as $property_path => $field) {
-      $values[$property_path] = $field->getValues();
-      sort($values[$property_path]);
+    foreach ($fields as $property_path => $property_fields) {
+      foreach ($property_fields as $field) {
+        $field_values = $field->getValues();
+        sort($field_values);
+        if (!isset($values[$property_path])) {
+          $values[$property_path] = $field_values;
+        }
+        else {
+          $this->assertEquals($field_values, $values[$property_path], 'Second extraction provided the same results as the first.');
+        }
+      }
     }
 
     $expected = array(

@@ -19,11 +19,21 @@ class DataTypePluginManager extends DefaultPluginManager {
   /**
    * Static cache for the data type definitions.
    *
-   * @var string[][]
+   * @var \Drupal\search_api\DataType\DataTypeInterface[]
    *
+   * @see \Drupal\search_api\DataType\DataTypePluginManager::createInstance()
    * @see \Drupal\search_api\DataType\DataTypePluginManager::getInstances()
    */
   protected $dataTypes;
+
+  /**
+   * Whether all plugin instances have already been created.
+   *
+   * @var bool
+   *
+   * @see \Drupal\search_api\DataType\DataTypePluginManager::getInstances()
+   */
+  protected $allCreated = FALSE;
 
   /**
    * Constructs a DataTypePluginManager object.
@@ -44,19 +54,44 @@ class DataTypePluginManager extends DefaultPluginManager {
   }
 
   /**
+   * Creates or retrieves a data type plugin.
+   *
+   * @param string $plugin_id
+   *   The ID of the plugin being instantiated.
+   * @param array $configuration
+   *   (optional) An array of configuration relevant to the plugin instance.
+   *   Ignored for data type plugins.
+   *
+   * @return \Drupal\search_api\DataType\DataTypeInterface
+   *   The requested data type plugin.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   *   If the instance cannot be created, such as if the ID is invalid.
+   */
+  public function createInstance($plugin_id, array $configuration = array()) {
+    if (empty($this->dataTypes[$plugin_id])) {
+      $this->dataTypes[$plugin_id] = parent::createInstance($plugin_id, $configuration);
+    }
+    return $this->dataTypes[$plugin_id];
+  }
+
+  /**
    * Returns all known data types.
    *
    * @return \Drupal\search_api\DataType\DataTypeInterface[]
    *   An array of data type plugins, keyed by type identifier.
    */
   public function getInstances() {
-    if (!isset($this->DataTypes)) {
-      $this->dataTypes = array();
+    if (!$this->allCreated) {
+      $this->allCreated = TRUE;
+      if (!isset($this->dataTypes)) {
+        $this->dataTypes = array();
+      }
 
-      foreach ($this->getDefinitions() as $name => $data_type_definition) {
-        if (class_exists($data_type_definition['class']) && empty($this->dataTypes[$name])) {
-          $data_type = $this->createInstance($name);
-          $this->dataTypes[$name] = $data_type;
+      foreach ($this->getDefinitions() as $plugin_id => $definition) {
+        if (class_exists($definition['class']) && empty($this->dataTypes[$plugin_id])) {
+          $data_type = $this->createInstance($plugin_id);
+          $this->dataTypes[$plugin_id] = $data_type;
         }
       }
     }
@@ -71,14 +106,13 @@ class DataTypePluginManager extends DefaultPluginManager {
    *   An associative array with all recognized types as keys, mapped to their
    *   translated display names.
    *
-   * @see \Drupal\search_api\DataTypePluginManager::getInstances()
+   * @see \Drupal\search_api\DataType\DataTypePluginManager::getInstances()
    */
   public function getInstancesOptions() {
     $types = array();
     foreach ($this->getInstances() as $id => $info) {
       $types[$id] = $info->label();
     }
-
     return $types;
   }
 

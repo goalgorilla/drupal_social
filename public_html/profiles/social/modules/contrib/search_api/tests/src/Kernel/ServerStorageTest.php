@@ -5,6 +5,7 @@ namespace Drupal\Tests\search_api\Kernel;
 use Drupal\Core\Config\Entity\ConfigEntityStorage;
 use Drupal\search_api\ServerInterface;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\search_api_test\PluginTestTrait;
 
 /**
  * Tests whether the storage of search servers works correctly.
@@ -13,6 +14,8 @@ use Drupal\KernelTests\KernelTestBase;
  */
 class ServerStorageTest extends KernelTestBase {
 
+  use PluginTestTrait;
+
   /**
    * Modules to enable for this test.
    *
@@ -20,7 +23,7 @@ class ServerStorageTest extends KernelTestBase {
    */
   public static $modules = array(
     'search_api',
-    'search_api_test_backend',
+    'search_api_test',
     'user',
     'system',
   );
@@ -52,6 +55,7 @@ class ServerStorageTest extends KernelTestBase {
 
     $server = $this->serverCreate();
     $this->serverLoad($server);
+    $this->serverUpdate($server);
     $this->serverDelete($server);
   }
 
@@ -65,14 +69,14 @@ class ServerStorageTest extends KernelTestBase {
     $server_data = array(
       'id' => 'test_server',
       'name' => 'Test server',
-      'backend' => 'search_api_test_backend',
+      'backend' => 'search_api_test',
     );
     $server = $this->storage->create($server_data);
 
     $this->assertTrue($server instanceof ServerInterface, 'The newly created entity is a Search API Server.');
     $server->save();
 
-    $key = 'search_api_test_backend.methods_called.' . $server->id();
+    $key = 'search_api_test.methods_called.' . $server->id();
     $methods_called = \Drupal::state()->get($key, array());
     $this->assertNotContains('preUpdate', $methods_called, 'Backend::preUpdate() not called for initial save.');
     $this->assertNotContains('postUpdate', $methods_called, 'Backend::postUpdate() not called for initial save.');
@@ -105,8 +109,7 @@ class ServerStorageTest extends KernelTestBase {
     $server->set('name', $server->label() . ' - edited');
     $server->save();
 
-    $key = 'search_api_test_backend.methods_called.' . $server->id();
-    $methods_called = \Drupal::state()->get($key, array());
+    $methods_called = $this->getCalledMethods('backend');
     $this->assertContains('preUpdate', $methods_called, 'Backend::preUpdate() called for update.');
     $this->assertContains('postUpdate', $methods_called, 'Backend::postUpdate() called for update.');
 

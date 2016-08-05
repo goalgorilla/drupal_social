@@ -2,9 +2,10 @@
 
 namespace Drupal\search_api\Query;
 
-use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\search_api\IndexInterface;
+use Drupal\search_api\ParseMode\ParseModeInterface;
 use Drupal\search_api\SearchApiException;
 
 /**
@@ -13,6 +14,10 @@ use Drupal\search_api\SearchApiException;
 class Query implements QueryInterface {
 
   use StringTranslationTrait;
+  use DependencySerializationTrait {
+    __sleep as traitSleep;
+    __wakeup as traitWakeup;
+  }
 
   /**
    * The index on which the query will be executed.
@@ -31,6 +36,13 @@ class Query implements QueryInterface {
   protected $indexId;
 
   /**
+   * The search results.
+   *
+   * @var \Drupal\search_api\Query\ResultSetInterface
+   */
+  protected $results;
+
+  /**
    * The result cache service.
    *
    * @var \Drupal\search_api\Query\ResultsCacheInterface
@@ -40,11 +52,25 @@ class Query implements QueryInterface {
   /**
    * The parse mode to use for fulltext search keys.
    *
-   * @var string
-   *
-   * @see \Drupal\search_api\Query\QueryInterface::parseModes()
+   * @var \Drupal\search_api\ParseMode\ParseModeInterface|null
    */
-  protected $parseMode = 'terms';
+  protected $parseMode;
+
+  /**
+   * The processing level for this search query.
+   *
+   * One of the \Drupal\search_api\Query\QueryInterface::PROCESSING_* constants.
+   *
+   * @var int
+   */
+  protected $processingLevel = self::PROCESSING_FULL;
+
+  /**
+   * The language codes which should be searched by this query.
+   *
+   * @var string[]|null
+   */
+  protected $languages;
 
   /**
    * The search keys.
@@ -84,6 +110,13 @@ class Query implements QueryInterface {
   protected $sorts = array();
 
   /**
+   * Information about whether the query has been aborted or not.
+   *
+   * @var \Drupal\Component\Render\MarkupInterface|string|true|null
+   */
+  protected $aborted;
+
+  /**
    * Options configuring this query.
    *
    * @var array
@@ -105,6 +138,13 @@ class Query implements QueryInterface {
   protected $preExecuteRan = FALSE;
 
   /**
+   * Flag for whether execute() was already called for this query.
+   *
+   * @var bool
+   */
+  protected $executed = FALSE;
+
+  /**
    * Constructs a Query object.
    *
    * @param \Drupal\search_api\IndexInterface $index
@@ -122,9 +162,11 @@ class Query implements QueryInterface {
    */
   public function __construct(IndexInterface $index, ResultsCacheInterface $results_cache, array $options = array()) {
     if (!$index->status()) {
-      throw new SearchApiException(new FormattableMarkup("Can't search on index %index which is disabled.", array('%index' => $index->label())));
+      $index_label = $index->label();
+      throw new SearchApiException("Can't search on index '$index_label' which is disabled.");
     }
     $this->index = $index;
+    $this->results = new ResultSet($this);
     $this->resultsCache = $results_cache;
     $this->options = $options + array(
       'conjunction' => 'AND',
@@ -143,101 +185,37 @@ class Query implements QueryInterface {
   /**
    * {@inheritdoc}
    */
-  public function parseModes() {
-    $modes['direct'] = array(
-      'name' => $this->t('Direct query'),
-      'description' => $this->t("Don't parse the query, just hand it to the search server unaltered. Might fail if the query contains syntax errors in regard to the specific server's query syntax."),
-    );
-    $modes['single'] = array(
-      'name' => $this->t('Single term'),
-      'description' => $this->t('The query is interpreted as a single keyword, maybe containing spaces or special characters.'),
-    );
-    $modes['terms'] = array(
-      'name' => $this->t('Multiple terms'),
-      'description' => $this->t('The query is interpreted as multiple keywords separated by spaces. Keywords containing spaces may be "quoted". Quoted keywords must still be separated by spaces.'),
-    );
-    // @todo Add fourth mode for complicated expressions, e.g.: »"vanilla ice" OR (love NOT hate)«
-    return $modes;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getParseMode() {
+    if (!$this->parseMode) {
+      $this->parseMode = \Drupal::getContainer()
+        ->get('plugin.manager.search_api.parse_mode')
+        ->createInstance('terms')
+        ->setConjunction($this->options['conjunction']);
+    }
     return $this->parseMode;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setParseMode($parse_mode) {
+  public function setParseMode(ParseModeInterface $parse_mode) {
     $this->parseMode = $parse_mode;
     return $this;
   }
 
   /**
-   * Parses search keys input by the user according to the given parse mode.
-   *
-   * @param string|array|null $keys
-   *   The keywords to parse.
-   *
-   * @return array|null|string
-   *   The parsed keywords, in the format defined by
-   *   \Drupal\search_api\Query\QueryInterface::getKeys().
-   *
-   * @see \Drupal\search_api\Query\QueryInterface::parseModes()
+   * {@inheritdoc}
    */
-  protected function parseKeys($keys) {
-    if ($keys === NULL || is_array($keys)) {
-      return $keys;
-    }
-    $keys = '' . $keys;
-    switch ($this->parseMode) {
-      case 'direct':
-        return $keys;
+  public function getLanguages() {
+    return $this->languages;
+  }
 
-      case 'single':
-        return array('#conjunction' => $this->options['conjunction'], $keys);
-
-      case 'terms':
-        $ret = explode(' ', $keys);
-        $quoted = FALSE;
-        $str = '';
-        foreach ($ret as $k => $v) {
-          if (!$v) {
-            continue;
-          }
-          if ($quoted) {
-            if (substr($v, -1) == '"') {
-              $v = substr($v, 0, -1);
-              $str .= ' ' . $v;
-              $ret[$k] = $str;
-              $quoted = FALSE;
-            }
-            else {
-              $str .= ' ' . $v;
-              unset($ret[$k]);
-            }
-          }
-          elseif ($v[0] == '"') {
-            $len = strlen($v);
-            if ($len > 1 && $v[$len - 1] == '"') {
-              $ret[$k] = substr($v, 1, -1);
-            }
-            else {
-              $str = substr($v, 1);
-              $quoted = TRUE;
-              unset($ret[$k]);
-            }
-          }
-        }
-        if ($quoted) {
-          $ret[] = $str;
-        }
-        $ret['#conjunction'] = $this->options['conjunction'];
-        return array_filter($ret);
-    }
-    return NULL;
+  /**
+   * {@inheritdoc}
+   */
+  public function setLanguages(array $languages = NULL) {
+    $this->languages = $languages;
+    return $this;
   }
 
   /**
@@ -252,11 +230,11 @@ class Query implements QueryInterface {
    */
   public function keys($keys = NULL) {
     $this->origKeys = $keys;
-    if (isset($keys)) {
-      $this->keys = $this->parseKeys($keys);
+    if (is_scalar($keys)) {
+      $this->keys = $this->getParseMode()->parseInput("$keys");
     }
     else {
-      $this->keys = NULL;
+      $this->keys = $keys;
     }
     return $this;
   }
@@ -290,6 +268,9 @@ class Query implements QueryInterface {
    */
   public function sort($field, $order = self::SORT_ASC) {
     $order = strtoupper(trim($order)) == self::SORT_DESC ? self::SORT_DESC : self::SORT_ASC;
+    if (isset($this->sorts[$field])) {
+      unset($this->sorts[$field]);
+    }
     $this->sorts[$field] = $order;
     return $this;
   }
@@ -306,28 +287,93 @@ class Query implements QueryInterface {
   /**
    * {@inheritdoc}
    */
+  public function getProcessingLevel() {
+    return $this->processingLevel;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setProcessingLevel($level) {
+    $this->processingLevel = $level;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function abort($error_message = NULL) {
+    $this->aborted = isset($error_message) ? $error_message : TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function wasAborted() {
+    return $this->aborted !== NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAbortMessage() {
+    return is_bool($this->aborted) ? $this->aborted : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function execute() {
+    if ($this->hasExecuted()) {
+      return $this->results;
+    }
+
+    $this->executed = TRUE;
+
+    // Check for aborted status both before and after calling preExecute().
+    if ($this->shouldAbort()) {
+      return $this->results;
+    }
+
     // Prepare the query for execution by the server.
     $this->preExecute();
 
+    if ($this->shouldAbort()) {
+      return $this->results;
+    }
+
     // Execute query.
-    $response = $this->index->getServerInstance()->search($this);
+    $this->index->getServerInstance()->search($this);
 
     // Postprocess the search results.
-    $this->postExecute($response);
+    $this->postExecute();
 
-    // Store search for later retrieval for facets, etc.
-    // @todo Figure out how to store the executed searches for the request.
-    // search_api_current_search(NULL, $this, $response);
-    return $response;
+    return $this->results;
+  }
+
+  /**
+   * Determines whether the query should be aborted.
+   *
+   * Also prepares the result set if the query should be aborted.
+   *
+   * @return bool
+   *   TRUE if the query should be aborted, FALSE otherwise.
+   */
+  protected function shouldAbort() {
+    if (!$this->wasAborted() && $this->languages !== array()) {
+      return FALSE;
+    }
+    $this->postExecute();
+    return TRUE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function preExecute() {
-    // Make sure to only execute this once per query.
-    if (!$this->preExecuteRan) {
+    // Make sure to only execute this once per query, and not for queries with
+    // the "none" processing level.
+    if (!$this->preExecuteRan && $this->processingLevel != self::PROCESSING_NONE) {
       $this->preExecuteRan = TRUE;
 
       // Preprocess query.
@@ -345,19 +391,37 @@ class Query implements QueryInterface {
   /**
    * {@inheritdoc}
    */
-  public function postExecute(ResultSetInterface $results) {
+  public function postExecute() {
+    if ($this->processingLevel == self::PROCESSING_NONE) {
+      return;
+    }
+
     // Postprocess results.
-    $this->index->postprocessSearchResults($results);
+    $this->index->postprocessSearchResults($this->results);
 
     // Let modules alter the results.
     $hooks = array('search_api_results');
     foreach ($this->tags as $tag) {
       $hooks[] = "search_api_results_$tag";
     }
-    \Drupal::moduleHandler()->alter($hooks, $results);
+    \Drupal::moduleHandler()->alter($hooks, $this->results);
 
     // Store the results in the static cache.
-    $this->resultsCache->addResults($results);
+    $this->resultsCache->addResults($this->results);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasExecuted() {
+    return $this->executed;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getResults() {
+    return $this->results;
   }
 
   /**
@@ -426,53 +490,6 @@ class Query implements QueryInterface {
   }
 
   /**
-   * Implements the magic __sleep() method to avoid serializing the index.
-   */
-  public function __sleep() {
-    $this->indexId = $this->index->id();
-    $keys = get_object_vars($this);
-    unset($keys['index'], $keys['resultsCache'], $keys['stringTranslation']);
-    return array_keys($keys);
-  }
-
-  /**
-   * Implements the magic __wakeup() method to reload the query's index.
-   */
-  public function __wakeup() {
-    if (!isset($this->index) && !empty($this->indexId)) {
-      $this->index = \Drupal::entityTypeManager()->getStorage('search_api_index')->load($this->indexId);
-      unset($this->indexId);
-    }
-  }
-
-  /**
-   * Implements the magic __toString() method to simplify debugging.
-   */
-  public function __toString() {
-    $ret = 'Index: ' . $this->index->id() . "\n";
-    $ret .= 'Keys: ' . str_replace("\n", "\n  ", var_export($this->origKeys, TRUE)) . "\n";
-    if (isset($this->keys)) {
-      $ret .= 'Parsed keys: ' . str_replace("\n", "\n  ", var_export($this->keys, TRUE)) . "\n";
-      $ret .= 'Searched fields: ' . (isset($this->fields) ? implode(', ', $this->fields) : '[ALL]') . "\n";
-    }
-    if ($conditions = (string) $this->conditionGroup) {
-      $conditions = str_replace("\n", "\n  ", $conditions);
-      $ret .= "Conditions:\n  $conditions\n";
-    }
-    if ($this->sorts) {
-      $sorts = array();
-      foreach ($this->sorts as $field => $order) {
-        $sorts[] = "$field $order";
-      }
-      $ret .= 'Sorting: ' . implode(', ', $sorts) . "\n";
-    }
-    // @todo Fix for entities contained in options (which might kill
-    //   var_export() due to circular references).
-    $ret .= 'Options: ' . str_replace("\n", "\n  ", var_export($this->options, TRUE)) . "\n";
-    return $ret;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function addTag($tag) {
@@ -506,6 +523,86 @@ class Query implements QueryInterface {
    */
   public function &getTags() {
     return $this->tags;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __clone() {
+    $this->results = $this->getResults()->getCloneForQuery($this);
+  }
+
+  /**
+   * Implements the magic __sleep() method to avoid serializing the index.
+   */
+  public function __sleep() {
+    $this->indexId = $this->index->id();
+    $keys = $this->traitSleep();
+    return array_diff($keys, array('index'));
+  }
+
+  /**
+   * Implements the magic __wakeup() method to reload the query's index.
+   */
+  public function __wakeup() {
+    if (!isset($this->index) && !empty($this->indexId) && \Drupal::hasContainer()) {
+      $this->index = \Drupal::entityTypeManager()
+        ->getStorage('search_api_index')
+        ->load($this->indexId);
+      $this->indexId = NULL;
+    }
+    $this->traitWakeup();
+  }
+
+  /**
+   * Implements the magic __toString() method to simplify debugging.
+   */
+  public function __toString() {
+    $ret = 'Index: ' . $this->index->id() . "\n";
+    $ret .= 'Keys: ' . str_replace("\n", "\n  ", var_export($this->origKeys, TRUE)) . "\n";
+    if (isset($this->keys)) {
+      $ret .= 'Parsed keys: ' . str_replace("\n", "\n  ", var_export($this->keys, TRUE)) . "\n";
+      $ret .= 'Searched fields: ' . (isset($this->fields) ? implode(', ', $this->fields) : '[ALL]') . "\n";
+    }
+    if (isset($this->languages)) {
+      $ret .= 'Searched languages: ' . implode(', ', $this->languages) . "\n";
+    }
+    if ($conditions = (string) $this->conditionGroup) {
+      $conditions = str_replace("\n", "\n  ", $conditions);
+      $ret .= "Conditions:\n  $conditions\n";
+    }
+    if ($this->sorts) {
+      $sorts = array();
+      foreach ($this->sorts as $field => $order) {
+        $sorts[] = "$field $order";
+      }
+      $ret .= 'Sorting: ' . implode(', ', $sorts) . "\n";
+    }
+    $options = $this->sanitizeOptions($this->options);
+    $options = str_replace("\n", "\n  ", var_export($options, TRUE));
+    $ret .= 'Options: ' . $options . "\n";
+    return $ret;
+  }
+
+  /**
+   * Sanitizes an array of options in a way that plays nice with var_export().
+   *
+   * @param array $options
+   *   An array of options.
+   *
+   * @return array
+   *   The sanitized options.
+   */
+  protected function sanitizeOptions(array $options) {
+    foreach ($options as $key => $value) {
+      if (is_object($value)) {
+        $options[$key] = 'object (' . get_class($value) . ')';
+      }
+      elseif (is_array($value)) {
+        $options[$key] = $this->sanitizeOptions($value);
+      }
+    }
+    return $options;
   }
 
 }

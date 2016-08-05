@@ -1,5 +1,6 @@
 <?php
 
+// @codingStandardsIgnoreFile
 
 namespace Drupal\search_api;
 
@@ -224,8 +225,8 @@ class UnsavedIndexConfiguration implements IndexInterface, UnsavedConfigurationI
   /**
    * {@inheritdoc}
    */
-  public function getDatasources($only_enabled = TRUE) {
-    return $this->entity->getDatasources($only_enabled);
+  public function getDatasources() {
+    return $this->entity->getDatasources();
   }
 
   /**
@@ -287,15 +288,15 @@ class UnsavedIndexConfiguration implements IndexInterface, UnsavedConfigurationI
   /**
    * {@inheritdoc}
    */
-  public function getProcessors($only_enabled = TRUE) {
-    return $this->entity->getProcessors($only_enabled);
+  public function getProcessors() {
+    return $this->entity->getProcessors();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getProcessorsByStage($stage, $only_enabled = TRUE) {
-    return $this->entity->getProcessorsByStage($stage, $only_enabled);
+  public function getProcessorsByStage($stage) {
+    return $this->entity->getProcessorsByStage($stage);
   }
 
   /**
@@ -322,8 +323,8 @@ class UnsavedIndexConfiguration implements IndexInterface, UnsavedConfigurationI
   /**
    * {@inheritdoc}
    */
-  public function getFields() {
-    return $this->entity->getFields();
+  public function getFields($include_server_defined = FALSE) {
+    return $this->entity->getFields($include_server_defined);
   }
 
   /**
@@ -350,8 +351,8 @@ class UnsavedIndexConfiguration implements IndexInterface, UnsavedConfigurationI
   /**
    * {@inheritdoc}
    */
-  public function getPropertyDefinitions($datasource_id, $alter = TRUE) {
-    return $this->entity->getPropertyDefinitions($datasource_id, $alter);
+  public function getPropertyDefinitions($datasource_id) {
+    return $this->entity->getPropertyDefinitions($datasource_id);
   }
 
   /**
