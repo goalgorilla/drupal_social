@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Plugin\FeaturesAssignment\FeaturesAssignmentDependency.
- */
-
 namespace Drupal\features\Plugin\FeaturesAssignment;
 
 use Drupal\features\FeaturesAssignmentMethodBase;

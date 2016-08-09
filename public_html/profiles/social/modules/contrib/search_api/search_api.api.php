@@ -82,6 +82,20 @@ function hook_search_api_data_type_info_alter(array &$data_type_definitions) {
 }
 
 /**
+ * Alter the available parse modes.
+ *
+ * @param array $parse_mode_definitions
+ *   The definitions of the data type plugins.
+ *
+ * @see \Drupal\search_api\ParseMode\ParseModePluginBase
+ */
+function hook_search_api_parse_mode_info_alter(array &$parse_mode_definitions) {
+  if (isset($parse_mode_definitions['direct'])) {
+    $parse_mode_definitions['direct']['label'] = t('Solr syntax');
+  }
+}
+
+/**
  * Alter the mapping of Drupal data types to Search API data types.
  *
  * @param array $mapping

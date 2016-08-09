@@ -17,8 +17,8 @@ use Drupal\user\UserInterface;
  *   label = @Translation("Role filter"),
  *   description = @Translation("Filters out users based on their role."),
  *   stages = {
- *     "preprocess_index" = -50
- *   }
+ *     "alter_items" = 0,
+ *   },
  * )
  */
 class RoleFilter extends ProcessorPluginBase {
@@ -92,7 +92,7 @@ class RoleFilter extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function preprocessIndexItems(array &$items) {
+  public function alterIndexedItems(array &$items) {
     $selected_roles = array_combine($this->configuration['roles'], $this->configuration['roles']);
     $default = (bool) $this->configuration['default'];
 

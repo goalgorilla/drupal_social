@@ -8,6 +8,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Entity\Server;
 use Drupal\search_api\Utility;
+use Drupal\search_api_test\PluginTestTrait;
 
 /**
  * Tests what happens when an index's dependencies are removed.
@@ -15,6 +16,8 @@ use Drupal\search_api\Utility;
  * @group search_api
  */
 class DependencyRemovalTest extends KernelTestBase {
+
+  use PluginTestTrait;
 
   /**
    * A search index.
@@ -38,8 +41,7 @@ class DependencyRemovalTest extends KernelTestBase {
     'system',
     'field',
     'search_api',
-    'search_api_test_backend',
-    'search_api_test_dependencies',
+    'search_api_test',
   );
 
   /**
@@ -48,11 +50,11 @@ class DependencyRemovalTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->installSchema('system', 'key_value_expire');
+    $this->installSchema('search_api', 'search_api_task');
 
-    // The server tasks manager is needed when removing a server.
-    $mock = $this->getMock('Drupal\search_api\Task\ServerTaskManagerInterface');
-    $this->container->set('search_api.server_task_manager', $mock);
+    \Drupal::configFactory()->getEditable('search_api.settings')
+      ->set('default_tracker', 'default')
+      ->save();
 
     // Create the index object, but don't save it yet since we want to change
     // its settings anyways in every test.
@@ -78,7 +80,7 @@ class DependencyRemovalTest extends KernelTestBase {
     $this->dependency = Server::create(array(
       'id' => 'dependency',
       'name' => 'Test dependency',
-      'backend' => 'search_api_test_backend',
+      'backend' => 'search_api_test',
     ));
     $this->dependency->save();
   }
@@ -145,7 +147,7 @@ class DependencyRemovalTest extends KernelTestBase {
     $server = Server::create(array(
       'id' => 'test_server',
       'name' => 'Test server',
-      'backend' => 'search_api_test_backend',
+      'backend' => 'search_api_test',
       'backend_config' => array(
         'dependencies' => array(
           $dependency_key => array(
@@ -171,11 +173,9 @@ class DependencyRemovalTest extends KernelTestBase {
     $index_dependencies = $this->index->getDependencies();
     $this->assertContains($server_dependency_name, $index_dependencies[$server_dependency_key], 'Server dependency correctly inserted');
 
-    // Set our magic state key to let the test plugin know whether the
-    // dependency should be removed or not. See
-    // \Drupal\search_api_test_backend\Plugin\search_api\backend\TestBackend::onDependencyRemoval().
-    $key = 'search_api_test_backend.return.onDependencyRemoval';
-    \Drupal::state()->set($key, $remove_dependency);
+    // Tell the backend plugin whether it should successfully remove the
+    // dependency.
+    $this->setReturnValue('backend', 'onDependencyRemoval', $remove_dependency);
 
     // Delete the backend's dependency.
     $this->dependency->delete();
@@ -225,16 +225,11 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependency_name = $this->dependency->getConfigDependencyName();
 
     // Also index users, to verify that they are unaffected by the processor.
-    $manager = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.datasource');
-    $datasources['entity:user'] = $manager->createInstance('entity:user', array('index' => $this->index));
-    $datasources['search_api_test_dependencies'] = $manager->createInstance(
-      'search_api_test_dependencies',
-      array(
+    $datasources = $this->index->createPlugins('datasource', array('entity:user', 'search_api_test'), array(
+      'search_api_test' => array(
         $dependency_key => array($dependency_name),
-        'index' => $this->index,
-      )
-    );
+      ),
+    ));
     $this->index->setDatasources($datasources);
 
     $this->index->save();
@@ -243,11 +238,9 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependencies = $this->index->getDependencies();
     $this->assertContains($dependency_name, $dependencies[$dependency_key], 'Datasource dependency correctly inserted');
 
-    // Set our magic state key to let the test plugin know whether the
-    // dependency should be removed or not. See
-    // \Drupal\search_api_test_dependencies\Plugin\search_api\datasource\TestDatasource::onDependencyRemoval().
-    $key = 'search_api_test_dependencies.datasource.remove';
-    \Drupal::state()->set($key, $remove_dependency);
+    // Tell the datasource plugin whether it should successfully remove the
+    // dependency.
+    $this->setReturnValue('datasource', 'onDependencyRemoval', $remove_dependency);
 
     // Delete the datasource's dependency.
     $this->dependency->delete();
@@ -265,11 +258,11 @@ class DependencyRemovalTest extends KernelTestBase {
     // not, make sure the right action was taken.
     $datasources = $this->index->getDatasources();
     if ($remove_dependency) {
-      $this->assertArrayHasKey('search_api_test_dependencies', $datasources, 'Datasource not removed');
-      $this->assertEmpty($datasources['search_api_test_dependencies']->getConfiguration(), 'Datasource settings adapted');
+      $this->assertArrayHasKey('search_api_test', $datasources, 'Datasource not removed');
+      $this->assertEmpty($datasources['search_api_test']->getConfiguration(), 'Datasource settings adapted');
     }
     else {
-      $this->assertArrayNotHasKey('search_api_test_dependencies', $datasources, 'Datasource removed');
+      $this->assertArrayNotHasKey('search_api_test', $datasources, 'Datasource removed');
     }
   }
 
@@ -282,12 +275,9 @@ class DependencyRemovalTest extends KernelTestBase {
     // server.
     $dependency_key = $this->dependency->getConfigDependencyKey();
     $dependency_name = $this->dependency->getConfigDependencyName();
-    $datasources['search_api_test_dependencies'] = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.datasource')
-      ->createInstance(
-        'search_api_test_dependencies',
-        array($dependency_key => array($dependency_name))
-      );
+    $datasources['search_api_test'] = $this->index->createPlugin('datasource', 'search_api_test', array(
+      $dependency_key => array($dependency_name),
+    ));
     $this->index->setDatasources($datasources);
 
     $this->index->save();
@@ -325,12 +315,10 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependency_key = $this->dependency->getConfigDependencyKey();
     $dependency_name = $this->dependency->getConfigDependencyName();
 
-    $processor = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.processor')
-      ->createInstance(
-        'search_api_test_dependencies',
-        array($dependency_key => array($dependency_name))
-      );
+    /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
+    $processor = $this->index->createPlugin('processor', 'search_api_test', array(
+      $dependency_key => array($dependency_name),
+    ));
     $this->index->addProcessor($processor);
     $this->index->save();
 
@@ -338,11 +326,9 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependencies = $this->index->getDependencies();
     $this->assertContains($dependency_name, $dependencies[$dependency_key], 'Processor dependency correctly inserted');
 
-    // Set our magic state key to let the test plugin know whether the
-    // dependency should be removed or not. See
-    // \Drupal\search_api_test_dependencies\Plugin\search_api\processor\TestProcessor::onDependencyRemoval().
-    $key = 'search_api_test_dependencies.processor.remove';
-    \Drupal::state()->set($key, $remove_dependency);
+    // Tell the processor plugin whether it should successfully remove the
+    // dependency.
+    $this->setReturnValue('processor', 'onDependencyRemoval', $remove_dependency);
 
     // Delete the processor's dependency.
     $this->dependency->delete();
@@ -360,11 +346,11 @@ class DependencyRemovalTest extends KernelTestBase {
     // not, make sure the right action was taken.
     $processors = $this->index->getProcessors();
     if ($remove_dependency) {
-      $this->assertArrayHasKey('search_api_test_dependencies', $processors, 'Processor not removed');
-      $this->assertEmpty($processors['search_api_test_dependencies']->getConfiguration(), 'Processor settings adapted');
+      $this->assertArrayHasKey('search_api_test', $processors, 'Processor not removed');
+      $this->assertEmpty($processors['search_api_test']->getConfiguration(), 'Processor settings adapted');
     }
     else {
-      $this->assertArrayNotHasKey('search_api_test_dependencies', $processors, 'Processor removed');
+      $this->assertArrayNotHasKey('search_api_test', $processors, 'Processor removed');
     }
   }
 
@@ -384,13 +370,14 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependency_key = $this->dependency->getConfigDependencyKey();
     $dependency_name = $this->dependency->getConfigDependencyName();
 
-    $tracker = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.tracker')
-      ->createInstance('search_api_test_dependencies', array(
+    /** @var \Drupal\search_api\Tracker\TrackerInterface $tracker */
+    $tracker = $this->index->createPlugin('tracker', 'search_api_test', array(
+      'dependencies' => array(
         $dependency_key => array(
           $dependency_name,
         ),
-      ));
+      ),
+    ));
     $this->index->setTracker($tracker);
     $this->index->save();
 
@@ -398,18 +385,9 @@ class DependencyRemovalTest extends KernelTestBase {
     $dependencies = $this->index->getDependencies();
     $this->assertContains($dependency_name, $dependencies[$dependency_key], 'Tracker dependency correctly inserted');
 
-    // Set our magic state key to let the test plugin know whether the
-    // dependency should be removed or not. See
-    // \Drupal\search_api_test_dependencies\Plugin\search_api\tracker\TestTracker::onDependencyRemoval().
-    $key = 'search_api_test_dependencies.tracker.remove';
-    \Drupal::state()->set($key, $remove_dependency);
-    // If the index resets the tracker, it needs to know the ID of the default
-    // tracker.
-    if (!$remove_dependency) {
-      \Drupal::configFactory()->getEditable('search_api.settings')
-        ->set('default_tracker', 'default')
-        ->save();
-    }
+    // Tell the datasource plugin whether it should successfully remove the
+    // dependency.
+    $this->setReturnValue('tracker', 'onDependencyRemoval', $remove_dependency);
 
     // Delete the tracker's dependency.
     $this->dependency->delete();
@@ -429,69 +407,13 @@ class DependencyRemovalTest extends KernelTestBase {
     $tracker_id = $tracker_instance->getPluginId();
     $tracker_config = $tracker_instance->getConfiguration();
     if ($remove_dependency) {
-      $this->assertEquals('search_api_test_dependencies', $tracker_id, 'Tracker not reset');
-      $this->assertEmpty($tracker_config, 'Tracker settings adapted');
+      $this->assertEquals('search_api_test', $tracker_id, 'Tracker not reset');
+      $this->assertEmpty($tracker_config['dependencies'], 'Tracker settings adapted');
     }
     else {
       $this->assertEquals('default', $tracker_id, 'Tracker was reset');
       $this->assertEmpty($tracker_config, 'Tracker settings were cleared');
     }
-  }
-
-  /**
-   * Tests whether module dependencies are handled correctly.
-   */
-  public function testModuleDependency() {
-    // Test with all types of plugins at once.
-    $datasources['search_api_test_dependencies'] = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.datasource')
-      ->createInstance('search_api_test_dependencies', array('index' => $this->index));
-    $datasources['entity:user'] = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.datasource')
-      ->createInstance('entity:user', array('index' => $this->index));
-    $this->index->setDatasources($datasources);
-
-    $processor = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.processor')
-      ->createInstance('search_api_test_dependencies');
-    $this->index->addProcessor($processor);
-
-    $tracker = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.tracker')
-      ->createInstance('search_api_test_dependencies');
-    $this->index->setTracker($tracker);
-
-    $this->index->save();
-
-    // Check the dependencies were calculated correctly.
-    $dependencies = $this->index->getDependencies();
-    $this->assertContains('search_api_test_dependencies', $dependencies['module'], 'Module dependency correctly inserted');
-
-    // When the index resets the tracker, it needs to know the ID of the default
-    // tracker.
-    \Drupal::configFactory()->getEditable('search_api.settings')
-      ->set('default_tracker', 'default')
-      ->save();
-
-    // Disabling modules in Kernel tests normally doesn't trigger any kind of
-    // reaction, just removes it from the list of modules (e.g., to avoid
-    // calling of a hook). Therefore, we have to trigger that behavior
-    // ourselves.
-    \Drupal::getContainer()->get('config.manager')->uninstall('module', 'search_api_test_dependencies');
-
-    // Reload the index and check it's still there.
-    $this->reloadIndex();
-    $this->assertInstanceOf('Drupal\search_api\IndexInterface', $this->index, 'Index not removed');
-
-    // Make sure the dependency has been removed.
-    $dependencies = $this->index->getDependencies();
-    $dependencies += array('module' => array());
-    $this->assertNotContains('search_api_test_dependencies', $dependencies['module'], 'Module dependency removed from index');
-
-    // Make sure all the plugins have been removed.
-    $this->assertNotContains('search_api_test_dependencies', $this->index->getDatasources(), 'Datasource was removed');
-    $this->assertArrayNotHasKey('search_api_test_dependencies', $this->index->getProcessors(), 'Processor was removed');
-    $this->assertEquals('default', $this->index->getTrackerId(), 'Tracker was reset');
   }
 
   /**
@@ -514,6 +436,156 @@ class DependencyRemovalTest extends KernelTestBase {
     return array(
       'Remove dependency' => array(TRUE),
       'Keep dependency' => array(FALSE),
+    );
+  }
+
+  /**
+   * Tests whether module dependencies are handled correctly.
+   */
+  public function testModuleDependency() {
+    // Test with all types of plugins at once.
+    /** @var \Drupal\search_api\Datasource\DatasourceInterface $datasource */
+    $datasource = $this->index->createPlugin('datasource', 'search_api_test');
+    $this->index->addDatasource($datasource);
+    $datasource = $this->index->createPlugin('datasource', 'entity:user');
+    $this->index->addDatasource($datasource);
+
+    /** @var \Drupal\search_api\Processor\ProcessorInterface $processor */
+    $processor = $this->index->createPlugin('processor', 'search_api_test');
+    $this->index->addProcessor($processor);
+
+    /** @var \Drupal\search_api\Tracker\TrackerInterface $tracker */
+    $tracker = $this->index->createPlugin('tracker', 'search_api_test');
+    $this->index->setTracker($tracker);
+
+    $this->index->save();
+
+    // Check the dependencies were calculated correctly.
+    $dependencies = $this->index->getDependencies();
+    $this->assertContains('search_api_test', $dependencies['module'], 'Module dependency correctly inserted');
+
+    // When the index resets the tracker, it needs to know the ID of the default
+    // tracker.
+    \Drupal::configFactory()->getEditable('search_api.settings')
+      ->set('default_tracker', 'default')
+      ->save();
+
+    // Disabling modules in Kernel tests normally doesn't trigger any kind of
+    // reaction, just removes it from the list of modules (e.g., to avoid
+    // calling of a hook). Therefore, we have to trigger that behavior
+    // ourselves.
+    \Drupal::getContainer()->get('config.manager')->uninstall('module', 'search_api_test');
+
+    // Reload the index and check it's still there.
+    $this->reloadIndex();
+    $this->assertInstanceOf('Drupal\search_api\IndexInterface', $this->index, 'Index not removed');
+
+    // Make sure the dependency has been removed.
+    $dependencies = $this->index->getDependencies();
+    $dependencies += array('module' => array());
+    $this->assertNotContains('search_api_test', $dependencies['module'], 'Module dependency removed from index');
+
+    // Make sure all the plugins have been removed.
+    $this->assertNotContains('search_api_test', $this->index->getDatasources(), 'Datasource was removed');
+    $this->assertArrayNotHasKey('search_api_test', $this->index->getProcessors(), 'Processor was removed');
+    $this->assertEquals('default', $this->index->getTrackerId(), 'Tracker was reset');
+  }
+
+  /**
+   * Tests whether dependencies of used data types are handled correctly.
+   *
+   * @param string $dependency_type
+   *   The type of dependency that should be set on the data type (and then
+   *   removed): "module" or "config".
+   *
+   * @dataProvider dataTypeDependencyTestDataProvider
+   */
+  public function testDataTypeDependency($dependency_type) {
+    switch ($dependency_type) {
+      case 'module':
+        $type = 'search_api_test';
+        $config_dependency_key = 'module';
+        $config_dependency_name = 'search_api_test';
+        break;
+
+      case 'config':
+        $type = 'search_api_test_altering';
+        $config_dependency_key = $this->dependency->getConfigDependencyKey();
+        $config_dependency_name = $this->dependency->getConfigDependencyName();
+        \Drupal::state()->set('search_api_test.data_type.dependencies', array(
+          $config_dependency_key => array(
+            $config_dependency_name,
+          ),
+        ));
+        break;
+
+      default:
+        $this->fail();
+        return;
+    }
+
+    // Use the "user" datasource (to not get a module dependency via that) and
+    // add a field with the given data type.
+    $datasources = $this->index->createPlugins('datasource', array('entity:user'));
+    $this->index->setDatasources($datasources);
+    $field = Utility::createField($this->index, 'uid', array(
+      'label' => 'ID',
+      'datasource_id' => 'entity:user',
+      'property_path' => 'uid',
+      'type' => $type,
+    ));
+    $this->index->addField($field);
+    // Set the server to NULL to not have a dependency on that by default.
+    $this->index->setServer(NULL);
+    $this->index->save();
+
+    // Check the dependencies were calculated correctly.
+    $dependencies = $this->index->getDependencies();
+    $dependencies += array($config_dependency_key => array());
+    $this->assertContains($config_dependency_name, $dependencies[$config_dependency_key], 'Data type dependency correctly inserted');
+
+    switch ($dependency_type) {
+      case 'module':
+        // Disabling modules in Kernel tests normally doesn't trigger any kind of
+        // reaction, just removes it from the list of modules (e.g., to avoid
+        // calling of a hook). Therefore, we have to trigger that behavior
+        // ourselves.
+        \Drupal::getContainer()
+          ->get('config.manager')
+          ->uninstall('module', 'search_api_test');
+        break;
+
+      case 'config':
+        $this->dependency->delete();
+        break;
+    }
+
+    // Reload the index and check it's still there.
+    $this->reloadIndex();
+    $this->assertInstanceOf('Drupal\search_api\IndexInterface', $this->index, 'Index not removed');
+
+    // Make sure the dependency has been removed.
+    $dependencies = $this->index->getDependencies();
+    $dependencies += array($config_dependency_key => array());
+    $this->assertNotContains($config_dependency_name, $dependencies[$config_dependency_key], 'Data type dependency correctly removed');
+
+    // Make sure the field type has changed.
+    $field = $this->index->getField('uid');
+    $this->assertNotNull($field, 'Field was not removed');
+    $this->assertEquals('string', $field->getType(), 'Field type was changed to fallback type');
+  }
+
+  /**
+   * Data provider for testDataTypeDependency().
+   *
+   * @return array
+   *   An array of argument arrays for
+   *   \Drupal\Tests\search_api\Kernel\DependencyRemovalTest::testDataTypeDependency().
+   */
+  public function dataTypeDependencyTestDataProvider() {
+    return array(
+      'Module dependency' => array('module'),
+      'Config dependency' => array('config'),
     );
   }
 

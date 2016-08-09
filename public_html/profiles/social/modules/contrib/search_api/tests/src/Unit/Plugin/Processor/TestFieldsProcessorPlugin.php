@@ -3,7 +3,9 @@
 namespace Drupal\Tests\search_api\Unit\Plugin\Processor;
 
 use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValue;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
+use Drupal\search_api\Utility;
 
 /**
  * Mimics a processor working on individual fields of items.
@@ -29,26 +31,23 @@ class TestFieldsProcessorPlugin extends FieldsProcessorPluginBase {
   protected $methodOverrides = array();
 
   /**
-   * Creates a valid "tokenized_text" field value for testing purposes.
+   * Tokenizes the given string by splitting on space characters.
    *
    * @param string $value
    *   The value to be tokenized.
-   * @param float|null $score
-   *   (optional) The score to set, or NULL to omit setting a score. Defaults to
-   *   1.
+   * @param float $score
+   *   (optional) The score to set for all tokens.
    *
-   * @return array[]
-   *   A valid tokenized_text field value.
+   * @return \Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface
+   *   A text value object containing an array of tokens.
    */
   public static function createTokenizedText($value, $score = 1.0) {
-    $return = array();
-    if (isset($score)) {
-      $token['score'] = $score;
-    }
+    $return = new TextValue($value);
+    $tokens = array();
     foreach (explode(' ', $value) as $word) {
-      $token['value'] = $word;
-      $return[] = $token;
+      $tokens[] = Utility::createTextToken($word, $score);
     }
+    $return->setTokens($tokens);
     return $return;
   }
 
@@ -87,7 +86,7 @@ class TestFieldsProcessorPlugin extends FieldsProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  protected function processFieldValue(&$value, &$type) {
+  protected function processFieldValue(&$value, $type) {
     if (isset($this->methodOverrides[__FUNCTION__])) {
       $this->methodOverrides[__FUNCTION__]($value, $type);
       return;

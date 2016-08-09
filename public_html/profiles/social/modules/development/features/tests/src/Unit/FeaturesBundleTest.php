@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\features\Unit\FeaturesBundleTest.
- */
-
 namespace Drupal\Tests\features\Unit;
 
 use Drupal\features\Entity\FeaturesBundle;

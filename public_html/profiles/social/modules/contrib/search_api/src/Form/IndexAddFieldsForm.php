@@ -14,6 +14,7 @@ use Drupal\Core\TypedData\ComplexDataDefinitionInterface;
 use Drupal\Core\Url;
 use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\DataType\DataTypePluginManager;
+use Drupal\search_api\Processor\ConfigurablePropertyInterface;
 use Drupal\search_api\UnsavedConfigurationInterface;
 use Drupal\search_api\Utility;
 use Drupal\user\SharedTempStoreFactory;
@@ -251,7 +252,7 @@ class IndexAddFieldsForm extends EntityForm {
       }
       $vars['@fields'] = implode('; ', $unmapped_types);
       $vars['%index'] = $this->entity->label();
-      \Drupal::logger('search_api')
+      \Drupal::service('logger.channel.search_api')
         ->warning('Warning while retrieving available fields for index %index: could not find a type mapping for the following fields: @fields.', $vars);
     }
 
@@ -357,13 +358,14 @@ class IndexAddFieldsForm extends EntityForm {
 
       $label = $property->getLabel();
       $property = Utility::getInnerProperty($property);
+      $inner_property = $property;
 
       $can_be_indexed = TRUE;
       $nested_properties = array();
       $parent_child_type = NULL;
       if ($property instanceof ComplexDataDefinitionInterface) {
         $can_be_indexed = FALSE;
-        $nested_properties = $property->getPropertyDefinitions();
+        $nested_properties = Utility::getNestedProperties($property);
         $main_property = $property->getMainPropertyName();
         if ($main_property && isset($nested_properties[$main_property])) {
           $parent_child_type = $property->getDataType() . '.';
@@ -380,9 +382,9 @@ class IndexAddFieldsForm extends EntityForm {
           'field_item:image',
           'field_item:file',
         );
-        if ($property instanceof FieldItemDataDefinition && in_array($property->getDataType(), $allowed_properties)) {
+        if ($inner_property instanceof FieldItemDataDefinition && in_array($inner_property->getDataType(), $allowed_properties)) {
           $entity_type = $this->getEntityTypeManager()
-            ->getDefinition($property->getSetting('target_type'));
+            ->getDefinition($inner_property->getSetting('target_type'));
           if (!$entity_type->isSubclassOf('Drupal\Core\Entity\ContentEntityInterface')) {
             unset($nested_properties['entity']);
           }
@@ -508,6 +510,14 @@ class IndexAddFieldsForm extends EntityForm {
     $field = Utility::createFieldFromProperty($this->entity, $property, $datasource_id, $property_path, NULL, $button['#data_type']);
     $field->setLabel($button['#prefixed_label']);
     $this->entity->addField($field);
+
+    if ($property instanceof ConfigurablePropertyInterface) {
+      $parameters = array(
+        'search_api_index' => $this->entity->id(),
+        'field_id' => $field->getFieldIdentifier(),
+      );
+      $form_state->setRedirect('entity.search_api_index.field_config', $parameters);
+    }
 
     $args['%label'] = $field->getLabel();
     drupal_set_message($this->t('Field %label was added to the index.', $args));

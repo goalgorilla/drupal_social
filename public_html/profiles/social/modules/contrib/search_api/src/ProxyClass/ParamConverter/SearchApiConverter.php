@@ -1,5 +1,7 @@
 <?php
 
+// @codingStandardsIgnoreFile
+
 /**
  * This file was generated via php core/scripts/generate-proxy-class.php 'Drupal\search_api\ParamConverter\SearchApiConverter' "modules/search_api/src/".
  */

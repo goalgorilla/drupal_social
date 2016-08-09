@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesServiceProvider.
- */
-
 namespace Drupal\features;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;

@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\search_api\Unit\Plugin\Processor;
 
+use Drupal\search_api\Plugin\search_api\data_type\value\TextToken;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValue;
 use Drupal\search_api\Query\Condition;
 use Drupal\search_api\Utility;
 use Drupal\Tests\UnitTestCase;
@@ -138,61 +140,162 @@ class FieldsProcessorPluginBaseTest extends UnitTestCase {
     $this->processor->preprocessIndexItems($items);
 
     $item_fields = $items[$this->itemIds[0]]->getFields();
-    $this->assertEquals(array('*foo'), $item_fields['field1']->getValues(), 'tokenized_text field correctly processed.');
+    $this->assertEquals(array('*foo'), $item_fields['field1']->getValues(), 'Field value was correctly removed.');
   }
 
   /**
-   * Tests whether tokenized text is handled correctly.
+   * Tests whether the processField() method operates correctly.
    */
   public function testProcessFieldsTokenized() {
-    $override = function (&$value, &$type) {
-      if ($type != 'tokenized_text') {
-        $value = TestFieldsProcessorPlugin::createTokenizedText($value, NULL);
-        $type = 'tokenized_text';
+    $override = function (&$value, $type) {
+      switch ($type) {
+        case 'integer':
+          ++$value;
+          return;
+
+        case 'string':
+          $value = "++$value";
+          return;
+      }
+
+      if (strpos($value, ' ')) {
+        $value = TestFieldsProcessorPlugin::createTokenizedText($value, 4)->getTokens();
       }
       elseif ($value == 'bar') {
-        $value = array(array('value' => '*bar'));
+        $value = TestFieldsProcessorPlugin::createTokenizedText('*bar', 2)->getTokens();
       }
-      elseif ($value != 'baz') {
-        $value = "*$value";
+      elseif ($value == 'baz') {
+        $value = '';
       }
       else {
-        $value = '';
+        $value = "*$value";
       }
     };
     $this->processor->setMethodOverride('processFieldValue', $override);
 
+    $value = TestFieldsProcessorPlugin::createTokenizedText('foobar baz', 3);
+    $tokens = $value->getTokens();
+    $tokens[] = new TextToken('foo bar', 2);
+    $value->setTokens($tokens);
     $fields = array(
       'field1' => array(
-        'type' => 'tokenized_text',
+        'type' => 'text',
         'values' => array(
           TestFieldsProcessorPlugin::createTokenizedText('foo bar baz', 3),
-          TestFieldsProcessorPlugin::createTokenizedText('foobar'),
+          $value,
+          new TextValue('foo'),
+          new TextValue('foo bar'),
+          new TextValue('bar'),
+          new TextValue('baz'),
         ),
       ),
       'field2' => array(
-        'type' => 'text',
+        'type' => 'integer',
         'values' => array(
+          1,
+          3,
+        ),
+      ),
+      'field3' => array(
+        'type' => 'string',
+        'values' => array(
+          'foo',
           'foo bar baz',
-          'foobar',
         ),
       ),
     );
     $items = $this->createItems($this->index, 1, $fields);
 
+    $this->processor->setConfiguration(array(
+      'fields' => array('field1', 'field2', 'field3'),
+    ));
+
     $this->processor->preprocessIndexItems($items);
 
-    $item_fields = $items[$this->itemIds[0]]->getFields();
+    $fields = $items[$this->itemIds[0]]->getFields();
+
+    /** @var \Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface[] $values */
+    $values = $fields['field1']->getValues();
+    $summary = array();
+    foreach ($values as $i => $value) {
+      $summary[$i]['text'] = $value->toText();
+      $tokens = $value->getTokens();
+      if ($tokens !== NULL) {
+        $summary[$i]['tokens'] = array();
+        foreach ($tokens as $token) {
+          $summary[$i]['tokens'][] = array(
+            'text' => $token->getText(),
+            'boost' => $token->getBoost(),
+          );
+        }
+      }
+    }
     $expected = array(
-      TestFieldsProcessorPlugin::createTokenizedText('*foo *bar', 3),
-      TestFieldsProcessorPlugin::createTokenizedText('*foobar'),
+      array(
+        'text' => '*foo *bar',
+        'tokens' => array(
+          array(
+            'text' => '*foo',
+            'boost' => 3,
+          ),
+          array(
+            'text' => '*bar',
+            'boost' => 6,
+          ),
+        ),
+      ),
+      array(
+        'text' => '*foobar foo bar',
+        'tokens' => array(
+          array(
+            'text' => '*foobar',
+            'boost' => 3,
+          ),
+          array(
+            'text' => 'foo',
+            'boost' => 8,
+          ),
+          array(
+            'text' => 'bar',
+            'boost' => 8,
+          ),
+        ),
+      ),
+      array(
+        'text' => '*foo',
+      ),
+      array(
+        'text' => 'foo bar',
+        'tokens' => array(
+          array(
+            'text' => 'foo',
+            'boost' => 4,
+          ),
+          array(
+            'text' => 'bar',
+            'boost' => 4,
+          ),
+        ),
+      ),
+      array(
+        'text' => '*bar',
+        'tokens' => array(
+          array(
+            'text' => '*bar',
+            'boost' => 2,
+          ),
+        ),
+      ),
     );
-    $this->assertEquals($expected, $item_fields['field1']->getValues(), 'tokenized_text field correctly processed.');
-    $expected = array(
-      TestFieldsProcessorPlugin::createTokenizedText('foo bar baz'),
-      TestFieldsProcessorPlugin::createTokenizedText('foobar'),
-    );
-    $this->assertEquals($expected, $item_fields['field2']->getValues(), 'text field correctly processed and tokenized.');
+    $this->assertEquals($expected, $summary);
+
+    $expected = array(2, 4);
+    $this->assertEquals('integer', $fields['field2']->getType());
+    $this->assertEquals($expected, $fields['field2']->getValues());
+
+    $expected = array('++foo', '++foo bar baz');
+    $this->assertEquals('string', $fields['field3']->getType());
+    $this->assertEquals($expected, $fields['field3']->getValues());
   }
 
   /**
@@ -381,7 +484,7 @@ class FieldsProcessorPluginBaseTest extends UnitTestCase {
     $query->addCondition('text_field', array('a', 'bo'), 'IN');
     $query->addCondition('text_field', array('ab', 'bo'), 'NOT IN');
     $query->addCondition('text_field', array('a', 'bo'), 'BETWEEN');
-    $query->addCondition('text_field', array('ab', 'bo'), 'BETWEEN');
+    $query->addCondition('text_field', array('ab', 'bo'), 'NOT BETWEEN');
     $query->addCondition('text_field', array('a', 'bar'), 'IN');
     $query->addCondition('text_field', array('abo', 'baz'), 'BETWEEN');
 
@@ -391,7 +494,7 @@ class FieldsProcessorPluginBaseTest extends UnitTestCase {
       new Condition('text_field', array('a', 'b'), 'NOT IN'),
       new Condition('text_field', array('a'), 'IN'),
       new Condition('text_field', array('a', 'bo'), 'BETWEEN'),
-      new Condition('text_field', array('ab', 'bo'), 'BETWEEN'),
+      new Condition('text_field', array('ab', 'bo'), 'NOT BETWEEN'),
       new Condition('text_field', array('a', 'bar*'), 'IN'),
       new Condition('text_field', array('abo*', 'baz*'), 'BETWEEN'),
     );

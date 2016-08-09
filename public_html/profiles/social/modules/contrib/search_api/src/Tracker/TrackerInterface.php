@@ -10,6 +10,10 @@ use Drupal\search_api\Plugin\IndexPluginInterface;
  * The tracker of an index is responsible for keeping track of the items indexed
  * in the index, which have changed since they were last indexed, etc.
  *
+ * The tracker is required to ignore calls to tracking methods for item IDs that
+ * won't have any effect – i.e., inserting items which are already known, or
+ * marking items as indexed, updated or deleted that are not.
+ *
  * @see \Drupal\search_api\Annotation\SearchApiTracker
  * @see \Drupal\search_api\Tracker\TrackerPluginManager
  * @see \Drupal\search_api\Tracker\TrackerPluginBase

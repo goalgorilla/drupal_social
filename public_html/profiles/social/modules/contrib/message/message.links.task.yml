@@ -1,6 +1,6 @@
-message.type_add:
-  route_name: message.type_add
-  base_route: message.type_add
+message.template_add:
+  route_name: message.template_add
+  base_route: message.template_add
   title: 'View'
 
 messages.admin:

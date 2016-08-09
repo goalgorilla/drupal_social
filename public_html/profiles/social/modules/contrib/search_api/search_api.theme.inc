@@ -25,14 +25,6 @@ use Drupal\search_api\Utility;
  */
 function theme_search_api_admin_fields_table($variables) {
   $form = $variables['element'];
-  $header = array(
-    t('Field'),
-    t('Machine name'),
-    t('Type'),
-    t('Boost'),
-    t('Remove'),
-  );
-
   $rows = array();
   if (!empty($form['fields'])) {
     foreach (Element::children($form['fields']) as $name) {
@@ -65,7 +57,7 @@ function theme_search_api_admin_fields_table($variables) {
 
   $build = array(
     '#theme' => 'table',
-    '#header' => $header,
+    '#header' => $form['#header'],
     '#rows' => $rows,
   );
 
@@ -299,9 +291,10 @@ function theme_search_api_server($variables) {
  *   The rendered HTML for a search index.
  *
  * @ingroup themeable
+ *
+ * @todo This executes a search in the theme layer, amongst other things. We
+ *   need to improve this.
  */
-// @todo This executes a search in the theme layer, amongst other things.
-//   Definitely not cool.
 function theme_search_api_index($variables) {
   // Get the index.
   /** @var $index \Drupal\search_api\IndexInterface */
@@ -410,8 +403,8 @@ function theme_search_api_index($variables) {
       $query->addTag('server_index_status');
       $label = t('Server index status');
       try {
-        $response = $server->search($query);
-        $count = $response->getResultCount();
+        $server->search($query);
+        $count = $query->getResults()->getResultCount();
         // Build the server index status translation variables.
         $vars = array(':url' => Url::fromUri('https://drupal.org/node/2009804#server-index-status')->toString());
         // Build the server index status info.

@@ -16,6 +16,7 @@
         var $autocomplete = $select.parents('.container-inline').find('.form-autocomplete');
         var entityTypeId = $select.val();
         $autocomplete.attr('data-autocomplete-path', drupalSettings.dynamic_entity_reference[data.select][entityTypeId]);
+        Drupal.autocomplete.cache[$autocomplete.attr('id')] = {};
       }
       Object.keys(drupalSettings.dynamic_entity_reference).forEach(function (field_class) {
         $(context)

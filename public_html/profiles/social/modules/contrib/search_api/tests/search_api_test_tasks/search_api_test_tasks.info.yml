@@ -1,0 +1,14 @@
+name: 'Search API Tasks Test'
+type: module
+description: 'Support module for tests of the Search API tasks system.'
+package: Testing
+dependencies:
+  - search_api:search_api
+# core: 8.x
+hidden: true
+
+# Information added by Drupal.org packaging script on 2016-07-06
+version: '8.x-1.0-alpha16'
+core: '8.x'
+project: 'search_api'
+datestamp: 1467813955

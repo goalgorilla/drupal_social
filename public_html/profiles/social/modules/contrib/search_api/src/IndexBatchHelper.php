@@ -2,7 +2,6 @@
 
 namespace Drupal\search_api;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\StringTranslation\TranslationInterface;
 
 /**
@@ -93,12 +92,8 @@ class IndexBatchHelper {
       batch_set($batch_definition);
     }
     else {
-      $args = array(
-        '%size' => $batch_size,
-        '%limit' => $limit,
-        '%name' => $index->label(),
-      );
-      throw new SearchApiException(new FormattableMarkup('Failed to create a batch with batch size %size and limit %limit for index %name', $args));
+      $index_label = $index->label();
+      throw new SearchApiException("Failed to create a batch with batch size '$batch_size' and limit '$limit' for index '$index_label'.");
     }
   }
 

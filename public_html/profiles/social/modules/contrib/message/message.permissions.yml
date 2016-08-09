@@ -1,6 +1,6 @@
-administer message types:
-  title: Administer message types
-  description: Administer message types that can be used to log an event.
+administer message templates:
+  title: Administer message templates
+  description: Administer message templates that can be used to log an event.
 
 adminster messages:
   title: Adminster messages

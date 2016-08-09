@@ -70,7 +70,7 @@ class SearchApiMoreLikeThis extends SearchApiStandard {
       $server = $this->query->getIndex()->getServerInstance();
       if (!$server->supportsFeature('search_api_mlt')) {
         $backend_id = $server->getBackendId();
-        \Drupal::logger('search_api')->error('The search backend "@backend_id" does not offer "More like this" functionality.',
+        \Drupal::service('logger.channel.search_api')->error('The search backend "@backend_id" does not offer "More like this" functionality.',
           array('@backend_id' => $backend_id));
         $this->query->abort();
         return;
