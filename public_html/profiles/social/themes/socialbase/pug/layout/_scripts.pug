@@ -6,6 +6,17 @@ script(src='js/custom/textarea-autogrow.js')
 script(src='js/custom/navbar-search.js')
 script(src='js/init.js')
 
+if page == "Tables"
+  script(src='js/contrib/tablesaw/tablesaw.js')
+  script(src='js/contrib/tablesaw/tablesaw-init.js')
+
+if page == "Forms"
+  script(src="js/contrib/date_picker/picker.js")
+  script(src="js/contrib/date_picker/picker.date.js")
+  script(src="js/contrib/date_picker/picker.time.js")
+  script(src="js/contrib/date_picker/picker.init.js")
+  link(href='css/components/asset-builds/datepicker.css', rel='stylesheet')
+
 if pagetype == "template"
 
   script(src='js/custom/navbar-search.js')
@@ -14,7 +25,7 @@ if pagetype == "template"
     new UISearch( document.getElementById( 'navbar-search' ) );
 
 else
-  
+
   script(src='js/contrib/prism/prism.js')
   script(src='js/styleguide.js')
   script(src='js/init-styleguide.js')

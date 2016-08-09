@@ -1,44 +1,3 @@
-.title {
-  font-weight: 300;
-}
-
-.section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.styleguide {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-
-
-  .container {
-    width: 90%;
-  }
-}
-
-.styleguide-container {
-  flex: 1;
-}
-
-.styleguide .navbar .container {
-  width: 100%;
-}
-
-.styleguide-header,
-.styleguide-container,
-.styleguide-footer {
-
-  @include MQ($medium) {
-    padding-left: 240px;
-  }
-
-}
-
-.styleguide-footer {
-  margin-top: 20px;
-}
 
 .footer-copyright {
   overflow: hidden;
@@ -48,37 +7,6 @@
   background-color: rgba(51,51,51,0.15);
 }
 
-#index-banner {
-
-  .container {
-    position: relative;
-  }
-
-  .title {
-    color: white;
-  }
-
-  h4 {
-    margin-bottom: 0;
-
-    @include MQ($small) {
-      margin-bottom: 15px;
-    }
-
-    @include MQ($medium) {
-      margin-bottom: 40px;
-    }
-
-  }
-  h1 {
-    margin-top: 60px;
-
-    @include MQ($medium) {
-      margin-top: 16px;
-    }
-
-  }
-}
 
 .repo-link {
   padding: 14px 0;

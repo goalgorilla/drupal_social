@@ -42,66 +42,12 @@
           font-feature-settings: 'liga';
 }
 
-.title {
-  font-weight: 300;
-}
-
-.section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.styleguide {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  min-height: 100vh;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.styleguide .container {
-  width: 90%;
-}
-
-.styleguide-container {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.styleguide .navbar .container {
-  width: 100%;
-}
-
-.styleguide-footer {
-  margin-top: 20px;
-}
-
 .footer-copyright {
   overflow: hidden;
   height: 50px;
   line-height: 50px;
   color: rgba(255, 255, 255, 0.8);
   background-color: rgba(51, 51, 51, 0.15);
-}
-
-#index-banner .container {
-  position: relative;
-}
-
-#index-banner .title {
-  color: white;
-}
-
-#index-banner h4 {
-  margin-bottom: 0;
-}
-
-#index-banner h1 {
-  margin-top: 60px;
 }
 
 .repo-link {
@@ -146,10 +92,10 @@
 .browser-window .top-bar {
   height: 30px;
   border-radius: 5px 5px 0 0;
-  border-top: thin solid #f5f5f5;
+  border-top: thin solid #f3f3f3;
   border-bottom: thin solid #e6e6e6;
-  background: -webkit-linear-gradient(#f5f5f5, #e6e6e6);
-  background: linear-gradient(#f5f5f5, #e6e6e6);
+  background: -webkit-linear-gradient(#f3f3f3, #e6e6e6);
+  background: linear-gradient(#f3f3f3, #e6e6e6);
 }
 
 .browser-window .circle {
@@ -182,7 +128,7 @@
   width: 100%;
   display: inline-block;
   border-radius: 0 0 5px 5px;
-  background-color: #f5f5f5;
+  background-color: #f3f3f3;
 }
 
 .browser-window .content p {
@@ -499,28 +445,104 @@
   margin: 16px 0;
 }
 
+.styleguide-container {
+  padding-top: 0;
+}
+
+.docssection {
+  margin: 2rem 0;
+}
+
+.docsheader {
+  padding: 50px 15px 2rem;
+  margin-bottom: 1.5rem;
+  color: #d4eef9;
+  text-align: center;
+  background-color: #29abe2;
+}
+
+.docsheader h1 {
+  font-size: 3rem;
+  color: #fff;
+}
+
+.docsheader p {
+  font-size: 1.25rem;
+}
+
+/* All levels of nav */
+.docs-sidebar .nav > li > a {
+  display: block;
+  padding: 4px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #767676;
+}
+
+.docs-sidebar .nav > li > a:hover,
+.docs-sidebar .nav > li > a:focus {
+  padding-left: 19px;
+  color: #29abe2;
+  text-decoration: none;
+  background-color: transparent;
+  border-left: 1px solid #29abe2;
+}
+
+.docs-sidebar .nav > .active > a,
+.docs-sidebar .nav > .active:hover > a,
+.docs-sidebar .nav > .active:focus > a {
+  padding-left: 18px;
+  font-weight: bold;
+  color: #29abe2;
+  background-color: transparent;
+  border-left: 2px solid #29abe2;
+}
+
+/* Nav: second level (shown on .active) */
+.docs-sidebar .nav .nav {
+  display: none;
+  /* Hide by default, but at >768px, show it */
+  padding-bottom: 10px;
+}
+
+.docs-sidebar .nav .nav > li > a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 30px;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.docs-sidebar .nav .nav > li > a:hover,
+.docs-sidebar .nav .nav > li > a:focus {
+  padding-left: 29px;
+}
+
+.docs-sidebar .nav .nav > .active > a,
+.docs-sidebar .nav .nav > .active:hover > a,
+.docs-sidebar .nav .nav > .active:focus > a {
+  padding-left: 28px;
+  font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+
 @media screen and (min-width: 768px) {
 
-  #index-banner h4 {
-    margin-bottom: 15px;
+  .docsheader {
+    text-align: left;
+  }
+
+  .docsheader h1 {
+    font-size: 4rem;
+  }
+
+  .docsheader p {
+    font-size: 1.5rem;
   }
 }
 
 @media screen and (min-width: 960px) {
-
-  .styleguide-header,
-  .styleguide-container,
-  .styleguide-footer {
-    padding-left: 240px;
-  }
-
-  #index-banner h4 {
-    margin-bottom: 40px;
-  }
-
-  #index-banner h1 {
-    margin-top: 16px;
-  }
 
   .header__wrapper {
     padding-left: 0;
@@ -552,6 +574,17 @@
   .side-nav {
     -webkit-transform: translate(0px, 0px);
     transform: translate(0px, 0px);
+  }
+
+  .docs-sidebar .nav > .active > ul {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+
+  .docsheader p {
+    margin-right: 235px;
   }
 }
 

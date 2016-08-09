@@ -143,14 +143,14 @@ gulp.task('styleguide', function() {
     }))
 
     //only pass changed *main* files and *all* the partials
-    .pipe(changed(options.rootPath.dist, {extension: '.html'}))
+    //.pipe(changed(options.rootPath.dist, {extension: '.html'}))
 
     //filter out unchanged partials, but it only works when watching
-    .pipe(gulpif(global.isWatching, cached('pug')))
+    //.pipe(gulpif(global.isWatching, cached('pug')))
 
     //filter out partials (folders and files starting with "_" )
     .pipe(filter(function (file) {
-      return !/\/_/.test(file.path) || !/^_/.test(file.relative);
+     return !/\/_/.test(file.path) || !/^_/.test(file.relative);
     }))
 
     .pipe(pug({

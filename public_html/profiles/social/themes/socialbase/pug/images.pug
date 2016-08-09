@@ -1,0 +1,30 @@
+- var pagetype = "styleguide"
+- var page = "Images"
+
+doctype html
+html(lang="en")
+  head
+    include ./layout/_head.pug
+  body
+    include ./layout/_gtm.pug
+    include ./layout/_header-styleguide.pug
+    include ../images/icons.svg
+
+    .docsheader
+      .container
+        h1 Style &amp; Content
+        p.lead Styles for displaying content with some of the most commonly used HTML elements, including normalization, typography, images, tables, and more.
+
+    main.main-container.styleguide-container(role='main')
+      .container
+        .row
+          .col-xs-12.col-sm-3.col-sm-last
+            .page-header
+              include ./layout/_style-nav.pug
+
+          .col-xs-12.col-md-9
+
+            h2.page-header Images
+            p
+              :markdown
+                Add info on image styles
