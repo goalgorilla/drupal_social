@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - activity_logger
+    - message
 third_party_settings:
   activity_logger:
     activity_context: group_activity_context
@@ -14,7 +15,7 @@ third_party_settings:
     activity_create_direct: 0
     activity_bundle_entity: node.topic
     activity_action: create_entitiy_action
-type: create_topic_group
+template: create_topic_group
 label: 'Create topic in group'
 description: 'A user created a topic in a group'
 text:

@@ -15,7 +15,7 @@ third_party_settings:
     activity_create_direct: 0
     activity_bundle_entity: node.topic
     activity_action: create_entitiy_action
-type: create_topic_community
+template: create_topic_community
 label: 'Create topic'
 description: 'A user created a topic in the community'
 text:

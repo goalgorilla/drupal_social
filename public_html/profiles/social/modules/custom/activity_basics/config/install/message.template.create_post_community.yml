@@ -13,7 +13,7 @@ third_party_settings:
     activity_create_direct: 1
     activity_bundle_entity: post.post
     activity_action: create_entitiy_action
-type: create_post_community
+template: create_post_community
 label: 'Create post in the community'
 description: 'A user created a post in the community'
 text:

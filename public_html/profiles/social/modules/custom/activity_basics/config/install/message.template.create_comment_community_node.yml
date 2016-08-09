@@ -12,7 +12,7 @@ third_party_settings:
     activity_destinations:
       stream_profile: stream_profile
     activity_create_direct: 1
-type: create_comment_community_node
+template: create_comment_community_node
 label: 'Create comment on node in the community'
 description: 'A user add a comment to content in the community'
 text:

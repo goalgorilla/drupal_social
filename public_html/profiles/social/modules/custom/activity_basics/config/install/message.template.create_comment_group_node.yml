@@ -13,7 +13,7 @@ third_party_settings:
       stream_home: stream_home
       stream_profile: stream_profile
     activity_create_direct: 1
-type: create_comment_group_node
+template: create_comment_group_node
 label: 'Create comment on node in the group'
 description: 'A user add a comment to content in the group'
 text:
