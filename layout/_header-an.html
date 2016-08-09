@@ -1,22 +1,30 @@
 
 <div id="header">
   <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
-    <div class="container"><a href="home-an.html" class="navbar-brand">
-        <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+    <div class="container"><a class="navbar-brand" href="home-an.html"><img src="images/social-logo-white.svg" alt="Brand logo"/></a>
       <div class="navbar-header">
-        <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu     </i></button>
+        <button class="navbar-toggle collapsed" href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+          <svg class="icon-white icon-medium">
+            <title>Toggle navigation</title>
+            <use xlink:href="#icon-menu"></use>
+          </svg><span class="sr-only">Toggle navigation</span>
+        </button>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="login.html">Log in</a></li>
           <li><a href="sign-up.html">Sign up</a></li>
         </ul>
       </div>
-      <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" id="menu-dropdown" aria-expanded="false">
         <ul class="nav navbar-nav">
           <li>
-            <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
-              <div id="navbar-search" class="form-group">
-                <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control"/>
-                <input type="submit" value="" class="form-submit"/><span class="search-icon"><i class="material-icons">search</i></span>
+            <form class="navbar-form navbar-left" role="search" method="get" action="search-content.html">
+              <div class="form-group" id="navbar-search">
+                <input class="form-control" id="search" type="text" placeholder="Search" name="search" autocomplete="off"/>
+                <input class="form-submit" type="submit" value=""/><span class="search-icon">
+                  <svg>
+                    <title>Search</title>
+                    <use xlink:href="#icon-search"></use>
+                  </svg></span>
               </div>
             </form>
           </li>

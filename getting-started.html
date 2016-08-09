@@ -24,105 +24,106 @@
     <meta name="msapplication-TileColor" content="#29abe2">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
+        <link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/alerts.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/buttons.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/layout.css" type="text/css" rel="stylesheet" media="screen">
-        <link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/type.css" type="text/css" rel="stylesheet" media="screen">
         <link href="css/components/asset-builds/toc.css" type="text/css" rel="stylesheet" media="screen">
-    <link href="css/components/asset-builds/styleguide.css" type="text/css" rel="stylesheet" media="screen">
-    <link href="css/components/asset-builds/prism.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/icons.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/waves.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/jumbotron.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/styleguide.css" type="text/css" rel="stylesheet" media="screen">
+        <link href="css/components/asset-builds/prism.css" type="text/css" rel="stylesheet" media="screen">
   </head>
-  <body class="styleguide">
-    <header class="styleguide-header">
-      <!-- Google Tag Manager-->
-      <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-      </noscript>
-      <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-5BGZV3');
-      </script>
-      <!-- End Google Tag Manager-->
-      <div class="header__wrapper">
-        <div class="header__innerwrapper container">
-          <div class="row">
-            <div class="col-xs-12">
-              <h1 class="header__title">Getting started</h1>
-            </div>
+  <body>
+    <!-- Google Tag Manager-->
+    <noscript>
+      <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5BGZV3" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5BGZV3');
+    </script>
+    <!-- End Google Tag Manager-->
+    <div id="header">
+      <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
+        <div class="container"><a class="navbar-brand" href="index.html">
+            <object type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+          <div class="navbar-header">
+            <button class="navbar-toggle collapsed" href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+              <svg class="icon-white icon-medium">
+                <title>Toggle navigation</title>
+                <use xlink:href="#icon-menu"></use>
+              </svg><span class="sr-only">Toggle navigation</span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse" id="menu-dropdown" aria-expanded="false">
+            <ul class="nav navbar-nav">
+              <li class="hidden-xs"><a href="index.html">Home</a></li>
+              <li><a href="prototype.html">Prototype</a></li>
+              <li class="active"><a href="getting-started.html">Getting started</a></li>
+              <li><a href="color.html">Style &amp; content</a></li>
+              <li><a href="buttons.html">Components</a></li>
+              <li><a href="layout.html">Layout</a></li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div class="nav-button-wrapper">
-        <button id="js-showSidebar" role="tab" class="hamburger-button"> <i title="show navigation" class="material-icons">menu</i></button>
-      </div>
-      <ul id="nav-mobile" class="side-nav fixed">
-        <li class="logo"><a id="logo-container" href="index.html" class="brand-logo"><img id="front-page-logo" src="images/social-logo-blue.svg"></a></li>
-        <li class="bold"><a href="getting-started.html" class="waves-effect waves-teal">Overview</a></li>
-        <li class="no-padding">
-          <ul id="accordion" aria-multiselectable="true" role="tablist" class="collapsible collapsible-accordion">
-            <li class="bold panel panel-default"><a href="#collapse-style" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Style</a>
-              <div id="collapse-style" class="collapsible-body collapse panel-collapse">
-                <ul>
-                  <li><a href="color.html">Color</a></li>
-                  <li><a href="typography.html">Typography</a></li>
-                  <li><a href="elevation.html">Elevation</a></li>
-                </ul>
-              </div>
-            </li>
-            <li class="bold panel panel-default"><a href="#collapse-components" data-parent="#accordion" data-toggle="collapse" class="collapsible-header  waves-effect waves-teal">Components</a>
-              <div id="collapse-components" class="collapsible-body collapse panel-collapse">
-                <ul>
-                  <li><a href="buttons.html">Buttons</a></li>
-                  <li><a href="grid.html">Grid</a></li>
-                  <li><a href="navigation.html">Navigation</a></li>
-                  <li><a href="breadcrumbs.html">Breadcrumbs</a></li>
-                  <li><a href="cards.html">Cards  </a></li>
-                  <li><a href="forms.html">Forms</a></li>
-                  <li><a href="tables.html">Tables</a></li>
-                  <li><a href="tabs.html">Tabs</a></li>
-                  <li><a href="pagination.html">Pagination</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </li>
-        <li class="bold"><a href="layouts.html" class="waves-effect waves-teal">Layout</a></li>
-        <li class="bold"><a href="prototype.html" class="waves-effect waves-teal">Prototype</a></li>
-      </ul>
-      <div class="mask-modal"></div>
-    </header>
-    <main role="main" class="styleguide-container">
+      </nav>
+    </div><svg xmlns="http://www.w3.org/2000/svg" class="hide"><symbol id="icon-account_circle" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-autorenew" viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8A5.87 5.87 0 0 1 6 12c0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-business_center" viewBox="0 0 24 24"><path d="M0 0h24v24H0zm10 5h4v2h-4zm0 0h4v2h-4z" fill="none"/><path d="M10 16v-1H3.01L3 19c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-4h-7v1h-4zm10-9h-4.01V5l-2-2h-4l-2 2v2H4c-1.1 0-2 .9-2 2v3c0 1.11.89 2 2 2h6v-2h4v2h6c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z"/></symbol><symbol id="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-community" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></symbol><symbol id="icon-delete" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-edit" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-event" viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-expand_more" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-filter_list" viewBox="0 0 24 24"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-group" viewBox="0 0 24 24"><path d="M18.8 11.3c1.6 0 2.9-1.3 2.9-3s-1.3-3-2.9-3c-1.6 0-2.9 1.3-2.9 3s1.3 3 2.9 3zm-10.7-3c0-1.7-1.3-3-2.9-3s-2.9 1.3-2.9 3 1.3 3 2.9 3 2.9-1.3 2.9-3zm3.9 2.4c1.8 0 3.2-1.5 3.2-3.3S13.8 4 12 4 8.8 5.5 8.8 7.3s1.4 3.4 3.2 3.4zm-5.8 5.6v3.1h11.6v-3.1c0-2.8-3.9-4.3-5.8-4.3s-5.8 1.4-5.8 4.3zm9.6-4.3c2 1.3 2.7 2.5 2.7 4.3v3.1h4.4v-3.1c0-2.9-3.4-4.3-5.1-4.3h-2zm-7.7 0c-2 1.3-2.7 2.5-2.7 4.3v3.1H1v-3.1C1 13.5 4.4 12 6.1 12h2z"/></symbol><symbol id="icon-help" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></symbol><symbol id="icon-insert_drive_file" viewBox="0 0 24 24"><path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-label" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></symbol><symbol id="icon-location" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-menu" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></symbol><symbol id="icon-navigate_before" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-navigate_next" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-notifications" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></symbol><symbol id="icon-notifications_none" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></symbol><symbol id="icon-open_with" viewBox="0 0 24 24"><path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-page" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></symbol><symbol id="icon-photo" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></symbol><symbol id="icon-public" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></symbol><symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></symbol><symbol id="icon-select" viewBox="0 0 24.4 39.3"><path fill="#666" d="M17.3 24.7L12 30l-5.3-5.3zM6.7 14.7L12 9.4l5.3 5.3z"/></symbol><symbol id="icon-topic" viewBox="-147 239 24 24"><path fill="none" d="M-147 239h24v24h-24v-24z"/><path fill="#FFF" d="M-142.4 241c-2.5 0-4.6 2.1-4.6 4.7s2.1 4.7 4.6 4.7c4.6 0 1.5 9.1-4.6 9.1v2.2c11 .1 15.3-20.7 4.6-20.7zm13.3 0c-2.5 0-4.6 2.1-4.6 4.7s2.1 4.7 4.6 4.7c4.6 0 1.5 9.1-4.6 9.1v2.2c10.9.1 15.2-20.7 4.6-20.7z"/></symbol><symbol id="icon-warning" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></symbol></svg>
+    <div class="docsheader">
       <div class="container">
+        <h1>Getting started</h1>
+        <p class="lead">An overview of the Open Social theme, how to download and use, basic templates and examples, and more.</p>
+      </div>
+    </div>
+    <main class="main-container styleguide-container" role="main">
+      <div class="container">
+        <h2 class="page-header">Distribution</h2>
+        <p>Open Social is a Drupal distribution.</p>
+        <blockquote>
+          <q>Distributions provide site features and functions for a specific type of site as a single download containing Drupal core, contributed modules, themes, and pre-defined configuration. They make it possible to quickly set up a complex, use-specific site in fewer steps than if installing and configuring elements individually.</q>
+        </blockquote>
+        <h2 class="page-header">Download</h2>
         <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-10">           
-            <h2>Installation</h2>
-            <ul>
-              <li>Clone the Open Social repository in your developing branch.</li>
-              <li>Follow the steps described the <a href="https://github.com/goalgorilla/drupal_social/blob/master/readme.md#installation"> Installation guidelines</a> on Github and complete the Drupal installation.</li>
-              <li>Check that your Installation works and Open social is your default theme.  </li>
-              <li>In your terminal go the <code>social_base</code> folder and run <code>npm install</code>.</li>
-            </ul>
-            <h2>Usage</h2>
-            <ul>
-              <li>In the folder <code>social_base</code> first run <code>gulp init</code> and then run <code>gulp</code> (default task)</li>
-            </ul>
+          <div class="col-sm-6">
+            <h3>Drupal</h3>
+            <p>Read about the project and download the latest release package.</p>
+            <p><a class="btn btn-lg btn-accent" href="https://www.drupal.org/project/social">Download latest release</a></p>
+          </div>
+          <div class="col-sm-6">
+            <h3>Github</h3>
+            <p><p>Clone with: <code>git@github.com:goalgorilla/drupal_social.git</code></p></p>
+            <p><a class="btn btn-lg btn-primary" href="https://github.com/goalgorilla/drupal_social">View repository</a></p>
           </div>
         </div>
+        <h2 class="page-header">Drupal installation</h2>
+        <ul>
+          <li>Clone the Open Social repository in your developing branch.</li>
+          <li>Follow the steps described the <a href="https://github.com/goalgorilla/drupal_social/blob/master/readme.md#installation"> Installation guidelines</a> on Github and complete the Drupal installation.</li>
+          <li>Check that your installation works correctly and Socialbase is your default theme.</li>
+        </ul>
+        <h2 class="page-header">Contributing</h2>
+        <p>To get started you need to have Node, NPM and Gulp installed on your machine. Gulp is the default task runner in the theme.</p>
+        <h4>NPM plugins</h4>
+        <p>All the plugins we need are listed in the package.json file. To install these plugins go the <code>socialbase</code> folder and run <code>npm install</code>. This will get all the dependencies and put tem in the node_modules folder. This folder is ignored by git.</p>
+        <h4>Style guide / prototype</h4>
+        <p> The style guide is read from the dist folder in our theme. There are some assets you need to put there to get started. In the folder <code>socialbase</code> first run <code>gulp init</code> to get the assets in the dist folder.</p>
+        <p>Now you can run any of the gulp tasks individually or just run <code>gulp</code> (default task).</p>
       </div>
     </main>
-    <script src="js/vendor.js"></script>
     <script src="js/drupal-core.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/materialize.js"></script>
+    <script src="js/contrib/bootstrap.min.js"></script>
+    <script src="js/contrib/waves/waves.js"></script>
+    <script src="js/custom/offcanvas.js"></script>
+    <script src="js/custom/textarea-autogrow.js"></script>
+    <script src="js/custom/navbar-search.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/prism.js"></script>
+    <script src="js/contrib/prism/prism.js"></script>
     <script src="js/styleguide.js"></script>
-    <script src="js/init-styleguide.js"></script>
     <script>
       // Escape code
       // ============================================================
@@ -132,7 +133,6 @@
           $lang_jscode       = document.querySelectorAll('pre code.language-javascript')
           lang_markupsnippet = [],
           lang_jsnippet      = [];
-      
       
       // Markup
       // order matters!
@@ -144,7 +144,6 @@
         );
         $lang_markup[i].innerHTML = lang_markupsnippet[i];
       }
-      
       
       // JavaScript
       // order matters!

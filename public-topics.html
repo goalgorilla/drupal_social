@@ -22,12 +22,14 @@
 <meta name="msapplication-TileColor" content="#29abe2"/>
 <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png"/>
 <meta name="theme-color" content="#ffffff"/>
+<link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/alerts.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/buttons.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/layout.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/type.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/toc.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/icons.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/waves.css" type="text/css" rel="stylesheet" media="screen"/>
 <body>
   <!-- Google Tag Manager-->
   <noscript>
@@ -43,22 +45,30 @@
   <!-- End Google Tag Manager-->
   <div id="header">
     <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
-      <div class="container"><a href="home-an.html" class="navbar-brand">
-          <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+      <div class="container"><a class="navbar-brand" href="home-an.html"><img src="images/social-logo-white.svg" alt="Brand logo"/></a>
         <div class="navbar-header">
-          <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu     </i></button>
+          <button class="navbar-toggle collapsed" href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+            <svg class="icon-white icon-medium">
+              <title>Toggle navigation</title>
+              <use xlink:href="#icon-menu"></use>
+            </svg><span class="sr-only">Toggle navigation</span>
+          </button>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="login.html">Log in</a></li>
             <li><a href="sign-up.html">Sign up</a></li>
           </ul>
         </div>
-        <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="menu-dropdown" aria-expanded="false">
           <ul class="nav navbar-nav">
             <li>
-              <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
-                <div id="navbar-search" class="form-group">
-                  <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control"/>
-                  <input type="submit" value="" class="form-submit"/><span class="search-icon"><i class="material-icons">search</i></span>
+              <form class="navbar-form navbar-left" role="search" method="get" action="search-content.html">
+                <div class="form-group" id="navbar-search">
+                  <input class="form-control" id="search" type="text" placeholder="Search" name="search" autocomplete="off"/>
+                  <input class="form-submit" type="submit" value=""/><span class="search-icon">
+                    <svg>
+                      <title>Search</title>
+                      <use xlink:href="#icon-search"></use>
+                    </svg></span>
                 </div>
               </form>
             </li>
@@ -67,7 +77,7 @@
       </div>
     </nav>
   </div>
-  <main role="main" class="main-container">
+  <main class="main-container" role="main">
     <nav class="visible-md-block visible-lg-block bg-white">
       <ol class="breadcrumb container">
         <li><a href="home-an.html">Home</a></li>
@@ -78,19 +88,29 @@
       <div class="container">
         <div class="row margin-top-l">       
           <div class="col-xs-12 col-sm-4 col-sm-last margin-bottom-l margin-top-complementary">
-            <btn class="waves-effect waves-light btn btn-block btn-default btn-raised visible-xs-block js-open-canvas"><i class="material-icons pull-left">tune</i>Filters</btn>
+            <btn class="waves-effect waves-light btn btn-block btn-default btn-raised visible-xs-block js-open-canvas">
+              <svg class="pull-left btn-icon icon-black">
+                <title>Filter list</title>
+                <use xlink:href="#icon-filter_list"></use>
+              </svg>Filters
+            </btn>
             <div class="off-canvas off-canvas-right off-canvas-xs-only">
               <div class="offcanvas-head">
                 <header class="complementary-title">Filter</header>
                 <div class="offcanvas-tools visible-xs-block">
-                  <button class="js-close-canvas btn btn-icon-toggle btn-user-light pull-right"><i class="material-icons">close</i></button>
+                  <button class="js-close-canvas btn btn-icon-toggle pull-right">
+                    <svg class="pull-left btn-icon icon-black">
+                      <title>Close</title>
+                      <use xlink:href="#icon-close"></use>
+                    </svg>
+                  </button>
                 </div>
               </div>
               <div class="offcanvas-body">
                 <form>
                   <div class="form-group">
                     <label>Topic type</label>
-                    <select onchange="enableMe('reset-button', this)" class="form-control">
+                    <select class="form-control" onchange="enableMe('reset-button', this)">
                       <option value="" selected="">All types</option>
                       <option value="blog">Blog</option>
                       <option value="discussion">Discussion</option>
@@ -98,7 +118,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <input id="reset-button" type="submit" value="Reset" class="btn btn-default disabled"/>
+                    <input class="btn btn-default disabled" id="reset-button" type="submit" value="Reset"/>
                   </div>
                 </form>
               </div>
@@ -106,66 +126,134 @@
           </div>
           <div class="col-xs-12 col-sm-8">
             <h4 class="section-title">Community topics</h4>
-            <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
-                <div class="teaser-type"><img src="images/icon-topic.svg" alt=""/></div><img src="content/images/people3-square.jpg" alt="" class="img-responsive"/></a>
+            <div class="card card--teaser card-with-actionbar"><a class="card-image" href="topic.html">
+                <div class="teaser-type">
+                  <svg class="icon-white icon-responsive">
+                    <use xlink:href="#icon-topic"></use>
+                  </svg>
+                </div><img class="img-responsive" src="content/images/people3-square.jpg" alt=""/></a>
               <div class="card-body">
                 <h4 class="card-title"><a href="topic.html">Technology for the handicapped</a></h4>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center"><span class="inline-center">Clive Owen </span>&bullet; 15 feb 2016</span></div>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Blog</span></div>
-                <div class="text-gray-dark text-truncate"><i class="custom-icons icon-group"></i>&nbsp;<span class="inline-center">Open Social Developers</span></div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-account_circle"></use>
+                  </svg>&nbsp;<span class="inline-center"><span class="inline-center">Clive Owen </span>&bullet; 15 feb 2016</span>
+                </div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-label"></use>
+                  </svg>&nbsp;<span class="inline-center">Blog</span>
+                </div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-group"></use>
+                  </svg>&nbsp;<span class="inline-center">Open Social Developers</span>
+                </div>
                 <div class="card-actionbar">
                   <div class="badge badge-gray-lighter badge--toggle">
                     <label>
-                      <input type="checkbox"/><i class="material-icons">public</i><span class="badge--toggle__label">public</span>
+                      <input type="checkbox"/>
+                      <svg class="icon-gray-light icon-badge-toggle">
+                        <use xlink:href="#icon-public"></use>
+                      </svg><span class="badge--toggle__label">public</span>
                     </label>
-                  </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
+                  </div><a class="btn btn-flat pull-right" href="topic.html">Read more</a>
                 </div>
               </div>
             </div>
-            <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
-                <div class="teaser-type"><img src="images/icon-topic.svg" alt=""/></div><img src="content/images/animals1-square.jpg" alt="" class="img-responsive"/></a>
+            <div class="card card--teaser card-with-actionbar"><a class="card-image" href="topic.html">
+                <div class="teaser-type">
+                  <svg class="icon-white icon-responsive">
+                    <use xlink:href="#icon-topic"></use>
+                  </svg>
+                </div><img class="img-responsive" src="content/images/animals1-square.jpg" alt=""/></a>
               <div class="card-body">
                 <h4 class="card-title"> <a href="topic.html">Will this be the cinema of the future?</a></h4>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center">Richard Ogylvie &bullet; 22 mar 2016</span></div>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">label </i>&nbsp;<span class="inline-center">Discussion</span></div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-account_circle"></use>
+                  </svg>&nbsp;<span class="inline-center">Richard Ogylvie &bullet; 22 mar 2016</span>
+                </div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-label"></use>
+                  </svg>&nbsp;<span class="inline-center">Discussion</span>
+                </div>
                 <div class="card-actionbar">
                   <div class="badge badge-gray-lighter badge--toggle">
                     <label>
-                      <input type="checkbox"/><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
+                      <input type="checkbox"/>
+                      <svg class="icon-gray-light icon-badge-toggle">
+                        <use xlink:href="#icon-community"> </use>
+                      </svg><span class="badge--toggle__label">community</span>
                     </label>
-                  </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
+                  </div><a class="btn btn-flat pull-right" href="topic.html">Read more</a>
                 </div>
               </div>
             </div>
-            <div class="card card--teaser card-with-actionbar unpublished"><a href="topic.html" class="card-image">
-                <div class="teaser-type"><img src="images/icon-topic.svg" alt=""/></div><img src="content/images/other-cover-square.jpg" alt="" class="img-responsive"/>
+            <div class="card card--teaser card-with-actionbar unpublished"><a class="card-image" href="topic.html">
+                <div class="teaser-type">
+                  <svg class="icon-white icon-responsive">
+                    <use xlink:href="#icon-topic"></use>
+                  </svg>
+                </div><img class="img-responsive" src="content/images/other-cover-square.jpg" alt=""/>
                 <div class="status">unpublished</div></a>
               <div class="card-body">
                 <h4 class="card-title"> <a href="topic.html">5 new cool features in Office 365</a></h4>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center">Dennis Rodman </span></div>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">label </i>&nbsp;<span class="inline-center">Blog</span></div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-account_circle"></use>
+                  </svg>&nbsp;<span class="inline-center">Dennis Rodman </span>
+                </div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-label"></use>
+                  </svg>&nbsp;<span class="inline-center">Blog</span>
+                </div>
                 <div class="card-actionbar">
                   <div class="badge badge-gray-lighter badge--toggle">
                     <label>
-                      <input type="checkbox"/><i class="material-icons">group        </i><span class="badge--toggle__label">community</span>
+                      <input type="checkbox"/>
+                      <svg class="icon-gray-light icon-badge-toggle">
+                        <use xlink:href="#icon-community">    </use>
+                      </svg><span class="badge--toggle__label">community</span>
                     </label>
-                  </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
+                  </div><a class="btn btn-flat pull-right" href="topic.html">Read more</a>
                 </div>
               </div>
             </div>
-            <div class="card card--teaser card-with-actionbar"><a href="topic.html" class="card-image">
-                <div class="teaser-type"><img src="images/icon-topic.svg" alt=""/></div><img src="content/images/people3-square.jpg" alt="" class="img-responsive"/></a>
+            <div class="card card--teaser card-with-actionbar"><a class="card-image" href="topic.html">
+                <div class="teaser-type">
+                  <svg class="icon-white icon-responsive">
+                    <use xlink:href="#icon-topic"></use>
+                  </svg>
+                </div><img class="img-responsive" src="content/images/people3-square.jpg" alt=""/></a>
               <div class="card-body">
                 <h4 class="card-title"><a href="topic.html">Top 10 zoos to visit in 2016</a></h4>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">account_circle</i>&nbsp;<span class="inline-center">Amanda Boxer &bullet; 12 apr 2016</span></div>
-                <div class="text-gray-dark text-truncate"><i class="material-icons">label</i>&nbsp;<span class="inline-center">Topic</span></div>
-                <div class="text-gray-dark text-truncate"><i class="custom-icons icon-group"></i>&nbsp;<span class="inline-center">Happy Campers</span></div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-account_circle"></use>
+                  </svg>&nbsp;<span class="inline-center">Amanda Boxer &bullet; 12 apr 2016</span>
+                </div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-label"></use>
+                  </svg>&nbsp;<span class="inline-center">Topic</span>
+                </div>
+                <div class="text-gray text-truncate">
+                  <svg class="icon-gray icon-small">
+                    <use xlink:href="#icon-group"></use>
+                  </svg>&nbsp;<span class="inline-center">Happy Campers</span>
+                </div>
                 <div class="card-actionbar">
                   <div class="badge badge-gray-lighter badge--toggle">
                     <label>
-                      <input type="checkbox"/><i class="material-icons">public        </i><span class="badge--toggle__label">public</span>
+                      <input type="checkbox"/>
+                      <svg class="icon-gray-light icon-badge-toggle">
+                        <use xlink:href="#icon-public">      </use>
+                      </svg><span class="badge--toggle__label">public</span>
                     </label>
-                  </div><a href="topic.html" class="btn btn-flat pull-right">Read more</a>
+                  </div><a class="btn btn-flat pull-right" href="topic.html">Read more</a>
                 </div>
               </div>
             </div>
@@ -188,12 +276,14 @@
       </div>
     </div>
   </footer>
-  <script src="js/vendor.js"></script>
   <script src="js/drupal-core.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/components.js"></script>
-  <script src="js/materialize.js"></script>
+  <script src="js/contrib/bootstrap.min.js"></script>
+  <script src="js/contrib/waves/waves.js"></script>
+  <script src="js/custom/offcanvas.js"></script>
+  <script src="js/custom/textarea-autogrow.js"></script>
+  <script src="js/custom/navbar-search.js"></script>
   <script src="js/init.js"></script>
+  <script src="js/custom/navbar-search.js"></script>
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     

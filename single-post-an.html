@@ -22,12 +22,14 @@
 <meta name="msapplication-TileColor" content="#29abe2"/>
 <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png"/>
 <meta name="theme-color" content="#ffffff"/>
+<link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/alerts.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/buttons.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/layout.css" type="text/css" rel="stylesheet" media="screen"/>
-<link href="css/components/asset-builds/materialize.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/type.css" type="text/css" rel="stylesheet" media="screen"/>
 <link href="css/components/asset-builds/toc.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/icons.css" type="text/css" rel="stylesheet" media="screen"/>
+<link href="css/components/asset-builds/waves.css" type="text/css" rel="stylesheet" media="screen"/>
 <body>
   <!-- Google Tag Manager-->
   <noscript>
@@ -43,22 +45,30 @@
   <!-- End Google Tag Manager-->
   <div id="header">
     <nav class="navbar navbar-default navbar-fixed-top z-depth-2">
-      <div class="container"><a href="home-an.html" class="navbar-brand">
-          <object id="front-page-logo" type="image/svg+xml" data="images/social-logo-white.svg">Your browser does not support SVG</object></a>
+      <div class="container"><a class="navbar-brand" href="home-an.html"><img src="images/social-logo-white.svg" alt="Brand logo"/></a>
         <div class="navbar-header">
-          <button href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><i title="menu" class="material-icons">menu     </i></button>
+          <button class="navbar-toggle collapsed" href="#" data-toggle="collapse" data-target="#menu-dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+            <svg class="icon-white icon-medium">
+              <title>Toggle navigation</title>
+              <use xlink:href="#icon-menu"></use>
+            </svg><span class="sr-only">Toggle navigation</span>
+          </button>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="login.html">Log in</a></li>
             <li><a href="sign-up.html">Sign up</a></li>
           </ul>
         </div>
-        <div id="menu-dropdown" aria-expanded="false" class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="menu-dropdown" aria-expanded="false">
           <ul class="nav navbar-nav">
             <li>
-              <form role="search" method="get" action="search-content.html" class="navbar-form navbar-left">
-                <div id="navbar-search" class="form-group">
-                  <input id="search" type="text" placeholder="Search" name="search" autocomplete="off" class="form-control"/>
-                  <input type="submit" value="" class="form-submit"/><span class="search-icon"><i class="material-icons">search</i></span>
+              <form class="navbar-form navbar-left" role="search" method="get" action="search-content.html">
+                <div class="form-group" id="navbar-search">
+                  <input class="form-control" id="search" type="text" placeholder="Search" name="search" autocomplete="off"/>
+                  <input class="form-submit" type="submit" value=""/><span class="search-icon">
+                    <svg>
+                      <title>Search</title>
+                      <use xlink:href="#icon-search"></use>
+                    </svg></span>
                 </div>
               </form>
             </li>
@@ -67,7 +77,7 @@
       </div>
     </nav>
   </div>
-  <main role="main" class="main-container">
+  <main class="main-container" role="main">
     <nav class="visible-md-block visible-lg-block bg-white">
       <ol class="breadcrumb container">
         <li><a href="home-an.html">Home</a></li>
@@ -82,7 +92,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="media">
-                  <div class="media-left"><img src="content/images/member5.jpg" class="media-object img-circle img-medium"/>
+                  <div class="media-left"><img class="media-object img-circle img-medium" src="content/images/member5.jpg"/>
                   </div>
                   <div class="media-body">
                     <div class="media-heading text-m">John Johson <br/>
@@ -90,10 +100,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="margin-top-s">Our software empowers people to effectively collaborate and organize. Replacing traditional intranets, it fuels bottom-up organizational innovation. <a href="#">www.getopensocial.com</a></div><img src="content/images/os_image.jpg" alt="" width="100%" height="auto" class="img-responsive"/>
+                <div class="margin-top-s">Our software empowers people to effectively collaborate and organize. Replacing traditional intranets, it fuels bottom-up organizational innovation. <a href="#">www.getopensocial.com</a></div><img class="img-responsive" src="content/images/os_image.jpg" alt="" width="100%" height="auto"/>
                 <div class="card-nested-section">
-                  <div class="media">
-                    <div class="media-left"><img src="content/images/member3.jpg" class="media-object img-circle img-medium"/>
+                  <div class="media margin-top-m">
+                    <div class="media-left"><img class="media-object img-circle img-medium" src="content/images/member3.jpg"/>
                     </div>
                     <div class="media-body">
                       <div class="media-heading text-m">Henry Bond<br/>
@@ -102,8 +112,8 @@
                     </div>
                   </div>
                   <div class="margin-top-s">Rutrum faucibus dolor auctor.</div>
-                  <div class="media">
-                    <div class="media-left"><img src="content/images/member2.jpg" class="media-object img-circle img-medium"/>
+                  <div class="media margin-top-m">
+                    <div class="media-left"><img class="media-object img-circle img-medium" src="content/images/member2.jpg"/>
                     </div>
                     <div class="media-body">
                       <div class="media-heading text-m">Getrud van Assen<br/>
@@ -112,8 +122,8 @@
                     </div>
                   </div>
                   <div class="margin-top-s">Ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</div>
-                  <div class="media">
-                    <div class="media-left"><img src="content/images/member3.jpg" class="media-object img-circle img-medium"/>
+                  <div class="media margin-top-m">
+                    <div class="media-left"><img class="media-object img-circle img-medium" src="content/images/member3.jpg"/>
                     </div>
                     <div class="media-body">
                       <div class="media-heading text-m">Henry Bond<br/>
@@ -122,8 +132,8 @@
                     </div>
                   </div>
                   <div class="margin-top-s">Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</div>
-                  <div class="media">
-                    <div class="media-left"><img src="content/images/member4.jpg" class="media-object img-circle img-medium"/>
+                  <div class="media margin-top-m">
+                    <div class="media-left"><img class="media-object img-circle img-medium" src="content/images/member4.jpg"/>
                     </div>
                     <div class="media-body">
                       <div class="media-heading text-m">Jenny Baker<br/>
@@ -132,8 +142,8 @@
                     </div>
                   </div>
                   <div class="margin-top-s">Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</div>
-                  <div class="media">
-                    <div class="media-left"><img src="content/images/member1.jpg" class="media-object img-circle img-medium"/>
+                  <div class="media margin-top-m">
+                    <div class="media-left"><img class="media-object img-circle img-medium" src="content/images/member1.jpg"/>
                     </div>
                     <div class="media-body">
                       <div class="media-heading text-m">Mary-Lou Wallace<br/>
@@ -141,7 +151,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="margin-top-s">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. </div>
+                  <div class="margin-top-s">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</div>
                 </div>
               </div>
             </div>
@@ -164,12 +174,14 @@
       </div>
     </div>
   </footer>
-  <script src="js/vendor.js"></script>
   <script src="js/drupal-core.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/components.js"></script>
-  <script src="js/materialize.js"></script>
+  <script src="js/contrib/bootstrap.min.js"></script>
+  <script src="js/contrib/waves/waves.js"></script>
+  <script src="js/custom/offcanvas.js"></script>
+  <script src="js/custom/textarea-autogrow.js"></script>
+  <script src="js/custom/navbar-search.js"></script>
   <script src="js/init.js"></script>
+  <script src="js/custom/navbar-search.js"></script>
   <script>
     new UISearch( document.getElementById( 'navbar-search' ) );
     

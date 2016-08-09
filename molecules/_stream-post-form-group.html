@@ -1,18 +1,25 @@
 
 <form>
   <div class="form-group">
-    <textarea placeholder="What is on your mind?" class="form-control form-control--block materialize-textarea textarea-large"></textarea>
+    <textarea class="form-control form-control--block materialize-textarea textarea-large" placeholder="What is on your mind?"></textarea>
   </div>
   <div class="form-group media">
     <div class="media-body">
       <div class="dropdown pull-right">
-        <button id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" class="btn btn-default dropdown-toggle"> <i class="pull-left material-icons">group</i><span class="text">Community </span><span class="caret"></span></button>
-        <ul role="menu" aria-labelledby="post-visibility" class="dropdown-menu dropdown-md">
+        <button class="btn btn-default dropdown-toggle icon-before" id="post-visibility" type="button" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true"> 
+          <svg class="icon-black icon-small glyphicon">
+            <use xlink:href="#icon-community"></use><span class="text">Community </span><span class="caret"></span>
+          </svg>
+        </button>
+        <ul class="dropdown-menu dropdown-md" role="menu" aria-labelledby="post-visibility">
           <li class="dropdown-header">Visibility settings</li>
           <li class="list-group-item active">
             <div class="form-group">
-              <label for="community"> <i class="pull-left material-icons">group</i>Community
-                <input id="community" type="radio" name="visioptions" value="Community" onclick="showMe('post-visibility', this)" class="invisible"/>
+              <label for="community"> 
+                <svg class="icon-small">
+                  <use xlink:href="#icon-community"></use>
+                </svg>Community
+                <input class="invisible" id="community" type="radio" name="visioptions" value="Community" onclick="showMe('post-visibility', this)"/>
                 <div class="help-block">Visible only to members who are logged in</div>
               </label>
             </div>
@@ -21,7 +28,7 @@
       </div>
     </div>
     <div class="media-right">
-      <input type="submit" value="post" class="btn btn-primary"/>
+      <input class="btn btn-primary" type="submit" value="post"/>
     </div>
   </div>
 </form>
