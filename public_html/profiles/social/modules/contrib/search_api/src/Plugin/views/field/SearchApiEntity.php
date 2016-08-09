@@ -108,8 +108,9 @@ class SearchApiEntity extends SearchApiStandard {
         ),
         '#default_value' => 'label',
       );
-      if (isset($this->options['display_methods'][$bundle]['display_method'])) {
-        $form['display_methods'][$bundle]['display_method']['#default_value'] = $this->options['display_methods'][$bundle]['display_method'];
+      $display_method = $this->getDisplayMethod($bundle);
+      if ($display_method !== NULL) {
+        $form['display_methods'][$bundle]['display_method']['#default_value'] = $display_method;
       }
       if (!empty($view_modes[$bundle])) {
         $form['display_methods'][$bundle]['display_method']['#options']['view_mode'] = $this->t('Entity view');
@@ -199,8 +200,10 @@ class SearchApiEntity extends SearchApiStandard {
       ->loadMultiple(array_keys($to_load));
     $account = $this->getQuery()->getAccessAccount();
     foreach ($entities as $id => $entity) {
-      foreach ($to_load[$id] as list($i, $j)) {
-        if ($entity->access('view', $account)) {
+      $bundle = $entity->bundle();
+      $operation = ($this->getDisplayMethod($bundle) == 'label') ? 'view label' : 'view';
+      if ($entity->access($operation, $account)) {
+        foreach ($to_load[$id] as list($i, $j)) {
           $values[$i]->{$property_path}[$j] = $entity;
         }
       }
@@ -250,11 +253,11 @@ class SearchApiEntity extends SearchApiStandard {
    */
   protected function getItem(EntityInterface $entity) {
     $bundle = $entity->bundle();
-    if (empty($this->options['display_methods'][$bundle]['display_method'])) {
+    $display_method = $this->getDisplayMethod($bundle);
+    if (!$display_method) {
       return NULL;
     }
 
-    $display_method = $this->options['display_methods'][$bundle]['display_method'];
     if (in_array($display_method, array('id', 'label'))) {
       if ($display_method == 'label') {
         $item['value'] = $entity->label();
@@ -278,6 +281,23 @@ class SearchApiEntity extends SearchApiStandard {
     return array(
       'value' => $build,
     );
+  }
+
+  /**
+   * Retrieves the display method configured for a certain bundle.
+   *
+   * @param string $bundle
+   *   The bundle of the entity being displayed.
+   *
+   * @return string|null
+   *   The "display_method" option selected for this bundle, or NULL if none was
+   *   selected yet.
+   */
+  protected function getDisplayMethod($bundle) {
+    if (!isset($this->options['display_methods'][$bundle]['display_method'])) {
+      return NULL;
+    }
+    return $this->options['display_methods'][$bundle]['display_method'];
   }
 
 }

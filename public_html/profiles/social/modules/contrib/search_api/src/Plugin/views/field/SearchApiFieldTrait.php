@@ -336,7 +336,7 @@ trait SearchApiFieldTrait {
           // Determine whether we want to set field values for this property on
           // this row. This is the case if the property is one of the explicitly
           // retrieved properties and not yet set on the result row object.
-          $set_values = isset($this->retrievedProperties[$datasource_id][$property_path]) && !isset($row->$combined_property_path);
+          $set_values = isset($this->retrievedProperties[$datasource_id][$property_path]) && !isset($row->{$combined_property_path});
 
           if (empty($row->_relationship_objects[$property_path])) {
             // Iterate over all parent objects to get their typed data for this
@@ -390,23 +390,22 @@ trait SearchApiFieldTrait {
             }
           }
 
-          // Initially the array of values, if we want to set them.
           if ($set_values) {
-            $row->$combined_property_path = array();
-          }
-          // Iterate over the typed data objects, extract their values and set
-          // the relationship objects for the next iteration of the outer loop
-          // over properties.
-          foreach ($row->_relationship_objects[$property_path] as $typed_data) {
-            if ($set_values) {
+            $row->{$combined_property_path} = array();
+
+            // Iterate over the typed data objects, extract their values and set
+            // the relationship objects for the next iteration of the outer loop
+            // over properties.
+            foreach ($row->_relationship_objects[$property_path] as $typed_data) {
               $row->{$combined_property_path}[] = Utility::extractFieldValues($typed_data);
             }
-          }
-          // If we just set any field values on the result row, clean them up
-          // by merging them together (currently it's an array of arrays, but it
-          // should be just a flat array).
-          if ($set_values && $row->$combined_property_path) {
-            $row->$combined_property_path = call_user_func_array('array_merge', $row->$combined_property_path);
+
+            // If we just set any field values on the result row, clean them up
+            // by merging them together (currently it's an array of arrays, but
+            // it should be just a flat array).
+            if ($row->{$combined_property_path}) {
+              $row->{$combined_property_path} = call_user_func_array('array_merge', $row->{$combined_property_path});
+            }
           }
         }
       }
@@ -625,5 +624,15 @@ trait SearchApiFieldTrait {
 
     return NULL;
   }
+
+  /**
+   * Returns the Render API renderer.
+   *
+   * @return \Drupal\Core\Render\RendererInterface
+   *   The renderer.
+   *
+   * @see \Drupal\views\Plugin\views\field\FieldPluginBase::getRenderer
+   */
+  abstract protected function getRenderer();
 
 }

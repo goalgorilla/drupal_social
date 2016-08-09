@@ -5,6 +5,8 @@
  * Install, update and uninstall functions for the DB Search Defaults module.
  */
 
+use Drupal\node\Entity\NodeType;
+
 /**
  * Implements hook_requirements().
  */
@@ -12,7 +14,7 @@ function search_api_db_defaults_requirements($phase) {
   $requirements = array();
 
   if ($phase == 'install') {
-    $node_types = \Drupal\node\Entity\NodeType::loadMultiple();
+    $node_types = NodeType::loadMultiple();
     $required_types = array(
       'article' => array('body', 'comment', 'field_tags', 'field_image'),
       'page' => array('body'),

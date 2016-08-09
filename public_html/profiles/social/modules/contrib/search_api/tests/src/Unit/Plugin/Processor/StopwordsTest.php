@@ -110,9 +110,7 @@ class StopwordsTest extends UnitTestCase {
     unset($keys[1]);
     $this->assertEquals($keys, $query->getKeys());
 
-    $results = Utility::createSearchResultSet($query);
-    $this->processor->postprocessSearchResults($results);
-    $this->assertEquals(array('bar'), $results->getIgnoredSearchKeys());
+    $this->assertEquals(array('bar'), $query->getResults()->getIgnoredSearchKeys());
   }
 
 }

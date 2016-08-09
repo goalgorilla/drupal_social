@@ -18,7 +18,7 @@ A general logging utility that can be used as activity module.
 Tokens
 ======
 * "Dynamic" tokens
-  When defining a message type, it is possible to use Drupal tokens in any of the
+  When defining a message template, it is possible to use Drupal tokens in any of the
   message fields, in order to inject certain content into the field on the fly.
   E.g. Entering the string "[current-date:short]" to the message text will
   display the current request time instead of the token.
@@ -29,7 +29,7 @@ Tokens
   (For instance: [message:field_node_ref:title]).
   This relies on "Entity token" module that ships with Entity API.
   Enabling "Token" module is also recommened, as it provides more tokens
-  and shows a token browser in the message type creation page.
+  and shows a token browser in the message template creation page.
 
 * "Single use" tokens
   The single-use tokens are similiar to the dynamic tokens, excepet they're
@@ -62,7 +62,7 @@ Partials
 The message body has multiple cardinallity, allowing to separate html markup
 from the actual message content, and also, allowing to only render a selected
 part of the message.
-The partials are reflected in the "Manage display" page of every message type,
+The partials are reflected in the "Manage display" page of every message template,
 allowing the administrator to re-order and hide them per view mode.
 Furthermore, if Views and Panels module are enabled, it is possible to render
 the message "partials" using the views module's "Panel fields" format.
@@ -72,7 +72,7 @@ View modes
 ==========
 Message module exposes the "message-text" field(s) and allows an
 administrator to set visibility and order via "Manage display" page, e.g.
-admin/structure/messages/manage/[YOUR-MESSAGE-TYPE]/display
+admin/structure/messages/manage/[YOUR-MESSAGE-TEMPLATE]/display
 
 Auto-purging
 ============
@@ -83,11 +83,11 @@ definition.
   Under admin/config/message it is possible to set purging definition by
   maximal quota or maximal message age in days.
 
-* Message type purging definition
-  Each message type my override the global purging settings. Under
-  admin/structure/messages/manage/[YOUR-MESSAGE-TYPE], clicking the
+* Message template purging definition
+  Each message template my override the global purging settings. Under
+  admin/structure/messages/manage/[YOUR-MESSAGE-TEMPLATE], clicking the
   "Override global settings" checkbox will make the global settings ignore the
-  current message type and will allow to set purging definitions for the current
-  type.
+  current message template and will allow to set purging definitions for the current
+  template.
 
 

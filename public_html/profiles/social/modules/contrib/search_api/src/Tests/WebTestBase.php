@@ -22,7 +22,7 @@ abstract class WebTestBase extends SimpletestWebTestBase {
   public static $modules = array(
     'node',
     'search_api',
-    'search_api_test_backend',
+    'search_api_test',
   );
 
   /**
@@ -98,38 +98,20 @@ abstract class WebTestBase extends SimpletestWebTestBase {
   }
 
   /**
-   * Creates or deletes a server.
-   *
-   * @param string $name
-   *   (optional) The name of the server.
-   * @param string $id
-   *   (optional) The ID of the server.
-   * @param string $backend_id
-   *   (optional) The ID of the backend to set for the server.
-   * @param array $backend_config
-   *   (optional) The backend configuration to set for the server.
-   * @param bool $reset
-   *   (optional) If TRUE, delete the server instead of creating it. (Only the
-   *   server's ID is required in that case.)
+   * Creates or loads a server.
    *
    * @return \Drupal\search_api\ServerInterface
    *   A search server.
    */
-  public function getTestServer($name = 'WebTest server', $id = 'webtest_server', $backend_id = 'search_api_test_backend', $backend_config = array(), $reset = FALSE) {
-    if ($reset) {
-      /** @var \Drupal\search_api\ServerInterface $server */
-      $server = Server::load($id);
-      if ($server) {
-        $server->delete();
-      }
-    }
-    else {
+  public function getTestServer() {
+    $server = Server::load('webtest_server');
+    if (!$server) {
       $server = Server::create(array(
-        'id' => $id,
-        'name' => $name,
-        'description' => $name . ' description',
-        'backend' => $backend_id,
-        'backend_config' => $backend_config,
+        'id' => 'webtest_server',
+        'name' => 'WebTest server',
+        'description' => 'WebTest server' . ' description',
+        'backend' => 'search_api_test',
+        'backend_config' => array(),
       ));
       $server->save();
     }
@@ -138,46 +120,28 @@ abstract class WebTestBase extends SimpletestWebTestBase {
   }
 
   /**
-   * Creates or deletes an index.
-   *
-   * @param string $name
-   *   (optional) The name of the index.
-   * @param string $id
-   *   (optional) The ID of the index.
-   * @param string $server_id
-   *   (optional) The server to which the index should be attached.
-   * @param string $datasource_id
-   *   (optional) The ID of a datasource to set for this index.
-   * @param bool $reset
-   *   (optional) If TRUE, delete the index instead of creating it. (Only the
-   *   index's ID is required in that case.)
+   * Creates or loads an index.
    *
    * @return \Drupal\search_api\IndexInterface
    *   A search index.
    */
-  public function getTestIndex($name = 'WebTest Index', $id = 'webtest_index', $server_id = 'webtest_server', $datasource_id = 'entity:node', $reset = FALSE) {
-    if ($reset) {
-      /** @var \Drupal\search_api\IndexInterface $index */
-      $index = Index::load($id);
-      if ($index) {
-        $index->delete();
-      }
-    }
-    else {
+  public function getTestIndex() {
+    $this->indexId = 'webtest_index';
+    $index = Index::load($this->indexId);
+    if (!$index) {
       $index = Index::create(array(
-        'id' => $id,
-        'name' => $name,
-        'description' => $name . ' description',
-        'server' => $server_id,
+        'id' => $this->indexId,
+        'name' => 'WebTest index',
+        'description' => 'WebTest index' . ' description',
+        'server' => 'webtest_server',
         'datasource_settings' => array(
-          $datasource_id => array(
-            'plugin_id' => $datasource_id,
+          'entity:node' => array(
+            'plugin_id' => 'entity:node',
             'settings' => array(),
           ),
         ),
       ));
       $index->save();
-      $this->indexId = $index->id();
     }
 
     return $index;
@@ -198,6 +162,15 @@ abstract class WebTestBase extends SimpletestWebTestBase {
       $path .= "/$tab";
     }
     return $path;
+  }
+
+  /**
+   * Executes all pending Search API tasks.
+   */
+  protected function executeTasks() {
+    $task_manager = \Drupal::getContainer()->get('search_api.task_manager');
+    $task_manager->executeAllTasks();
+    $this->assertEqual(0, $task_manager->getTasksCount(), 'No more pending tasks.');
   }
 
 }

@@ -8,6 +8,11 @@ entity.search_api_index.add_form:
   title: 'Add index'
   appears_on:
     - search_api.overview
+search_api.execute_tasks:
+  route_name: search_api.execute_tasks
+  title: 'Execute pending tasks'
+  appears_on:
+    - search_api.overview
 entity.search_api_index.add_fields:
   route_name: entity.search_api_index.add_fields
   title: 'Add fields'

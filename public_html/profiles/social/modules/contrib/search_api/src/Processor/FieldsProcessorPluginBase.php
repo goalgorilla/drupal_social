@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\ConditionInterface;
 use Drupal\search_api\Query\QueryInterface;
@@ -83,7 +84,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function preprocessIndexItems(array &$items) {
+  public function preprocessIndexItems(array $items) {
     // Annoyingly, this doc comment is needed for PHPStorm. See
     // http://youtrack.jetbrains.com/issue/WI-23586
     /** @var \Drupal\search_api\Item\ItemInterface $item */
@@ -125,64 +126,58 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
     foreach ($values as $i => &$value) {
       // We restore the field's type for each run of the loop since we need the
       // unchanged one as long as the current field value hasn't been updated.
-      $type = $field->getType();
-      if ($type == 'tokenized_text') {
-        foreach ($value as &$tokenized_value) {
-          $this->processFieldValue($tokenized_value['value'], $type);
+      if ($value instanceof TextValueInterface) {
+        $tokens = $value->getTokens();
+        if ($tokens !== NULL) {
+          $new_tokens = array();
+          foreach ($tokens as $token) {
+            $token_text = $token->getText();
+            $this->processFieldValue($token_text, $type);
+            if (is_scalar($token_text)) {
+              if ($token_text !== '') {
+                $token->setText($token_text);
+                $new_tokens[] = $token;
+              }
+            }
+            else {
+              $base_boost = $token->getBoost();
+              /** @var \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface $new_token */
+              foreach ($token_text as $new_token) {
+                if ($new_token->getText() !== '') {
+                  $new_token->setBoost($new_token->getBoost() * $base_boost);
+                  $new_tokens[] = $new_token;
+                }
+              }
+            }
+          }
+          $value->setTokens($new_tokens);
+        }
+        else {
+          $text = $value->getText();
+          if ($text !== '') {
+            $this->processFieldValue($text, $type);
+            if ($text === '') {
+              unset($values[$i]);
+            }
+            elseif (is_scalar($text)) {
+              $value->setText($text);
+            }
+            else {
+              $value->setTokens($text);
+            }
+          }
         }
       }
-      else {
+      elseif ($value !== '') {
         $this->processFieldValue($value, $type);
-      }
 
-      if ($type == 'tokenized_text') {
-        $value = $this->normalizeTokens($value);
-      }
-      elseif ($value === '') {
-        unset($values[$i]);
-      }
-    }
-
-    // We're also setting the type here as it could have changed.
-    $field->setType($type);
-    $field->setValues($values);
-  }
-
-  /**
-   * Normalizes an internal array of tokens, which might be nested.
-   *
-   * @param array $tokens
-   *   An array of tokens, possibly nested.
-   * @param int $score
-   *   (optional) The score to use as a multiplier for all of the tokens
-   *   contained in this array of tokens. Used internally.
-   *
-   * @return array
-   *   A normalized tokens array, without any nested tokens arrays.
-   */
-  protected function normalizeTokens(array $tokens, $score = 1) {
-    $ret = array();
-    foreach ($tokens as $token) {
-      if ($token['value'] === '') {
-        // Filter out empty tokens.
-        continue;
-      }
-      if (!isset($token['score'])) {
-        $token['score'] = $score;
-      }
-      else {
-        $token['score'] *= $score;
-      }
-      if (is_array($token['value'])) {
-        foreach ($this->normalizeTokens($token['value'], $token['score']) as $t) {
-          $ret[] = $t;
+        if ($value === '') {
+          unset($values[$i]);
         }
       }
-      else {
-        $ret[] = $token;
-      }
     }
-    return $ret;
+
+    $field->setValues(array_values($values));
   }
 
   /**
@@ -232,16 +227,17 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
           $empty_string = $value === '';
           $this->processConditionValue($value);
 
-          // The BETWEEN operator deserves special attention, as it seems
-          // unlikely that it makes sense to completely remove it. Processors
+          // The (NOT) BETWEEN operators deserve special attention, as it seems
+          // unlikely that it makes sense to completely remove them. Processors
           // that remove values are normally indicating that this value can't be
-          // in the index – but that's irrelevant for BETWEEN conditions, as any
-          // value between the two bounds could still be included. We therefore
-          // never remove a BETWEEN condition and also ignore it when one of the
-          // two values got removed. (Note that this check will also catch empty
-          // strings.) Processors who need different behavior have to override
-          // this method.
-          if (($condition->getOperator() == 'BETWEEN') && count($value) < 2) {
+          // in the index – but that's irrelevant for (NOT) BETWEEN conditions,
+          // as any value between the two bounds could still be included. We
+          // therefore never remove a (NOT) BETWEEN condition and also ignore it
+          // when one of the two values got removed. (Note that this check will
+          // also catch empty strings.) Processors who need different behavior
+          // have to override this method.
+          $between_operator = in_array($condition->getOperator(), array('BETWEEN', 'NOT BETWEEN'));
+          if ($between_operator && count($value) < 2) {
             continue;
           }
 
@@ -281,8 +277,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
   /**
    * Determines whether a field of a certain type should be preprocessed.
    *
-   * The default implementation returns TRUE for "text", "tokenized_text" and
-   * "string".
+   * The default implementation returns TRUE for "text" and "string".
    *
    * @param string $type
    *   The type of the field (either when preprocessing the field at index time,
@@ -292,7 +287,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    *   TRUE if fields of that type should be processed, FALSE otherwise.
    */
   protected function testType($type) {
-    return Utility::isTextType($type, array('text', 'tokenized_text', 'string'));
+    return Utility::isTextType($type, array('text', 'string'));
   }
 
   /**
@@ -303,20 +298,13 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    * @param string $value
    *   The string value to preprocess, as a reference. Can be manipulated
    *   directly, nothing has to be returned. Can either be left a string, or
-   *   changed into an array of tokens. A token is an associative array
-   *   containing:
-   *   - value: Either the text inside the token, or a nested array of tokens.
-   *     The score of nested tokens will be multiplied by their parent's score.
-   *   - score: The relative importance of the token, as a float, with 1 being
-   *     the default.
+   *   changed into an array of
+   *   \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface
+   *   objects. Returning anything else will result in undefined behavior.
    * @param string $type
-   *   The field type as a reference. If the method changes the field's type,
-   *   this parameter has to be updated accordingly. A common example would be
-   *   changing text to tokenized_text. If an implementation updates the type,
-   *   however, it has to do so regardless of the $value passed – otherwise, the
-   *   behavior is undefined.
+   *   The field's data type.
    */
-  protected function processFieldValue(&$value, &$type) {
+  protected function processFieldValue(&$value, $type) {
     $this->process($value);
   }
 
@@ -329,7 +317,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    *   The string value to preprocess, as a reference. Can be manipulated
    *   directly, nothing has to be returned. Can either be left a string, or be
    *   changed into a nested keys array, as defined by
-   *   \Drupal\search_api\Query\QueryInterface::getKeys().
+   *   \Drupal\search_api\ParseMode\ParseModeInterface::parseInput().
    */
   protected function processKey(&$value) {
     $this->process($value);

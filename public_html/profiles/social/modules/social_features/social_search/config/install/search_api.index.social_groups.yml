@@ -13,13 +13,6 @@ name: 'Social Groups'
 description: 'Default group index created for the Social distribution.'
 read_only: false
 field_settings:
-  search_api_language:
-    label: 'Item language'
-    datasource_id: null
-    property_path: search_api_language
-    type: string
-    indexed_locked: true
-    type_locked: true
   type:
     label: Type
     datasource_id: 'entity:group'
@@ -51,23 +44,23 @@ field_settings:
     datasource_id: null
     property_path: rendered_item
     type: text
-    indexed_locked: true
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:group':
+          open_group: default
 processor_settings:
   add_url:
     plugin_id: add_url
     settings:
       weights:
         preprocess_index: -30
-  highlight:
-    plugin_id: highlight
+  aggregated_field:
+    plugin_id: aggregated_field
     settings:
-      highlight: always
-      excerpt: true
-      excerpt_length: 256
-      prefix: '<strong>'
-      suffix: '</strong>'
       weights:
-        postprocess_query: 0
+        add_properties: 20
   html_filter:
     plugin_id: html_filter
     settings:
@@ -89,7 +82,6 @@ processor_settings:
     plugin_id: ignorecase
     settings:
       fields:
-        - search_api_language
         - type
         - label
         - name
@@ -102,7 +94,6 @@ processor_settings:
     plugin_id: ignore_character
     settings:
       fields:
-        - search_api_language
         - type
         - label
         - name
@@ -133,21 +124,12 @@ processor_settings:
       weights:
         preprocess_index: -10
         preprocess_query: -10
-  language:
-    plugin_id: language
-    settings:
-      weights:
-        preprocess_index: -30
   rendered_item:
     plugin_id: rendered_item
     settings:
-      roles:
-        anonymous: anonymous
-      view_mode:
-        'entity:group':
-          open_group: default
       weights:
-        preprocess_index: -10
+        add_properties: 0
+        pre_index_save: -10
   stopwords:
     plugin_id: stopwords
     settings:
@@ -193,7 +175,6 @@ processor_settings:
       weights:
         preprocess_index: -5
         preprocess_query: -2
-        postprocess_query: -2
   tokenizer:
     plugin_id: tokenizer
     settings:
@@ -223,10 +204,12 @@ datasource_settings:
   'entity:group':
     plugin_id: 'entity:group'
     settings:
-      default: '1'
       bundles:
-        open_group: '0'
-      languages: {  }
+        default: true
+        selected: {  }
+      languages:
+        default: true
+        selected: {  }
 tracker_settings:
   default:
     plugin_id: default

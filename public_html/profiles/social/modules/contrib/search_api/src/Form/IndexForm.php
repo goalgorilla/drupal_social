@@ -200,19 +200,6 @@ class IndexForm extends EntityForm {
       '#disabled' => !$index->isNew(),
     );
 
-    // If the user changed the datasources or the tracker, notify them that they
-    // need to be configured.
-    // @todo Only do that if the datasources/tracker have configuration forms.
-    //   (Same in \Drupal\search_api\Form\ServerForm.)
-    $values = $form_state->getValues();
-    if (!empty($values['datasources'])) {
-      drupal_set_message($this->t('Please configure the used datasources.'), 'warning');
-    }
-
-    if (!empty($values['tracker'])) {
-      drupal_set_message($this->t('Please configure the used tracker.'), 'warning');
-    }
-
     $form['#attached']['library'][] = 'search_api/drupal.search_api.admin_css';
 
     $datasource_options = array();
@@ -381,10 +368,10 @@ class IndexForm extends EntityForm {
     else {
       // The form is being rebuilt – use the datasources selected by the user
       // instead of the ones saved in the config.
-      $all_datasources = $index->getDatasources(FALSE);
-      $datasources = array_intersect_key($all_datasources, array_flip($selected_datasources));
+      $datasources = $index->createPlugins('datasource', $selected_datasources);
     }
 
+    $show_message = FALSE;
     foreach ($datasources as $datasource_id => $datasource) {
       // Get the "sub-form state" and appropriate form part to send to
       // buildConfigurationForm().
@@ -396,7 +383,14 @@ class IndexForm extends EntityForm {
         $form['datasource_configs'][$datasource_id]['#open'] = $index->isNew();
 
         $form['datasource_configs'][$datasource_id] += $config_form;
+        $show_message = TRUE;
       }
+    }
+
+    // If the user changed the datasources and there is at least one datasource
+    // config form, show a message telling the user to configure it.
+    if ($selected_datasources && $show_message) {
+      drupal_set_message($this->t('Please configure the used datasources.'), 'warning');
     }
   }
 
@@ -428,6 +422,7 @@ class IndexForm extends EntityForm {
     if (empty($tracker)) {
       return;
     }
+
     // Get the "sub-form state" and appropriate form part to send to
     // buildConfigurationForm().
     $tracker_form = !empty($form['tracker_config']) ? $form['tracker_config'] : array();
@@ -439,6 +434,12 @@ class IndexForm extends EntityForm {
       $form['tracker_config']['#open'] = $index->isNew();
 
       $form['tracker_config'] += $config_form;
+
+      // If the user changed the tracker and the new one has a config form, show
+      // a message telling the user to configure it.
+      if ($selected_tracker) {
+        drupal_set_message($this->t('Please configure the used tracker.'), 'warning');
+      }
     }
   }
 
@@ -500,13 +501,13 @@ class IndexForm extends EntityForm {
     // Call validateConfigurationForm() for each enabled datasource.
     // @todo Do we want to also call validate and submit callbacks for plugins
     //   without configuration forms? We currently don't for backend plugins,
-    //   but do it here. We should be consistent.
-    /** @var \Drupal\search_api\Datasource\DatasourceInterface[] $datasource_plugins */
-    $datasource_plugins = $this->originalEntity->getDatasources(FALSE);
-    foreach ($datasource_ids as $datasource_id) {
+    //   but do it here. We should be consistent. (Also, form should be passed
+    //   by reference.)
+    $datasources = $this->originalEntity->createPlugins('datasource', $datasource_ids);
+    foreach ($datasources as $datasource_id => $datasource) {
       $datasource_form = (!empty($form['datasource_configs'][$datasource_id])) ? $form['datasource_configs'][$datasource_id] : array();
       $datasource_form_state = new SubFormState($form_state, array('datasource_configs', $datasource_id));
-      $datasource_plugins[$datasource_id]->validateConfigurationForm($datasource_form, $datasource_form_state);
+      $datasource->validateConfigurationForm($datasource_form, $datasource_form_state);
     }
 
     // Call validateConfigurationForm() for the (possibly new) tracker.
@@ -556,19 +557,14 @@ class IndexForm extends EntityForm {
     $index = $this->getEntity();
     $index->setOptions($form_state->getValue('options', array()) + $this->originalEntity->getOptions());
 
-    $datasources = $form_state->getValue('datasources', array());
-    /** @var \Drupal\search_api\Datasource\DatasourceInterface[] $datasource_plugins */
-    $datasource_plugins = $this->originalEntity->getDatasources(FALSE);
-    $datasource_settings = array();
-    foreach ($datasources as $datasource_id) {
-      $datasource = $datasource_plugins[$datasource_id];
+    $datasource_ids = $form_state->getValue('datasources', array());
+    $datasources = $this->originalEntity->createPlugins('datasource', $datasource_ids);
+    foreach ($datasources as $datasource_id => $datasource) {
       $datasource_form = (!empty($form['datasource_configs'][$datasource_id])) ? $form['datasource_configs'][$datasource_id] : array();
       $datasource_form_state = new SubFormState($form_state, array('datasource_configs', $datasource_id));
       $datasource->submitConfigurationForm($datasource_form, $datasource_form_state);
-
-      $datasource_settings[$datasource_id] = $datasource;
     }
-    $index->setDatasources($datasource_settings);
+    $index->setDatasources($datasources);
 
     // Call submitConfigurationForm() for the (possibly new) tracker.
     // @todo It seems if we change the tracker, we would validate/submit the old

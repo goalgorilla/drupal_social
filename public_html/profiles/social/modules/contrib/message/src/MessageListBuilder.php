@@ -67,8 +67,8 @@ class MessageListBuilder extends EntityListBuilder {
         'class' => [RESPONSIVE_PRIORITY_LOW],
       ],
       'text' => $this->t('Text'),
-      'type' => [
-        'data' => $this->t('Type'),
+      'template' => [
+        'data' => $this->t('Template'),
         'class' => [RESPONSIVE_PRIORITY_MEDIUM],
       ],
       'author' => [
@@ -95,7 +95,7 @@ class MessageListBuilder extends EntityListBuilder {
     return [
       'changed' => $this->dateService->format($entity->getCreatedTime(), 'short'),
       'text' => $entity->getText(),
-      'type' => $entity->getType()->label(),
+      'template' => $entity->getTemplate()->label(),
       'author' => $entity->getOwner()->label(),
     ];
   }

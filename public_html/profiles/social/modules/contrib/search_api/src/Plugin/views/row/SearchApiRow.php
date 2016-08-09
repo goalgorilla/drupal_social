@@ -2,10 +2,9 @@
 
 namespace Drupal\search_api\Plugin\views\row;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
+use Psr\Log\LoggerInterface;
 use Drupal\Core\TypedData\ComplexDataInterface;
 use Drupal\search_api\Plugin\views\query\SearchApiQuery;
 use Drupal\search_api\SearchApiException;
@@ -23,6 +22,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   title = @Translation("Rendered entity"),
  *   help = @Translation("Displays entity of the matching search API item"),
  * )
+ *
+ * @see search_api_views_plugins_row_alter()
  */
 class SearchApiRow extends RowPluginBase {
 
@@ -45,9 +46,8 @@ class SearchApiRow extends RowPluginBase {
   /**
    * The logger to use for logging messages.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface|null
+   * @var \Psr\Log\LoggerInterface|null
    */
-  // @todo Make this into a trait, with an additional logException() method.
   protected $logger;
 
   /**
@@ -57,13 +57,8 @@ class SearchApiRow extends RowPluginBase {
     /** @var static $row */
     $row = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
-    $entity_type_manager = $container->get('entity_type.manager');
-    $row->setEntityTypeManager($entity_type_manager);
-
-    /** @var \Drupal\Core\Logger\LoggerChannelInterface $logger */
-    $logger = $container->get('logger.factory')->get('search_api');
-    $row->setLogger($logger);
+    $row->setEntityTypeManager($container->get('entity_type.manager'));
+    $row->setLogger($container->get('logger.channel.search_api'));
 
     return $row;
   }
@@ -94,20 +89,20 @@ class SearchApiRow extends RowPluginBase {
   /**
    * Retrieves the logger to use.
    *
-   * @return \Drupal\Core\Logger\LoggerChannelInterface
+   * @return \Psr\Log\LoggerInterface
    *   The logger to use.
    */
   public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.factory')->get('search_api');
+    return $this->logger ?: \Drupal::service('logger.channel.search_api');
   }
 
   /**
    * Sets the logger to use.
    *
-   * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
+   * @param \Psr\Log\LoggerInterface $logger
    *   The logger to use.
    */
-  public function setLogger(LoggerChannelInterface $logger) {
+  public function setLogger(LoggerInterface $logger) {
     $this->logger = $logger;
   }
 
@@ -119,7 +114,8 @@ class SearchApiRow extends RowPluginBase {
     $base_table = $view->storage->get('base_table');
     $this->index = SearchApiQuery::getIndexFromTable($base_table, $this->getEntityTypeManager());
     if (!$this->index) {
-      throw new \InvalidArgumentException(new FormattableMarkup('View %view is not based on Search API but tries to use its row plugin.', array('%view' => $view->storage->label())));
+      $view_label = $view->storage->label();
+      throw new \InvalidArgumentException("View '$view_label' is not based on Search API but tries to use its row plugin.");
     }
   }
 

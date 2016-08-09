@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Plugin\FeaturesAssignment\FeaturesAssignmentForwardDependency.
- */
-
 namespace Drupal\features\Plugin\FeaturesAssignment;
 
 use Drupal\Component\Graph\Graph;

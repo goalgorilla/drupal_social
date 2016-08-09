@@ -13,6 +13,7 @@ use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\message\MessagePurgePluginManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,8 +25,17 @@ class MessageSettingsForm extends ConfigFormBase {
    * The entity manager object.
    *
    * @var \Drupal\Core\Entity\EntityManagerInterface
+   *
+   * @todo Use the entity type manager service.
    */
   protected $entityManager;
+
+  /**
+   * The message purge plugin manager.
+   *
+   * @var \Drupal\message\MessagePurgePluginManager
+   */
+  protected $purgeManager;
 
   /**
    * {@inheritdoc}
@@ -38,7 +48,7 @@ class MessageSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return ['message.message'];
+    return ['message.settings'];
   }
 
   /**
@@ -46,9 +56,6 @@ class MessageSettingsForm extends ConfigFormBase {
    */
   public function defaultKeys() {
     return [
-      'purge_enable',
-      'purge_quota',
-      'purge_days',
       'delete_on_entity_delete',
     ];
   }
@@ -59,7 +66,8 @@ class MessageSettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('entity.manager')
+      $container->get('entity.manager'),
+      $container->get('plugin.manager.message.purge')
     );
   }
 
@@ -70,10 +78,13 @@ class MessageSettingsForm extends ConfigFormBase {
    *   The factory for configuration objects.
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager object.
+   * @param \Drupal\message\MessagePurgePluginManager $purge_manager
+   *   The message purge plugin manager service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityManagerInterface $entity_manager) {
-    $this->setConfigFactory($config_factory);
+  public function __construct(ConfigFactoryInterface $config_factory, EntityManagerInterface $entity_manager, MessagePurgePluginManager $purge_manager) {
+    parent::__construct($config_factory);
     $this->entityManager = $entity_manager;
+    $this->purgeManager = $purge_manager;
   }
 
   /**
@@ -82,39 +93,23 @@ class MessageSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('message.settings');
 
-    $form['purge'] = [
+    // Uses the same form keys as the MessageTemplateForm so that the purge
+    // plugins form can be re-used.
+    $form['settings'] = [
       '#type' => 'fieldset',
       '#title' => t('Purge settings'),
+      '#tree' => TRUE,
     ];
 
-    $form['purge']['purge_enable'] = [
+    $form['settings']['purge_enable'] = [
       '#type' => 'checkbox',
       '#title' => t('Purge messages'),
-      '#description' => t('When enabled, old messages will be deleted.'),
+      '#description' => t('Configure how messages will be deleted.'),
       '#default_value' => $config->get('purge_enable'),
     ];
 
-    $states = [
-      'visible' => [
-        ':input[name="purge_enable"]' => ['checked' => TRUE],
-      ],
-    ];
-
-    $form['purge']['purge_quota'] = [
-      '#type' => 'textfield',
-      '#title' => t('Messages quota'),
-      '#description' => t('Maximal (approximate) amount of messages.'),
-      '#default_value' => $config->get('purge_quota'),
-      '#states' => $states,
-    ];
-
-    $form['purge']['purge_days'] = [
-      '#type' => 'textfield',
-      '#title' => t('Purge messages older than'),
-      '#description' => t('Maximal message age in days.'),
-      '#default_value' => $config->get('purge_quota'),
-      '#states' => $states,
-    ];
+    // Add the purge method settings form.
+    $this->purgeManager->purgeSettingsForm($form, $form_state, $config->get('purge_methods'));
 
     $form['delete_on_entity_delete'] = [
       '#title' => t('Auto delete messages referencing the following entities'),
@@ -132,15 +127,19 @@ class MessageSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    parent::submitForm($form, $form_state);
+
     $config = $this->config('message.settings');
 
     foreach ($this->defaultKeys() as $key) {
       $config->set($key, $form_state->getValue($key));
     }
 
-    $config->save();
+    $purge_enable = $form_state->getValue(['settings', 'purge_enable']);
+    $config->set('purge_enable', $purge_enable);
+    $config->set('purge_methods', $purge_enable ? $this->purgeManager->getPurgeConfiguration($form, $form_state) : []);
 
-    parent::submitForm($form, $form_state);
+    $config->save();
   }
 
   /**

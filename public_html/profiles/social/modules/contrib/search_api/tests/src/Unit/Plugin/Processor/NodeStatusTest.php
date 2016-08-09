@@ -103,7 +103,7 @@ class NodeStatusTest extends UnitTestCase {
    */
   public function testNodeStatus() {
     $this->assertCount(2, $this->items, '2 nodes in the index.');
-    $this->processor->preprocessIndexItems($this->items);
+    $this->processor->alterIndexedItems($this->items);
     $this->assertCount(1, $this->items, 'An item was removed from the items list.');
     $published_nid = Utility::createCombinedId('entity:node', '2:en');
     $this->assertTrue(isset($this->items[$published_nid]), 'Correct item was removed.');

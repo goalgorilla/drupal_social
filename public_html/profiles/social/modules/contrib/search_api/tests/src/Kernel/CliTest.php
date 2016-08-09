@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\search_api\Kernel;
 
-use Drupal\entity_test\Entity\EntityTest;
+use Drupal\entity_test\Entity\EntityTestMulRevChanged;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Entity\Server;
@@ -28,7 +28,7 @@ class CliTest extends KernelTestBase {
    */
   public static $modules = array(
     'search_api',
-    'search_api_test_backend',
+    'search_api_test',
     'user',
     'system',
     'entity_test',
@@ -41,14 +41,14 @@ class CliTest extends KernelTestBase {
     parent::setUp();
 
     $this->installSchema('search_api', array('search_api_item', 'search_api_task'));
-    $this->installEntitySchema('entity_test');
+    $this->installEntitySchema('entity_test_mulrev_changed');
 
     // Create a test server.
     $this->server = Server::create(array(
       'name' => 'Test server',
       'id' => 'test',
       'status' => 1,
-      'backend' => 'search_api_test_backend',
+      'backend' => 'search_api_test',
     ));
     $this->server->save();
 
@@ -58,26 +58,29 @@ class CliTest extends KernelTestBase {
       ->getEditable('search_api.settings')
       ->set('tracking_page_size', 100)
       ->save();
+
     // Disable the use of batches for item tracking to simulate a CLI
     // environment.
-    \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
+    if (php_sapi_name() != 'cli') {
+      \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
+    }
   }
 
   /**
    * Tests tracking of items when saving an index through the CLI.
    */
   public function testItemTracking() {
-    EntityTest::create(array(
+    EntityTestMulRevChanged::create(array(
       'name' => 'foo bar baz föö smile' . json_decode('"\u1F601"'),
       'body' => 'test test case Case casE',
-      'type' => 'item',
+      'type' => 'entity_test_mulrev_changed',
       'keywords' => array('Orange', 'orange', 'örange', 'Orange'),
       'category' => 'item_category',
     ))->save();
-    EntityTest::create(array(
+    EntityTestMulRevChanged::create(array(
       'name' => 'foo bar baz föö smile',
       'body' => 'test test case Case casE',
-      'type' => 'item',
+      'type' => 'entity_test_mulrev_changed',
       'keywords' => array('strawberry', 'llama'),
       'category' => 'item_category',
     ))->save();
@@ -89,8 +92,8 @@ class CliTest extends KernelTestBase {
       'id' => 'index',
       'status' => 1,
       'datasource_settings' => array(
-        'entity:entity_test' => array(
-          'plugin_id' => 'entity:entity_test',
+        'entity:entity_test_mulrev_changed' => array(
+          'plugin_id' => 'entity:entity_test_mulrev_changed',
           'settings' => array(),
         ),
       ),
@@ -111,14 +114,14 @@ class CliTest extends KernelTestBase {
     $this->assertEquals(2, $total_items, 'The 2 items are tracked.');
     $this->assertEquals(0, $indexed_items, 'No items are indexed');
 
-    EntityTest::create(array(
+    EntityTestMulRevChanged::create(array(
       'name' => 'foo bar baz föö smile',
       'body' => 'test test case Case casE',
       'type' => 'item',
       'keywords' => array('strawberry', 'llama'),
       'category' => 'item_category',
     ))->save();
-    EntityTest::create(array(
+    EntityTestMulRevChanged::create(array(
       'name' => 'foo bar baz föö smile',
       'body' => 'test test case Case casE',
       'type' => 'item',

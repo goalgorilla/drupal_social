@@ -10,12 +10,10 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
 use Drupal\Core\Entity\TypedData\EntityDataDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\TypedData\ComplexDataDefinitionInterface;
 use Drupal\Core\TypedData\ComplexDataInterface;
 use Drupal\Core\TypedData\TypedDataManager;
@@ -36,7 +34,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   deriver = "Drupal\search_api\Plugin\search_api\datasource\ContentEntityDeriver"
  * )
  */
-class ContentEntity extends DatasourcePluginBase {
+class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInterface {
 
   /**
    * The entity type manager.
@@ -111,33 +109,13 @@ class ContentEntity extends DatasourcePluginBase {
     /** @var static $datasource */
     $datasource = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var $entity_type_manager \Drupal\Core\Entity\EntityTypeManagerInterface */
-    $entity_type_manager = $container->get('entity_type.manager');
-    $datasource->setEntityTypeManager($entity_type_manager);
-
-    /** @var $entity_field_manager \Drupal\Core\Entity\EntityFieldManagerInterface */
-    $entity_field_manager = $container->get('entity_field.manager');
-    $datasource->setEntityFieldManager($entity_field_manager);
-
-    /** @var $entity_display_repo \Drupal\Core\Entity\EntityDisplayRepositoryInterface */
-    $entity_display_repo = $container->get('entity_display.repository');
-    $datasource->setEntityDisplayRepository($entity_display_repo);
-
-    /** @var $entity_type_bundle_info \Drupal\Core\Entity\EntityTypeBundleInfoInterface */
-    $entity_type_bundle_info = $container->get('entity_type.bundle.info');
-    $datasource->setEntityTypeBundleInfo($entity_type_bundle_info);
-
-    /** @var \Drupal\Core\TypedData\TypedDataManager $typed_data_manager */
-    $typed_data_manager = $container->get('typed_data_manager');
-    $datasource->setTypedDataManager($typed_data_manager);
-
-    /** @var $config_factory \Drupal\Core\Config\ConfigFactoryInterface */
-    $config_factory = $container->get('config.factory');
-    $datasource->setConfigFactory($config_factory);
-
-    /** @var $language_manager \Drupal\Core\Language\LanguageManagerInterface */
-    $language_manager = $container->get('language_manager');
-    $datasource->setLanguageManager($language_manager);
+    $datasource->setEntityTypeManager($container->get('entity_type.manager'));
+    $datasource->setEntityFieldManager($container->get('entity_field.manager'));
+    $datasource->setEntityDisplayRepository($container->get('entity_display.repository'));
+    $datasource->setEntityTypeBundleInfo($container->get('entity_type.bundle.info'));
+    $datasource->setTypedDataManager($container->get('typed_data_manager'));
+    $datasource->setConfigFactory($container->get('config.factory'));
+    $datasource->setLanguageManager($container->get('language_manager'));
 
     return $datasource;
   }
@@ -351,24 +329,21 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function loadMultiple(array $ids) {
-    $allowed_languages = $all_languages = $this->getLanguageManager()->getLanguages();
-
-    if ($this->isTranslatable()) {
-      $selected_languages = array_flip($this->configuration['languages']);
-      if ($this->configuration['default']) {
-        $allowed_languages = array_diff_key($all_languages, $selected_languages);
-      }
-      else {
-        $allowed_languages = array_intersect_key($all_languages, $selected_languages);
-      }
-    }
+    $allowed_languages = $this->getLanguages();
     // Always allow items with undefined language. (Can be the case when
     // entities are created programmatically.)
     $allowed_languages[LanguageInterface::LANGCODE_NOT_SPECIFIED] = TRUE;
 
     $entity_ids = array();
     foreach ($ids as $item_id) {
-      list($entity_id, $langcode) = explode(':', $item_id, 2);
+      $pos = strrpos($item_id, ':');
+      // This can only happen if someone passes an invalid ID, since we always
+      // include a language code. Still, no harm in guarding against bad input.
+      if ($pos === FALSE) {
+        continue;
+      }
+      $entity_id = substr($item_id, 0, $pos);
+      $langcode = substr($item_id, $pos + 1);
       if (isset($allowed_languages[$langcode])) {
         $entity_ids[$entity_id][$item_id] = $langcode;
       }
@@ -376,7 +351,6 @@ class ContentEntity extends DatasourcePluginBase {
 
     /** @var \Drupal\Core\Entity\ContentEntityInterface[] $entities */
     $entities = $this->getEntityStorage()->loadMultiple(array_keys($entity_ids));
-    $missing = array();
     $items = array();
     foreach ($entity_ids as $entity_id => $langcodes) {
       foreach ($langcodes as $item_id => $langcode) {
@@ -386,96 +360,10 @@ class ContentEntity extends DatasourcePluginBase {
         if (!empty($entities[$entity_id]) && $entities[$entity_id]->hasTranslation($langcode)) {
           $items[$item_id] = $entities[$entity_id]->getTranslation($langcode)->getTypedData();
         }
-        else {
-          $missing[] = $item_id;
-        }
       }
     }
-    // If we were unable to load some of the items, mark them as deleted.
-    // @todo The index should be responsible for this, not individual
-    //   datasources. See #2574589.
-    if ($missing) {
-      $this->getIndex()->trackItemsDeleted($this->getPluginId(), array_keys($missing));
-    }
+
     return $items;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setConfiguration(array $new_config) {
-    $old_config = $this->getConfiguration();
-    $new_config += $this->defaultConfiguration();
-    $this->configuration = $new_config;
-
-    // We'd now check the items of which bundles need to be added to or removed
-    // from tracking for this index. However, if the index is not tracking at
-    // all (i.e., is disabled) currently, we can skip all that.
-    if (!$this->index->status() || !$this->index->hasValidTracker()) {
-      return;
-    }
-
-    // Including "$old_config != $new_config" for this "if" would make sense –
-    // however, since 0 == 'article', that leads to wrong results. "!==", on the
-    // other hand, is too restrictive, since it also checks order. Therefore,
-    // this can only be added once we prepare the "bundles" setting to be just a
-    // list of the checked ones.
-    if ($this->hasBundles()) {
-      // First, check if the "default" setting changed and invert the set
-      // bundles for the old config, so the following comparison makes sense.
-      // @todo If the available bundles changed in between, this will still
-      //   produce wrong results. Also, we should definitely only store a
-      //   numerically-indexed array of the selected bundles, not the
-      //   "checkboxes" raw format. This will, very likely, also resolve that
-      //   issue. See #2471535.
-      if ($old_config['default'] != $new_config['default']) {
-        foreach ($old_config['bundles'] as $bundle_key => $bundle) {
-          if ($bundle_key == $bundle) {
-            $old_config['bundles'][$bundle_key] = 0;
-          }
-          else {
-            $old_config['bundles'][$bundle_key] = $bundle_key;
-          }
-        }
-      }
-
-      // Now, go through all the bundles and start/stop tracking for them
-      // accordingly.
-      $bundles_start = array();
-      $bundles_stop = array();
-      if ($diff = array_diff_assoc($new_config['bundles'], $old_config['bundles'])) {
-        foreach ($diff as $bundle_key => $bundle) {
-          if ($new_config['default'] == 0) {
-            if ($bundle_key === $bundle) {
-              $bundles_start[$bundle_key] = $bundle;
-            }
-            else {
-              $bundles_stop[$bundle_key] = $bundle;
-            }
-          }
-          else {
-            if ($bundle_key === $bundle) {
-              $bundles_stop[$bundle_key] = $bundle;
-            }
-            else {
-              $bundles_start[$bundle_key] = $bundle;
-            }
-          }
-        }
-        // @todo Make this use a batch instead, like when enabling a datasource.
-        //   See #2574611.
-        if (!empty($bundles_start)) {
-          if ($entity_ids = $this->getBundleItemIds(array_keys($bundles_start))) {
-            $this->getIndex()->trackItemsInserted($this->getPluginId(), $entity_ids);
-          }
-        }
-        if (!empty($bundles_stop)) {
-          if ($entity_ids = $this->getBundleItemIds(array_keys($bundles_stop))) {
-            $this->getIndex()->trackItemsDeleted($this->getPluginId(), $entity_ids);
-          }
-        }
-      }
-    }
   }
 
   /**
@@ -483,16 +371,19 @@ class ContentEntity extends DatasourcePluginBase {
    */
   public function defaultConfiguration() {
     $default_configuration = array();
-    if ($this->hasBundles() || $this->isTranslatable()) {
-      $default_configuration['default'] = '1';
-    }
 
     if ($this->hasBundles()) {
-      $default_configuration['bundles'] = array();
+      $default_configuration['bundles'] = array(
+        'default' => TRUE,
+        'selected' => array(),
+      );
     }
 
     if ($this->isTranslatable()) {
-      $default_configuration['languages'] = array();
+      $default_configuration['languages'] = array(
+        'default' => TRUE,
+        'selected' => array(),
+      );
     }
 
     return $default_configuration;
@@ -502,25 +393,27 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    if ($this->hasBundles() || $this->isTranslatable()) {
-      $form['default'] = array(
+    if ($this->hasBundles()) {
+      $bundles = $this->getEntityBundleOptions();
+      $form['bundles'] = array(
+        '#type' => 'details',
+        '#title' => $this->t('Bundles'),
+        '#open' => TRUE,
+      );
+      $form['bundles']['default'] = array(
         '#type' => 'radios',
-        '#title' => $this->t('What should be indexed?'),
+        '#title' => $this->t('Which bundles should be indexed?'),
         '#options' => array(
           1 => $this->t('All except those selected'),
           0 => $this->t('None except those selected'),
         ),
-        '#default_value' => $this->configuration['default'],
+        '#default_value' => (int) $this->configuration['bundles']['default'],
       );
-    }
-
-    if ($this->hasBundles()) {
-      $bundles = $this->getEntityBundleOptions();
-      $form['bundles'] = array(
+      $form['bundles']['selected'] = array(
         '#type' => 'checkboxes',
         '#title' => $this->t('Bundles'),
         '#options' => $bundles,
-        '#default_value' => $this->configuration['bundles'],
+        '#default_value' => $this->configuration['bundles']['selected'],
         '#size' => min(4, count($bundles)),
         '#multiple' => TRUE,
       );
@@ -528,10 +421,24 @@ class ContentEntity extends DatasourcePluginBase {
 
     if ($this->isTranslatable()) {
       $form['languages'] = array(
+        '#type' => 'details',
+        '#title' => $this->t('Languages'),
+        '#open' => TRUE,
+      );
+      $form['languages']['default'] = array(
+        '#type' => 'radios',
+        '#title' => $this->t('Which languages should be indexed?'),
+        '#options' => array(
+          1 => $this->t('All except those selected'),
+          0 => $this->t('None except those selected'),
+        ),
+        '#default_value' => (int) $this->configuration['languages']['default'],
+      );
+      $form['languages']['selected'] = array(
         '#type' => 'checkboxes',
         '#title' => $this->t('Languages'),
         '#options' => $this->getTranslationOptions(),
-        '#default_value' => array_combine($this->configuration['languages'], $this->configuration['languages']),
+        '#default_value' => $this->configuration['languages']['selected'],
         '#multiple' => TRUE,
       );
     }
@@ -574,19 +481,40 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $languages = $form_state->getValue('languages', array());
-    $languages = array_keys(array_filter($languages));
-    $form_state->setValue('languages', $languages);
+    // Filter out empty checkboxes.
+    foreach (array('bundles', 'languages') as $key) {
+      if ($form_state->hasValue($key)) {
+        $parents = array($key, 'selected');
+        $value = $form_state->getValue($parents, array());
+        $value = array_keys(array_filter($value));
+        $form_state->setValue($parents, $value);
+      }
+    }
 
     parent::submitConfigurationForm($form, $form_state);
+  }
+
+  /**
+   * Retrieves the entity from a search item.
+   *
+   * @param \Drupal\Core\TypedData\ComplexDataInterface $item
+   *   An item of this datasource's type.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   The entity object represented by that item, or NULL if none could be
+   *   found.
+   */
+  protected function getEntity(ComplexDataInterface $item) {
+    $value = $item->getValue();
+    return $value instanceof EntityInterface ? $value : NULL;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getItemId(ComplexDataInterface $item) {
-    if ($item instanceof EntityAdapter) {
-      return $item->getValue()->id() . ':' . $item->getValue()->language()->getId();
+    if ($entity = $this->getEntity($item)) {
+      return $entity->id() . ':' . $entity->language()->getId();
     }
     return NULL;
   }
@@ -595,8 +523,8 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function getItemLabel(ComplexDataInterface $item) {
-    if ($item instanceof EntityAdapter) {
-      return $item->getValue()->label();
+    if ($entity = $this->getEntity($item)) {
+      return $entity->label();
     }
     return NULL;
   }
@@ -605,8 +533,8 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function getItemBundle(ComplexDataInterface $item) {
-    if ($item instanceof EntityAdapter) {
-      return $item->getValue()->bundle();
+    if ($entity = $this->getEntity($item)) {
+      return $entity->bundle();
     }
     return NULL;
   }
@@ -615,8 +543,7 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function getItemUrl(ComplexDataInterface $item) {
-    if ($item instanceof EntityAdapter) {
-      $entity = $item->getValue();
+    if ($entity = $this->getEntity($item)) {
       if ($entity->hasLinkTemplate('canonical')) {
         return $entity->toUrl('canonical');
       }
@@ -628,7 +555,7 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function getItemIds($page = NULL) {
-    return $this->getBundleItemIds(NULL, $page);
+    return $this->getPartialItemIds($page);
   }
 
   /**
@@ -639,8 +566,8 @@ class ContentEntity extends DatasourcePluginBase {
 
     // Add bundle information in the description.
     if ($this->hasBundles()) {
-      $bundles = array_values(array_intersect_key($this->getEntityBundleOptions(), array_filter($this->configuration['bundles'])));
-      if ($this->configuration['default']) {
+      $bundles = array_values(array_intersect_key($this->getEntityBundleOptions(), array_flip($this->configuration['bundles']['selected'])));
+      if ($this->configuration['bundles']['default']) {
         $summary .= $this->t('Excluded bundles: @bundles', array('@bundles' => implode(', ', $bundles)));
       }
       else {
@@ -653,8 +580,8 @@ class ContentEntity extends DatasourcePluginBase {
       if ($summary) {
         $summary .= '; ';
       }
-      $languages = array_intersect_key($this->getTranslationOptions(), array_flip($this->configuration['languages']));
-      if ($this->configuration['default']) {
+      $languages = array_intersect_key($this->getTranslationOptions(), array_flip($this->configuration['languages']['selected']));
+      if ($this->configuration['languages']['default']) {
         $summary .= $this->t('Excluded languages: @languages', array('@languages' => implode(', ', $languages)));
       }
       else {
@@ -704,48 +631,71 @@ class ContentEntity extends DatasourcePluginBase {
   }
 
   /**
-   * Retrieves all item IDs of entities of the specified bundles.
-   *
-   * @param string[]|null $bundles
-   *   (optional) The bundles for which all item IDs should be returned; or NULL
-   *   to retrieve IDs from all enabled bundles in this datasource.
-   * @param int|null $page
-   *   The zero-based page of IDs to retrieve, for the paging mechanism
-   *   implemented by this datasource; or NULL to retrieve all items at once.
-   *
-   * @return string[]
-   *   An array of all item IDs of these bundles.
+   * {@inheritdoc}
    */
-  protected function getBundleItemIds(array $bundles = NULL, $page = NULL) {
-    // If NULL was passed, use all enabled bundles.
-    if (!isset($bundles)) {
-      $bundles = array_keys($this->getBundles());
-    }
-
+  public function getPartialItemIds($page = NULL, array $bundles = NULL, array $languages = NULL) {
     $select = \Drupal::entityQuery($this->getEntityTypeId());
-    // If there are bundles to filter on, and they don't include all available
-    // bundles, add the appropriate condition.
-    if ($bundles && $this->hasBundles()) {
-      if (count($bundles) != count($this->getEntityBundles())) {
-        $select->condition($this->getEntityType()->getKey('bundle'), $bundles, 'IN');
+
+    // We want to determine all entities of either one of the given bundles OR
+    // one of the given languages. That means we can't just filter for $bundles
+    // if $languages is given. Instead, we have to filter for all bundles we
+    // might want to include and later sort out those for which we want only the
+    // translations in $languages and those (matching $bundles) where we want
+    // all (enabled) translations.
+    if ($this->hasBundles()) {
+      $bundle_property = $this->getEntityType()->getKey('bundle');
+      if ($bundles && !$languages) {
+        $select->condition($bundle_property, $bundles, 'IN');
+      }
+      else {
+        $enabled_bundles = array_keys($this->getBundles());
+        // Since this is also called for removed bundles/languages,
+        // $enabled_bundles might not include $bundles.
+        if ($bundles) {
+          $enabled_bundles = array_unique(array_merge($bundles, $enabled_bundles));
+        }
+        if (count($enabled_bundles) < count($this->getEntityBundles())) {
+          $select->condition($bundle_property, $enabled_bundles, 'IN');
+        }
       }
     }
+
     if (isset($page)) {
       $page_size = $this->getConfigValue('tracking_page_size');
+      assert('$page_size', 'Tracking page size is not set.');
       $select->range($page * $page_size, $page_size);
     }
+
     $entity_ids = $select->execute();
 
     if (!$entity_ids) {
       return NULL;
     }
 
-    // For all the loaded entities, compute all their item IDs (one for each
-    // translation).
+    // For all loaded entities, compute all their item IDs (one for each
+    // translation we want to include). For those matching the given bundles (if
+    // any), we want to include translations for all enabled languages. For all
+    // other entities, we just want to include the translations for the
+    // languages passed to the method (if any).
     $item_ids = array();
+    $enabled_languages = array_keys($this->getLanguages());
+    // As above for bundles, $enabled_languages might not include $languages.
+    if ($languages) {
+      $enabled_languages = array_unique(array_merge($languages, $enabled_languages));
+    }
+    // Also, we want to always include entities with unknown language.
+    $enabled_languages[] = LanguageInterface::LANGCODE_NOT_SPECIFIED;
+
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     foreach ($this->getEntityStorage()->loadMultiple($entity_ids) as $entity_id => $entity) {
-      foreach (array_keys($entity->getTranslationLanguages()) as $langcode) {
+      $translations = array_keys($entity->getTranslationLanguages());
+      if (!isset($bundles) || in_array($entity->bundle(), $bundles)) {
+        $translations = array_intersect($translations, $enabled_languages);
+      }
+      else {
+        $translations = array_intersect($translations, $languages);
+      }
+      foreach ($translations as $langcode) {
         $item_ids[] = "$entity_id:$langcode";
       }
     }
@@ -769,8 +719,8 @@ class ContentEntity extends DatasourcePluginBase {
     // Otherwise, return all the selected bundles.
     $bundles = array();
     $entity_bundles = $this->getEntityBundles();
-    $selected_bundles = array_filter($configuration['bundles']);
-    $function = $configuration['default'] ? 'array_diff_key' : 'array_intersect_key';
+    $selected_bundles = array_flip($configuration['bundles']['selected']);
+    $function = $configuration['bundles']['default'] ? 'array_diff_key' : 'array_intersect_key';
     $entity_bundles = $function($entity_bundles, $selected_bundles);
     foreach ($entity_bundles as $bundle_id => $bundle_info) {
       $bundles[$bundle_id] = isset($bundle_info['label']) ? $bundle_info['label'] : $bundle_id;
@@ -779,10 +729,33 @@ class ContentEntity extends DatasourcePluginBase {
   }
 
   /**
+   * Retrieves the enabled languages.
+   *
+   * @return \Drupal\Core\Language\LanguageInterface[]
+   *   All languages that are enabled for this datasource, keyed by language
+   *   code.
+   */
+  protected function getLanguages() {
+    $all_languages = $this->getLanguageManager()->getLanguages();
+
+    if ($this->isTranslatable()) {
+      $selected_languages = array_flip($this->configuration['languages']['selected']);
+      if ($this->configuration['languages']['default']) {
+        return array_diff_key($all_languages, $selected_languages);
+      }
+      else {
+        return array_intersect_key($all_languages, $selected_languages);
+      }
+    }
+
+    return $all_languages;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getViewModes($bundle = NULL) {
-    if (isset($bundle)) {
+    if (isset($bundle) && $this->hasBundles()) {
       return $this->getEntityDisplayRepository()->getViewModeOptionsByBundle($this->getEntityTypeId(), $bundle);
     }
     else {
@@ -795,8 +768,7 @@ class ContentEntity extends DatasourcePluginBase {
    */
   public function viewItem(ComplexDataInterface $item, $view_mode, $langcode = NULL) {
     try {
-      if ($item instanceof EntityAdapter) {
-        $entity = $item->getValue();
+      if ($entity = $this->getEntity($item)) {
         $langcode = $langcode ?: $entity->language()->getId();
         return $this->getEntityTypeManager()->getViewBuilder($this->getEntityTypeId())->view($entity, $view_mode, $langcode);
       }
@@ -820,8 +792,8 @@ class ContentEntity extends DatasourcePluginBase {
       if (isset($langcode)) {
         $entities = array();
         foreach ($items as $i => $item) {
-          if ($item instanceof EntityAdapter) {
-            $entities[$i] = $item->getValue();
+          if ($entity = $this->getEntity($item)) {
+            $entities[$i] = $entity;
           }
         }
         if ($entities) {
@@ -857,7 +829,7 @@ class ContentEntity extends DatasourcePluginBase {
    * {@inheritdoc}
    */
   public function calculateDependencies() {
-    $this->dependencies += parent::calculateDependencies();
+    $this->dependencies = parent::calculateDependencies();
 
     $this->addDependency('module', $this->getEntityType()->getProvider());
 
@@ -919,7 +891,7 @@ class ContentEntity extends DatasourcePluginBase {
     }
 
     if (isset($nested_path) && $property instanceof ComplexDataDefinitionInterface) {
-      $nested_dependencies = $this->getPropertyPathDependencies($nested_path, $property->getPropertyDefinitions());
+      $nested_dependencies = $this->getPropertyPathDependencies($nested_path, Utility::getNestedProperties($property));
       foreach ($nested_dependencies as $type => $names) {
         $dependencies += array($type => array());
         $dependencies[$type] += $names;
@@ -930,18 +902,7 @@ class ContentEntity extends DatasourcePluginBase {
   }
 
   /**
-   * Returns an array of config entity dependencies.
-   *
-   * @param string $entity_type_id
-   *   The entity type to which the fields are attached.
-   * @param string[] $fields
-   *   An array of property paths of fields from this entity type.
-   * @param string[] $all_fields
-   *   An array of property paths of all the fields from this datasource.
-   *
-   * @return string[]
-   *   An array keyed by the IDs of entities on which this datasource depends.
-   *   The values are containing list of Search API fields.
+   * {@inheritdoc}
    */
   public function getFieldDependenciesForEntityType($entity_type_id, array $fields, array $all_fields) {
     $field_dependencies = array();
@@ -997,14 +958,7 @@ class ContentEntity extends DatasourcePluginBase {
   }
 
   /**
-   * Retrieves all indexes that are configured to index the given entity.
-   *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
-   *   The entity for which to check.
-   *
-   * @return \Drupal\search_api\IndexInterface[]
-   *   All indexes that are configured to index the given entity (using this
-   *   datasource class).
+   * {@inheritdoc}
    */
   public static function getIndexesForEntity(ContentEntityInterface $entity) {
     $entity_type = $entity->getEntityTypeId();
@@ -1030,8 +984,8 @@ class ContentEntity extends DatasourcePluginBase {
       foreach ($indexes as $index_id => $index) {
         try {
           $config = $index->getDatasource($datasource_id)->getConfiguration();
-          $default = !empty($config['default']);
-          $bundle_set = !empty($config['bundles'][$entity_bundle]);
+          $default = !empty($config['bundles']['default']);
+          $bundle_set = in_array($entity_bundle, $config['bundles']['selected']);
           if ($default == $bundle_set) {
             unset($indexes[$index_id]);
           }

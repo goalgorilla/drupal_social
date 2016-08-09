@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Entity\FeaturesBundle.
- */
-
 namespace Drupal\features\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
