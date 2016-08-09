@@ -1,7 +1,11 @@
-.list-group
-  .list-group-item
-    h6.list-group-item-heading.text-primary Style &amp; Content
-  a.list-group-item(href='color.html', class=(page == "Color" ? "active" : "")) Color
-  a.list-group-item(href='type.html', class=(page == "Type" ? "active" : "")) Type
-  a.list-group-item(href='tables.html', class=(page == "Tables" ? "active" : "")) Tables
-  a.list-group-item(href='images.html', class=(page == "Images" ? "active" : "")) Images
+nav.docs-sidebar.hidden-print.toc-wrapper
+  h6.text-primary Style &amp; Content
+  ul.nav.table-of-contents.docs-sidebar
+    li(class=(page == "Color" ? "active" : ""))
+      a(href='color.html') Color
+    li(class=(page == "Type" ? "active" : ""))
+      a(href='type.html') Type
+    li(class=(page == "Tables" ? "active" : ""))
+      a(href='tables.html') Tables
+    li(class=(page == "Images" ? "active" : ""))
+      a(href='images.html') Images

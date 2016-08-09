@@ -3227,7 +3227,8 @@ a.card:hover {
 .card-nested-section {
   margin: 10px -20px -20px;
   padding: 20px;
-  background: #f3f3f3;
+  background: #f7f7f7;
+  border-top: 1px solid #e6e6e6;
 }
 
 .card-nested-section.indented {
@@ -4442,11 +4443,6 @@ i.large {
 .img-small {
   width: 24px;
   height: 24px;
-}
-
-.img-tiny {
-  width: 16px;
-  height: 16px;
 }
 
 .img-grid {

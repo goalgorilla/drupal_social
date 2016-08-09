@@ -6,11 +6,11 @@ script(src='js/custom/textarea-autogrow.js')
 script(src='js/custom/navbar-search.js')
 script(src='js/init.js')
 
-if page == "Tables"
+if tablesaw
   script(src='js/contrib/tablesaw/tablesaw.js')
   script(src='js/contrib/tablesaw/tablesaw-init.js')
 
-if page == "Forms"
+if datepicker
   script(src="js/contrib/date_picker/picker.js")
   script(src="js/contrib/date_picker/picker.date.js")
   script(src="js/contrib/date_picker/picker.time.js")
@@ -24,11 +24,11 @@ if pagetype == "template"
   script.
     new UISearch( document.getElementById( 'navbar-search' ) );
 
-else
+if pagetype == "styleguide"
 
   script(src='js/contrib/prism/prism.js')
   script(src='js/styleguide.js')
-  script(src='js/init-styleguide.js')
+
   script.
     // Escape code
     // ============================================================
@@ -38,7 +38,6 @@ else
         $lang_jscode       = document.querySelectorAll('pre code.language-javascript')
         lang_markupsnippet = [],
         lang_jsnippet      = [];
-
 
     // Markup
     // order matters!
@@ -50,7 +49,6 @@ else
       );
       $lang_markup[i].innerHTML = lang_markupsnippet[i];
     }
-
 
     // JavaScript
     // order matters!

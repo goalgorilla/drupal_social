@@ -15,13 +15,15 @@
 
       #menu-dropdown.collapse.navbar-collapse(aria-expanded='false')
         ul.nav.navbar-nav
-          li.hidden-xs
+          li.hidden-xs(class=(page == "Open Social" ? "active" : ""))
             a(href='index.html') Home
-          li
+          li(class=(page == "Prototype" ? "active" : ""))
+            a(href='prototype.html') Prototype
+          li(class=(page == "Getting started" ? "active" : ""))
             a(href='getting-started.html') Getting started
-          li
+          li(class=(page == "Color" || page == "Type" || page == "Tables" || page == "Elevation" || page == "Images" ? "active" : ""))
             a(href='color.html') Style &amp; content
-          li
+          li(class=(page == "Buttons" || page == "Forms" || page == "Grid" || page == "Breadcrumbs" || page == "Cards" || page == "Tabs" || page == "Pagination"  ? "active" : ""))
             a(href='buttons.html') Components
-          li
+          li(class=(page == "Layout" ? "active" : ""))
             a(href='layout.html') Layout

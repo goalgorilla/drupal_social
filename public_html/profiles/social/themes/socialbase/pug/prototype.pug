@@ -1,26 +1,29 @@
 - var pagetype = "styleguide"
-- var page = "Prototype pages"
+- var page = "Prototype"
 
 mixin collection(link, name)
   a.list-group-item(href=link)
     p.list-group-item-text= name
 
+
 doctype html
 html(lang="en")
   head
     include ./layout/_head.pug
-  body(class='#{pagetype}')
-    header.styleguide-header
-      include ./layout/_navbar.pug
-      
-    main.styleguide-container(role='main')
 
+  body
+    include ./layout/_gtm.pug
+    include ./layout/_header-styleguide.pug
+    include ../images/icons.svg
+
+    .docsheader
       .container
-        .row.section
-          .col-xs-12
-            p The prototype consists of static pages that are linked together. The content that is used is fictional demo content. You can choose any of the pages listed here to start browsing the prototype and then following the links on the pages as you normally would do.  
-        
-        .row 
+        h1 Prototype
+        p.lead The prototype consists of static pages that are linked together. The content that is used is fictional demo content. You can choose any of the pages listed here to start browsing the prototype and then follow the links on the pages as you normally would do.
+
+    main.main-container.styleguide-container(role='main')
+      .container
+        .row
           .col-xs-12.col-md-6
             .list-group
               .list-group-item
@@ -33,7 +36,7 @@ html(lang="en")
               +collection('sign-up-with-email.html', ' Sign up with e-mail verification')
               +collection('reset-password.html', 'Reset password')
               +collection('basic-page.html', 'Basic page')
-            
+
           .col-xs-12.col-md-6
             .list-group
               .list-group-item
@@ -76,5 +79,5 @@ html(lang="en")
               +collection('explore-groups.html', 'Explore groups')
               +collection('explore-users.html', 'Explore users')
               +collection('notification-archive.html', 'Notification archive')
-  
+
     include ./layout/_scripts.pug
