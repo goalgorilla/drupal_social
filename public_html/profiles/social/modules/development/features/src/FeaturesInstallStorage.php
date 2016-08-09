@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesInstallStorage.
- */
-
 namespace Drupal\features;
 
 use Drupal\Core\Site\Settings;

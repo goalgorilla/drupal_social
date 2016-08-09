@@ -34,6 +34,7 @@ class IndexStorageTest extends KernelTestBase {
     parent::setUp();
 
     $this->installSchema('system', 'key_value_expire');
+    $this->installSchema('search_api', 'search_api_task');
 
     $this->storage = $this->container
       ->get('entity_type.manager')

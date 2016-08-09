@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\Plugin\FeaturesAssignment\FeaturesAssignmentBaseType.
- */
-
 namespace Drupal\features\Plugin\FeaturesAssignment;
 
 use Drupal\component\Utility\Unicode;

@@ -1,11 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Access\GroupPermissionHandlerInterface.
- */
-
 namespace Drupal\group\Access;
+
+use Drupal\group\Entity\GroupTypeInterface;
 
 /**
  * Defines an interface to list available permissions.
@@ -13,7 +10,11 @@ namespace Drupal\group\Access;
 interface GroupPermissionHandlerInterface {
 
   /**
-   * Gets all available permissions.
+   * Gets all defined group permissions.
+   * 
+   * @param bool $include_plugins
+   *   (optional) Whether to also include the permissions defined by all
+   *   installed group content plugins. Defaults to FALSE.
    *
    * @return array
    *   An array whose keys are permission names and whose corresponding values
@@ -49,23 +50,22 @@ interface GroupPermissionHandlerInterface {
    *     module's name to make it appear as if the permission was provided by
    *     that module.
    */
-  public function getPermissions();
+  public function getPermissions($include_plugins = FALSE);
 
   /**
-   * Completes a permission by adding in defaults and translating its strings.
+   * Gets all defined group permissions for a group type.
    *
-   * Warning: This does not set the 'provider' key! This should be taken care of
-   * by the permission provider or the implementation of this interface. Outside
-   * of discovery or custom implementations, it's almost impossible to guess who
-   * provided a specific permission.
+   * Unlike ::getPermissions(), this also includes the group permissions that
+   * were defined by the plugins installed on the group type.
    *
-   * @param array $permission
-   *   The raw permission to complete.
+   * @param \Drupal\group\Entity\GroupTypeInterface $group_type
+   *   The group type to retrieve the permission list for.
    *
    * @return array
-   *   A permission which is guaranteed to have all the required keys set.
+   *   The full permission list, structured like ::getPermissions().
+   * 
+   * @see \Drupal\group\Access\GroupPermissionHandlerInterface::getPermissions()
    */
-  public function completePermission($permission);
+  public function getPermissionsByGroupType(GroupTypeInterface $group_type);
 
 }
-

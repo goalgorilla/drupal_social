@@ -38,6 +38,8 @@ class AddURLTest extends UnitTestCase {
   protected function setUp() {
     parent::setUp();
 
+    $this->setUpDataTypePlugin();
+
     // Create a mock for the URL to be returned.
     $url = $this->getMockBuilder('Drupal\Core\Url')
       ->disableOriginalConstructor()
@@ -70,9 +72,9 @@ class AddURLTest extends UnitTestCase {
   }
 
   /**
-   * Tests whether indexed items are correctly preprocessed.
+   * Tests whether the "URI" field is correctly filled by the processor.
    */
-  public function testProcessIndexItems() {
+  public function testAddFieldValues() {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $this->getMockBuilder('Drupal\node\Entity\Node')
       ->disableOriginalConstructor()
@@ -90,11 +92,13 @@ class AddURLTest extends UnitTestCase {
     );
     $items = $this->createItems($this->index, 2, $fields, EntityAdapter::createFromEntity($node));
 
-    // Process the items.
-    $this->processor->preprocessIndexItems($items);
+    // Add the processor's field values to the items.
+    foreach ($items as $item) {
+      $this->processor->addFieldValues($item);
+    }
 
     // Check the valid item.
-    $field = $items[$this->itemIds[0]]->getField('search_api_url');
+    $field = $items[$this->itemIds[0]]->getField('url');
     $this->assertEquals(array('http://www.example.com/node/example'), $field->getValues(), 'Valid URL added as value to the field.');
 
     // Check that no other fields were changed.
@@ -102,7 +106,7 @@ class AddURLTest extends UnitTestCase {
     $this->assertEquals($body_value, $field->getValues(), 'Body field was not changed.');
 
     // Check the second item to be sure that all are processed.
-    $field = $items[$this->itemIds[1]]->getField('search_api_url');
+    $field = $items[$this->itemIds[1]]->getField('url');
     $this->assertEquals(array('http://www.example.com/node/example'), $field->getValues(), 'Valid URL added as value to the field in the second item.');
   }
 
@@ -112,10 +116,8 @@ class AddURLTest extends UnitTestCase {
    * @see \Drupal\search_api\Plugin\search_api\processor\AddURL::alterPropertyDefinitions()
    */
   public function testAlterPropertyDefinitions() {
-    $properties = array();
-
-    // Check for modified properties when no data source is given.
-    $this->processor->alterPropertyDefinitions($properties, NULL);
+    // Check for added properties when no datasource is given.
+    $properties = $this->processor->getPropertyDefinitions(NULL);
     $property_added = array_key_exists('search_api_url', $properties);
     $this->assertTrue($property_added, 'The "search_api_url" property was added to the properties.');
     if ($property_added) {
@@ -127,11 +129,9 @@ class AddURLTest extends UnitTestCase {
       }
     }
 
-    // Test whether the properties of specific datasources stay untouched.
-    $properties = array();
-    /** @var \Drupal\search_api\Datasource\DatasourceInterface $datasource */
+    // Verify that there are no properties if a datasource is given.
     $datasource = $this->getMock('Drupal\search_api\Datasource\DatasourceInterface');
-    $this->processor->alterPropertyDefinitions($properties, $datasource);
+    $properties = $this->processor->getPropertyDefinitions($datasource);
     $this->assertEmpty($properties, 'Datasource-specific properties did not get changed.');
   }
 

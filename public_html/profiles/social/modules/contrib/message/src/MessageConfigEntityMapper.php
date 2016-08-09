@@ -14,8 +14,8 @@ use Symfony\Component\Routing\Route;
  * Configuration mapper for message config entity.
  *
  * Why do we need to override the original mapper? As i mentioned in the save
- * method of the entity type message the message type in Drupal 7 was a
- * fieldable entity. Since the message type is a config entity we can't add the
+ * method of the entity type message the message template in Drupal 7 was a
+ * fieldable entity. Since the message template is a config entity we can't add the
  * field and translate it easily. We solved it by defining a sequence field and
  * managing the partial by our self. The field is managed by the next format:
  *
@@ -35,11 +35,11 @@ use Symfony\Component\Routing\Route;
  * occur in the submission of the forms(edit/delete/insert) and the user won't
  * notice any different.
  *
- * This will also affect the MessageType::getText() method will need to check
+ * This will also affect the MessageTemplate::getText() method will need to check
  * the current site language all pull the text in the current language.
  *
- * @see MessageType::save()
- * @see MessageType::getText()
+ * @see MessageTemplate::save()
+ * @see MessageTemplate::getText()
  */
 class MessageConfigEntityMapper extends ConfigEntityMapper {
 
@@ -50,7 +50,7 @@ class MessageConfigEntityMapper extends ConfigEntityMapper {
     $route = new Route(
       $this->getBaseRoute()->getPath() . '/translate/{langcode}/edit',
       [
-        '_form' => '\Drupal\message\Form\MessageTypeConfigTranslationEditForm',
+        '_form' => '\Drupal\message\Form\MessageTemplateConfigTranslationEditForm',
         'plugin_id' => $this->getPluginId(),
       ],
       ['_config_translation_form_access' => 'TRUE']
@@ -67,7 +67,7 @@ class MessageConfigEntityMapper extends ConfigEntityMapper {
     $route = new Route(
       $this->getBaseRoute()->getPath() . '/translate/{langcode}/add',
       [
-        '_form' => '\Drupal\message\Form\MessageTypeConfigTranslationAddForm',
+        '_form' => '\Drupal\message\Form\MessageTemplateConfigTranslationAddForm',
         'plugin_id' => $this->getPluginId(),
       ],
       ['_config_translation_form_access' => 'TRUE']
@@ -84,7 +84,7 @@ class MessageConfigEntityMapper extends ConfigEntityMapper {
     $route = new Route(
       $this->getBaseRoute()->getPath() . '/translate/{langcode}/delete',
       [
-        '_form' => '\Drupal\message\Form\MessageTypeConfigTranslationDeleteForm',
+        '_form' => '\Drupal\message\Form\MessageTemplateConfigTranslationDeleteForm',
         'plugin_id' => $this->getPluginId(),
       ],
       ['_config_translation_form_access' => 'TRUE']

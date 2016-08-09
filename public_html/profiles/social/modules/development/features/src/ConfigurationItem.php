@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\ConfigurationItem.
- */
-
 namespace Drupal\features;
 
 /**

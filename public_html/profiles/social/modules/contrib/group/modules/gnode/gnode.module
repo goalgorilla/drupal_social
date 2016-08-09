@@ -2,111 +2,33 @@
 
 /**
  * @file
- * Contains Drupal\gnode\gnode.module
+ * Enables Group functionality for the Node module.
  */
 
 use Drupal\group\Entity\Group;
-use Drupal\group\Entity\GroupInterface;
 use Drupal\group\Entity\GroupContentType;
 use Drupal\node\NodeInterface;
+use Drupal\node\NodeTypeInterface;
 use Drupal\node\Entity\NodeType;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Session\AccountInterface;
 
 /**
- * Implements hook_theme().
- */
-function gnode_theme() {
-  return [
-    'gnode_add_list' => [
-      'variables' => ['group' => NULL, 'node_types' => NULL],
-    ],
-    'gnode_create_list' => [
-      'variables' => ['group' => NULL, 'node_types' => NULL],
-    ],
-  ];
-}
-
-/**
- * Prepares variables for the add group node page.
- *
- * Default template: gnode-add-list.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - group: The group to add a group node to.
- *   - node_types: An array of node types.
- */
-function template_preprocess_gnode_add_list(&$variables) {
-  $variables['types'] = $options = [];
-
-  if ($variables['group'] instanceof GroupInterface && !empty($variables['node_types'])) {
-    $group = $variables['group'];
-
-    // @todo Do not use redirect.destination but check for ?destination.
-    // We try to keep the redirect destination set in the URL.
-    if ($destination = \Drupal::service('redirect.destination')->get()) {
-      $options['query']['destination'] = $destination;
-    }
-
-    /** @var \Drupal\node\NodeTypeInterface $node_type */
-    foreach ($variables['node_types'] as $node_type_id => $node_type) {
-      $plugin = $group->getGroupType()->getContentPlugin("group_node:$node_type_id");
-
-      $variables['types'][$node_type_id] = [
-        'type' => $node_type_id,
-        'url' => Url::fromRoute($plugin->getRouteName('add-form'), ['group' => $group->id()], $options),
-        'label' => $node_type->label(),
-        'description' => ['#markup' => $node_type->getDescription()],
-      ];
-    }
-  }
-}
-
-/**
- * Prepares variables for the create group node page.
- *
- * Default template: gnode-create-list.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - group: The group to add a group node to.
- *   - node_types: An array of node types.
- */
-function template_preprocess_gnode_create_list(&$variables) {
-  $variables['types'] = $options = [];
-
-  if ($variables['group'] instanceof GroupInterface && !empty($variables['node_types'])) {
-    $group = $variables['group'];
-
-    // @todo Do not use redirect.destination but check for ?destination.
-    // We try to keep the redirect destination set in the URL.
-    if ($destination = \Drupal::service('redirect.destination')->get()) {
-      $options['query']['destination'] = $destination;
-    }
-
-    /** @var \Drupal\node\NodeTypeInterface $node_type */
-    foreach ($variables['node_types'] as $node_type_id => $node_type) {
-      $plugin = $group->getGroupType()->getContentPlugin("group_node:$node_type_id");
-
-      $variables['types'][$node_type_id] = [
-        'type' => $node_type_id,
-        'url' => Url::fromRoute($plugin->getRouteName('create-form'), ['group' => $group->id()], $options),
-        'label' => $node_type->label(),
-        'description' => ['#markup' => $node_type->getDescription()],
-      ];
-    }
-  }
-}
-
-/**
  * Implements hook_entity_type_alter().
  */
 function gnode_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  // Add the node creation wizard steps as entity forms.
   $entity_types['node']->setFormClass('gnode-form', 'Drupal\gnode\Form\GroupNodeFormStep1');
+  $entity_types['group_content']->setFormClass('gnode-form', 'Drupal\gnode\Form\GroupNodeFormStep2');
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function gnode_node_type_insert(NodeTypeInterface $node_type) {
+  \Drupal::service('plugin.manager.group_content_enabler')->clearCachedDefinitions();
 }
 
 /**

@@ -178,9 +178,21 @@ interface ResultSetInterface extends \Traversable {
    *   key instead.
    *
    * @return $this
+   *
+   * @todo Add unsetExtraData() instead of special NULL handling? And/or
+   *  just have to use &getAllExtraData()?
    */
-  // @todo Add unsetExtraData() instead of special NULL handling? And/or
-  //   just have to use &getAllExtraData()?
   public function setExtraData($key, $data = NULL);
+
+  /**
+   * Creates a clone of this result set based on the given query.
+   *
+   * @param \Drupal\search_api\Query\QueryInterface $query
+   *   The query for the new result set.
+   *
+   * @return static
+   *   A clone of this result set.
+   */
+  public function getCloneForQuery(QueryInterface $query);
 
 }

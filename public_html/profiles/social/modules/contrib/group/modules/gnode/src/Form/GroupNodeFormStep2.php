@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\gnode\Form\GroupNodeFormStep2.
- */
-
 namespace Drupal\gnode\Form;
 
 use Drupal\group\Entity\Form\GroupContentForm;
@@ -101,7 +96,7 @@ class GroupNodeFormStep2 extends GroupContentForm {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    *
-   * @see \Drupal\gnode\Controller\GroupNodeController::add()
+   * @see \Drupal\gnode\Controller\GroupNodeWizardController::add()
    * @see \Drupal\gnode\Form\GroupNodeFormStep1
    */
   public function back(array &$form, FormStateInterface $form_state) {

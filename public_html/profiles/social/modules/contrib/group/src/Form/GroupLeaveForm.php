@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Form\GroupLeaveForm.
- */
-
 namespace Drupal\group\Form;
 
 use Drupal\group\Entity\Form\GroupContentDeleteForm;

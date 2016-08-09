@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\Validation\Constraint\GroupContentCardinality.
- */
-
 namespace Drupal\group\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraint;

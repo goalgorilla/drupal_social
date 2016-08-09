@@ -7,7 +7,9 @@ id: open_group-group_manager
 label: 'Group Manager'
 weight: -99
 internal: false
+audience: member
 group_type: open_group
+permissions_ui: true
 permissions:
   0: 'delete group'
   1: 'edit group'
@@ -35,4 +37,7 @@ permissions:
   23: 'post comments'
   24: 'access comments'
   25: 'edit own comments'
-  35: 'administer comments'
+  26: 'administer comments'
+  27: 'access group_node overview'
+  28: 'access content overview'
+

@@ -1,17 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Form\GroupPermissionsForm.
- */
-
 namespace Drupal\group\Form;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\group\Access\GroupPermissionHandlerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\group\Access\GroupPermissionHandlerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,10 +29,10 @@ abstract class GroupPermissionsForm extends FormBase {
   protected $moduleHandler;
 
   /**
-   * Constructs a new UserPermissionsForm.
+   * Constructs a new GroupPermissionsForm.
    *
    * @param \Drupal\group\Access\GroupPermissionHandlerInterface $permission_handler
-   *   The permission handler.
+   *   The group permission handler.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    */
@@ -84,7 +79,7 @@ abstract class GroupPermissionsForm extends FormBase {
    * @return \Drupal\group\Entity\GroupTypeInterface
    *   The group type some or more roles belong to.
    */
-  abstract protected function getType();
+  abstract protected function getGroupType();
 
   /**
    * Gets the group roles to display in this form.
@@ -92,7 +87,7 @@ abstract class GroupPermissionsForm extends FormBase {
    * @return \Drupal\group\Entity\GroupRoleInterface[]
    *   An array of group role objects.
    */
-  protected function getRoles() {
+  protected function getGroupRoles() {
     return [];
   }
 
@@ -107,21 +102,9 @@ abstract class GroupPermissionsForm extends FormBase {
     $permissions_by_provider = [];
 
     // Create a list of group permissions ordered by their provider.
-    foreach ($this->groupPermissionHandler->getPermissions() as $permission_name => $permission) {
+    foreach ($this->groupPermissionHandler->getPermissionsByGroupType($this->getGroupType()) as $permission_name => $permission) {
       $permissions_by_provider[$permission['provider']][$permission_name] = $permission;
     }
-
-    // Merge in the permissions defined by the installed content plugins.
-    foreach ($this->getType()->getInstalledContentPlugins() as $plugin) {
-      /** @var \Drupal\group\Plugin\GroupContentEnablerInterface $plugin */
-      foreach ($plugin->getPermissions() as $permission_name => $permission) {
-        $permission += ['provider' => $plugin->getProvider()];
-        $permission = $this->groupPermissionHandler->completePermission($permission);
-        $permissions_by_provider[$permission['provider']][$permission_name] = $permission;
-      }
-    }
-
-    // @todo Re-sort this, or change GroupPermissionHandler::sortPermissions()?
 
     return $permissions_by_provider;
   }
@@ -134,7 +117,7 @@ abstract class GroupPermissionsForm extends FormBase {
 
     // Sort the group roles using the static sort() method.
     // See \Drupal\Core\Config\Entity\ConfigEntityBase::sort().
-    $group_roles = $this->getRoles();
+    $group_roles = $this->getGroupRoles();
     uasort($group_roles, '\Drupal\group\Entity\GroupRole::sort');
 
     // Retrieve information for every role to user further down. We do this to
@@ -251,8 +234,8 @@ abstract class GroupPermissionsForm extends FormBase {
       '#button_type' => 'primary',
     ];
 
-    // @todo.
-    $form['#attached']['library'][] = 'user/drupal.user.permissions';
+    // @todo Do something like the global permissions page for 'member'.
+    // $form['#attached']['library'][] = 'user/drupal.user.permissions';
 
     return $form;
   }
@@ -261,7 +244,7 @@ abstract class GroupPermissionsForm extends FormBase {
    * {@inheritdoc}
    */
   function submitForm(array &$form, FormStateInterface $form_state) {
-    foreach ($this->getRoles() as $role_name => $group_role) {
+    foreach ($this->getGroupRoles() as $role_name => $group_role) {
       /** @var \Drupal\group\Entity\GroupRoleInterface $group_role */
       $permissions = $form_state->getValue($role_name);
       $group_role->changePermissions($permissions)->trustData()->save();

@@ -2,9 +2,9 @@
 
 namespace Drupal\search_api;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ConfigImporter;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\TypedData\EntityDataDefinitionInterface;
 use Drupal\Core\TypedData\ComplexDataDefinitionInterface;
 use Drupal\Core\TypedData\ComplexDataInterface;
 use Drupal\Core\TypedData\DataDefinitionInterface;
@@ -18,9 +18,9 @@ use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Item\Field;
 use Drupal\search_api\Item\FieldInterface;
 use Drupal\search_api\Item\Item;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextToken;
+use Drupal\search_api\Processor\ConfigurablePropertyInterface;
 use Drupal\search_api\Query\Query;
-use Drupal\search_api\Query\QueryInterface;
-use Drupal\search_api\Query\ResultSet;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -60,11 +60,17 @@ class Utility {
    * @return bool
    *   TRUE if $type is one of the specified types, FALSE otherwise.
    */
-  // @todo Currently, this is useless, but later we could also check
-  //   automatically for custom types that have one of the passed types as their
-  //   fallback.
   public static function isTextType($type, array $text_types = array('text')) {
-    return in_array($type, $text_types);
+    if (in_array($type, $text_types)) {
+      return TRUE;
+    }
+    $data_type = \Drupal::getContainer()
+      ->get('plugin.manager.search_api.data_type')
+      ->createInstance($type);
+    if ($data_type && !$data_type->isDefault()) {
+      return in_array($data_type->getFallbackType(), $text_types);
+    }
+    return FALSE;
   }
 
   /**
@@ -106,6 +112,7 @@ class Utility {
           'float',
         ),
         'date' => array(
+          'date',
           'datetime_iso8601',
           'timestamp',
         ),
@@ -157,8 +164,10 @@ class Utility {
         // custom types.
       }
       static::$dataTypeFallbackMapping[$index_id] = array();
-      /** @var \Drupal\search_api\DataType\DataTypeInterface $data_type */
-      foreach (\Drupal::service('plugin.manager.search_api.data_type')->getInstances() as $type_id => $data_type) {
+      $data_types = \Drupal::getContainer()
+        ->get('plugin.manager.search_api.data_type')
+        ->getInstances();
+      foreach ($data_types as $type_id => $data_type) {
         // We know for sure that we do not need to fall back for the default
         // data types as they are always present and are required to be
         // supported by all backends.
@@ -174,11 +183,14 @@ class Utility {
   /**
    * Extracts specific field values from a complex data object.
    *
+   * The values will be set directly on the given field objects, nothing is
+   * returned.
+   *
    * @param \Drupal\Core\TypedData\ComplexDataInterface $item
    *   The item from which fields should be extracted.
-   * @param \Drupal\search_api\Item\FieldInterface[] $fields
-   *   The field objects into which data should be extracted, keyed by their
-   *   property paths on $item.
+   * @param \Drupal\search_api\Item\FieldInterface[][] $fields
+   *   An associative array, keyed by property paths, mapped to field objects
+   *   with that property path.
    */
   public static function extractFields(ComplexDataInterface $item, array $fields) {
     // Figure out which fields are directly on the item and which need to be
@@ -197,7 +209,10 @@ class Utility {
     // Extract the direct fields.
     foreach ($direct_fields as $key) {
       try {
-        self::extractField($item->get($key), $fields[$key]);
+        $data = $item->get($key);
+        foreach ($fields[$key] as $field) {
+          self::extractField($data, $field);
+        }
       }
       catch (\InvalidArgumentException $e) {
         // This can happen with properties added by processors.
@@ -219,7 +234,9 @@ class Utility {
         }
         elseif ($item_nested instanceof ListInterface && !$item_nested->isEmpty()) {
           foreach ($item_nested as $list_item) {
-            self::extractFields($list_item, $fields_nested);
+            if ($list_item instanceof ComplexDataInterface && !$list_item->isEmpty()) {
+              self::extractFields($list_item, $fields_nested);
+            }
           }
         }
       }
@@ -241,19 +258,7 @@ class Utility {
   public static function extractField(TypedDataInterface $data, FieldInterface $field) {
     $values = static::extractFieldValues($data);
 
-    // If the data type of the field is a custom one, then the value can be
-    // altered by the data type plugin.
-    $data_type_manager = \Drupal::service('plugin.manager.search_api.data_type');
-    /** @var \Drupal\search_api\DataType\DataTypeInterface $data_type_plugin */
-    $data_type_plugin = NULL;
-    if ($data_type_manager->hasDefinition($field->getType())) {
-      $data_type_plugin = $data_type_manager->createInstance($field->getType());
-    }
-
     foreach ($values as $i => $value) {
-      if ($data_type_plugin) {
-        $value = $data_type_plugin->getValue($value);
-      }
       $field->addValue($value);
     }
     $field->setOriginalType($data->getDataDefinition()->getDataType());
@@ -292,6 +297,33 @@ class Utility {
   }
 
   /**
+   * Retrieves a list of nested properties from a complex property.
+   *
+   * Takes care of including bundle-specific properties for entity reference
+   * properties.
+   *
+   * @param \Drupal\Core\TypedData\ComplexDataDefinitionInterface $property
+   *   The base definition.
+   *
+   * @return \Drupal\Core\TypedData\DataDefinitionInterface[]
+   *   The nested properties, keyed by property name.
+   */
+  public static function getNestedProperties(ComplexDataDefinitionInterface $property) {
+    $nested_properties = $property->getPropertyDefinitions();
+    if ($property instanceof EntityDataDefinitionInterface) {
+      $container = \Drupal::getContainer();
+      $bundles = $container->get('entity_type.bundle.info')
+        ->getBundleInfo($property->getEntityTypeId());
+      $field_manager = $container->get('entity_field.manager');
+      foreach ($bundles as $bundle => $bundle_label) {
+        $bundle_properties = $field_manager->getFieldDefinitions($property->getEntityTypeId(), $bundle);
+        $nested_properties += $bundle_properties;
+      }
+    }
+    return $nested_properties;
+  }
+
+  /**
    * Retrieves a nested property from a list of properties.
    *
    * @param \Drupal\Core\TypedData\DataDefinitionInterface[] $properties
@@ -308,16 +340,16 @@ class Utility {
       return NULL;
     }
 
+    $property = static::getInnerProperty($properties[$key]);
     if (!isset($nested_path)) {
-      return $properties[$key];
+      return $property;
     }
 
-    $property = static::getInnerProperty($properties[$key]);
     if (!$property instanceof ComplexDataDefinitionInterface) {
       return NULL;
     }
 
-    return static::retrieveNestedProperty($property->getPropertyDefinitions(), $nested_path);
+    return static::retrieveNestedProperty(static::getNestedProperties($property), $nested_path);
   }
 
   /**
@@ -380,9 +412,8 @@ class Utility {
   /**
    * Determines whether a field ID is reserved for special use.
    *
-   * This is the case for the "magic" pseudo-fields documented in
-   * \Drupal\search_api\Query\QueryInterface for use in queries, like
-   * "search_api_id".
+   * We define all field IDs starting with "search_api_" as reserved, to be safe
+   * for future additions (and from clashing with backend-defined fields).
    *
    * @param string $field_id
    *   The field ID.
@@ -391,12 +422,7 @@ class Utility {
    *   TRUE if the field ID is reserved, FALSE if it can be used normally.
    */
   public static function isFieldIdReserved($field_id) {
-    $reserved_ids = array_flip(array(
-      'search_api_id',
-      'search_api_datasource',
-      'search_api_relevance',
-    ));
-    return isset($reserved_ids[$field_id]);
+    return substr($field_id, 0, 11) == 'search_api_';
   }
 
   /**
@@ -406,6 +432,9 @@ class Utility {
    *   The current batch context.
    * @param \Drupal\Core\Config\ConfigImporter $config_importer
    *   The config importer.
+   *
+   * @throws \Drupal\search_api\SearchApiException
+   *   Thrown if any error occurred while tracking items.
    */
   public static function processIndexTasks(array &$context, ConfigImporter $config_importer) {
     $index_task_manager = \Drupal::getContainer()->get('search_api.index_task_manager');
@@ -433,11 +462,15 @@ class Utility {
       }
     }
 
-    $index_id = array_shift($context['sandbox']['indexes']);
-    $index = Index::load($index_id);
-    $added = $index_task_manager->addItemsOnce($index);
-    if ($added !== NULL) {
-      array_unshift($context['sandbox']['indexes'], $index_id);
+    try {
+      $index_id = array_shift($context['sandbox']['indexes']);
+      $index = Index::load($index_id);
+      if (!($index_task_manager->addItemsOnce($index))) {
+        array_unshift($context['sandbox']['indexes'], $index_id);
+      }
+    }
+    catch (SearchApiException $e) {
+      watchdog_exception('search_api', $e);
     }
 
     if (empty($context['sandbox']['indexes'])) {
@@ -473,19 +506,6 @@ class Utility {
   public static function createQuery(IndexInterface $index, array $options = array()) {
     $search_results_cache = \Drupal::service('search_api.results_static_cache');
     return Query::create($index, $search_results_cache, $options);
-  }
-
-  /**
-   * Creates a new search result set.
-   *
-   * @param \Drupal\search_api\Query\QueryInterface $query
-   *   The executed search query.
-   *
-   * @return \Drupal\search_api\Query\ResultSetInterface
-   *   A search result set for the given query.
-   */
-  public static function createSearchResultSet(QueryInterface $query) {
-    return new ResultSet($query);
   }
 
   /**
@@ -605,11 +625,8 @@ class Utility {
         $type = $type_mapping[$property_type];
       }
       else {
-        $args['%property'] = $property->getLabel();
-        $args['%property_path'] = $property_path;
-        $args['%type'] = $property_type;
-        $message = new FormattableMarkup('No default data type mapping could be found for property %property (%property_path) of type %type.', $args);
-        throw new SearchApiException($message);
+        $property_name = $property->getLabel();
+        throw new SearchApiException("No default data type mapping could be found for property '$property_name' ($property_path) of type '$property_type'.");
       }
     }
 
@@ -619,6 +636,9 @@ class Utility {
       'property_path' => $property_path,
       'type' => $type,
     );
+    if ($property instanceof ConfigurablePropertyInterface) {
+      $field_info['configuration'] = $property->defaultConfiguration();
+    }
     return self::createField($index, $field_id, $field_info);
   }
 
@@ -637,31 +657,36 @@ class Utility {
   public static function getNewFieldId(IndexInterface $index, $property_path) {
     list(, $suggested_id) = static::splitPropertyPath($property_path);
 
+    // Avoid clashes with reserved IDs by removing the reserved "search_api_"
+    // from our suggested ID.
+    $suggested_id = str_replace('search_api_', '', $suggested_id);
+
     $field_id = $suggested_id;
     $i = 0;
     while ($index->getField($field_id)) {
       $field_id = $suggested_id . '_' . ++$i;
     }
 
+    while (static::isFieldIdReserved($field_id)) {
+      $field_id = '_' . $field_id;
+    }
+
     return $field_id;
   }
 
   /**
-   * Creates a single token for the "tokenized_text" type.
+   * Creates a single text token.
    *
    * @param string $value
    *   The word or other token value.
    * @param float $score
    *   (optional) The token's score.
    *
-   * @return array
-   *   An array with appropriate "value" and "score" keys set.
+   * @return \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface
+   *   A text token object.
    */
   public static function createTextToken($value, $score = 1.0) {
-    return array(
-      'value' => $value,
-      'score' => (float) $score,
-    );
+    return new TextToken($value, (float) $score);
   }
 
   /**
@@ -741,7 +766,10 @@ class Utility {
    *   element 0 will be NULL.
    */
   public static function splitCombinedId($combined_id) {
-    return static::splitPropertyPath($combined_id, TRUE, IndexInterface::DATASOURCE_ID_SEPARATOR);
+    if (strpos($combined_id, IndexInterface::DATASOURCE_ID_SEPARATOR) !== FALSE) {
+      return explode(IndexInterface::DATASOURCE_ID_SEPARATOR, $combined_id, 2);
+    }
+    return array(NULL, $combined_id);
   }
 
 }

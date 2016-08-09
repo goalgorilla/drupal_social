@@ -14,8 +14,8 @@ use Drupal\search_api\Processor\ProcessorPluginBase;
  *   label = @Translation("Node status"),
  *   description = @Translation("Exclude unpublished nodes from node indexes."),
  *   stages = {
- *     "preprocess_index" = -50
- *   }
+ *     "alter_items" = 0,
+ *   },
  * )
  */
 class NodeStatus extends ProcessorPluginBase {
@@ -35,7 +35,7 @@ class NodeStatus extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function preprocessIndexItems(array &$items) {
+  public function alterIndexedItems(array &$items) {
     // Annoyingly, this doc comment is needed for PHPStorm. See
     // http://youtrack.jetbrains.com/issue/WI-23586
     /** @var \Drupal\search_api\Item\ItemInterface $item */

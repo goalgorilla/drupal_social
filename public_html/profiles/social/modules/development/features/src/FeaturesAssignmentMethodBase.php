@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesAssignmentMethodBase.
- */
-
 namespace Drupal\features;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

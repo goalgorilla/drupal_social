@@ -6,62 +6,67 @@ field_settings:
   id:
     label: ID
     type: integer
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: id
   name:
     label: Name
     type: text
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: name
     boost: 5.0
+  created:
+    label: Authored on
+    type: date
+    datasource_id: 'entity:entity_test_mulrev_changed'
+    property_path: created
   body:
     label: Body
     type: text
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: body
   type:
     label: Type
     type: string
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: type
   keywords:
     label: Keywords
     type: string
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: keywords
   category:
     label: Category
     type: string
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: category
   width:
     label: Width
     type: decimal
-    datasource_id: 'entity:entity_test'
+    datasource_id: 'entity:entity_test_mulrev_changed'
     property_path: width
-  search_api_language:
-    label: 'Item language'
-    type: string
-    property_path: search_api_language
-    index_locked: true
-    type_locked: true
 processor_settings:
   add_url:
     plugin_id: add_url
     settings:
       weights:
         preprocess_index: -30
-  language:
-    plugin_id: language
+  aggregated_field:
+    plugin_id: aggregated_field
     settings:
       weights:
-        preprocess_index: -50
+        add_properties: 20
+  rendered_item:
+    plugin_id: rendered_item
+    settings:
+      weights:
+        add_properties: 0
+        pre_index_save: -10
 options:
   cron_limit: -1
   index_directly: false
 datasource_settings:
-  'entity:entity_test':
-    plugin_id: 'entity:entity_test'
+  'entity:entity_test_mulrev_changed':
+    plugin_id: 'entity:entity_test_mulrev_changed'
     settings: {  }
 tracker_settings:
   'default':
@@ -72,18 +77,18 @@ status: true
 langcode: en
 dependencies:
   config:
-    - field.field.entity_test.article.body
-    - field.field.entity_test.article.keywords
-    - field.field.entity_test.article.category
-    - field.field.entity_test.article.width
-    - field.field.entity_test.item.body
-    - field.field.entity_test.item.keywords
-    - field.field.entity_test.item.category
-    - field.field.entity_test.item.width
-    - field.storage.entity_test.body
-    - field.storage.entity_test.keywords
-    - field.storage.entity_test.category
-    - field.storage.entity_test.width
+    - field.field.entity_test_mulrev_changed.article.body
+    - field.field.entity_test_mulrev_changed.article.keywords
+    - field.field.entity_test_mulrev_changed.article.category
+    - field.field.entity_test_mulrev_changed.article.width
+    - field.field.entity_test_mulrev_changed.item.body
+    - field.field.entity_test_mulrev_changed.item.keywords
+    - field.field.entity_test_mulrev_changed.item.category
+    - field.field.entity_test_mulrev_changed.item.width
+    - field.storage.entity_test_mulrev_changed.body
+    - field.storage.entity_test_mulrev_changed.keywords
+    - field.storage.entity_test_mulrev_changed.category
+    - field.storage.entity_test_mulrev_changed.width
     - search_api.server.database_search_server
   module:
     - entity_test

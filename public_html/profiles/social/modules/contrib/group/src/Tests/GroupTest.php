@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Test cases for the Group module.
- */
-
 namespace Drupal\group\Tests;
 
 use Drupal\group\Entity\Group;

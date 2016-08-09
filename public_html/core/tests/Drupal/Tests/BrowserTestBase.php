@@ -6,6 +6,8 @@ use Behat\Mink\Driver\GoutteDriver;
 use Behat\Mink\Element\Element;
 use Behat\Mink\Mink;
 use Behat\Mink\Session;
+use Drupal\Component\FileCache\FileCacheFactory;
+use Drupal\Component\Serialization\Yaml;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Component\Utility\UrlHelper;
@@ -20,9 +22,13 @@ use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\Test\TestRunnerKernel;
 use Drupal\Core\Url;
 use Drupal\Core\Test\TestDatabase;
+use Drupal\FunctionalTests\AssertLegacyTrait;
+use Drupal\simpletest\AssertHelperTrait;
+use Drupal\simpletest\ContentTypeCreationTrait;
+use Drupal\simpletest\BlockCreationTrait;
+use Drupal\simpletest\NodeCreationTrait;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
-use Drupal\user\UserInterface;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,13 +37,25 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * Tests extending BrowserTestBase must exist in the
  * Drupal\Tests\yourmodule\Functional namespace and live in the
- * modules/yourmodule/Tests/Functional directory.
+ * modules/yourmodule/tests/src/Functional directory.
  *
  * @ingroup testing
  */
 abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
+  use AssertHelperTrait;
+  use BlockCreationTrait {
+    placeBlock as drupalPlaceBlock;
+  }
+  use AssertLegacyTrait;
   use RandomGeneratorTrait;
   use SessionTestTrait;
+  use NodeCreationTrait {
+    getNodeByTitle as drupalGetNodeByTitle;
+    createNode as drupalCreateNode;
+  }
+  use ContentTypeCreationTrait {
+    createContentType as drupalCreateContentType;
+  }
 
   /**
    * Class loader.
@@ -274,6 +292,13 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
   protected $baseUrl;
 
   /**
+   * The original array of shutdown function callbacks.
+   *
+   * @var array
+   */
+  protected $originalShutdownCallbacks = [];
+
+  /**
    * Initializes Mink sessions.
    */
   protected function initMink() {
@@ -505,6 +530,12 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
     if ($this->mink) {
       $this->mink->stopSessions();
     }
+
+    // Restore original shutdown callbacks.
+    if (function_exists('drupal_register_shutdown_function')) {
+      $callbacks = &drupal_register_shutdown_function();
+      $callbacks = $this->originalShutdownCallbacks;
+    }
   }
 
   /**
@@ -530,7 +561,7 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
    *   A new web-assert option for asserting the presence of elements with.
    */
   public function assertSession($name = NULL) {
-    return new WebAssert($this->getSession($name));
+    return new WebAssert($this->getSession($name), $this->baseUrl);
   }
 
   /**
@@ -547,6 +578,46 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Builds an a absolute URL from a system path or a URL object.
+   *
+   * @param string|\Drupal\Core\Url $path
+   *   A system path or a URL.
+   * @param array $options
+   *   Options to be passed to Url::fromUri().
+   *
+   * @return string
+   *   An absolute URL stsring.
+   */
+  protected function buildUrl($path, array $options = array()) {
+    if ($path instanceof Url) {
+      $url_options = $path->getOptions();
+      $options = $url_options + $options;
+      $path->setOptions($options);
+      return $path->setAbsolute()->toString();
+    }
+    // The URL generator service is not necessarily available yet; e.g., in
+    // interactive installer tests.
+    elseif ($this->container->has('url_generator')) {
+      $force_internal = isset($options['external']) && $options['external'] == FALSE;
+      if (!$force_internal && UrlHelper::isExternal($path)) {
+        return Url::fromUri($path, $options)->toString();
+      }
+      else {
+        $uri = $path === '<front>' ? 'base:/' : 'base:/' . $path;
+        // Path processing is needed for language prefixing.  Skip it when a
+        // path that may look like an external URL is being used as internal.
+        $options['path_processing'] = !$force_internal;
+        return Url::fromUri($uri, $options)
+          ->setAbsolute()
+          ->toString();
+      }
+    }
+    else {
+      return $this->getAbsoluteUrl($path);
+    }
+  }
+
+  /**
    * Retrieves a Drupal path or an absolute path.
    *
    * @param string|\Drupal\Core\Url $path
@@ -559,28 +630,8 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
    */
   protected function drupalGet($path, array $options = array()) {
     $options['absolute'] = TRUE;
+    $url = $this->buildUrl($path, $options);
 
-    if ($path instanceof Url) {
-      $url_options = $path->getOptions();
-      $options = $url_options + $options;
-      $path->setOptions($options);
-      $url = $path->setAbsolute()->toString();
-    }
-    // The URL generator service is not necessarily available yet; e.g., in
-    // interactive installer tests.
-    elseif ($this->container->has('url_generator')) {
-      if (UrlHelper::isExternal($path)) {
-        $url = Url::fromUri($path, $options)->toString();
-      }
-      else {
-        // This is needed for language prefixing.
-        $options['path_processing'] = TRUE;
-        $url = Url::fromUri('base:/' . $path, $options)->toString();
-      }
-    }
-    else {
-      $url = $this->getAbsoluteUrl($path);
-    }
     $session = $this->getSession();
 
     $this->prepareRequest();
@@ -874,6 +925,16 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
     // Edit the form values.
     foreach ($edit as $name => $value) {
       $field = $assert_session->fieldExists($name, $form);
+
+      // Provide support for the values '1' and '0' for checkboxes instead of
+      // TRUE and FALSE.
+      // @todo Get rid of supporting 1/0 by converting all tests cases using
+      // this to boolean values.
+      $field_type = $field->getAttribute('type');
+      if ($field_type === 'checkbox') {
+        $value = (bool) $value;
+      }
+
       $field->setValue($value);
     }
 
@@ -891,6 +952,90 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
       $html_output .= $this->getHtmlOutputHeaders();
       $this->htmlOutput($html_output);
     }
+  }
+
+  /**
+   * Executes a form submission.
+   *
+   * It will be done as usual POST request with Mink.
+   *
+   * @param \Drupal\Core\Url|string $path
+   *   Location of the post form. Either a Drupal path or an absolute path or
+   *   NULL to post to the current page. For multi-stage forms you can set the
+   *   path to NULL and have it post to the last received page. Example:
+   *
+   *   @code
+   *   // First step in form.
+   *   $edit = array(...);
+   *   $this->drupalPostForm('some_url', $edit, t('Save'));
+   *
+   *   // Second step in form.
+   *   $edit = array(...);
+   *   $this->drupalPostForm(NULL, $edit, t('Save'));
+   *   @endcode
+   * @param array $edit
+   *   Field data in an associative array. Changes the current input fields
+   *   (where possible) to the values indicated.
+   *
+   *   When working with form tests, the keys for an $edit element should match
+   *   the 'name' parameter of the HTML of the form. For example, the 'body'
+   *   field for a node has the following HTML:
+   *   @code
+   *   <textarea id="edit-body-und-0-value" class="text-full form-textarea
+   *    resize-vertical" placeholder="" cols="60" rows="9"
+   *    name="body[0][value]"></textarea>
+   *   @endcode
+   *   When testing this field using an $edit parameter, the code becomes:
+   *   @code
+   *   $edit["body[0][value]"] = 'My test value';
+   *   @endcode
+   *
+   *   A checkbox can be set to TRUE to be checked and should be set to FALSE to
+   *   be unchecked. Multiple select fields can be tested using 'name[]' and
+   *   setting each of the desired values in an array:
+   *   @code
+   *   $edit = array();
+   *   $edit['name[]'] = array('value1', 'value2');
+   *   @endcode
+   * @param string $submit
+   *   Value of the submit button whose click is to be emulated. For example,
+   *   t('Save'). The processing of the request depends on this value. For
+   *   example, a form may have one button with the value t('Save') and another
+   *   button with the value t('Delete'), and execute different code depending
+   *   on which one is clicked.
+   *
+   *   This function can also be called to emulate an Ajax submission. In this
+   *   case, this value needs to be an array with the following keys:
+   *   - path: A path to submit the form values to for Ajax-specific processing.
+   *   - triggering_element: If the value for the 'path' key is a generic Ajax
+   *     processing path, this needs to be set to the name of the element. If
+   *     the name doesn't identify the element uniquely, then this should
+   *     instead be an array with a single key/value pair, corresponding to the
+   *     element name and value. The \Drupal\Core\Form\FormAjaxResponseBuilder
+   *     uses this to find the #ajax information for the element, including
+   *     which specific callback to use for processing the request.
+   *
+   *   This can also be set to NULL in order to emulate an Internet Explorer
+   *   submission of a form with a single text field, and pressing ENTER in that
+   *   textfield: under these conditions, no button information is added to the
+   *   POST data.
+   * @param array $options
+   *   Options to be forwarded to the url generator.
+   */
+  protected function drupalPostForm($path, array $edit, $submit, array $options = array()) {
+    if (is_object($submit)) {
+      // Cast MarkupInterface objects to string.
+      $submit = (string) $submit;
+    }
+    if (is_array($edit)) {
+      $edit = $this->castSafeStrings($edit);
+    }
+
+    if (isset($path)) {
+      $this->drupalGet($path, $options);
+    }
+
+    $this->submitForm($edit, $submit);
   }
 
   /**
@@ -951,6 +1096,10 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
       'value' => $this->publicFilesDirectory,
       'required' => TRUE,
     );
+    $settings['settings']['file_private_path'] = (object) [
+      'value' => $this->privateFilesDirectory,
+      'required' => TRUE,
+    ];
     $this->writeSettings($settings);
     // Allow for test-specific overrides.
     $settings_testing_file = DRUPAL_ROOT . '/' . $this->originalSiteDirectory . '/settings.testing.php';
@@ -961,11 +1110,14 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
       // testing specific overrides.
       file_put_contents($directory . '/settings.php', "\n\$test_class = '" . get_class($this) . "';\n" . 'include DRUPAL_ROOT . \'/\' . $site_path . \'/settings.testing.php\';' . "\n", FILE_APPEND);
     }
+
     $settings_services_file = DRUPAL_ROOT . '/' . $this->originalSiteDirectory . '/testing.services.yml';
-    if (file_exists($settings_services_file)) {
-      // Copy the testing-specific service overrides in place.
-      copy($settings_services_file, $directory . '/services.yml');
+    if (!file_exists($settings_services_file)) {
+      // Otherwise, use the default services as a starting point for overrides.
+      $settings_services_file = DRUPAL_ROOT . '/sites/default/default.services.yml';
     }
+    // Copy the testing-specific service overrides in place.
+    copy($settings_services_file, $directory . '/services.yml');
 
     // Since Drupal is bootstrapped already, install_begin_request() will not
     // bootstrap into DRUPAL_BOOTSTRAP_CONFIGURATION (again). Hence, we have to
@@ -990,6 +1142,10 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
     // using File API; a potential error must trigger a PHP warning.
     chmod($directory, 0777);
 
+    // During tests, cacheable responses should get the debugging cacheability
+    // headers by default.
+    $this->setContainerParameter('http.response.debug_cacheability_headers', TRUE);
+
     $request = \Drupal::request();
     $this->kernel = DrupalKernel::createFromRequest($request, $this->classLoader, 'prod', TRUE);
     $this->kernel->prepareLegacyRequest($request);
@@ -1000,13 +1156,13 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
     $config = $container->get('config.factory');
 
     // Manually create and configure private and temporary files directories.
-    // While these could be preset/enforced in settings.php like the public
-    // files directory above, some tests expect them to be configurable in the
-    // UI. If declared in settings.php, they would no longer be configurable.
     file_prepare_directory($this->privateFilesDirectory, FILE_CREATE_DIRECTORY);
     file_prepare_directory($this->tempFilesDirectory, FILE_CREATE_DIRECTORY);
+    // While the temporary files path could be preset/enforced in settings.php
+    // like the public files directory above, some tests expect it to be
+    // configurable in the UI. If declared in settings.php, it would no longer
+    // be configurable.
     $config->getEditable('system.file')
-      ->set('path.private', $this->privateFilesDirectory)
       ->set('path.temporary', $this->tempFilesDirectory)
       ->save();
 
@@ -1241,6 +1397,14 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
     ));
 
     drupal_set_time_limit($this->timeLimit);
+
+    // Save and clean the shutdown callbacks array because it is static cached
+    // and will be changed by the test run. Otherwise it will contain callbacks
+    // from both environments and the testing environment will try to call the
+    // handlers defined by the original one.
+    $callbacks = &drupal_register_shutdown_function();
+    $this->originalShutdownCallbacks = $callbacks;
+    $callbacks = [];
   }
 
   /**
@@ -1383,6 +1547,7 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
    */
   protected function refreshVariables() {
     // Clear the tag cache.
+    $this->container->get('cache_tags.invalidator')->resetChecksums();
     // @todo Replace drupal_static() usage within classes and provide a
     //   proper interface for invoking reset() on a cache backend:
     //   https://www.drupal.org/node/2311945.
@@ -1402,13 +1567,13 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
   /**
    * Returns whether a given user account is logged in.
    *
-   * @param \Drupal\user\UserInterface $account
+   * @param \Drupal\Core\Session\AccountInterface $account
    *   The user account object to check.
    *
    * @return bool
    *   Return TRUE if the user is logged in, FALSE otherwise.
    */
-  protected function drupalUserIsLoggedIn(UserInterface $account) {
+  protected function drupalUserIsLoggedIn(AccountInterface $account) {
     $logged_in = FALSE;
 
     if (isset($account->sessionId)) {
@@ -1417,30 +1582,6 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
     }
 
     return $logged_in;
-  }
-
-  /**
-   * Asserts that the element with the given CSS selector is present.
-   *
-   * @param string $css_selector
-   *   The CSS selector identifying the element to check.
-   * @param string $message
-   *   Optional message to show alongside the assertion.
-   */
-  protected function assertElementPresent($css_selector, $message = '') {
-    $this->assertNotEmpty($this->getSession()->getDriver()->find($this->cssSelectToXpath($css_selector)), $message);
-  }
-
-  /**
-   * Asserts that the element with the given CSS selector is not present.
-   *
-   * @param string $css_selector
-   *   The CSS selector identifying the element to check.
-   * @param string $message
-   *   Optional message to show alongside the assertion.
-   */
-  protected function assertElementNotPresent($css_selector, $message = '') {
-    $this->assertEmpty($this->getSession()->getDriver()->find($this->cssSelectToXpath($css_selector)), $message);
   }
 
   /**
@@ -1527,6 +1668,136 @@ abstract class BrowserTestBase extends \PHPUnit_Framework_TestCase {
    */
   protected function cssSelectToXpath($selector, $html = TRUE, $prefix = 'descendant-or-self::') {
     return (new CssSelectorConverter($html))->toXPath($selector, $prefix);
+  }
+
+  /**
+   * Searches elements using a CSS selector in the raw content.
+   *
+   * The search is relative to the root element (HTML tag normally) of the page.
+   *
+   * @param string $selector
+   *   CSS selector to use in the search.
+   *
+   * @return \Behat\Mink\Element\NodeElement[]
+   *   The list of elements on the page that match the selector.
+   */
+  protected function cssSelect($selector) {
+    return $this->getSession()->getPage()->findAll('css', $selector);
+  }
+
+  /**
+   * Follows a link by complete name.
+   *
+   * Will click the first link found with this link text.
+   *
+   * If the link is discovered and clicked, the test passes. Fail otherwise.
+   *
+   * @param string|\Drupal\Component\Render\MarkupInterface $label
+   *   Text between the anchor tags.
+   */
+  protected function clickLink($label) {
+    $label = (string) $label;
+    $this->getSession()->getPage()->clickLink($label);
+  }
+
+  /**
+   * Retrieves the plain-text content from the current page.
+   */
+  protected function getTextContent() {
+    return $this->getSession()->getPage()->getContent();
+  }
+
+  /**
+   * Performs an xpath search on the contents of the internal browser.
+   *
+   * The search is relative to the root element (HTML tag normally) of the page.
+   *
+   * @param string $xpath
+   *   The xpath string to use in the search.
+   * @param array $arguments
+   *   An array of arguments with keys in the form ':name' matching the
+   *   placeholders in the query. The values may be either strings or numeric
+   *   values.
+   *
+   * @return \Behat\Mink\Element\NodeElement[]
+   *   The list of elements matching the xpath expression.
+   */
+  protected function xpath($xpath, array $arguments = []) {
+    $xpath = $this->assertSession()->buildXPathQuery($xpath, $arguments);
+    return $this->getSession()->getPage()->findAll('xpath', $xpath);
+  }
+
+  /**
+   * Configuration accessor for tests. Returns non-overridden configuration.
+   *
+   * @param string $name
+   *   Configuration name.
+   *
+   * @return \Drupal\Core\Config\Config
+   *   The configuration object with original configuration data.
+   */
+  protected function config($name) {
+    return $this->container->get('config.factory')->getEditable($name);
+  }
+
+  /**
+   * Gets the value of an HTTP response header.
+   *
+   * If multiple requests were required to retrieve the page, only the headers
+   * from the last request will be checked by default.
+   *
+   * @param string $name
+   *   The name of the header to retrieve. Names are case-insensitive (see RFC
+   *   2616 section 4.2).
+   *
+   * @return string|null
+   *   The HTTP header value or NULL if not found.
+   */
+  protected function drupalGetHeader($name) {
+    return $this->getSession()->getResponseHeader($name);
+  }
+
+  /**
+   * Get the current URL from the browser.
+   *
+   * @return string
+   *   The current URL.
+   */
+  protected function getUrl() {
+    return $this->getSession()->getCurrentUrl();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function assertEquals($expected, $actual, $message = '', $delta = 0.0, $maxDepth = 10, $canonicalize = FALSE, $ignoreCase = FALSE) {
+    // Cast objects implementing MarkupInterface to string instead of
+    // relying on PHP casting them to string depending on what they are being
+    // comparing with.
+    $expected = static::castSafeStrings($expected);
+    $actual = static::castSafeStrings($actual);
+    parent::assertEquals($expected, $actual, $message, $delta, $maxDepth, $canonicalize, $ignoreCase);
+  }
+
+  /**
+   * Changes parameters in the services.yml file.
+   *
+   * @param string $name
+   *   The name of the parameter.
+   * @param mixed $value
+   *   The value of the parameter.
+   */
+  protected function setContainerParameter($name, $value) {
+    $filename = $this->siteDirectory . '/services.yml';
+    chmod($filename, 0666);
+
+    $services = Yaml::decode(file_get_contents($filename));
+    $services['parameters'][$name] = $value;
+    file_put_contents($filename, Yaml::encode($services));
+
+    // Ensure that the cache is deleted for the yaml file loader.
+    $file_cache = FileCacheFactory::get('container_yaml_loader');
+    $file_cache->delete($filename);
   }
 
 }

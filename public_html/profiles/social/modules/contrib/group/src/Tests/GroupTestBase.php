@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Tests\GroupTestBase.
- */
-
 namespace Drupal\group\Tests;
 
 use Drupal\simpletest\WebTestBase;

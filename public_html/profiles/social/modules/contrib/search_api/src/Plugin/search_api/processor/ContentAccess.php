@@ -3,14 +3,15 @@
 namespace Drupal\search_api\Plugin\search_api\processor;
 
 use Drupal\comment\CommentInterface;
-use Drupal\Core\Database\Database;
-use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Database\Connection;
+use Psr\Log\LoggerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\TypedData\ComplexDataInterface;
-use Drupal\Core\TypedData\DataDefinition;
 use Drupal\node\NodeInterface;
 use Drupal\search_api\Datasource\DatasourceInterface;
+use Drupal\search_api\Item\ItemInterface;
+use Drupal\search_api\Processor\ProcessorProperty;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Processor\ProcessorPluginBase;
@@ -26,18 +27,25 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("Content access"),
  *   description = @Translation("Adds content access checks for nodes and comments."),
  *   stages = {
+ *     "add_properties" = 0,
  *     "pre_index_save" = -10,
- *     "preprocess_index" = -30,
- *     "preprocess_query" = -30
- *   }
+ *     "preprocess_query" = -30,
+ *   },
  * )
  */
 class ContentAccess extends ProcessorPluginBase {
 
   /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection|null
+   */
+  protected $database;
+
+  /**
    * The logger to use for logging messages.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface|null
+   * @var \Psr\Log\LoggerInterface|null
    */
   protected $logger;
 
@@ -48,30 +56,52 @@ class ContentAccess extends ProcessorPluginBase {
     /** @var static $processor */
     $processor = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var \Drupal\Core\Logger\LoggerChannelInterface $logger */
-    $logger = $container->get('logger.factory')->get('search_api');
-    $processor->setLogger($logger);
+    $processor->setLogger($container->get('logger.channel.search_api'));
+    $processor->setDatabase($container->get('database'));
 
     return $processor;
   }
 
   /**
+   * Retrieves the database connection.
+   *
+   * @return \Drupal\Core\Database\Connection
+   *   The database connection.
+   */
+  public function getDatabase() {
+    return $this->database ?: \Drupal::database();
+  }
+
+  /**
+   * Sets the database connection.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   The new database connection.
+   *
+   * @return $this
+   */
+  public function setDatabase(Connection $database) {
+    $this->database = $database;
+    return $this;
+  }
+
+  /**
    * Retrieves the logger to use.
    *
-   * @return \Drupal\Core\Logger\LoggerChannelInterface
+   * @return \Psr\Log\LoggerInterface
    *   The logger to use.
    */
   public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.factory')->get('search_api');
+    return $this->logger ?: \Drupal::service('logger.channel.search_api');
   }
 
   /**
    * Sets the logger to use.
    *
-   * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
+   * @param \Psr\Log\LoggerInterface $logger
    *   The logger to use.
    */
-  public function setLogger(LoggerChannelInterface $logger) {
+  public function setLogger(LoggerInterface $logger) {
     $this->logger = $logger;
   }
 
@@ -90,13 +120,64 @@ class ContentAccess extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function alterPropertyDefinitions(array &$properties, DatasourceInterface $datasource = NULL) {
-    $definition = array(
-      'label' => $this->t('Node access information'),
-      'description' => $this->t('Data needed to apply node access.'),
-      'type' => 'string',
-    );
-    $properties['search_api_node_grants'] = new DataDefinition($definition);
+  public function getPropertyDefinitions(DatasourceInterface $datasource = NULL) {
+    $properties = array();
+
+    if (!$datasource) {
+      $definition = array(
+        'label' => $this->t('Node access information'),
+        'description' => $this->t('Data needed to apply node access.'),
+        'type' => 'string',
+        'processor_id' => $this->getPluginId(),
+        'hidden' => TRUE,
+      );
+      $properties['search_api_node_grants'] = new ProcessorProperty($definition);
+    }
+
+    return $properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addFieldValues(ItemInterface $item) {
+    static $anonymous_user;
+
+    if (!isset($anonymous_user)) {
+      // Load the anonymous user.
+      $anonymous_user = new AnonymousUserSession();
+    }
+
+    // Only run for node and comment items.
+    $entity_type_id = $item->getDatasource()->getEntityTypeId();
+    if (!in_array($entity_type_id, array('node', 'comment'))) {
+      return;
+    }
+
+    // Get the node object.
+    $node = $this->getNode($item->getOriginalObject());
+    if (!$node) {
+      // Apparently we were active for a wrong item.
+      return;
+    }
+
+    foreach ($this->filterForPropertyPath($item->getFields(), 'search_api_node_grants') as $field) {
+      // Collect grant information for the node.
+      if (!$node->access('view', $anonymous_user)) {
+        // If anonymous user has no permission we collect all grants with
+        // their realms in the item.
+        $sql = 'SELECT * FROM {node_access} WHERE (nid = 0 OR nid = :nid) AND grant_view = 1';
+        $args = array(':nid' => $node->id());
+        foreach ($this->getDatabase()->query($sql, $args) as $grant) {
+          $field->addValue("node_access_{$grant->realm}:{$grant->gid}");
+        }
+      }
+      else {
+        // Add the generic pseudo view grant if we are not using node access
+        // or the node is viewable by anonymous users.
+        $field->addValue('node_access__all');
+      }
+    }
   }
 
   /**
@@ -115,54 +196,6 @@ class ContentAccess extends ProcessorPluginBase {
 
     $field = $this->ensureField(NULL, 'search_api_node_grants', 'string');
     $field->setHidden();
-    $this->index->addField($field);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function preprocessIndexItems(array &$items) {
-    static $anonymous_user;
-
-    if (!isset($anonymous_user)) {
-      // Load the anonymous user.
-      $anonymous_user = new AnonymousUserSession();
-    }
-
-    // Annoyingly, this doc comment is needed for PHPStorm. See
-    // http://youtrack.jetbrains.com/issue/WI-23586
-    /** @var \Drupal\search_api\Item\ItemInterface $item */
-    foreach ($items as $item) {
-      // Only run for node and comment items.
-      if (!in_array($item->getDatasource()->getEntityTypeId(), array('node', 'comment'))) {
-        continue;
-      }
-
-      // Get the node object.
-      $node = $this->getNode($item->getOriginalObject());
-      if (!$node) {
-        // Apparently we were active for a wrong item.
-        continue;
-      }
-
-      foreach ($this->filterForPropertyPath($item->getFields(), 'search_api_node_grants') as $field) {
-        // Collect grant information for the node.
-        if (!$node->access('view', $anonymous_user)) {
-          // If anonymous user has no permission we collect all grants with
-          // their realms in the item.
-          $result = Database::getConnection()
-            ->query('SELECT * FROM {node_access} WHERE (nid = 0 OR nid = :nid) AND grant_view = 1', array(':nid' => $node->id()));
-          foreach ($result as $grant) {
-            $field->addValue("node_access_{$grant->realm}:{$grant->gid}");
-          }
-        }
-        else {
-          // Add the generic pseudo view grant if we are not using node access
-          // or the node is viewable by anonymous users.
-          $field->addValue('node_access__all');
-        }
-      }
-    }
   }
 
   /**
@@ -197,7 +230,7 @@ class ContentAccess extends ProcessorPluginBase {
       if (is_numeric($account)) {
         $account = User::load($account);
       }
-      if (is_object($account)) {
+      if ($account instanceof AccountInterface) {
         try {
           $this->addNodeAccess($query, $account);
         }
@@ -258,8 +291,7 @@ class ContentAccess extends ProcessorPluginBase {
     //     [grants view access to one of the user's gid/realm combinations]
     //   )
     // If there are no "other" datasources, we don't need the nested OR,
-    // however, and can add the "ADD".
-    // @todo Add a filter tag, once they are implemented.
+    // however, and can add the inner conditions directly to the query.
     if ($unaffected_datasources) {
       $outer_conditions = $query->createConditionGroup('OR', array('content_access'));
       $query->addConditionGroup($outer_conditions);
@@ -287,10 +319,7 @@ class ContentAccess extends ProcessorPluginBase {
       // remove all results of node or comment datasources. Otherwise, we should
       // not return any results at all.
       if (!$unaffected_datasources) {
-        // @todo More elegant way to return no results?
-        // @todo Now that field IDs can be picked freely, this can theoretically
-        //   even fail! Needs to be fixed!
-        $query->addCondition('search_api_language', '');
+        $query->abort($this->t('You have no access to any results in this search.'));
       }
       return;
     }

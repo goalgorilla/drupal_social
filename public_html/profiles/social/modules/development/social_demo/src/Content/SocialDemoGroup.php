@@ -7,7 +7,9 @@ namespace Drupal\social_demo\Content;
  */
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\file\Entity\File;
 use Drupal\social_demo\Yaml\SocialDemoParser;
+use Drupal\user\Entity\User;
 use Drupal\user\UserStorageInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -84,6 +86,15 @@ class SocialDemoGroup implements ContainerInjectionInterface {
       $accountClass = SocialDemoUser::create($container);
       $user_id = $accountClass->loadUserFromUuid($group['uid']);
 
+      // Try and fetch the image.
+      $fileClass = new SocialDemoFile();
+      $fid = $fileClass->loadByUuid($group['image']);
+
+      $media_id = '';
+      if ($file = File::load($fid)) {
+        $media_id = $file->id();
+      }
+
       // Calculate data.
       $grouptime = $this->createDate($group['created']);
 
@@ -97,13 +108,25 @@ class SocialDemoGroup implements ContainerInjectionInterface {
         'uid' => $user_id,
         'created' => $grouptime,
         'changed' => $grouptime,
+        'field_group_image' => [
+          [
+            'target_id' => $media_id,
+          ],
+        ],
       ]);
 
       $group_object->save();
 
       // If it succeeded, also add some teammembers.
       if ($group_object instanceof Group) {
-        
+        foreach ($group['members'] as $uuid) {
+          $user_id = $accountClass->loadUserFromUuid($uuid);
+          if ($member = User::load($user_id)) {
+            if(!$group_object->getMember($member)) {
+              $group_object->addMember($member);
+            }
+          }
+        }
       }
 
       $content_counter++;
@@ -165,5 +188,4 @@ class SocialDemoGroup implements ContainerInjectionInterface {
       return $group->id();
     }
   }
-
 }

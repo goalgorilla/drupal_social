@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @file
- * Contains \Drupal\features\ProxyClass\FeaturesConfigInstaller.
- */
-
-/**
  * This file was generated via php core/scripts/generate-proxy-class.php 'Drupal\features\FeaturesConfigInstaller' "modules/contrib/features/src".
  */
 

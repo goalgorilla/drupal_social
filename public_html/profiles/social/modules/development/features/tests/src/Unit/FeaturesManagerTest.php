@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\features\Unit\FeaturesManagerTest.
- */
-
 namespace Drupal\Tests\features\Unit;
 
 use Drupal\Component\Serialization\Yaml;

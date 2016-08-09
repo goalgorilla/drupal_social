@@ -3,12 +3,11 @@ status: true
 dependencies:
   module:
     - social_search
-    - system
   theme:
     - socialbase
 id: search_content_block_header
 theme: socialbase
-region: '-1'
+region: hidden
 weight: -9
 provider: null
 plugin: search_content_block
@@ -17,4 +16,4 @@ settings:
   label: 'Search content block'
   provider: social_search
   label_display: '0'
-visibility: { }
+visibility: {  }

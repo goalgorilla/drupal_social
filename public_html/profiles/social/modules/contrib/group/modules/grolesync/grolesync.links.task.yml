@@ -1,0 +1,12 @@
+group_type.permissions_form.basic:
+  title: 'Group roles'
+  route_name: 'entity.group_type.permissions_form'
+  base_route: 'entity.group_type.edit_form'
+  parent_id: 'group_type.permissions_form'
+
+group_type.role_sync_form:
+  title: 'Synchronized roles'
+  route_name: 'entity.group_type.grolesync'
+  base_route: 'entity.group_type.edit_form'
+  parent_id: 'group_type.permissions_form'
+  weight: 5

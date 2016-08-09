@@ -31,18 +31,6 @@ views.filter.combine:
         type: string
         label: 'Field'
 
-views.filter_value.date:
-  type: views.filter_value.numeric
-  label: 'Date'
-  mapping:
-    type:
-      type: string
-      label: 'Type'
-
-views.filter_value.groupby_numeric:
-  type: views.filter_value.numeric
-  label: 'Group by numeric'
-
 views.filter.in_operator:
   type: views_filter
   label: 'IN operator'
@@ -79,6 +67,60 @@ views.filter.string:
       type: string
       label: 'Value'
 
+views.filter.many_to_one:
+  type: views.filter.in_operator
+  label: 'Many to one'
+  mapping:
+    reduce_duplicates:
+      type: boolean
+      label: 'Reduce duplicate'
+
+views.filter.standard:
+  type: views_filter
+  label: 'Standard'
+
+views.filter.language:
+  type: views.filter.in_operator
+  label: 'Language'
+
+# Schema for the views group items.
+views.filter.group_item.*:
+  type: views_filter_group_item
+  label: 'Group item'
+
+views.filter.group_item.boolean:
+  type: views_filter_group_item
+  mapping:
+    value:
+      type: views.filter_value.string
+
+# Schema for the views filter value.
+views.filter_value.*:
+  type: string
+  label: 'Filter value'
+  mapping:
+    min:
+      type: string
+      label: 'Min'
+    max:
+      type: string
+      label: 'And max'
+    value:
+      type: string
+      label: 'Value'
+
+views.fiter_value.equality:
+  label: 'Equality'
+
+views.filter_value.string:
+  type: string
+
+views.filter_value.boolean:
+  type: boolean
+
+views.filter_value.combine:
+  type: string
+
 views.filter_value.numeric:
   type: mapping
   label: 'Numeric'
@@ -93,41 +135,29 @@ views.filter_value.numeric:
       type: string
       label: 'Value'
 
-views.filter_value.equality:
+views.filter_value.date:
   type: views.filter_value.numeric
-  label: 'Equality'
-
-views.filter.many_to_one:
-  type: views.filter.in_operator
-  label: 'Many to one'
+  label: 'Date'
   mapping:
-    reduce_duplicates:
-      type: boolean
-      label: 'Reduce duplicate'
+    type:
+      type: string
+      label: 'Type'
 
-views.filter.standard:
-  type: views_filter
-  label: 'Standard'
-
-views.filter.group_item.*:
-  type: views_filter_group_item
-  label: 'Default'
-
-views.filter.group_item.numeric:
-  type: views_filter_group_item
-  label: 'Group items'
+views.filter_value.datetime:
+  type: views.filter_value.numeric
+  label: 'Date'
   mapping:
-    value:
-      type: views.filter_value.numeric
+    type:
+      type: string
+      label: 'Type'
 
-# Schema for the views filter value.
+views.filter_value.groupby_numeric:
+  type: views.filter_value.numeric
+  label: 'Group by numeric'
 
-views.filter_value.boolean:
-  type: boolean
-
-views.filter_value.combine:
-  type: string
-
-views.filter.language:
-  type: views.filter.in_operator
-  label: 'Language'
+views.filter_value.bundle:
+  type: sequence
+  label: 'Bundle'
+  sequence:
+    type: string
+    label: 'Bundle'

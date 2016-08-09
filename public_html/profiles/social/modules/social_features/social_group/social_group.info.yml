@@ -12,6 +12,7 @@ dependencies:
   - social_core
   - social_group
   - system
+  - text
   - user
   - views
   - social_event

@@ -1,12 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupRole.
- *
- * @todo Other edit/delete paths, perhaps use a route provider?
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
@@ -18,7 +11,14 @@ use Drupal\Core\Entity\EntityStorageInterface;
  * @ConfigEntityType(
  *   id = "group_role",
  *   label = @Translation("Group role"),
+ *   label_singular = @Translation("group role"),
+ *   label_plural = @Translation("group roles"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count group role",
+ *     plural = "@count group roles"
+ *   ),
  *   handlers = {
+ *     "storage" = "Drupal\group\Entity\Storage\GroupRoleStorage",
  *     "access" = "Drupal\group\Entity\Access\GroupRoleAccessControlHandler",
  *     "form" = {
  *       "add" = "Drupal\group\Entity\Form\GroupRoleForm",
@@ -46,7 +46,9 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *     "label",
  *     "weight",
  *     "internal",
+ *     "audience",
  *     "group_type",
+ *     "permissions_ui",
  *     "permissions"
  *   }
  * )
@@ -77,12 +79,23 @@ class GroupRole extends ConfigEntityBase implements GroupRoleInterface {
   /**
    * Whether the group role is used internally.
    *
-   * Examples of these are the special group roles 'anonymous', 'outsider' and
-   * 'member'.
+   * Internal roles cannot be edited or assigned directly. They do not show in
+   * the list of group roles to edit or assign and do not have an individual
+   * permissions page either. Examples of these are the special group roles
+   * 'anonymous', 'outsider' and 'member'.
    *
    * @var bool
    */
   protected $internal = FALSE;
+
+  /**
+   * The audience the role is intended for.
+   *
+   * Supported values are: 'anonymous', 'outsider' or 'member'.
+   *
+   * @var string
+   */
+  protected $audience = 'member';
 
   /**
    * The ID of the group type this role belongs to.
@@ -92,38 +105,28 @@ class GroupRole extends ConfigEntityBase implements GroupRoleInterface {
   protected $group_type;
 
   /**
-   * The permissions belonging to the group role.
+   * Whether the role shows in the default permissions UI.
    *
-   * @var array
+   * By default, group roles show on the permissions page regardless of their
+   * 'internal' property. If you want to hide a group role from that UI, you can
+   * do so by setting this to FALSE.
+   *
+   * @var bool
    */
-  protected $permissions = [];
+  protected $permissions_ui = TRUE;
 
   /**
-   * The part of the group role ID after the period.
+   * The permissions belonging to the group role.
    *
-   * @var string
+   * @var string[]
    */
-  protected $strippedId;
+  protected $permissions = [];
 
   /**
    * {@inheritdoc}
    */
   public function id() {
     return $this->id;
-  }
-
-  /**
-   * Returns just the part of the ID pertaining to the group role.
-   *
-   * @return string
-   *   The part of the group role ID after the period.
-   */
-  protected function strippedId() {
-    if (!isset($this->strippedId)) {
-      list(, $group_role) = explode('-', $this->id(), 2);
-      $this->strippedId = $group_role;
-    }
-    return $this->strippedId;
   }
 
   /**
@@ -152,20 +155,23 @@ class GroupRole extends ConfigEntityBase implements GroupRoleInterface {
    * {@inheritdoc}
    */
   public function isAnonymous() {
-    return $this->strippedId() == 'anonymous';
+    return $this->audience == 'anonymous';
   }
 
   /**
    * {@inheritdoc}
    */
   public function isOutsider() {
-    return $this->strippedId() == 'outsider';
+    return $this->audience == 'outsider';
   }
 
   /**
    * {@inheritdoc}
    */
   public function isMember() {
+    // Instead of checking whether the audience property is set to 'member', we
+    // check whether it isn't 'anonymous' or 'outsider'. Any unsupported value
+    // will therefore default to 'member'.
     return !$this->isAnonymous() && !$this->isOutsider();
   }
 
@@ -181,6 +187,13 @@ class GroupRole extends ConfigEntityBase implements GroupRoleInterface {
    */
   public function getGroupTypeId() {
     return $this->group_type;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function inPermissionsUI() {
+    return $this->permissions_ui;
   }
 
   /**
@@ -259,6 +272,7 @@ class GroupRole extends ConfigEntityBase implements GroupRoleInterface {
    * {@inheritdoc}
    */
   public function calculateDependencies() {
+    parent::calculateDependencies();
     $this->addDependency('config', $this->getGroupType()->getConfigDependencyName());
   }
 

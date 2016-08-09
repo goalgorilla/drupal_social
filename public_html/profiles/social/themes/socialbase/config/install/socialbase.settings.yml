@@ -15,20 +15,21 @@ logo:
   use_default: 1
 region_wells:
   header: ''
-  menu_panel: ''
-  notification_panel: ''
-  user_panel: ''
   breadcrumb: ''
   hero: ''
   primary_action: ''
   secondary_navigation: ''
-  title: ''
   content: ''
   complementary: ''
   footer: ''
 image_responsive: 1
 forms_smart_descriptions: 0
 cdn_provider: ''
-modal_enabled: 0
+modal_enabled: 1
+modal_animation: 1
+modal_backdrop: 'true'
+modal_keyboard: 1
+modal_show: 1
+modal_size: ''
 popover_enabled: 1
 tooltip_enabled: 0

@@ -3089,24 +3089,6 @@ $connection->schema()->createTable('content_type_page', array(
   'mysql_character_set' => 'utf8',
 ));
 
-$connection->insert('content_type_page')
-->fields(array(
-  'vid',
-  'nid',
-  'field_text_field_value',
-))
-->values(array(
-  'vid' => '1',
-  'nid' => '1',
-  'field_text_field_value' => NULL,
-))
-->values(array(
-  'vid' => '3',
-  'nid' => '1',
-  'field_text_field_value' => NULL,
-))
-->execute();
-
 $connection->schema()->createTable('content_type_story', array(
   'fields' => array(
     'nid' => array(
@@ -3420,9 +3402,9 @@ $connection->insert('content_type_story')
   'field_test_three_value' => '101.00',
   'field_test_identical1_value' => NULL,
   'field_test_identical2_value' => NULL,
-  'field_test_link_url' => 'http://www.example.com/buy-one-upon-a-time',
+  'field_test_link_url' => 'node/10',
   'field_test_link_title' => 'Buy it now',
-  'field_test_link_attributes' => 'a:1:{s:6:"target";s:6:"_blank";}',
+  'field_test_link_attributes' => 's:32:"a:1:{s:6:"target";s:6:"_blank";}";',
   'field_test_date_value' => NULL,
   'field_test_datestamp_value' => NULL,
   'field_test_datetime_value' => NULL,
@@ -45550,6 +45532,14 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'language_content_type_article',
   'value' => 's:1:"2";',
+))
+->values(array(
+  'name' => 'language_content_type_employee',
+  'value' => 's:1:"2";',
+))
+->values(array(
+  'name' => 'i18n_lock_node_article',
+  'value' => 'i:1;',
 ))
 ->values(array(
   'name' => 'language_count',

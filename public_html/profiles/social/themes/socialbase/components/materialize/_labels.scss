@@ -3,5 +3,10 @@
 // --------------------------------------------------
 
 .label {
-  font-size: 87.5%;
+  font-weight: 300;
+  border-radius: $label-radius;
+}
+
+.badge + .label {
+  margin-left: 15px;
 }

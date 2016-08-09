@@ -377,7 +377,7 @@ function taxonomy_term_load_multiple(array $tids = NULL) {
  *   (optional) An array of entity IDs. If omitted, all entities are loaded.
  *
  * @return array
- *  An array of vocabulary objects, indexed by vid.
+ *   An array of vocabulary objects, indexed by vid.
  */
 function taxonomy_vocabulary_load_multiple(array $vids = NULL) {
   return Vocabulary::loadMultiple($vids);
@@ -532,7 +532,11 @@ function taxonomy_build_node_index($node) {
  * Implements hook_ENTITY_TYPE_update() for node entities.
  */
 function taxonomy_node_update(EntityInterface $node) {
-  // Always rebuild the node's taxonomy index entries on node save.
+  // If we're not dealing with the default revision of the node, do not make any
+  // change to the taxonomy index.
+  if (!$node->isDefaultRevision()) {
+    return;
+  }
   taxonomy_delete_node_index($node);
   taxonomy_build_node_index($node);
 }

@@ -1,27 +1,14 @@
 <?php
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupContent.
- */
 
 namespace Drupal\group\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\group\Plugin\GroupContentEnablerBase;
-use Drupal\group\Plugin\GroupContentEnablerHelper;
 use Drupal\user\UserInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
-
-// @todo Remove the below when https://www.drupal.org/node/2645136 lands.
-use Drupal\Core\Url;
-use Drupal\Core\Entity\RevisionableInterface;
-use Drupal\Core\Entity\EntityMalformedException;
-use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
-
 
 /**
  * Defines the Group content entity.
@@ -30,8 +17,16 @@ use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
  *
  * @ContentEntityType(
  *   id = "group_content",
- *   label = @Translation("Group content entity"),
+ *   label = @Translation("Group content"),
+ *   label_singular = @Translation("group content item"),
+ *   label_plural = @Translation("group content items"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count group content item",
+ *     plural = "@count group content items"
+ *   ),
+ *   bundle_label = @Translation("Group content type"),
  *   handlers = {
+ *     "storage" = "Drupal\group\Entity\Storage\GroupContentStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "views_data" = "Drupal\group\Entity\Views\GroupContentViewsData",
  *     "list_builder" = "Drupal\group\Entity\Controller\GroupContentListBuilder",
@@ -42,6 +37,8 @@ use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
  *       "add" = "Drupal\group\Entity\Form\GroupContentForm",
  *       "edit" = "Drupal\group\Entity\Form\GroupContentForm",
  *       "delete" = "Drupal\group\Entity\Form\GroupContentDeleteForm",
+ *       "group-join" = "Drupal\group\Form\GroupJoinForm",
+ *       "group-leave" = "Drupal\group\Form\GroupLeaveForm",
  *     },
  *     "access" = "Drupal\group\Entity\Access\GroupContentAccessControlHandler",
  *   },
@@ -50,10 +47,18 @@ use Drupal\Core\Entity\Exception\UndefinedLinkTemplateException;
  *   translatable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
- *     "bundle" = "type",
- *     "label" = "label",
- *     "langcode" = "langcode",
  *     "uuid" = "uuid",
+ *     "langcode" = "langcode",
+ *     "bundle" = "type",
+ *     "label" = "label"
+ *   },
+ *   links = {
+ *     "add-form" = "/group/{group}/content/add/{plugin_id}",
+ *     "add-page" = "/group/{group}/content/add",
+ *     "canonical" = "/group/{group}/content/{group_content}",
+ *     "collection" = "/group/{group}/content",
+ *     "delete-form" = "/group/{group}/content/{group_content}/delete",
+ *     "edit-form" = "/group/{group}/content/{group_content}/edit"
  *   },
  *   bundle_entity_type = "group_content_type",
  *   field_ui_base_route = "entity.group_content_type.edit_form",
@@ -110,90 +115,27 @@ class GroupContent extends ContentEntityBase implements GroupContentInterface {
   /**
    * {@inheritdoc}
    */
+  public static function loadByEntity(ContentEntityInterface $entity) {
+    $group_content_types = GroupContentType::loadByEntityTypeId($entity->getEntityTypeId());
+
+    // If no responsible group content types were found, we return nothing.
+    if (empty($group_content_types)) {
+      return [];
+    }
+
+    return \Drupal::entityTypeManager()
+      ->getStorage('group_content')
+      ->loadByProperties([
+        'type' => array_keys($group_content_types),
+        'entity_id' => $entity->id(),
+      ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function label() {
     return $this->getContentPlugin()->getContentLabel($this);
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * Exact copy of Entity::toUrl() with the exception of one line until the
-   * patch in https://www.drupal.org/node/2645136 lands.
-   *
-   * @todo Remove this if the issue above gets resolved.
-   */
-  public function toUrl($rel = 'canonical', array $options = []) {
-    if ($this->id() === NULL) {
-      throw new EntityMalformedException(sprintf('The "%s" entity cannot have a URI as it does not have an ID', $this->getEntityTypeId()));
-    }
-
-    // The links array might contain URI templates set in annotations.
-    $link_templates = $this->linkTemplates();
-
-    // Links pointing to the current revision point to the actual entity. So
-    // instead of using the 'revision' link, use the 'canonical' link.
-    if ($rel === 'revision' && $this instanceof RevisionableInterface && $this->isDefaultRevision()) {
-      $rel = 'canonical';
-    }
-
-    if (isset($link_templates[$rel])) {
-      $route_parameters = $this->urlRouteParameters($rel);
-      $route_name = $this->urlRoute($rel);
-      $uri = new Url($route_name, $route_parameters);
-    }
-    else {
-      $bundle = $this->bundle();
-      // A bundle-specific callback takes precedence over the generic one for
-      // the entity type.
-      $bundles = $this->entityManager()->getBundleInfo($this->getEntityTypeId());
-      if (isset($bundles[$bundle]['uri_callback'])) {
-        $uri_callback = $bundles[$bundle]['uri_callback'];
-      }
-      elseif ($entity_uri_callback = $this->getEntityType()->getUriCallback()) {
-        $uri_callback = $entity_uri_callback;
-      }
-
-      // Invoke the callback to get the URI. If there is no callback, use the
-      // default URI format.
-      if (isset($uri_callback) && is_callable($uri_callback)) {
-        $uri = call_user_func($uri_callback, $this);
-      }
-      else {
-        throw new UndefinedLinkTemplateException("No link template '$rel' found for the '{$this->getEntityTypeId()}' entity type");
-      }
-    }
-
-    // Pass the entity data through as options, so that alter functions do not
-    // need to look up this entity again.
-    $uri
-      ->setOption('entity_type', $this->getEntityTypeId())
-      ->setOption('entity', $this);
-
-    // Display links by default based on the current language.
-    if ($rel !== 'collection') {
-      $options += ['language' => $this->language()];
-    }
-
-    $uri_options = $uri->getOptions();
-    $uri_options += $options;
-
-    return $uri->setOptions($uri_options);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function linkTemplates() {
-    return $this->getContentPlugin()->getPaths();
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * @todo Will inherit docs once https://www.drupal.org/node/2645136 lands.
-   */
-  protected function urlRoute($rel) {
-    return $this->getContentPlugin()->getRouteName($rel);
   }
 
   /**
@@ -263,22 +205,7 @@ class GroupContent extends ContentEntityBase implements GroupContentInterface {
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields['id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Group content ID'))
-      ->setDescription(t('The ID of the Group content entity.'))
-      ->setReadOnly(TRUE)
-      ->setSetting('unsigned', TRUE);
-
-    $fields['uuid'] = BaseFieldDefinition::create('uuid')
-      ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Group content entity.'))
-      ->setReadOnly(TRUE);
-
-    $fields['type'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Type'))
-      ->setDescription(t('The group content type.'))
-      ->setSetting('target_type', 'group_content_type')
-      ->setReadOnly(TRUE);
+    $fields = parent::baseFieldDefinitions($entity_type);
 
     $fields['gid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Parent group'))
@@ -304,18 +231,6 @@ class GroupContent extends ContentEntityBase implements GroupContentInterface {
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setRequired(TRUE);
-
-    $fields['langcode'] = BaseFieldDefinition::create('language')
-      ->setLabel(t('Language'))
-      ->setDescription(t('The group content language code.'))
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', [
-        'type' => 'hidden',
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'language_select',
-        'weight' => 2,
-      ]);
 
     $fields['label'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
@@ -372,7 +287,24 @@ class GroupContent extends ContentEntityBase implements GroupContentInterface {
     if ($group_content_type = GroupContentType::load($bundle)) {
       $plugin = $group_content_type->getContentPlugin();
 
-      $fields['entity_id'] = clone $base_field_definitions['entity_id'];
+      /** @var \Drupal\Core\Field\BaseFieldDefinition $original */
+      $original = $base_field_definitions['entity_id'];
+
+      // Recreated the original entity_id field so that it does not contain any
+      // data in its "propertyDefinitions" or "schema" properties because those
+      // were set based on the base field which had no clue what bundle to serve
+      // up until now. This is a bug in core because we can't simply unset those
+      // two properties, see: https://www.drupal.org/node/2346329
+      $fields['entity_id'] = BaseFieldDefinition::create('entity_reference')
+        ->setLabel($original->getLabel())
+        ->setDescription($original->getDescription())
+        ->setConstraints($original->getConstraints())
+        ->setDisplayOptions('view', $original->getDisplayOptions('view'))
+        ->setDisplayOptions('form', $original->getDisplayOptions('form'))
+        ->setDisplayConfigurable('view', $original->isDisplayConfigurable('view'))
+        ->setDisplayConfigurable('form', $original->isDisplayConfigurable('form'))
+        ->setRequired($original->isRequired());
+
       foreach ($plugin->getEntityReferenceSettings() as $name => $setting) {
         $fields['entity_id']->setSetting($name, $setting);
       }
@@ -381,35 +313,6 @@ class GroupContent extends ContentEntityBase implements GroupContentInterface {
     }
 
     return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function loadByEntity(ContentEntityInterface $entity) {
-    $group_content_type_ids = [];
-
-    /** @var GroupContentEnablerBase $plugin */
-    foreach (GroupContentEnablerHelper::getAllContentEnablers() as $plugin_id => $plugin) {
-      // If the plugin handles the entity type of the provided entity, we need
-      // to add the group content types it created to the list of bundle IDs to
-      // check group content against.
-      if ($plugin->getEntityTypeId() === $entity->getEntityTypeId()) {
-        $group_content_type_ids = array_merge($group_content_type_ids, array_keys(GroupContentType::loadByContentPluginId($plugin_id)));
-      }
-    }
-
-    // If no responsible group content types were found, we return nothing.
-    if (empty($group_content_type_ids)) {
-      return [];
-    }
-
-    return \Drupal::entityTypeManager()
-      ->getStorage('group_content')
-      ->loadByProperties([
-        'type' => $group_content_type_ids,
-        'entity_id' => $entity->id(),
-      ]);
   }
 
 }

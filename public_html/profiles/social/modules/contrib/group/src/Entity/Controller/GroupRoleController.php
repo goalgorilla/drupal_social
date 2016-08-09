@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Controller\GroupRoleController.
- */
-
 namespace Drupal\group\Entity\Controller;
 
 use Drupal\group\Entity\GroupRole;

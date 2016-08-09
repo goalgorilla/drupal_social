@@ -1,0 +1,7 @@
+services:
+  plugin.manager.message.purge:
+    class: Drupal\message\MessagePurgePluginManager
+    parent: default_plugin_manager
+  message.purge_orchestrator:
+    class: \Drupal\message\MessagePurgeOrchestrator
+    arguments: ['@config.factory', '@entity_type.manager', '@plugin.manager.message.purge']

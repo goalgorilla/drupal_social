@@ -36,6 +36,14 @@ services:
       - "1080"
     network_mode: "bridge"
 
+  social_nightly_cron:
+    build: docker_build/cron
+    volumes:
+     - social_sites_default:/var/www/html/sites/default
+    links:
+     - social_nightly_db:db
+    network_mode: "bridge"
+
   # Currently disabled because of rate limits.
   # Enable and use the normal ssmtp.conf file to sent emails with postfix.
   #social_nightly_mailserver:

@@ -77,8 +77,6 @@ interface ServerInterface extends ConfigEntityInterface, BackendSpecificInterfac
   /**
    * Deletes all items on this server, except those from read-only indexes.
    *
-   * @return $this
-   *
    * @throws \Drupal\search_api\SearchApiException
    *   Thrown if an error occurred while trying to delete the items.
    */

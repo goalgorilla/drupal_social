@@ -28,5 +28,14 @@ content:
       image_style: social_xx_large
       image_link: ''
     third_party_settings: {  }
+  label:
+    label: hidden
+    type: string
+    weight: -5
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
+  changed: true
+  created: true
   uid: true

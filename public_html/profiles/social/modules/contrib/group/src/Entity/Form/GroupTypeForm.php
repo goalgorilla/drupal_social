@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Form\GroupTypeForm.
- */
-
 namespace Drupal\group\Entity\Form;
 
 use Drupal\group\Entity\GroupTypeInterface;
@@ -59,9 +54,7 @@ class GroupTypeForm extends BundleEntityFormBase {
       '#title' => t('Description'),
       '#type' => 'textarea',
       '#default_value' => $type->getDescription(),
-      '#description' => t('Describe this group type. The text will be displayed on the %group-add page.', [
-        '%group-add' => t('Add group'),
-      ]),
+      '#description' => t('This text will be displayed on the <em>Add group</em> page.'),
     ];
 
     return $this->protectBundleIdElement($form);

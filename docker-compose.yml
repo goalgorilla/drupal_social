@@ -64,6 +64,7 @@ services:
     volumes:
      - ./public_html/:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
+     - ./travis_artifacts/:/root/travis_artifacts
      - ./public_html/profiles/social/tests/behat/:/root/behat
     links:
      - web:web

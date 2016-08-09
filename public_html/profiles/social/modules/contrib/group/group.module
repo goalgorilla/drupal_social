@@ -2,12 +2,10 @@
 
 /**
  * @file
- * Contains Drupal\group\group.module
+ * Allows you to group users, content and other entities.
  */
 
 use Drupal\group\Entity\GroupContent;
-use Drupal\group\Plugin\GroupContentEnablerHelper;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -48,9 +46,6 @@ function group_theme() {
     ],
     'group_content' => [
       'render element' => 'elements',
-    ],
-    'group_add_list' => [
-      'variables' => ['group_types' => NULL],
     ],
   ];
 }
@@ -148,7 +143,7 @@ function template_preprocess_group_content(&$variables) {
 
   // See if we are rendering the group at its canonical route.
   $route_match = \Drupal::routeMatch();
-  if ($route_match->getRouteName() == $group_content->getContentPlugin()->getRouteName('canonical')) {
+  if ($route_match->getRouteName() == 'entity.group_content.canonical') {
     $page_group_content = $route_match->getParameter('group_content');
   }
   $is_page = (!empty($page_group_content) ? $page_group_content->id() == $group_content->id() : FALSE);
@@ -162,71 +157,29 @@ function template_preprocess_group_content(&$variables) {
 }
 
 /**
- * Prepares variables for list of available group type templates.
+ * Gets the group content enabler plugin manager.
  *
- * Default template: group-add-list.html.twig.
+ * @return \Drupal\group\Plugin\GroupContentEnablerManagerInterface
+ *   The group content enabler plugin manager.
  *
- * @param array $variables
- *   An associative array containing:
- *   - group_types: An array of group types.
- *
- * @see group_add_page()
+ * @internal Try to properly inject the service when possible.
  */
-function template_preprocess_group_add_list(&$variables) {
-  $variables['types'] = [];
-
-  if (!empty($variables['group_types'])) {
-    /** @var \Drupal\group\Entity\GroupTypeInterface $group_type */
-    foreach ($variables['group_types'] as $group_type) {
-      $variables['types'][$group_type->id()] = [
-        'type' => $group_type->id(),
-        'url' => Url::fromRoute('entity.group.add_form', ['group_type' => $group_type->id()]),
-        'label' => $group_type->label(),
-        'description' => ['#markup' => $group_type->getDescription()],
-      ];
-    }
-  }
+function _group_content_enabler_manager() {
+  return \Drupal::service('plugin.manager.group_content_enabler');
 }
 
 /**
  * Implements hook_rebuild().
  */
 function group_rebuild() {
-  // Checks if there are any new enforced plugins to install.
-  GroupContentEnablerHelper::installEnforcedPlugins();
+  _group_content_enabler_manager()->installEnforced();
 }
 
 /**
  * Implements hook_modules_installed().
  */
 function group_modules_installed($modules) {
-  // Checks if there are any new enforced plugins to install.
-  GroupContentEnablerHelper::installEnforcedPlugins();
-}
-
-/**
- * Implements hook_entity_type_alter().
- */
-function group_entity_type_alter(array &$entity_types) {
-  static $mute_self;
-
-  // Because we load content enabler plugins while rebuilding entity types, we
-  // need to make sure the code below does not keep triggering itself.
-  //
-  // This could happen because content enabler plugins may load entity types to
-  // create derivatives (like gnode does) and because we load all group types to
-  // see which plugins are actually installed.
-  if ($mute_self !== TRUE) {
-    $mute_self = TRUE;
-
-    // Enables extra forms for GroupContent entities as defined by plugins.
-    foreach (GroupContentEnablerHelper::getAdditionalEntityForms() as $name => $class) {
-      /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
-      $entity_types['group_content']->setFormClass($name, $class);
-    }
-
-    $mute_self = FALSE;
-  }
+  _group_content_enabler_manager()->installEnforced();
 }
 
 /**
@@ -274,6 +227,11 @@ function group_entity_field_access($operation, FieldDefinitionInterface $field_d
     return AccessResult::neutral();
   }
 
+  // Can't retrieve an entity from an empty item list.
+  if (!isset($items)) {
+    return AccessResult::neutral();
+  }
+
   /** @var \Drupal\group\Entity\GroupContent $group_content */
   $group_content = $items->getEntity();
   $group = $group_content->getGroup();
@@ -287,3 +245,35 @@ function group_entity_field_access($operation, FieldDefinitionInterface $field_d
   // Don't show the field if the plugin ID didn't match.
   return AccessResult::forbidden();
 }
+
+/**
+ * @defgroup group_access Group access rights
+ * @{
+ * The group access system determines who can do what in which groups.
+ *
+ * Each group type can specify an unlimited amount of group roles. Just like
+ * user roles in the global scope, a group role can be assigned specific
+ * permissions. Users who are then given such group roles will be able to
+ * perform any action their permissions allow them.
+ *
+ * There are three categories of users who are eligible to receive group roles:
+ * - Anonymous: These users do not have a site account and will only receive the
+ *   'anonymous' group role, which typically grants them a very limited set of
+ *   permissions.
+ * - Outsider: These users have a site account, but are not yet a member of the
+ *   group in question. They will only receive the 'outsider' group role. This
+ *   role is usually more permissive than 'anonymous'.
+ * - Member: These users have a site account and are part of the group. They
+ *   will automatically receive the 'member' role but can be assigned any other
+ *   user defined group role. Common examples are: Editor, Admin, etc.
+ *
+ * Please keep in mind that the 'anonymous', 'outsider' and 'member' role will
+ * always be assigned because they're assumed roles based on the user's account
+ * status.
+ */
+
+// Nothing to see here yet, our own access hook implementations will go here.
+
+/**
+ * @} End of "defgroup group_access".
+ */
