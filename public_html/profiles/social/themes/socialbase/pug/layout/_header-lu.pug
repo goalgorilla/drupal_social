@@ -3,16 +3,16 @@
     .container
 
       a.navbar-brand(href='home-lu.html')
-        object(type='image/svg+xml', data='images/social-logo-white.svg') Your browser does not support SVG
-          
+        img(src='images/social-logo-white.svg')
+
       .navbar-header
-      
+
         button.navbar-toggle.collapsed(href='#', data-toggle='collapse', data-target='#menu-dropdown', type='button', aria-haspopup='true', aria-expanded='false')
           svg.icon-white.icon-medium
             title Toggle navigation
             use(xlink:href='#icon-menu')
-          span.sr-only Toggle navigation            
-            
+          span.sr-only Toggle navigation
+
         ul.nav.navbar-nav.navbar-right
           li.hidden-xs
             a(href='home-lu.html') Home
@@ -24,7 +24,7 @@
             ul.dropdown-menu
               li
                 .dropdown-header My groups
-              li 
+              li
                 ul.scrollable-menu
                   li
                     a.bg-white(href='group-stream.html')
@@ -104,7 +104,7 @@
                 .dropdown-header Notifications
               li
                 ul.scrollable-menu
-                  li 
+                  li
                     a.bg-gray-lightest(href='single-post.html')
                       .media
                         .media-left
@@ -112,7 +112,7 @@
                         .media-body <em>Clive Owen</em> commented on your post
                           br
                           .text-gray-1 3 hours ago
-                        
+
                   li
                     a.bg-gray-lightest(href='single-post.html')
                       .media
@@ -126,7 +126,7 @@
                       .media
                         .media-left
                           img.img-small.img-circle(src='content/images/avatar4.jpg', alt='')
-                        .media-body <em>Bettie McLaren</em> likes your event 
+                        .media-body <em>Bettie McLaren</em> likes your event
                           em Amsterdam Meetup
                           br
                           .text-gray-1 1 day ago
@@ -135,7 +135,7 @@
                       .media
                         .media-left
                           img.img-small.img-circle(src='content/images/avatar5.jpg', alt='')
-                        .media-body <em>Jim Bohlen</em> commented on your topic 
+                        .media-body <em>Jim Bohlen</em> commented on your topic
                           em Technology for the handicapped
                           br
                           .text-gray-1 2 days ago
@@ -164,7 +164,7 @@
               li.divider
               li
                 a(href='home-an.html') Log out
-          
+
       #menu-dropdown.collapse.navbar-collapse(aria-expanded='false')
         ul.nav.navbar-nav
           li
