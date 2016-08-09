@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\search_api\Unit\Plugin\Processor;
 
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\search_api\Plugin\search_api\processor\HtmlFilter;
 use Drupal\search_api\Utility;
 use Drupal\Tests\UnitTestCase;
@@ -47,7 +48,6 @@ class HtmlFilterTest extends UnitTestCase {
     $type = 'text';
     $this->invokeMethod('processFieldValue', array(&$passed_value, &$type));
     $this->assertEquals($expected_value, $passed_value);
-
   }
 
   /**
@@ -229,6 +229,13 @@ class HtmlFilterTest extends UnitTestCase {
    * @dataProvider stringProcessingDataProvider
    */
   public function testStringProcessing(array $config) {
+    $data_type_manager = $this->getMockBuilder('Drupal\search_api\DataType\DataTypePluginManager')
+      ->disableOriginalConstructor()
+      ->getMock();
+    $container = new ContainerBuilder();
+    $container->set('plugin.manager.search_api.data_type', $data_type_manager);
+    \Drupal::setContainer($container);
+
     $this->processor->setConfiguration($config);
 
     $passed_value = '<h2>Foo Bar <em>Baz</em></h2>

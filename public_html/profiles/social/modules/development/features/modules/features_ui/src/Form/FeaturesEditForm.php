@@ -14,7 +14,6 @@ use Drupal\features\FeaturesGeneratorInterface;
 use Drupal\features\FeaturesManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\features\Package;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

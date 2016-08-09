@@ -5,6 +5,8 @@ namespace Drupal\search_api\Plugin\search_api\processor;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
 use Drupal\search_api\Utility;
 use Symfony\Component\Yaml\Dumper;
@@ -132,11 +134,24 @@ class HtmlFilter extends FieldsProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  protected function processFieldValue(&$value, &$type) {
+  protected function processField(FieldInterface $field) {
+    parent::processField($field);
+
+    foreach ($field->getValues() as $value) {
+      if ($value instanceof TextValueInterface) {
+        $value->setProperty('strip_html');
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function processFieldValue(&$value, $type) {
     // Remove invisible content.
     $text = preg_replace('@<(applet|audio|canvas|command|embed|iframe|map|menu|noembed|noframes|noscript|script|style|svg|video)[^>]*>.*</\1>@siU', ' ', $value);
     // Let removed tags still delimit words.
-    $is_text_type = Utility::isTextType($type, array('text', 'tokenized_text'));
+    $is_text_type = Utility::isTextType($type);
     if ($is_text_type) {
       $text = str_replace(array('<', '>'), array(' <', '> '), $text);
       if ($this->configuration['title']) {
@@ -149,7 +164,6 @@ class HtmlFilter extends FieldsProcessorPluginBase {
     if ($this->configuration['tags'] && $is_text_type) {
       $text = strip_tags($text, '<' . implode('><', array_keys($this->configuration['tags'])) . '>');
       $value = $this->parseHtml($text);
-      $type = 'tokenized_text';
     }
     else {
       $text = strip_tags($text);
@@ -181,7 +195,7 @@ class HtmlFilter extends FieldsProcessorPluginBase {
    * @param float $boost
    *   (optional) The currently active boost value. Internal use only.
    *
-   * @return array
+   * @return \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface[]
    *   Tokenized text with appropriate scores.
    */
   protected function parseHtml(&$text, $active_tag = NULL, $boost = 1.0) {

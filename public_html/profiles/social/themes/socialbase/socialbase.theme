@@ -195,11 +195,13 @@ function socialbase_preprocess_block(&$variables) {
   // Add search_block to account menu.
   if ($variables['attributes']['id'] == 'block-socialbase-account-menu') {
     $block = Block::load('search_content_block_header');
-    $block_output = \Drupal::entityManager()
-      ->getViewBuilder('block')
-      ->view($block);
+    if(!empty($block)){
+      $block_output = \Drupal::entityManager()
+        ->getViewBuilder('block')
+        ->view($block);
 
-    $variables['content']['links']['search_block'] = $block_output;
+      $variables['content']['links']['search_block'] = $block_output;
+    }
   }
 
   // Preprocess search block header.

@@ -1,4 +1,14 @@
 services:
+  access_check.search_api_tasks:
+    class: Drupal\search_api\Controller\ExecuteTasksAccessCheck
+    arguments: ['@search_api.server_task_manager']
+    tags:
+      - { name: access_check, applies_to: _search_api_tasks }
+
+  logger.channel.search_api:
+    parent: logger.channel_base
+    arguments: ['search_api']
+
   paramconverter.search_api:
     class: Drupal\search_api\ParamConverter\SearchApiConverter
     arguments: ['@entity.manager', '@user.shared_tempstore', '@current_user']
@@ -18,6 +28,14 @@ services:
     class: Drupal\search_api\Datasource\DatasourcePluginManager
     parent: default_plugin_manager
 
+  plugin.manager.search_api.display:
+    class: Drupal\search_api\Display\DisplayPluginManager
+    parent: default_plugin_manager
+
+  plugin.manager.search_api.parse_mode:
+    class: Drupal\search_api\ParseMode\ParseModePluginManager
+    parent: default_plugin_manager
+
   plugin.manager.search_api.processor:
     class: Drupal\search_api\Processor\ProcessorPluginManager
     arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@string_translation']
@@ -26,9 +44,17 @@ services:
     class: Drupal\search_api\Tracker\TrackerPluginManager
     parent: default_plugin_manager
 
+  search_api.datasource_task_manager:
+    class: Drupal\search_api\Plugin\search_api\datasource\ContentEntityTaskManager
+    arguments: ['@search_api.task_manager', '@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
+
   search_api.index_task_manager:
     class: Drupal\search_api\Task\IndexTaskManager
-    arguments: ['@state', '@entity_type.manager']
+    arguments: ['@search_api.task_manager', '@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
 
   search_api.results_static_cache:
     class: Drupal\search_api\Query\ResultsCache
@@ -36,6 +62,10 @@ services:
 
   search_api.server_task_manager:
     class: Drupal\search_api\Task\ServerTaskManager
-    arguments: ['@database', '@entity_type.manager']
+    arguments: ['@search_api.task_manager', '@entity_type.manager']
     tags:
-      - { name: backend_overridable }
+      - { name: event_subscriber }
+
+  search_api.task_manager:
+    class: Drupal\search_api\Task\TaskManager
+    arguments: ['@entity_type.manager', '@event_dispatcher', '@string_translation']

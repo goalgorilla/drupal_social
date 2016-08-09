@@ -9,28 +9,25 @@
   .media-body
     .media-heading.text-m
       if user == "isAnonymous"
-        | Clive Owen created an event 
-      else 
+        | Clive Owen created an event
+      else
         a(href="my-stream.html") Clive Owen 
-        | created an event in group 
-        a(href='group-stream.html') Happy campers        
+        | created an event in group
+        a(href='group-stream.html') Happy campers
       br
       .text-gray-lighter 30 minutes ago
 .card--teaser.card--teaser-stream.card-with-actionbar
   a.card-image(href="event.html")
     img.img-responsive(src="content/images/people3-square.jpg")
-    .teaser-date 28
-      .text-xs Aug
-    .status unpublished
   .card-body
-    h4.card-title 
+    h4.card-title
       a(href="event.html") Team conference East
     .text-gray.text-m.text-truncate
       svg.icon-gray.icon-small
         use(xlink:href='#icon-event')
       | &nbsp;
-      span.inline-center 28 Aug 10:00 - 12:00 
-      | &nbsp; 
+      span.inline-center 28 Aug 10:00 - 12:00
+      | &nbsp;
     .text-gray.text-m.text-truncate
       svg.icon-gray.icon-small
         use(xlink:href='#icon-location')

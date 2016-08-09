@@ -3,11 +3,13 @@
 namespace Drupal\search_api\Backend;
 
 use Drupal\search_api\Entity\Server;
+use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api\IndexInterface;
 use Drupal\search_api\Plugin\ConfigurablePluginBase;
 use Drupal\search_api\ServerInterface;
+use Drupal\search_api\Utility;
 
 /**
  * Defines a base class for backend plugins.
@@ -143,6 +145,13 @@ abstract class BackendPluginBase extends ConfigurablePluginBase implements Backe
   /**
    * {@inheritdoc}
    */
+  public function getBackendDefinedFields(IndexInterface $index) {
+    return array();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function addIndex(IndexInterface $index) {}
 
   /**
@@ -153,13 +162,78 @@ abstract class BackendPluginBase extends ConfigurablePluginBase implements Backe
   /**
    * {@inheritdoc}
    */
-  public function removeIndex($index) {}
+  public function removeIndex($index) {
+    // Only delete the index's data if the index isn't read-only. (If only the
+    // ID is given, we assume the index was read-only, to be on the safe side.)
+    if ($index instanceof IndexInterface && !$index->isReadOnly()) {
+      $this->deleteAllIndexItems($index);
+    }
+  }
 
   /**
    * {@inheritdoc}
    */
   public function getDiscouragedProcessors() {
     return array();
+  }
+
+  /**
+   * Creates dummy field objects for the "magic" fields present for every index.
+   *
+   * @param \Drupal\search_api\IndexInterface $index
+   *   The index for which to create the fields. (Needed since field objects
+   *   always need an index set.)
+   * @param \Drupal\search_api\Item\ItemInterface|null $item
+   *   (optional) If given, an item whose data should be used for the fields'
+   *   values.
+   *
+   * @return \Drupal\search_api\Item\FieldInterface[]
+   *   An array of field objects for all "magic" fields, keyed by field IDs.
+   */
+  protected function getSpecialFields(IndexInterface $index, ItemInterface $item = NULL) {
+    $field_info = array(
+      'type' => 'string',
+      'original type' => 'string',
+    );
+    $fields['search_api_id'] = Utility::createField($index, 'search_api_id', $field_info);
+    $fields['search_api_datasource'] = Utility::createField($index, 'search_api_datasource', $field_info);
+    $fields['search_api_language'] = Utility::createField($index, 'search_api_language', $field_info);
+
+    if ($item) {
+      $fields['search_api_id']->setValues(array($item->getId()));
+      $fields['search_api_datasource']->setValues(array($item->getDatasourceId()));
+      $fields['search_api_language']->setValues(array($item->getLanguage()));
+    }
+
+    return $fields;
+  }
+
+  /**
+   * Verifies that the given condition operator is valid for this backend.
+   *
+   * @param string $operator
+   *   The operator in question.
+   *
+   * @throws \Drupal\search_api\SearchApiException
+   *   Thrown if the operator is not known.
+   *
+   * @see \Drupal\search_api\Query\ConditionSetInterface::addCondition()
+   */
+  protected function validateOperator($operator) {
+    switch ($operator) {
+      case '=':
+      case '<>':
+      case '<':
+      case '<=':
+      case '>=':
+      case '>':
+      case 'IN':
+      case 'NOT IN':
+      case 'BETWEEN':
+      case 'NOT BETWEEN':
+        return;
+    }
+    throw new SearchApiException("Unknown operator '$operator' used in search query condition");
   }
 
   /**

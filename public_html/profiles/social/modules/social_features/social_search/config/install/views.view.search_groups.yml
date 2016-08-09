@@ -6,7 +6,6 @@ dependencies:
   module:
     - search_api
     - user
-    - group
 id: search_groups
 label: 'Search Groups'
 module: views

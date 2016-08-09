@@ -1,6 +1,6 @@
 ---SUMMARY---
 
-Admin Toolbar intends to improve the default Drupal Toolbar to transform it into a drop-down menu, providing a fast a full access of all the administration links.
+Admin Toolbar intends to improve the default Drupal Toolbar to transform it into a drop-down menu, providing a fast and full access to all administration links.
 
 For a full description visit project page:
 https://www.drupal.org/project/admin_toolbar

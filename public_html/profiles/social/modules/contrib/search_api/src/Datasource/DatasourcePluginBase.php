@@ -2,7 +2,9 @@
 
 namespace Drupal\search_api\Datasource;
 
+use Drupal\Core\Language\Language;
 use Drupal\Core\TypedData\ComplexDataInterface;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\search_api\Plugin\IndexPluginBase;
 
 /**
@@ -72,6 +74,20 @@ abstract class DatasourcePluginBase extends IndexPluginBase implements Datasourc
   /**
    * {@inheritdoc}
    */
+  public function getItemLanguage(ComplexDataInterface $item) {
+    if ($item instanceof TranslatableInterface) {
+      return $item->language()->getId();
+    }
+    $item = $item->getValue();
+    if ($item instanceof TranslatableInterface) {
+      return $item->language()->getId();
+    }
+    return Language::LANGCODE_NOT_SPECIFIED;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getItemUrl(ComplexDataInterface $item) {
     return NULL;
   }
@@ -121,7 +137,7 @@ abstract class DatasourcePluginBase extends IndexPluginBase implements Datasourc
    * {@inheritdoc}
    */
   public function getItemIds($page = NULL) {
-    return array();
+    return NULL;
   }
 
   /**

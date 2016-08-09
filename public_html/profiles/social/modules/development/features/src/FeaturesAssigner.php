@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesAssigner.
- */
-
 namespace Drupal\features;
 
 use Drupal\Component\Plugin\PluginManagerInterface;

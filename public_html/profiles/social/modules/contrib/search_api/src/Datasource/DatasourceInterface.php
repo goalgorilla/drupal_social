@@ -33,6 +33,9 @@ interface DatasourceInterface extends IndexPluginInterface {
   /**
    * Retrieves the properties exposed by the underlying complex data type.
    *
+   * Property names have to start with a letter or an underscore, followed by
+   * any number of letters, numbers and underscores.
+   *
    * @return \Drupal\Core\TypedData\DataDefinitionInterface[]
    *   An associative array of property data types, keyed by the property name.
    */
@@ -97,6 +100,17 @@ interface DatasourceInterface extends IndexPluginInterface {
    * @see getBundles()
    */
   public function getItemBundle(ComplexDataInterface $item);
+
+  /**
+   * Retrieves the item's language.
+   *
+   * @param \Drupal\Core\TypedData\ComplexDataInterface $item
+   *   An item of this datasource's type.
+   *
+   * @return string
+   *   The language code of this item.
+   */
+  public function getItemLanguage(ComplexDataInterface $item);
 
   /**
    * Retrieves a URL at which the item can be viewed on the web.

@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.message.field_node_reference
-    - message.type.example_create_comment
+    - message.template.example_create_comment
 id: message.example_create_comment.field_node_reference
 field_name: field_node_reference
 entity_type: message

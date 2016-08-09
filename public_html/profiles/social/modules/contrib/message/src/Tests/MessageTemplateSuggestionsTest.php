@@ -36,10 +36,10 @@ class MessageTemplateSuggestionsTest extends MessageTestBase {
    * Tests if template_preprocess_message() generates the correct suggestions.
    */
   public function testMessageThemeHookSuggestions() {
-    $type = 'dummy_message';
+    $template = 'dummy_message';
     // Create message to be rendered.
-    $message_type = $this->createMessageType($type, 'Dummy message', '', ['[message:author:name]']);
-    $message = Message::create(['type' => $message_type->id()])
+    $message_template = $this->createMessageTemplate($template, 'Dummy message', '', ['[message:author:name]']);
+    $message = Message::create(['template' => $message_template->id()])
       ->setOwner($this->user);
 
     $message->save();
@@ -51,7 +51,7 @@ class MessageTemplateSuggestionsTest extends MessageTestBase {
     $variables['elements'] = $build;
     $suggestions = \Drupal::moduleHandler()->invokeAll('theme_suggestions_message', [$variables]);
 
-    $this->assertEqual($suggestions, ['message__full', 'message__' . $type, 'message__' . $type . '__full', 'message__' . $message->id(), 'message__' . $message->id() . '__full'], 'Found expected message suggestions.');
+    $this->assertEqual($suggestions, ['message__full', 'message__' . $template, 'message__' . $template . '__full', 'message__' . $message->id(), 'message__' . $message->id() . '__full'], 'Found expected message suggestions.');
   }
 
 }

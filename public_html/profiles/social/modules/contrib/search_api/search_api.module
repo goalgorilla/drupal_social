@@ -9,10 +9,15 @@ use Drupal\comment\Entity\Comment;
 use Drupal\Core\Config\ConfigImporter;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\search_api\Entity\Index;
+use Drupal\search_api\IndexInterface;
+use Drupal\search_api\Plugin\search_api\datasource\ContentEntityTaskManager;
+use Drupal\search_api\Plugin\search_api\datasource\EntityDatasourceInterface;
 use Drupal\search_api\SearchApiException;
 use Drupal\search_api\Plugin\search_api\datasource\ContentEntity;
+use Drupal\search_api\Task\IndexTaskManager;
 
 /**
  * Implements hook_help().
@@ -20,7 +25,13 @@ use Drupal\search_api\Plugin\search_api\datasource\ContentEntity;
 function search_api_help($route_name) {
   switch ($route_name) {
     case 'search_api.overview':
-      return t('Below is a list of indexes grouped by the server they are associated with. A server is the definition of the actual indexing, querying and storage engine (e.g., an Apache Solr server, the database, …). An index defines the indexed content (e.g., all content and all comments on "Article" posts).');
+      $message = t('Below is a list of indexes grouped by the server they are associated with. A server is the definition of the actual indexing, querying and storage engine (e.g., an Apache Solr server, the database, …). An index defines the indexed content (e.g., all content and all comments on "Article" posts).');
+
+      $search_module_warning = _search_api_search_module_warning();
+      if ($search_module_warning) {
+        $message = "<p>$message</p><p>$search_module_warning</p>";
+      }
+      return $message;
   }
   return NULL;
 }
@@ -28,10 +39,11 @@ function search_api_help($route_name) {
 /**
  * Implements hook_cron().
  *
- * This will first execute any pending server tasks. After that, items will
- * be indexed on all enabled indexes with a non-zero cron limit. Indexing will
- * run for the time set in the cron_worker_runtime config setting (defaulting to
- * 15 seconds), but will at least index one batch of items on each index.
+ * This will first execute pending tasks (if there are any). After that, items
+ * will be indexed on all enabled indexes with a non-zero cron limit. Indexing
+ * will run for the time set in the cron_worker_runtime config setting
+ * (defaulting to 15 seconds), but will at least index one batch of items on
+ * each index.
  */
 function search_api_cron() {
   // Execute pending server tasks.
@@ -50,11 +62,14 @@ function search_api_cron() {
 
   // Add items to the tracking system for all indexes for which this hasn't
   // happened yet.
-  $index_task_manager = \Drupal::getContainer()->get('search_api.index_task_manager');
+  $task_manager = \Drupal::getContainer()->get('search_api.task_manager');
   foreach ($indexes as $index_id => $index) {
-    if (!$index_task_manager->isTrackingComplete($index)) {
-      $index_task_manager->addItemsOnce($index);
-    }
+    $conditions = array(
+      'type' => IndexTaskManager::TRACK_ITEMS_TASK_TYPE,
+      'index_id' => $index_id,
+    );
+    $task_manager->executeSingleTask($conditions);
+
     // Filter out read-only indexes here, since we want to have tracking but not
     // index items for them.
     if ($index->isReadOnly()) {
@@ -94,7 +109,7 @@ function search_api_cron() {
               '@num' => $num,
               '%name' => $index->label(),
             );
-            \Drupal::logger('search_api')->info('Indexed @num items for index %name.', $variables);
+            \Drupal::service('logger.channel.search_api')->info('Indexed @num items for index %name.', $variables);
           }
         }
         catch (SearchApiException $e) {
@@ -254,7 +269,7 @@ function search_api_node_access_records_alter(&$grants, NodeInterface $node) {
     if (!$index->hasValidTracker() || !$index->status()) {
       continue;
     }
-    if (empty($index->getProcessors()['content_access'])) {
+    if (!$index->isValidProcessor('content_access')) {
       continue;
     }
 
@@ -319,4 +334,116 @@ function search_api_theme() {
       'file' => 'search_api.theme.inc',
     ),
   );
+}
+
+/**
+ * Implements hook_search_api_index_update().
+ *
+ * Implemented on behalf of the "entity" datasource plugin.
+ *
+ * @see \Drupal\search_api\Plugin\search_api\datasource\ContentEntity
+ */
+function search_api_search_api_index_update(IndexInterface $index) {
+  if (!$index->status() || empty($index->original)) {
+    return;
+  }
+  /** @var \Drupal\search_api\IndexInterface $original */
+  $original = $index->original;
+  if (!$original->status()) {
+    return;
+  }
+
+  foreach ($index->getDatasources() as $datasource_id => $datasource) {
+    if ($datasource->getBaseId() != 'entity'
+      || !($datasource instanceof EntityDatasourceInterface)
+      || !$original->isValidDatasource($datasource_id)) {
+      continue;
+    }
+    $old_datasource = $original->getDatasource($datasource_id);
+    $old_config = $old_datasource->getConfiguration();
+    $new_config = $datasource->getConfiguration();
+
+    if ($old_config != $new_config) {
+      // Bundles and languages share the same structure, so changes can be
+      // processed in a unified way.
+      $tasks = array();
+      $insert_task = ContentEntityTaskManager::INSERT_ITEMS_TASK_TYPE;
+      $delete_task = ContentEntityTaskManager::DELETE_ITEMS_TASK_TYPE;
+      $settings = array();
+      $entity_type = \Drupal::entityTypeManager()
+        ->getDefinition($datasource->getEntityTypeId());
+      if ($entity_type->hasKey('bundle')) {
+        $settings['bundles'] = $datasource->getBundles();
+      }
+      if ($entity_type->isTranslatable()) {
+        $settings['languages'] = \Drupal::languageManager()->getLanguages();
+      }
+
+      // Determine which bundles/languages have been newly selected or
+      // deselected and then assign them to the appropriate actions depending
+      // on the current "default" setting.
+      foreach ($settings as $setting => $all) {
+        $old_selected = array_flip($old_config[$setting]['selected']);
+        $new_selected = array_flip($new_config[$setting]['selected']);
+
+        // First, check if the "default" setting changed and invert the checked
+        // items for the old config, so the following comparison makes sense.
+        if ($old_config[$setting]['default'] != $new_config[$setting]['default']) {
+          $old_selected = array_diff_key($all, $old_selected);
+        }
+
+        $newly_selected = array_keys(array_diff_key($new_selected, $old_selected));
+        $newly_unselected = array_keys(array_diff_key($old_selected, $new_selected));
+        if ($new_config[$setting]['default']) {
+          $tasks[$insert_task][$setting] = $newly_unselected;
+          $tasks[$delete_task][$setting] = $newly_selected;
+        }
+        else {
+          $tasks[$insert_task][$setting] = $newly_selected;
+          $tasks[$delete_task][$setting] = $newly_unselected;
+        }
+      }
+
+      // This will keep only those tasks where at least one of "bundles" or
+      // "languages" is non-empty.
+      $tasks = array_filter($tasks, 'array_filter');
+      $task_manager = \Drupal::getContainer()
+        ->get('search_api.task_manager');
+      foreach ($tasks as $task => $data) {
+        $data += array(
+          'datasource' => $datasource_id,
+          'page' => 0,
+        );
+        $task_manager->addTask($task, NULL, $index, $data);
+      }
+
+      // If we added any new tasks, set a batch for them. (If we aren't in a
+      // form submission, this will just be ignored.)
+      if ($tasks) {
+        $task_manager->setTasksBatch(array(
+          'index_id' => $index->id(),
+          'type' => array_keys($tasks),
+        ));
+      }
+    }
+  }
+}
+
+/**
+ * Returns a warning message if the Core Search module is enabled.
+ *
+ * @return string|null
+ *   A warning message if needed, NULL otherwise.
+ *
+ * @see search_api_install()
+ * @see search_api_requirements()
+ */
+function _search_api_search_module_warning() {
+  if (Drupal::moduleHandler()->moduleExists('search')) {
+    $args = array(
+      ':url' => Url::fromRoute('system.modules_uninstall')->toString(),
+    );
+    return t('The default Drupal Search module is still enabled. If you are using Search API, you probably want to <a href=":url">uninstall</a> the Search module for performance reasons.', $args);
+  }
+  return NULL;
 }

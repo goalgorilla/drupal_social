@@ -25,7 +25,7 @@ class CacheabilityTest extends WebTestBase {
    */
   public static $modules = array(
     'search_api',
-    'search_api_test_backend',
+    'search_api_test',
     'search_api_test_views',
   );
 

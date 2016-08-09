@@ -91,7 +91,7 @@ class RoleFilterTest extends UnitTestCase {
     $configuration['default'] = 0;
     $this->processor->setConfiguration($configuration);
 
-    $this->processor->preprocessIndexItems($this->items);
+    $this->processor->alterIndexedItems($this->items);
 
     $this->assertTrue(!empty($this->items[Utility::createCombinedId('entity:user', '1:en')]), 'User with two roles was not removed.');
     $this->assertTrue(!empty($this->items[Utility::createCombinedId('entity:user', '2:en')]), 'User with only the authenticated role was not removed.');
@@ -106,7 +106,7 @@ class RoleFilterTest extends UnitTestCase {
     $configuration['default'] = 1;
     $this->processor->setConfiguration($configuration);
 
-    $this->processor->preprocessIndexItems($this->items);
+    $this->processor->alterIndexedItems($this->items);
 
     $this->assertTrue(empty($this->items[Utility::createCombinedId('entity:user', '1:en')]), 'User with editor role was successfully removed.');
     $this->assertTrue(!empty($this->items[Utility::createCombinedId('entity:user', '2:en')]), 'User without the editor role was not removed.');

@@ -10,11 +10,11 @@ namespace Drupal\message\Tests;
 use Drupal\Core\Language\Language;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\message\Entity\Message;
-use Drupal\message\Entity\MessageType;
+use Drupal\message\Entity\MessageTemplate;
 use Drupal\user\Entity\User;
 
 /**
- * Testing the CRUD functionality for the Message type entity.
+ * Testing the CRUD functionality for the Message template entity.
  *
  * @group Message
  */
@@ -37,7 +37,7 @@ class MessageUiTest extends MessageTestBase {
    */
   public function setUp() {
     parent::setUp();
-    $this->account = $this->drupalCreateUser(['administer message types', 'translate configuration']);
+    $this->account = $this->drupalCreateUser(['administer message templates', 'translate configuration']);
   }
 
   /**
@@ -46,15 +46,15 @@ class MessageUiTest extends MessageTestBase {
   public function testMessageTranslate() {
     $this->drupalLogin($this->account);
 
-    // Verifying creation of a message.
+    // Verifying creation of a message template.
     $edit = [
       'label' => 'Dummy message',
-      'type' => 'dummy_message',
+      'template' => 'dummy_message',
       'description' => 'This is a dummy text',
       'text[0][value]' => 'This is a dummy message with some dummy text',
     ];
-    $this->drupalPostForm('admin/structure/message/type/add', $edit, t('Save message type'));
-    $this->assertText('The message type Dummy message created successfully.', 'The message created successfully');
+    $this->drupalPostForm('admin/structure/message/template/add', $edit, t('Save message template'));
+    $this->assertText('The message template Dummy message created successfully.', 'The message created successfully');
     $this->drupalGet('admin/structure/message/manage/dummy_message');
 
     $elements = [
@@ -70,7 +70,7 @@ class MessageUiTest extends MessageTestBase {
       'description' => 'This is a dummy text after editing',
       'text[0][value]' => 'This is a dummy message with some edited dummy text',
     ];
-    $this->drupalPostForm('admin/structure/message/manage/dummy_message', $edit, t('Save message type'));
+    $this->drupalPostForm('admin/structure/message/manage/dummy_message', $edit, t('Save message template'));
 
     $this->drupalGet('admin/structure/message/manage/dummy_message');
 
@@ -86,8 +86,8 @@ class MessageUiTest extends MessageTestBase {
 
     // Change to post form and add text different then the original.
     $edit = [
-      'translation[config_names][message.type.dummy_message][label]' => 'Translated dummy message to Hebrew',
-      'translation[config_names][message.type.dummy_message][description]' => 'This is a dummy text after translation to Hebrew',
+      'translation[config_names][message.template.dummy_message][label]' => 'Translated dummy message to Hebrew',
+      'translation[config_names][message.template.dummy_message][description]' => 'This is a dummy text after translation to Hebrew',
       'text[0][value]' => 'This is a dummy message with translated text to Hebrew',
     ];
     $this->drupalPostForm('admin/structure/message/manage/dummy_message/translate/he/add', $edit, t('Save translation'));
@@ -103,11 +103,11 @@ class MessageUiTest extends MessageTestBase {
     $this->verifyFormElements($elements);
 
     // Load the message via code in hebrew and english and verify the text.
-    $type = 'dummy_message';
-    /* @var $message MessageType */
-    $message = MessageType::load($type);
+    $template = 'dummy_message';
+    /* @var $message MessageTemplate */
+    $message = MessageTemplate::load($template);
     if (empty($message)) {
-      $this->fail('MessageType "' . $type . '" not found.');
+      $this->fail('MessageTemplate "' . $template . '" not found.');
     }
     else {
       $this->assertTrue($message->getText('he') == ['This is a dummy message with translated text to Hebrew'], 'The text in hebrew pulled correctly.');
@@ -115,19 +115,19 @@ class MessageUiTest extends MessageTestBase {
     }
 
     // Delete message via the UI.
-    $this->drupalPostForm('admin/structure/message/delete/' . $type, [], 'Delete');
-    $this->assertText(t('There is no Message type yet.'));
-    $this->assertFalse(MessageType::load($type), 'The message deleted via the UI successfully.');
+    $this->drupalPostForm('admin/structure/message/delete/' . $template, [], 'Delete');
+    $this->assertText(t('There is no Message template yet.'));
+    $this->assertFalse(MessageTemplate::load($template), 'The message deleted via the UI successfully.');
   }
 
   /**
    * Test that message render returns message text wrapped in a div.
    */
   public function testMessageTextWrapper() {
-    $type = 'dummy_message';
+    $template = 'dummy_message';
     // Create message to be rendered.
-    $message_type = $this->createMessageType($type, 'Dummy message', '', ['Text to be wrapped by div.']);
-    $message = Message::create(['type' => $message_type->id()])
+    $message_template = $this->createMessageTemplate($template, 'Dummy message', '', ['Text to be wrapped by div.']);
+    $message = Message::create(['template' => $message_template->id()])
       ->setOwner($this->account);
 
     $message->save();

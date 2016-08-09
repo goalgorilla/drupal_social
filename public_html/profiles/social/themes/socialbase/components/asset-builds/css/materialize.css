@@ -4635,10 +4635,6 @@ hr.ruler-l {
   margin-left: -1rem;
 }
 
-.navbar > .container .navbar-brand object {
-  pointer-events: none;
-}
-
 .navbar-footer .navbar-brand {
   color: white;
   width: 100%;
@@ -4689,9 +4685,19 @@ hr.ruler-l {
 .navbar-default .navbar-brand,
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
-  background-color: #29abe2;
-  padding: 10px 15px;
-  width: 60px;
+  width: auto;
+  padding: 0;
+  max-width: 200px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.navbar-default .navbar-brand img,
+.navbar-default .navbar-brand:focus img,
+.navbar-default .navbar-brand:hover img {
+  pointer-events: none;
+  width: auto;
+  height: 50px;
 }
 
 .navbar-default .navbar-nav > li > a:focus,
@@ -4745,6 +4751,7 @@ hr.ruler-l {
   left: 30px;
   background-color: #ffc142;
   color: #4d4d4d;
+  border-radius: 50%;
 }
 
 .navbar-form[role='search'] {
@@ -5447,6 +5454,7 @@ a.list-group-item {
 
 .label {
   font-weight: 300;
+  border-radius: 0.25em;
 }
 
 .badge + .label {

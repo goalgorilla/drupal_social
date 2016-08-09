@@ -98,6 +98,6 @@ details .messages {
  * Miscellaneous
  */
 .search-api-checkboxes-list div {
-  max-height: 12em;
+  max-height: 30em;
   overflow: auto;
 }
