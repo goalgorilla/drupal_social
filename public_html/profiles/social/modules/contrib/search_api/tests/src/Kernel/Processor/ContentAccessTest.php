@@ -6,10 +6,11 @@ use Drupal\comment\Entity\Comment;
 use Drupal\comment\Entity\CommentType;
 use Drupal\comment\Tests\CommentTestTrait;
 use Drupal\Core\Database\Database;
+use Drupal\Core\TypedData\DataDefinitionInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\search_api\Utility;
+use Drupal\Tests\search_api\Kernel\ResultsTrait;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
 
@@ -23,6 +24,7 @@ use Drupal\user\Entity\User;
 class ContentAccessTest extends ProcessorTestBase {
 
   use CommentTestTrait;
+  use ResultsTrait;
 
   /**
    * The nodes created for testing.
@@ -43,10 +45,6 @@ class ContentAccessTest extends ProcessorTestBase {
    */
   public function setUp($processor = NULL) {
     parent::setUp('content_access');
-
-    // The parent method already installs most needed node and comment schemas,
-    // but here we also need the comment statistics.
-    $this->installSchema('comment', array('comment_entity_statistics'));
 
     // Create a node type for testing.
     $type = NodeType::create(array('type' => 'page', 'name' => 'page'));
@@ -112,11 +110,11 @@ class ContentAccessTest extends ProcessorTestBase {
     $this->nodes[2]->save();
 
     // Also index users, to verify that they are unaffected by the processor.
-    $manager = \Drupal::getContainer()
-      ->get('plugin.manager.search_api.datasource');
-    $datasources['entity:comment'] = $manager->createInstance('entity:comment', array('index' => $this->index));
-    $datasources['entity:node'] = $manager->createInstance('entity:node', array('index' => $this->index));
-    $datasources['entity:user'] = $manager->createInstance('entity:user', array('index' => $this->index));
+    $datasources = $this->index->createPlugins('datasource', array(
+      'entity:comment',
+      'entity:node',
+      'entity:user',
+    ));
     $this->index->setDatasources($datasources);
     $this->index->save();
 
@@ -243,10 +241,13 @@ class ContentAccessTest extends ProcessorTestBase {
     }
     $items = $this->generateItems($items);
 
-    $this->processor->preprocessIndexItems($items);
+    // Add the processor's field values to the items.
+    foreach ($items as $item) {
+      $this->processor->addFieldValues($item);
+    }
 
     foreach ($items as $item) {
-      $this->assertEquals(array('node_access__all'), $item->getField('search_api_node_grants')->getValues());
+      $this->assertEquals(array('node_access__all'), $item->getField('node_grants')->getValues());
     }
   }
 
@@ -265,10 +266,13 @@ class ContentAccessTest extends ProcessorTestBase {
     }
     $items = $this->generateItems($items);
 
-    $this->processor->preprocessIndexItems($items);
+    // Add the processor's field values to the items.
+    foreach ($items as $item) {
+      $this->processor->addFieldValues($item);
+    }
 
     foreach ($items as $item) {
-      $this->assertEquals(array('node_access_search_api_test:0'), $item->getField('search_api_node_grants')->getValues());
+      $this->assertEquals(array('node_access_search_api_test:0'), $item->getField('node_grants')->getValues());
     }
   }
 
@@ -296,34 +300,18 @@ class ContentAccessTest extends ProcessorTestBase {
   }
 
   /**
-   * Asserts that the search results contain the expected IDs.
-   *
-   * @param ResultSetInterface $result
-   *   The search results.
-   * @param int[][] $expected
-   *   The expected entity IDs, grouped by entity type and with their indexes in
-   *   this object's respective array properties as the values.
+   * Tests whether the property is correctly added by the processor.
    */
-  protected function assertResults(ResultSetInterface $result, array $expected) {
-    $results = array_keys($result->getResultItems());
-    sort($results);
+  public function testAlterPropertyDefinitions() {
+    // Check for added properties when no datasource is given.
+    $properties = $this->processor->getPropertyDefinitions(NULL);
+    $this->assertTrue(array_key_exists('search_api_node_grants', $properties), 'The Properties where modified with the "search_api_node_grants".');
+    $this->assertTrue(($properties['search_api_node_grants'] instanceof DataDefinitionInterface), 'The "search_api_node_grants" key contains a valid DataDefinition instance.');
+    $this->assertEquals('string', $properties['search_api_node_grants']->getDataType(), 'Correct DataType set in the DataDefinition.');
 
-    $ids = array();
-    foreach ($expected as $entity_type => $items) {
-      $datasource_id = "entity:$entity_type";
-      foreach ($items as $i) {
-        if ($entity_type == 'user') {
-          $id = $i . ':en';
-        }
-        else {
-          $id = $this->{"{$entity_type}s"}[$i]->id() . ':en';
-        }
-        $ids[] = Utility::createCombinedId($datasource_id, $id);
-      }
-    }
-    sort($ids);
-
-    $this->assertEquals($ids, $results);
+    // Verify that there are no properties if a datasource is given.
+    $properties = $this->processor->getPropertyDefinitions($this->index->getDatasource('entity:node'));
+    $this->assertEquals(array(), $properties, '"search_api_node_grants" property not added when data source is given.');
   }
 
   /**

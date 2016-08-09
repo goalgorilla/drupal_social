@@ -117,7 +117,7 @@ class FeaturesUIController implements ContainerInjectionInterface {
 
     // Add any existing auto-detected items already in the package config
     $this->package = $packages[$package_name];
-    $package_config = $this->package->getConfig();
+    $package_config = isset($this->package) ? $this->package->getConfig() : array();
     $package_config = !empty($package_config) ? array_unique(array_merge($package_config, $item_names)) : $item_names;
     foreach ($package_config as $config_name) {
       if (!$config_collection[$config_name]->getPackageExcluded()) {

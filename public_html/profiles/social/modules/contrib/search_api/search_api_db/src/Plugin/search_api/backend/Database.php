@@ -2,7 +2,6 @@
 
 namespace Drupal\search_api_db\Plugin\search_api\backend;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -13,7 +12,8 @@ use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextToken;
+use Psr\Log\LoggerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Render\Element;
 use Drupal\search_api\Backend\BackendPluginBase;
@@ -89,7 +89,7 @@ class Database extends BackendPluginBase {
   /**
    * The logger to use for logging messages.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface|null
+   * @var \Psr\Log\LoggerInterface|null
    */
   protected $logger;
 
@@ -167,8 +167,8 @@ class Database extends BackendPluginBase {
     $data_type_plugin_manager = $container->get('plugin.manager.search_api.data_type');
     $backend->setDataTypePluginManager($data_type_plugin_manager);
 
-    /** @var \Drupal\Core\Logger\LoggerChannelInterface $logger */
-    $logger = $container->get('logger.factory')->get('search_api_db');
+    /** @var \Psr\Log\LoggerInterface $logger */
+    $logger = $container->get('logger.channel.search_api_db');
     $backend->setLogger($logger);
 
     /** @var \Drupal\Core\KeyValueStore\KeyValueFactoryInterface $keyvalue_factory */
@@ -275,22 +275,22 @@ class Database extends BackendPluginBase {
   /**
    * Retrieves the logger to use.
    *
-   * @return \Drupal\Core\Logger\LoggerChannelInterface
+   * @return \Psr\Log\LoggerInterface
    *   The logger to use.
    */
   public function getLogger() {
-    return $this->logger ?: \Drupal::service('logger.factory')->get('search_api_db');
+    return $this->logger ?: \Drupal::service('logger.channel.search_api_db');
   }
 
   /**
    * Sets the logger to use.
    *
-   * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
+   * @param \Psr\Log\LoggerInterface $logger
    *   The logger to use.
    *
    * @return $this
    */
-  public function setLogger(LoggerChannelInterface $logger) {
+  public function setLogger(LoggerInterface $logger) {
     $this->logger = $logger;
     return $this;
   }
@@ -565,11 +565,6 @@ class Database extends BackendPluginBase {
       $db_info['field_tables'] = array();
       $db_info['index_table'] = $index_table;
       $this->getKeyValueStore()->set($index->id(), $db_info);
-
-      // If there are no fields, we are done now.
-      if (!$index->getFields()) {
-        return;
-      }
     }
     // The database operations might throw PDO or other exceptions, so we catch
     // them all and re-wrap them appropriately.
@@ -681,8 +676,9 @@ class Database extends BackendPluginBase {
    *   (optional) The type of table being created. Either "index" (for the
    *   denormalized table for an entire index) or "field" (for field-specific
    *   tables).
+   *
+   * @todo Write a test to ensure a field named "value" doesn't break this.
    */
-  // @todo Write a test to ensure a field named "value" doesn't break this.
   protected function createFieldTable(FieldInterface $field = NULL, $db, $type = 'field') {
     $new_table = !$this->database->schema()->tableExists($db['table']);
     if ($new_table) {
@@ -692,7 +688,7 @@ class Database extends BackendPluginBase {
         'fields' => array(
           'item_id' => array(
             'type' => 'varchar',
-            'length' => 50,
+            'length' => 150,
             'description' => 'The primary identifier of the item',
             'not null' => TRUE,
           ),
@@ -737,12 +733,11 @@ class Database extends BackendPluginBase {
     //
     // In SQLite, indexes and tables can't have the same name, which is
     // the case for Search API DB. We have following situation:
-    // - a table named search_api_db_default_index_search_api_language
+    // - a table named search_api_db_default_index_title
     // - a table named search_api_db_default_index
     //
-    // The last table has an index on the search_api_language column,
-    // which results in an index with the same as the first table, which
-    // conflicts in SQLite.
+    // The last table has an index on the title column, which results in an
+    // index with the same as the first table, which conflicts in SQLite.
     //
     // The core issue addressing this (https://www.drupal.org/node/1008128) was
     // closed as it fixed the PostgresSQL part. The SQLite fix is added in
@@ -807,7 +802,7 @@ class Database extends BackendPluginBase {
         return array('type' => 'int', 'size' => 'tiny');
 
       default:
-        throw new SearchApiException(new FormattableMarkup('Unknown field type @type. Database search module might be out of sync with Search API.', array('@type' => $type)));
+        throw new SearchApiException("Unknown field type '$type'.");
     }
   }
 
@@ -829,6 +824,7 @@ class Database extends BackendPluginBase {
       $db_info = $this->getIndexDbInfo($index);
       $fields = &$db_info['field_tables'];
       $new_fields = $index->getFields();
+      $new_fields += $this->getSpecialFields($index);
 
       $reindex = FALSE;
       $cleared = FALSE;
@@ -889,7 +885,7 @@ class Database extends BackendPluginBase {
 
         // Make sure the table and column now exist. (Especially important when
         // we actually add the index for the first time.)
-        $storage_exists = $this->database->schema()
+        $storage_exists = empty($field['table']) || $this->database->schema()
           ->fieldExists($field['table'], 'value');
         $denormalized_storage_exists = $this->database->schema()
           ->fieldExists($denormalized_table, $field['column']);
@@ -944,7 +940,7 @@ class Database extends BackendPluginBase {
           'fields' => array(
             'item_id' => array(
               'type' => 'varchar',
-              'length' => 50,
+              'length' => 150,
               'description' => 'The primary identifier of the item',
               'not null' => TRUE,
             ),
@@ -1062,7 +1058,8 @@ class Database extends BackendPluginBase {
    */
   public function indexItems(IndexInterface $index, array $items) {
     if (!$this->getIndexDbInfo($index)) {
-      throw new SearchApiException(new FormattableMarkup('No field settings for index with id @id.', array('@id' => $index->id())));
+      $index_id = $index->id();
+      throw new SearchApiException("No field settings saved for index with ID '$index_id'.");
     }
     $indexed = array();
     foreach ($items as $id => $item) {
@@ -1110,7 +1107,9 @@ class Database extends BackendPluginBase {
 
       $denormalized_values = array();
       $text_inserts = array();
-      foreach ($item->getFields() as $field_id => $field) {
+      $item_fields = $item->getFields();
+      $item_fields += $this->getSpecialFields($index, $item);
+      foreach ($item_fields as $field_id => $field) {
         // Sometimes index changes are not triggering the update hooks
         // correctly. Therefore, to avoid DB errors, we re-check the tables
         // here before indexing.
@@ -1141,7 +1140,7 @@ class Database extends BackendPluginBase {
         foreach ($field->getValues() as $field_value) {
           $converted_value = $this->convert($field_value, $type, $field->getOriginalType(), $index);
 
-          // Don't add NULL values to the return array. Also, adding an empty
+          // Don't add NULL values to the array of values. Also, adding an empty
           // array is, of course, a waste of time.
           if (isset($converted_value) && $converted_value !== array()) {
             $values = array_merge($values, is_array($converted_value) ? $converted_value : array($converted_value));
@@ -1162,7 +1161,7 @@ class Database extends BackendPluginBase {
           $db_info['field_tables'][$field_id]['multi-valued'] = TRUE;
         }
 
-        if (Utility::isTextType($type, array('text', 'tokenized_text'))) {
+        if (Utility::isTextType($type)) {
           // Remember the text table the first time we encounter it.
           if (!isset($text_table)) {
             $text_table = $table;
@@ -1170,13 +1169,14 @@ class Database extends BackendPluginBase {
 
           $unique_tokens = array();
           $denormalized_value = '';
+          /** @var \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface $token */
           foreach ($values as $token) {
-            $word = $token['value'];
-            $score = $token['score'];
+            $word = $token->getText();
+            $score = $token->getBoost();
 
             // Store the first 30 characters of the string as the denormalized
             // value.
-            if (strlen($denormalized_value) < 30) {
+            if (Unicode::strlen($denormalized_value) < 30) {
               $denormalized_value .= $word . ' ';
             }
 
@@ -1208,7 +1208,7 @@ class Database extends BackendPluginBase {
               $unique_tokens[$word_base_form]['score'] += $score;
             }
           }
-          $denormalized_values[$column] = Unicode::truncateBytes(trim($denormalized_value), 30);
+          $denormalized_values[$column] = Unicode::substr(trim($denormalized_value), 0, 30);
           if ($unique_tokens) {
             $field_name = self::getTextFieldName($field_id);
             $boost = $field_info['boost'];
@@ -1313,68 +1313,54 @@ class Database extends BackendPluginBase {
   protected function convert($value, $type, $original_type, IndexInterface $index) {
     if (!isset($value)) {
       // For text fields, we have to return an array even if the value is NULL.
-      return Utility::isTextType($type, array('text', 'tokenized_text')) ? array() : NULL;
+      return Utility::isTextType($type) ? array() : NULL;
     }
     switch ($type) {
       case 'text':
-        // For dates, splitting the timestamp makes no sense.
-        if ($original_type == 'date') {
-          $value = $this->getDateFormatter()->format($value, 'custom', 'Y y F M n m j d l D');
-        }
-        $ret = array();
-        foreach (preg_split('/[^\p{L}\p{N}]+/u', $value, -1, PREG_SPLIT_NO_EMPTY) as $v) {
-          if ($v) {
-            if (strlen($v) > 50) {
-              $this->getLogger()->warning('An overlong word (more than 50 characters) was encountered while indexing: %word.<br />Database search servers currently cannot index such words correctly – the word was therefore trimmed to the allowed length. Ensure you are using a tokenizer preprocessor.', array('%word' => $v));
-              $v = Unicode::truncateBytes($v, 50);
-            }
-            $ret[] = array(
-              'value' => $v,
-              'score' => 1,
-            );
+        /** @var \Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface $value */
+        $tokens = $value->getTokens();
+        if ($tokens === NULL) {
+          $tokens = array();
+          $text = $value->getText();
+          // For dates, splitting the timestamp makes no sense.
+          if ($original_type == 'date') {
+            $text = $this->getDateFormatter()
+              ->format($text, 'custom', 'Y y F M n m j d l D');
           }
-        }
-        // This used to fall through the tokenized case.
-        return $ret;
-
-      case 'tokenized_text':
-        while (TRUE) {
-          foreach ($value as $i => $v) {
-            // Check for over-long tokens.
-            $score = $v['score'];
-            $v = $v['value'];
-            if (strlen($v) > 50) {
-              $words = preg_split('/[^\p{L}\p{N}]+/u', $v, -1, PREG_SPLIT_NO_EMPTY);
-              if (count($words) > 1 && max(array_map('strlen', $words)) <= 50) {
-                // Overlong token is due to bad tokenizing.
-                // Check for "Tokenizer" preprocessor on index.
-                if (empty($index->getProcessors()['tokenizer'])) {
-                  $this->getLogger()->warning('An overlong word (more than 50 characters) was encountered while indexing, due to bad tokenizing. It is recommended to enable the "Tokenizer" preprocessor for indexes using database servers. Otherwise, the backend class has to use its own, fixed tokenizing.');
-                }
-                else {
-                  $this->getLogger()->warning('An overlong word (more than 50 characters) was encountered while indexing, due to bad tokenizing. Please check your settings for the "Tokenizer" preprocessor to ensure that data is tokenized correctly.');
-                }
+          foreach (static::splitIntoWords($text) as $word) {
+            if ($word) {
+              if (Unicode::strlen($word) > 50) {
+                $this->getLogger()->warning('An overlong word (more than 50 characters) was encountered while indexing: %word.<br />Since database search servers currently cannot index words of more than 50 characters, the word was truncated for indexing. If this should not be a single word, please make sure the "Tokenizer" processor is enabled and configured correctly for index %index.', array('%word' => $word, '%index' => $index->label()));
+                $word = Unicode::substr($word, 0, 50);
               }
-
-              $tokens = array();
-              foreach ($words as $word) {
-                if (strlen($word) > 50) {
-                  $this->getLogger()->warning('An overlong word (more than 50 characters) was encountered while indexing: %word.<br />Database search servers currently cannot index such words correctly – the word was therefore trimmed to the allowed length.', array('%word' => $word));
-                  $word = Unicode::truncateBytes($word, 50);
-                }
-                $tokens[] = array(
-                  'value' => $word,
-                  'score' => $score,
-                );
-              }
-              array_splice($value, $i, 1, $tokens);
-              // Restart the loop looking through all the tokens.
-              continue 2;
+              $tokens[] = new TextToken($word);
             }
           }
-          break;
         }
-        return $value;
+        else {
+          while (TRUE) {
+            foreach ($tokens as $i => $token) {
+              // Check for over-long tokens.
+              $score = $token->getBoost();
+              $word = $token->getText();
+              if (Unicode::strlen($word) > 50) {
+                $new_tokens = array();
+                foreach (static::splitIntoWords($word) as $word) {
+                  if (Unicode::strlen($word) > 50) {
+                    $this->getLogger()->warning('An overlong word (more than 50 characters) was encountered while indexing: %word.<br />Since database search servers currently cannot index words of more than 50 characters, the word was truncated for indexing. If this should not be a single word, please make sure the "Tokenizer" processor is enabled and configured correctly for index %index.', array('%word' => $word, '%index' => $index->label()));
+                    $word = Unicode::substr($word, 0, 50);
+                  }
+                  $new_tokens[] = new TextToken($word, $score);
+                }
+                array_splice($tokens, $i, 1, $new_tokens);
+                // Restart the loop looking through all the tokens.
+                continue 2;
+              }
+            }
+            break;
+          }
+        }
+        return $tokens;
 
       case 'string':
       case 'uri':
@@ -1382,8 +1368,8 @@ class Database extends BackendPluginBase {
         if ($original_type == 'date') {
           return date('c', $value);
         }
-        if (strlen($value) > 255) {
-          $value = Unicode::truncateBytes($value, 255);
+        if (Unicode::strlen($value) > 255) {
+          $value = Unicode::substr($value, 0, 255);
           $this->getLogger()->warning('An overlong value (more than 255 characters) was encountered while indexing: %value.<br />Database search servers currently cannot index such values correctly – the value was therefore trimmed to the allowed length.', array('%value' => $value));
         }
         return $value;
@@ -1403,8 +1389,23 @@ class Database extends BackendPluginBase {
         return strtotime($value);
 
       default:
-        throw new SearchApiException(new FormattableMarkup('Unknown field type @type. Database search module might be out of sync with Search API.', array('@type' => $type)));
+        throw new SearchApiException("Unknown field type '$type'.");
     }
+  }
+
+  /**
+   * Splits the given string into words.
+   *
+   * Word characters as seen by this method are only alphanumerics.
+   *
+   * @param string $text
+   *   The string to split.
+   *
+   * @return string[]
+   *   All groups of alphanumeric characters contained in the string.
+   */
+  protected static function splitIntoWords($text) {
+    return preg_split('/[^\p{L}\p{N}]+/u', $text, -1, PREG_SPLIT_NO_EMPTY);
   }
 
   /**
@@ -1437,17 +1438,37 @@ class Database extends BackendPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function deleteAllIndexItems(IndexInterface $index) {
+  public function deleteAllIndexItems(IndexInterface $index, $datasource_id = NULL) {
     try {
       $db_info = $this->getIndexDbInfo($index);
+      $datasource_field = $db_info['field_tables']['search_api_datasource']['column'];
 
       foreach ($db_info['field_tables'] as $field_id => $field) {
-        $this->database->truncate($field['table'])->execute();
-        unset($db_info['field_tables'][$field_id]['multi-valued']);
+        if (!$datasource_id) {
+          $this->database->truncate($field['table'])->execute();
+          unset($db_info['field_tables'][$field_id]['multi-valued']);
+        }
+        else {
+          if (!isset($query)) {
+            $query = $this->database->select($db_info['index_table'], 't')
+              ->fields('t', array('item_id'))
+              ->condition($datasource_field, $datasource_id);
+          }
+          $this->database->delete($field['table'])
+            ->condition('item_id', clone $query, 'IN')
+            ->execute();
+        }
       }
-      $this->getKeyValueStore()->set($index->id(), $db_info);
 
-      $this->database->truncate($db_info['index_table'])->execute();
+      if (!$datasource_id) {
+        $this->getKeyValueStore()->set($index->id(), $db_info);
+        $this->database->truncate($db_info['index_table'])->execute();
+      }
+      else {
+        $this->database->delete($db_info['index_table'])
+          ->condition($datasource_field, $datasource_id)
+          ->execute();
+      }
     }
     catch (\Exception $e) {
       // The database operations might throw PDO or other exceptions, so we
@@ -1465,13 +1486,17 @@ class Database extends BackendPluginBase {
     $db_info = $this->getIndexDbInfo($index);
 
     if (!isset($db_info['field_tables'])) {
-      throw new SearchApiException(new FormattableMarkup('Unknown index @id.', array('@id' => $index->id())));
+      $index_id = $index->id();
+      throw new SearchApiException("No field settings saved for index with ID '$index_id'.");
     }
     $fields = $this->getFieldInfo($index);
+    $fields['search_api_id'] = array(
+      'column' => 'item_id',
+    );
 
     $db_query = $this->createDbQuery($query, $fields);
 
-    $results = Utility::createSearchResultSet($query);
+    $results = $query->getResults();
 
     $skip_count = $query->getOption('skip result count');
     if (!$skip_count) {
@@ -1493,6 +1518,7 @@ class Database extends BackendPluginBase {
 
       $sort = $query->getSorts();
       if ($sort) {
+        $db_fields = $db_query->getFields();
         foreach ($sort as $field_name => $order) {
           if ($order != QueryInterface::SORT_ASC && $order != QueryInterface::SORT_DESC) {
             $msg = $this->t('Unknown sort order @order. Assuming "@default".', array('@order' => $order, '@default' => QueryInterface::SORT_ASC));
@@ -1503,13 +1529,9 @@ class Database extends BackendPluginBase {
             $db_query->orderBy('score', $order);
             continue;
           }
-          if ($field_name == 'search_api_id') {
-            $db_query->orderBy('item_id', $order);
-            continue;
-          }
 
           if (!isset($fields[$field_name])) {
-            throw new SearchApiException(new FormattableMarkup('Trying to sort on unknown field @field.', array('@field' => $field_name)));
+            throw new SearchApiException("Trying to sort on unknown field '$field_name'.");
           }
           $alias = $this->getTableAlias(array('table' => $db_info['index_table']), $db_query);
           $db_query->orderBy($alias . '.' . $fields[$field_name]['column'], $order);
@@ -1521,6 +1543,13 @@ class Database extends BackendPluginBase {
           // GROUP BY.
           if ($db_query->getGroupBy()) {
             $db_query->groupBy($alias . '.' . $fields[$field_name]['column']);
+          }
+          // For SELECT DISTINCT queries in combination with an ORDER BY clause,
+          // MySQL 5.7 and higher require that the ORDER BY expressions are part
+          // of the field list. Ensure that all fields used for sorting are part
+          // of the select list.
+          if (empty($db_fields[$fields[$field_name]['column']])) {
+            $db_query->addField($alias, $fields[$field_name]['column']);
           }
         }
       }
@@ -1540,10 +1569,16 @@ class Database extends BackendPluginBase {
       }
     }
 
-    $results->setWarnings(array_keys($this->warnings));
-    $results->setIgnoredSearchKeys(array_keys($this->ignored));
-
-    return $results;
+    // Add additional warnings and ignored keys.
+    $metadata = array(
+      'warnings' => 'addWarning',
+      'ignored' => 'addIgnoredSearchKey',
+    );
+    foreach ($metadata as $property => $method) {
+      foreach (array_keys($this->$property) as $value) {
+        $results->$method($value);
+      }
+    }
   }
 
   /**
@@ -1586,12 +1621,12 @@ class Database extends BackendPluginBase {
         $fulltext_field_information = array();
         foreach ($fulltext_fields as $name) {
           if (!isset($fields[$name])) {
-            throw new SearchApiException(new FormattableMarkup('Unknown field @field specified as search target.', array('@field' => $name)));
+            throw new SearchApiException("Unknown field '$name' specified as search target.");
           }
           if (!Utility::isTextType($fields[$name]['type'])) {
             $types = $this->getDataTypePluginManager()->getInstances();
             $type = $types[$fields[$name]['type']]->label();
-            throw new SearchApiException(new FormattableMarkup('Cannot perform fulltext search on field @field of type @type.', array('@field' => $name, '@type' => $type)));
+            throw new SearchApiException("Cannot perform fulltext search on field '$name' of type '$type'.");
           }
           $fulltext_field_information[$name] = $fields[$name];
         }
@@ -1618,6 +1653,7 @@ class Database extends BackendPluginBase {
     }
 
     $condition_group = $query->getConditionGroup();
+    $this->addLanguageConditions($condition_group, $query);
     if ($condition_group->getConditions()) {
       $condition = $this->createDbCondition($condition_group, $fields, $db_query, $query->getIndex());
       if ($condition) {
@@ -1702,7 +1738,7 @@ class Database extends BackendPluginBase {
         $this->ignored[$keys] = 1;
         return NULL;
       }
-      $words = preg_split('/[^\p{L}\p{N}]+/u', $processed_keys, -1, PREG_SPLIT_NO_EMPTY);
+      $words = static::splitIntoWords($processed_keys);
       if (count($words) > 1) {
         $processed_keys = $this->splitKeys($words);
         if ($processed_keys) {
@@ -1763,8 +1799,8 @@ class Database extends BackendPluginBase {
    *
    * @param string|array $keys
    *   The search keys, formatted like the return value of
-   *   \Drupal\search_api\Query\QueryInterface::getKeys(), but preprocessed
-   *   according to internal requirements.
+   *   \Drupal\search_api\ParseMode\ParseModeInterface::parseInput(), but
+   *   preprocessed according to internal requirements.
    * @param array $fields
    *   The fulltext fields on which to search, with their names as keys mapped
    *   to internal information about them.
@@ -1859,7 +1895,8 @@ class Database extends BackendPluginBase {
           // multiple keywords. We also remember the column name so we can
           // afterwards verify that each word matched at least once.
           $alias = 'w' . $i;
-          $alias = $db_query->addExpression("t.word LIKE '%" . $this->database->escapeLike($word) . "%'", $alias);
+          $like = '%' . $this->database->escapeLike($word) . '%';
+          $alias = $db_query->addExpression("CASE WHEN t.word LIKE :like_$alias THEN 1 ELSE 0 END", $alias, array(":like_$alias" => $like));
           $db_query->groupBy($alias);
           $keyword_hits[] = $alias;
         }
@@ -1977,6 +2014,23 @@ class Database extends BackendPluginBase {
   }
 
   /**
+   * Adds item language conditions to the condition group, if applicable.
+   *
+   * @param \Drupal\search_api\Query\ConditionGroupInterface $condition_group
+   *   The condition group on which to set conditions.
+   * @param \Drupal\search_api\Query\QueryInterface $query
+   *   The query to inspect for language settings.
+   *
+   * @see \Drupal\search_api\Query\QueryInterface::getLanguages()
+   */
+  protected function addLanguageConditions(ConditionGroupInterface $condition_group, QueryInterface $query) {
+    $languages = $query->getLanguages();
+    if ($languages !== NULL) {
+      $condition_group->addCondition('search_api_language', $languages, 'IN');
+    }
+  }
+
+  /**
    * Creates a database query condition for a given search filter.
    *
    * Used as a helper method in createDbQuery().
@@ -1994,7 +2048,8 @@ class Database extends BackendPluginBase {
    *   The condition to set on the query, or NULL if none is necessary.
    *
    * @throws \Drupal\search_api\SearchApiException
-   *   Thrown if an unknown field was used in the filter.
+   *   Thrown if an unknown field or operator was used in one of the contained
+   *   conditions.
    */
   protected function createDbCondition(ConditionGroupInterface $conditions, array $fields, SelectInterface $db_query, IndexInterface $index) {
     $conjunction = $conditions->getConjunction();
@@ -2015,25 +2070,13 @@ class Database extends BackendPluginBase {
         $field = $condition->getField();
         $operator = $condition->getOperator();
         $value = $condition->getValue();
-        $not_equals = in_array($operator, array('<>', '!=', 'NOT IN'));
+        $this->validateOperator($operator);
+        $not_equals_operators = array('<>', 'NOT IN', 'NOT BETWEEN');
+        $not_equals = in_array($operator, $not_equals_operators);
+        $not_between = $operator == 'NOT BETWEEN';
 
-        // We don't index the datasource explicitly, so this needs a bit of
-        // magic.
-        // @todo Index the datasource explicitly so this doesn't need magic.
-        if ($field === 'search_api_datasource') {
-          if (empty($tables[NULL])) {
-            $table = array(
-              'table' => $db_info['index_table'],
-            );
-            $tables[NULL] = $this->getTableAlias($table, $db_query);
-          }
-          $operator = $not_equals ? 'NOT LIKE' : 'LIKE';
-          $prefix = Utility::createCombinedId($value, '');
-          $db_condition->condition($tables[NULL] . '.item_id', $this->database->escapeLike($prefix) . '%', $operator);
-          continue;
-        }
         if (!isset($fields[$field])) {
-          throw new SearchApiException(new FormattableMarkup('Unknown field in filter clause: @field.', array('@field' => $field)));
+          throw new SearchApiException("Unknown field in filter clause: '$field'.");
         }
         $field_info = $fields[$field];
         // For NULL values, we can just use the single-values table, since we
@@ -2047,6 +2090,13 @@ class Database extends BackendPluginBase {
           if ($value === NULL) {
             $method = $not_equals ? 'isNotNull' : 'isNull';
             $db_condition->$method($column);
+          }
+          elseif ($not_between) {
+            $nested_condition = new Condition('OR');
+            $nested_condition->condition($column, $value[0], '<');
+            $nested_condition->condition($column, $value[1], '>');
+            $nested_condition->isNull($column);
+            $db_condition->condition($nested_condition);
           }
           else {
             $db_condition->condition($column, $value, $operator);
@@ -2071,9 +2121,17 @@ class Database extends BackendPluginBase {
           // this condition. Probably the most performant way to do this is to
           // do a LEFT JOIN with a positive filter on the excluded values in the
           // ON clause and then make sure we have no value for the field.
-          $wildcard = ':values_' . ++$wildcard_count . '[]';
-          $arguments = array($wildcard => (array) $value);
-          $additional_on = "%alias.value IN ($wildcard)";
+          if ($not_between) {
+            $wildcard1 = ':values_' . ++$wildcard_count;
+            $wildcard2 = ':values_' . ++$wildcard_count;
+            $arguments = array_combine(array($wildcard1, $wildcard2), $value);
+            $additional_on = "%alias.value BETWEEN $wildcard1 AND $wildcard2";
+          }
+          else {
+            $wildcard = ':values_' . ++$wildcard_count . '[]';
+            $arguments = array($wildcard => (array) $value);
+            $additional_on = "%alias.value IN ($wildcard)";
+          }
           $alias = $this->getTableAlias($field_info, $db_query, TRUE, 'leftJoin', $additional_on, $arguments);
           $db_condition->isNull($alias . '.value');
         }
@@ -2308,7 +2366,8 @@ class Database extends BackendPluginBase {
     $index = $query->getIndex();
     $db_info = $this->getIndexDbInfo($index);
     if (empty($db_info['field_tables'])) {
-      throw new SearchApiException(new FormattableMarkup('Unknown index @id.', array('@id' => $index->id())));
+      $index_id = $index->id();
+      throw new SearchApiException("No field settings saved for index with ID '$index_id'.");
     }
     $fields = $this->getFieldInfo($index);
 
@@ -2341,7 +2400,7 @@ class Database extends BackendPluginBase {
 
     // Also collect all keywords already contained in the query so we don't
     // suggest them.
-    $keys = preg_split('/[^\p{L}\p{N}]+/u', $user_input, -1, PREG_SPLIT_NO_EMPTY);
+    $keys = static::splitIntoWords($user_input);
     $keys = array_combine($keys, $keys);
     if ($incomplete_key) {
       $keys[$incomplete_key] = $incomplete_key;
@@ -2432,6 +2491,15 @@ class Database extends BackendPluginBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  protected function getSpecialFields(IndexInterface $index, ItemInterface $item = NULL) {
+    $fields = parent::getSpecialFields($index, $item);
+    unset($fields['search_api_id']);
+    return $fields;
+  }
+
+  /**
    * Retrieves the internal field information.
    *
    * @param \Drupal\search_api\IndexInterface $index
@@ -2487,7 +2555,6 @@ class Database extends BackendPluginBase {
       list($key, $target) = explode(':', $this->configuration['database'], 2);
       $this->database = CoreDatabase::getConnection($target, $key);
     }
-    $this->logger = \Drupal::service('logger.factory')->get('search_api_db');
   }
 
 }

@@ -107,9 +107,9 @@ class DeleteMultiple extends ConfirmFormBase {
       '#items' => array_map(function (Message $message) {
         $params = [
           '@id' => $message->id(),
-          '@type' => $message->getType()->label(),
+          '@template' => $message->getTemplate()->label(),
         ];
-        return t('Delete message ID @id fo type @type', $params);
+        return t('Delete message ID @id fo template @template', $params);
       }, $this->messages),
     ];
     $form = parent::buildForm($form, $form_state);

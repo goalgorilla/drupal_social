@@ -1,0 +1,135 @@
+language: php
+sudo: false
+
+php:
+  - 5.5
+  - 5.6
+  - 7
+#  - hhvm
+
+git:
+  depth: 1
+
+matrix:
+#  allow_failures:
+#    - php: hhvm
+  # Don't wait for the allowed failures to build.
+  fast_finish: true
+
+
+# Cache Composer directory so that we don't have to download drush all the time.
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/travis_phantomjs
+
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+postgres:
+  adapter: postgresql
+  database: drupal
+  username: postgres
+sqlite:
+  adapter: sqlite3
+  database: drupal
+  username: root
+  timeout: 500
+
+env:
+  matrix:
+#    - DRUPAL_VERSION='8.1.x'
+    - DRUPAL_VERSION='8.2.x' DB='mysql' SIMPLETEST_DB="$DB://root:@127.0.0.1/drupal" DB_USER='root'
+    - DRUPAL_VERSION='8.2.x' DB='pgsql' SIMPLETEST_DB="$DB://postgres:@127.0.0.1/drupal" DB_USER='postgres'
+    - DRUPAL_VERSION='8.2.x' DB='sqlite' SIMPLETEST_DB="$DB://root:@127.0.0.1/drupal" DB_USER='root'
+  global:
+    - SIMPLETEST_BASE_URL=http://127.0.0.1:8888
+    - MODULE_NAME='dynamic_entity_reference'
+    - MODULE_TEST_GROUP='dynamic_entity_reference'
+    - DRUPAL_REPO='git://drupalcode.org/project/drupal.git'
+    - DRUSH_VERSION='~8.0'
+    - CODER_VERSION='~8.2'
+
+before_install:
+  # Disable XDebug to speed up execution.
+  - phpenv config-rm xdebug.ini
+  # phantomjs is only needed for JS tests.
+  - phantomjs --version;
+  - export PATH=$HOME/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH;
+  - phantomjs --version;
+  - if [[ $(phantomjs --version) != '2.1.1' ]]; then rm -rf $HOME/travis_phantomjs; mkdir -p $HOME/travis_phantomjs; wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $HOME/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2; tar -xvf $HOME/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $HOME/travis_phantomjs; fi;
+  - phantomjs --version
+  # Always update Composer to the recent version, otherwise the drush
+  # installation fails.
+  - composer selfupdate --stable
+
+install:
+  # Add composer's global bin directory to the path.
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+  # Install drush globally
+  - composer global require drush/drush:$DRUSH_VERSION
+  - composer global require drupal/coder:$CODER_VERSION
+
+before_script:
+  # Remember the current test directory for later use in the Drupal
+  # installation.
+  - TESTDIR=$(pwd)
+  # Terminate all the phantomjs and php instances so that we can start fresh.
+  - ps axo pid,command | grep phantomjs | grep -v grep | awk '{print $1}' | xargs -I {} kill {}
+  - ps axo pid,command | grep php | grep -v grep | grep -v phpstorm | awk '{print $1}' | xargs -I {} kill {}
+  - sleep 2
+  # Create a Drupal coding standard reference in PHPCS coding standards.
+  - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+  # Navigate out of module directory to prevent blown stack by recursive module
+  # lookup.
+  - cd ..
+
+  # Download Drupal 8 core.
+  - git clone --depth 1 --branch $DRUPAL_VERSION $DRUPAL_REPO drupal
+  - cd drupal
+  # Remember the current Drupal directory.
+  - DRUPALDIR=$(pwd)
+  # Run composer install.
+  - composer install
+  # Create database.
+  - drush sql-create --verbose --debug --yes --db-su=$DB_USER --db-url=$SIMPLETEST_DB
+  # Install Drupal.
+  # Create new site, stubbing sendmail path with true to prevent delivery errors
+  # and manually resolving drush path.
+  - php -d sendmail_path=`which true` ~/.composer/vendor/bin/drush.php --yes site-install --db-url=$SIMPLETEST_DB testing
+
+  # Reference and enable module in build site.
+  - ln -s $TESTDIR modules/$MODULE_NAME
+  - drush --yes pm-enable simpletest $MODULE_NAME
+
+  # Start a web server on port 8888, run in the background; wait for
+  # initialization. This is temporarly disabled since there are no web tests
+  # yet.
+  - drush --verbose --debug runserver 127.0.0.1:8888 > ~/debug.txt 2>&1 &
+  - sleep 5s
+  # Start phanomjs for javascript testing.
+  - phantomjs --ssl-protocol=any --ignore-ssl-errors=true ./vendor/jcalderonzumba/gastonjs/src/Client/main.js 8510 1024 768 2>&1 >> /dev/null &
+  - sleep 2
+
+script:
+  # Run the Coder sniffer.
+  - phpcs --report=full --standard=Drupal ./modules/$MODULE_NAME
+  # Run the Simpletests.
+#  - php ./core/scripts/run-tests.sh --php `which php` --concurrency 12 --url $SIMPLETEST_BASE_URL --color --types "Simpletest" "$MODULE_TEST_GROUP"
+  # Run the PHPUnit tests.
+#  - ./vendor/phpunit/phpunit/phpunit -c ./core/phpunit.xml.dist --testsuite=unit --group=$MODULE_TEST_GROUP
+  - ./vendor/phpunit/phpunit/phpunit -c ./core/phpunit.xml.dist --testsuite=kernel --group=$MODULE_TEST_GROUP
+  - ./vendor/phpunit/phpunit/phpunit -c ./core/phpunit.xml.dist --testsuite=functional --group=$MODULE_TEST_GROUP
+  # @todo Enable it after fixing autocomplete selection fails.
+#  - ./vendor/phpunit/phpunit/phpunit -c ./core/phpunit.xml.dist --testsuite=functional-javascript --group=$MODULE_TEST_GROUP
+
+after_script:
+  # Terminate all the phantomjs and php instances.
+  - ps axo pid,command | grep phantomjs | grep -v grep | awk '{print $1}' | xargs -I {} kill {}
+  - ps axo pid,command | grep php | grep -v grep | awk '{print $1}' | xargs -I {} kill {}
+
+after_failure:
+  - echo "Failures detected. Outputing additional logs:"
+  - cat ~/debug.txt

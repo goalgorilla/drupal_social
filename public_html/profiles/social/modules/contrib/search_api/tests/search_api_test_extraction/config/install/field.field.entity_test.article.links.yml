@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.entity_test.links
-id: entity_test.article.links
+    - field.storage.entity_test_mulrev_changed.links
+id: entity_test_mulrev_changed.article.links
 field_name: links
-entity_type: entity_test
+entity_type: entity_test_mulrev_changed
 bundle: article
 label: Links
 description: 'Links to other test entities'
@@ -14,7 +14,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:entity_test'
+  handler: 'default:entity_test_mulrev_changed'
   handler_settings:
     target_bundles:
       article: article

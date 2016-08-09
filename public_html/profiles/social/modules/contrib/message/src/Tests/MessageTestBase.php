@@ -8,7 +8,7 @@
 namespace Drupal\message\Tests;
 
 use Drupal\Core\Entity\EntityAccessControlHandlerInterface;
-use Drupal\message\Entity\MessageType;
+use Drupal\message\Entity\MessageTemplate;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -16,7 +16,7 @@ use Drupal\simpletest\WebTestBase;
  */
 abstract class MessageTestBase extends WebTestBase {
 
-  use MessageTypeCreateTrait;
+  use MessageTemplateCreateTrait;
 
   /**
    * Modules to enable.
@@ -40,16 +40,16 @@ abstract class MessageTestBase extends WebTestBase {
   }
 
   /**
-   * Load a message type easily.
+   * Load a message template easily.
    *
-   * @param string $type
-   *   The type of the message.
+   * @param string $template
+   *   The template of the message.
    *
-   * @return \Drupal\message\Entity\MessageType
+   * @return \Drupal\message\Entity\MessageTemplate
    *   The message Object.
    */
-  protected function loadMessageType($type) {
-    return MessageType::load($type);
+  protected function loadMessageTemplate($template) {
+    return MessageTemplate::load($template);
   }
 
   /**

@@ -37,8 +37,8 @@ class MessageTextHandlerTest extends MessageTestBase {
    * Testing the deletion of messages in cron according to settings.
    */
   public function testTextHandler() {
-    $this->createMessageType('dummy_message', 'Dummy message', '', ['Dummy text message']);
-    Message::create(['type' => 'dummy_message'])->save();
+    $this->createMessageTemplate('dummy_message', 'Dummy message', '', ['Dummy text message']);
+    Message::create(['template' => 'dummy_message'])->save();
 
     $this->drupalLogin($this->account);
     $this->drupalGet('admin/content/messages');

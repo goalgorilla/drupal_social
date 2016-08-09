@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\features\Unit\PackageTest.
- */
-
 namespace Drupal\Tests\features\Unit;
 
 use Drupal\features\Package;

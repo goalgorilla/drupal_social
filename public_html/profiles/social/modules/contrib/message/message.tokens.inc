@@ -23,12 +23,12 @@ function message_token_info() {
     'name' => t("Message ID"),
     'description' => t('The unique ID of the message.'),
   ];
-  $message['type'] = [
-    'name' => t("Message type"),
+  $message['template'] = [
+    'name' => t("Message template"),
   ];
-  $message['type-name'] = [
-    'name' => t("message type name"),
-    'description' => t("The human-readable name of the message type."),
+  $message['template-name'] = [
+    'name' => t("message template name"),
+    'description' => t("The human-readable name of the message template."),
   ];
   $message['uuid'] = [
     'name' => t("Message UID"),
@@ -69,12 +69,12 @@ function message_tokens($type, $tokens, array $data, array $options, BubbleableM
           $replacements[$original] = $message->id();
           break;
 
-        case 'type':
-          $replacements[$original] = $message->getType()->id();
+        case 'template':
+          $replacements[$original] = $message->getTemplate()->id();
           break;
 
-        case 'type-name':
-          $replacements[$original] = $message->getType()->label();
+        case 'template-name':
+          $replacements[$original] = $message->getTemplate()->label();
           break;
 
         case 'uuid':

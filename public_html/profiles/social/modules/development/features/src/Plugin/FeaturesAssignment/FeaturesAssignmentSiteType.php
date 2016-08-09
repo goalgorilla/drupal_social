@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains
- * \Drupal\features\Plugin\FeaturesAssignment\FeaturesAssignmentSiteType.
- */
-
 namespace Drupal\features\Plugin\FeaturesAssignment;
 
 use Drupal\features\FeaturesAssignmentMethodBase;

@@ -5,6 +5,8 @@ namespace Drupal\search_api\Plugin\search_api\processor;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
 use Drupal\search_api\Utility;
 
@@ -101,7 +103,20 @@ class Tokenizer extends FieldsProcessorPluginBase {
    * {@inheritdoc}
    */
   protected function testType($type) {
-    return Utility::isTextType($type, array('text', 'tokenized_text'));
+    return Utility::isTextType($type);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function processField(FieldInterface $field) {
+    parent::processField($field);
+
+    foreach ($field->getValues() as $value) {
+      if ($value instanceof TextValueInterface) {
+        $value->setProperty('tokenized');
+      }
+    }
   }
 
   /**
@@ -159,10 +174,10 @@ class Tokenizer extends FieldsProcessorPluginBase {
    * considered symbols. (See
    * http://www.unicode.org/Public/UNIDATA/extracted/DerivedGeneralCategory.txt)
    *
-   * @see search_expand_cjk() (Core Search of Drupal 8)
-   *
    * @return string
    *   A string of Unicode characters to use in the regular expression.
+   *
+   * @see search_expand_cjk()
    */
   protected function getPregClassCjk() {
     return '\x{1100}-\x{11FF}\x{3040}-\x{309F}\x{30A1}-\x{318E}' .
@@ -175,9 +190,8 @@ class Tokenizer extends FieldsProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  protected function processFieldValue(&$value, &$type) {
+  protected function processFieldValue(&$value, $type) {
     $this->prepare();
-    $type = 'tokenized_text';
 
     $text = $this->simplifyText($value);
     // Split on spaces. The configured (or default) delimiters have been

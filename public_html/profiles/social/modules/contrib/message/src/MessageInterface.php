@@ -16,23 +16,23 @@ use Drupal\Core\Language\Language;
 interface MessageInterface extends ContentEntityInterface {
 
   /**
-   * Set the message type.
+   * Set the message template.
    *
-   * @param MessageTypeInterface $type
-   *   Message type.
+   * @param MessageTemplateInterface $template
+   *   Message template.
    *
    * @return \Drupal\message\MessageInterface
    *   Returns the message object.
    */
-  public function setType(MessageTypeInterface $type);
+  public function setTemplate(MessageTemplateInterface $template);
 
   /**
-   * Get the type of the message type.
+   * Get the message template.
    *
-   * @return \Drupal\message\MessageTypeInterface
+   * @return \Drupal\message\MessageTemplateInterface
    *   Returns the message object.
    */
-  public function getType();
+  public function getTemplate();
 
   /**
    * Retrieve the time stamp of the message.
@@ -94,7 +94,7 @@ interface MessageInterface extends ContentEntityInterface {
    * Set the language that should be used.
    *
    * @param string $language
-   *   The language to load from the message type when fetching the text.
+   *   The language to load from the message template when fetching the text.
    */
   public function setLanguage($language);
 
@@ -121,15 +121,15 @@ interface MessageInterface extends ContentEntityInterface {
   public static function deleteMultiple(array $ids);
 
   /**
-   * Run a EFQ over messages from a given type.
+   * Run a EFQ over messages from a given template.
    *
-   * @param string $type
-   *   The entity type.
+   * @param string $template
+   *   The message template.
    *
    * @return array
    *   Array of message IDs.
    */
-  public static function queryByType($type);
+  public static function queryByTemplate($template);
 
   /**
    * Convert message contents to a string.

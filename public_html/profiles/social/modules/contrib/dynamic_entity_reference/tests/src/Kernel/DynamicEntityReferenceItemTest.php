@@ -355,7 +355,7 @@ class DynamicEntityReferenceItemTest extends FieldKernelTestBase {
     ]);
     $errors = $entity->validate();
     // Using target_id and target_type of NULL is valid with an unsaved entity.
-    $this->assertEquals(0, count($errors));
+    $this->assertCount(0, $errors);
     // Using target_id of NULL is not valid with a saved entity.
     $term->save();
     $entity = EntityTest::create([
@@ -366,13 +366,13 @@ class DynamicEntityReferenceItemTest extends FieldKernelTestBase {
       ],
     ]);
     $errors = $entity->validate();
-    $this->assertEquals(1, count($errors));
+    $this->assertCount(1, $errors);
     $this->assertEquals($errors[0]->getMessage(), (string) new FormattableMarkup('%property should not be null.', ['%property' => 'target_id']));
     $this->assertEquals($errors[0]->getPropertyPath(), 'field_der.0');
     // This should rectify the issue, favoring the entity over the target_id.
     $entity->save();
     $errors = $entity->validate();
-    $this->assertEquals(0, count($errors));
+    $this->assertCount(0, $errors);
   }
 
 }

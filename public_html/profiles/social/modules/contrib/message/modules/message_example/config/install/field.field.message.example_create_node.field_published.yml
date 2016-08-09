@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.message.field_published
-    - message.type.example_create_node
+    - message.template.example_create_node
 id: message.example_create_node.field_published
 field_name: field_published
 entity_type: message

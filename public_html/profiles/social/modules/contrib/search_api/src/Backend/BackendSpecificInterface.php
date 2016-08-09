@@ -90,6 +90,28 @@ interface BackendSpecificInterface {
   public function getDiscouragedProcessors();
 
   /**
+   * Provides information on additional fields made available by the backend.
+   *
+   * If a backend indexes additional data with items and wants to make this
+   * available as fixed fields on the index (e.g., to be used with Views), it
+   * can implement this method to facilitate this.
+   *
+   * Fields returned here are expected to work correctly with this server when
+   * used in query conditions, sorts or similar places.
+   *
+   * @param \Drupal\search_api\IndexInterface $index
+   *   The index for which fields are being determined.
+   *
+   * @return \Drupal\search_api\Item\FieldInterface[]
+   *   An array of additional fields that are available for this index, keyed by
+   *   their field IDs. The field IDs should always start with "search_api_"
+   *   (avoiding the special field IDs defined by
+   *   \Drupal\search_api\Query\QueryInterface::sort()) to avoid conflicts with
+   *   user-defined fields.
+   */
+  public function getBackendDefinedFields(IndexInterface $index);
+
+  /**
    * Adds a new index to this server.
    *
    * If the index was already added to the server, the object should treat this
@@ -146,10 +168,6 @@ interface BackendSpecificInterface {
    *   The search index for which items should be indexed.
    * @param \Drupal\search_api\Item\ItemInterface[] $items
    *   An array of items to be indexed, keyed by their item IDs.
-   *   The value of fields with the "tokenized_text" type is an array of tokens.
-   *   Each token is an array containing the following keys:
-   *   - value: The word that the token represents.
-   *   - score: A score for the importance of that word.
    *
    * @return string[]
    *   The IDs of all items that were successfully indexed.
@@ -177,20 +195,20 @@ interface BackendSpecificInterface {
    *
    * @param \Drupal\search_api\IndexInterface $index
    *   The index for which items should be deleted.
+   * @param string|null $datasource_id
+   *   (optional) If given, only delete items from the datasource with the
+   *   given ID.
    *
    * @throws \Drupal\search_api\SearchApiException
    *   Thrown if an error occurred while trying to delete indexed items.
    */
-  public function deleteAllIndexItems(IndexInterface $index);
+  public function deleteAllIndexItems(IndexInterface $index, $datasource_id = NULL);
 
   /**
    * Executes a search on this server.
    *
    * @param \Drupal\search_api\Query\QueryInterface $query
    *   The query to execute.
-   *
-   * @return \Drupal\search_api\Query\ResultSetInterface
-   *   The search results.
    *
    * @throws \Drupal\search_api\SearchApiException
    *   Thrown if an error prevented the search from completing.

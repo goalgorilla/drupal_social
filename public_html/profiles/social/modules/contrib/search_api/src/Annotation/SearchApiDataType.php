@@ -49,12 +49,12 @@ class SearchApiDataType extends Plugin {
   public $default = FALSE;
 
   /**
-   * The fallback data type for this data type.
+   * The ID of the fallback data type for this data type.
    *
    * Needs to be one of the default data types defined in the Search API itself.
    *
    * @var string
    */
-  public $fallback_type = 'text';
+  public $fallback_type = 'string';
 
 }

@@ -59,7 +59,7 @@ display:
         type: search_api
         options:
           view_modes:
-            'entity:entity_test':
+            'entity:entity_test_mulrev_changed':
               article: default
               page: default
       filters:
@@ -128,6 +128,31 @@ display:
               anonymous: '0'
               administrator: '0'
           is_grouped: false
+        created:
+          plugin_id: search_api_date
+          id: created
+          table: search_api_index_database_search_index
+          field: created
+          relationship: none
+          admin_label: ''
+          operator: '='
+          group: 1
+          exposed: true
+          expose:
+            operator_id: created_op
+            label: ''
+            description: ''
+            use_operator: true
+            operator: created_op
+            identifier: created
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
         keywords:
           plugin_id: search_api_string
           id: keywords
@@ -145,6 +170,31 @@ display:
             use_operator: true
             operator: keywords_op
             identifier: keywords
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
+        search_api_language:
+          plugin_id: search_api_language
+          id: search_api_language
+          table: search_api_index_database_search_index
+          field: search_api_language
+          relationship: none
+          admin_label: ''
+          operator: 'in'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: language_op
+            label: ''
+            description: ''
+            use_operator: true
+            operator: language_op
+            identifier: language
             required: false
             remember: false
             multiple: false
@@ -180,7 +230,26 @@ display:
       footer: {  }
       empty: {  }
       relationships: {  }
-      arguments: {  }
+      arguments:
+        search_api_datasource:
+          plugin_id: search_api
+          id: search_api_datasource
+          table: search_api_index_database_search_index
+          field: search_api_datasource
+          break_phrase: true
+        type:
+          plugin_id: search_api
+          id: type
+          table: search_api_index_database_search_index
+          field: type
+          break_phrase: false
+          not: true
+        keywords:
+          plugin_id: search_api
+          id: keywords
+          table: search_api_index_database_search_index
+          field: keywords
+          break_phrase: true
   page_1:
     display_plugin: page
     id: page_1

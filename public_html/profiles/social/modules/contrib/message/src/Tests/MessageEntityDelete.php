@@ -55,7 +55,7 @@ class MessageEntityDelete extends MessageTestBase {
     $this->configSet('delete_on_entity_delete', ['node', 'taxonomy_term', 'user']);
 
     // Set config.
-    $this->createMessageType('dummy_message', 'Dummy message', 'This is a dummy message text', ['Dummy message type.']);
+    $this->createMessageTemplate('dummy_message', 'Dummy message', 'This is a dummy message text', ['Dummy message template.']);
 
     // Create a vocabulary.
     $this->vocabulary = entity_create('taxonomy_vocabulary', [
@@ -171,7 +171,7 @@ class MessageEntityDelete extends MessageTestBase {
    */
   public function testReferencedEntitiesDelete() {
     // Testing nodes reference.
-    $message = Message::create(['type' => 'dummy_message']);
+    $message = Message::create(['template' => 'dummy_message']);
     $message->set('field_node_references', [1, 2]);
     $message->save();
 
@@ -181,7 +181,7 @@ class MessageEntityDelete extends MessageTestBase {
     $this->assertFalse(Message::load($message->id()), 'Message deleted after deleting all referenced nodes.');
 
     // Test terms reference.
-    $message = Message::create(['type' => 'dummy_message']);
+    $message = Message::create(['template' => 'dummy_message']);
     $message->set('field_term_references', [1, 2]);
     $message->save();
 
@@ -192,7 +192,7 @@ class MessageEntityDelete extends MessageTestBase {
 
     // Test term references.
     $term = Term::load(3);
-    $message = Message::create(['type' => 'dummy_message']);
+    $message = Message::create(['template' => 'dummy_message']);
     $message->set('field_term_reference', $term);
     $message->save();
 
@@ -200,7 +200,7 @@ class MessageEntityDelete extends MessageTestBase {
     $this->assertFalse(Message::load($message->id()), 'Message deleted after deleting single referenced term.');
 
     // Test node reference.
-    $message = Message::create(['type' => 'dummy_message']);
+    $message = Message::create(['template' => 'dummy_message']);
     $message->set('field_node_reference', 3);
     $message->save();
 
@@ -208,7 +208,7 @@ class MessageEntityDelete extends MessageTestBase {
     $this->assertFalse(Message::load($message->id()), 'Message deleted after deleting single referenced node.');
 
     // Testing when a message referenced to terms and term.
-    $message = Message::create(['type' => 'dummy_message']);
+    $message = Message::create(['template' => 'dummy_message']);
     $message->set('field_term_references', [4, 5]);
     $message->set('field_term_reference', 4);
     $message->save();
@@ -218,7 +218,7 @@ class MessageEntityDelete extends MessageTestBase {
 
     // Test user reference.
     $account = $this->drupalCreateUser();
-    $message = Message::create(['type' => 'dummy_message']);
+    $message = Message::create(['template' => 'dummy_message']);
     $message->set('field_user_reference', $account->id());
     $message->save();
 

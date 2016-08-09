@@ -14,7 +14,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Render\Markup;
 use Drupal\message\MessageInterface;
-use Drupal\message\MessageTypeInterface;
+use Drupal\message\MessageTemplateInterface;
 use Drupal\user\EntityOwnerInterface;
 use Drupal\user\UserInterface;
 
@@ -24,27 +24,27 @@ use Drupal\user\UserInterface;
  * @ContentEntityType(
  *   id = "message",
  *   label = @Translation("Message"),
- *   bundle_label = @Translation("Message type"),
+ *   bundle_label = @Translation("Message template"),
  *   module = "message",
  *   base_table = "message",
  *   data_table = "message_field_data",
  *   translatable = TRUE,
- *   bundle_entity_type = "message_type",
+ *   bundle_entity_type = "message_template",
  *   entity_keys = {
  *     "id" = "mid",
- *     "bundle" = "type",
+ *     "bundle" = "template",
  *     "uuid" = "uuid",
  *     "langcode" = "langcode"
  *   },
  *   bundle_keys = {
- *     "bundle" = "type"
+ *     "bundle" = "template"
  *   },
  *   handlers = {
  *     "view_builder" = "Drupal\message\MessageViewBuilder",
  *     "list_builder" = "Drupal\message\MessageListBuilder",
  *     "views_data" = "Drupal\message\MessageViewsData",
  *   },
- *   field_ui_base_route = "entity.message_type.edit_form"
+ *   field_ui_base_route = "entity.message_template.edit_form"
  * )
  */
 class Message extends ContentEntityBase implements MessageInterface, EntityOwnerInterface {
@@ -64,11 +64,11 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
   protected $uuid;
 
   /**
-   * The message type object.
+   * The message template object.
    *
-   * @var \Drupal\message\MessageTypeInterface
+   * @var \Drupal\message\MessageTemplateInterface
    */
-  protected $type;
+  protected $template;
 
   /**
    * The user object.
@@ -92,7 +92,7 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
   protected $arguments;
 
   /**
-   * The language to use when fetching text from the message type.
+   * The language to use when fetching text from the message template.
    *
    * @var string
    */
@@ -101,16 +101,16 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
   /**
    * {@inheritdoc}
    */
-  public function setType(MessageTypeInterface $type) {
-    $this->set('type', $type);
+  public function setTemplate(MessageTemplateInterface $template) {
+    $this->set('template', $template);
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getType() {
-    return MessageType::load($this->bundle());
+  public function getTemplate() {
+    return MessageTemplate::load($this->bundle());
   }
 
   /**
@@ -198,10 +198,10 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
       ->setDescription(t('The message UUID'))
       ->setReadOnly(TRUE);
 
-    $fields['type'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Type'))
-      ->setDescription(t('The message type.'))
-      ->setSetting('target_type', 'message_type')
+    $fields['template'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Template'))
+      ->setDescription(t('The message template.'))
+      ->setSetting('target_type', 'message_template')
       ->setReadOnly(TRUE);
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
@@ -233,20 +233,20 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
    * {@inheritdoc}
    */
   public function getText($langcode = Language::LANGCODE_NOT_SPECIFIED, $delta = FALSE) {
-    if (!$message_type = $this->getType()) {
-      // Message type does not exist any more.
+    if (!$message_template = $this->getTemplate()) {
+      // Message template does not exist any more.
       // We don't throw an exception, to make sure we don't break sites that
-      // removed the message type, so we silently ignore.
+      // removed the message template, so we silently ignore.
       return [];
     }
 
     $message_arguments = $this->getArguments();
-    $message_type_text = $message_type->getText($langcode, $delta);
+    $message_template_text = $message_template->getText($langcode, $delta);
 
-    $output = $this->processArguments($message_arguments, $message_type_text);
+    $output = $this->processArguments($message_arguments, $message_template_text);
 
-    $token_replace = $message_type->getSetting('token replace', TRUE);
-    $token_options = $message_type->getSetting('token options');
+    $token_replace = $message_template->getSetting('token replace', TRUE);
+    $token_options = $message_template->getSetting('token options');
     if (!empty($token_replace)) {
       // Token should be processed.
       $output = $this->processTokens($output, !empty($token_options['clear']));
@@ -261,7 +261,7 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
    * @param array $arguments
    *   Array with the arguments.
    * @param array $output
-   *   Array with the templated text saved in the message type.
+   *   Array with the templated text saved in the message template.
    *
    * @return array
    *   The templated text, with the placehodlers replaced with the actual value,
@@ -330,7 +330,7 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
     $tokens = [];
 
     // Handle hard coded arguments.
-    foreach ($this->getType()->getText() as $text) {
+    foreach ($this->getTemplate()->getText() as $text) {
       preg_match_all('/[@|%|\!]\{([a-z0-9:_\-]+?)\}/i', $text, $matches);
 
       foreach ($matches[1] as $delta => $token) {
@@ -389,9 +389,9 @@ class Message extends ContentEntityBase implements MessageInterface, EntityOwner
   /**
    * {@inheritdoc}
    */
-  public static function queryByType($type) {
+  public static function queryByTemplate($template) {
     return \Drupal::entityQuery('message')
-      ->condition('type', $type)
+      ->condition('template', $template)
       ->execute();
   }
 
