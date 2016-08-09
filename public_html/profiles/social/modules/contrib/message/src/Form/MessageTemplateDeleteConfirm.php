@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\message\Form\MessageTypeDeleteConfirm.
+ * Contains \Drupal\message\Form\MessageTemplateDeleteConfirm.
  */
 
 namespace Drupal\message\Form;
@@ -12,15 +12,15 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Provides a form for message type deletion.
+ * Provides a form for message template deletion.
  */
-class MessageTypeDeleteConfirm extends EntityConfirmFormBase {
+class MessageTemplateDeleteConfirm extends EntityConfirmFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Are you sure you want to delete the message type %type?', ['%type' => $this->entity->label()]);
+    return t('Are you sure you want to delete the message template %template?', ['%template' => $this->entity->label()]);
   }
 
   /**
@@ -43,8 +43,8 @@ class MessageTypeDeleteConfirm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
     $t_args = ['%name' => $this->entity->label()];
-    drupal_set_message(t('The message type %name has been deleted.', $t_args));
-    $this->logger('content')->notice('Deleted message type %name', $t_args);
+    drupal_set_message(t('The message template %name has been deleted.', $t_args));
+    $this->logger('content')->notice('Deleted message template %name', $t_args);
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
 
@@ -55,6 +55,6 @@ class MessageTypeDeleteConfirm extends EntityConfirmFormBase {
    *   A URL object.
    */
   public function getCancelUrl() {
-    return new Url('message.overview_types');
+    return new Url('message.overview_templates');
   }
 }

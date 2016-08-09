@@ -2,7 +2,7 @@
 /**
  * @file
  *
- * Contains \Drupal\message\Form\MessageTypeConfigTranslationEditForm.
+ * Contains \Drupal\message\Form\MessageTemplateConfigTranslationEditForm.
  */
 
 namespace Drupal\message\Form;
@@ -11,15 +11,15 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Defines a form for editing message type configuration translations.
+ * Defines a form for editing message template configuration translations.
  */
-class MessageTypeConfigTranslationEditForm extends MessageTypeConfigTranslationBaseForm {
+class MessageTemplateConfigTranslationEditForm extends MessageTemplateConfigTranslationBaseForm {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'message_type_config_translation_edit_form';
+    return 'message_template_config_translation_edit_form';
   }
 
   /**

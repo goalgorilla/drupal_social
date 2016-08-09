@@ -10,14 +10,14 @@ namespace Drupal\message\FormElement;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\message\Entity\MessageType;
+use Drupal\message\Entity\MessageTemplate;
 
-class MessageTypeMultipleTextField {
+class MessageTemplateMultipleTextField {
 
   /**
-   * The message type we handling.
+   * The message template we handling.
    *
-   * @var \Drupal\message\Entity\MessageType
+   * @var \Drupal\message\Entity\MessageTemplate
    */
   protected $entity;
 
@@ -28,21 +28,21 @@ class MessageTypeMultipleTextField {
    *  Each form holds the text elements in a different location. When
    *  constructing this class we need to supply the name of the callback.
    *
-   * @see MessageTypeConfigTranslationAddForm::addMoreAjax();
+   * @see MessageTemplateConfigTranslationAddForm::addMoreAjax();
    */
   protected $callback;
 
   /**
    * Constructing the element.
    *
-   * @param MessageType $entity
-   *   A message type.
+   * @param MessageTemplate $entity
+   *   A message template.
    * @param string $callback
    *   The name of the ajax callback.
    * @param string $langcode
    *   The language of the message. Used for the message translation form.
    */
-  public function __construct(MessageType $entity, $callback, $langcode = '') {
+  public function __construct(MessageTemplate $entity, $callback, $langcode = '') {
     $this->entity = $entity;
     $this->callback = $callback;
     $this->langcode = $langcode ? $langcode : \Drupal::languageManager()->getCurrentLanguage()->getId();

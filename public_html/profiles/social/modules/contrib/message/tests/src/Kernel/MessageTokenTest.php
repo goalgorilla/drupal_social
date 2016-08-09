@@ -10,7 +10,7 @@ namespace Drupal\Tests\message\Kernel;
 use Drupal\Component\Utility\Html;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\message\Entity\Message;
-use Drupal\message\Tests\MessageTypeCreateTrait;
+use Drupal\message\Tests\MessageTemplateCreateTrait;
 use Drupal\user\Entity\User;
 
 /**
@@ -20,7 +20,7 @@ use Drupal\user\Entity\User;
  */
 class MessageTokenTest extends KernelTestBase {
 
-  use MessageTypeCreateTrait;
+  use MessageTemplateCreateTrait;
 
   /**
    * {@inheritdoc}
@@ -50,11 +50,11 @@ class MessageTokenTest extends KernelTestBase {
   }
 
   /**
-   * Test token replacement in a message type.
+   * Test token replacement in a message template.
    */
   public function testTokens() {
-    $message_type = $this->createMessageType('dummy_message', 'Dummy message', '', ['[message:author:name]']);
-    $message = Message::create(['type' => $message_type->id()])
+    $message_template = $this->createMessageTemplate('dummy_message', 'Dummy message', '', ['[message:author:name]']);
+    $message = Message::create(['template' => $message_template->id()])
       ->setOwnerId($this->user->id());
 
     $message->save();
@@ -68,8 +68,8 @@ class MessageTokenTest extends KernelTestBase {
   public function testTokenClearing() {
     // Clearing enabled.
     $token_options = ['token options' => ['clear' => TRUE]];
-    $message_type = $this->createMessageType('dummy_message', 'Dummy message', '', ['[message:author:name] [bogus:token]'], $token_options);
-    $message = Message::create(['type' => $message_type->id()])
+    $message_template = $this->createMessageTemplate('dummy_message', 'Dummy message', '', ['[message:author:name] [bogus:token]'], $token_options);
+    $message = Message::create(['template' => $message_template->id()])
       ->setOwnerId($this->user->id());
 
     $message->save();
@@ -78,8 +78,8 @@ class MessageTokenTest extends KernelTestBase {
 
     // Clearing disabled.
     $token_options = ['token options' => ['clear' => FALSE]];
-    $message_type->setSettings($token_options);
-    $message_type->save();
+    $message_template->setSettings($token_options);
+    $message_template->save();
 
     $this->assertEquals((string) $message, Html::escape($this->user->label() . ' [bogus:token]'), 'The message rendered the author name and did not strip the token.');
   }
@@ -101,12 +101,12 @@ class MessageTokenTest extends KernelTestBase {
       'some text @{wrong:token} ' . $random_text,
     ];
 
-    // Create the message type.
-    $message_type = $this->createMessageType('dummy_message', 'Dummy message', '', $token_messages);
+    // Create the message template.
+    $message_template = $this->createMessageTemplate('dummy_message', 'Dummy message', '', $token_messages);
 
     // Assert the arguments.
     $original_message = Message::create([
-      'type' => $message_type->id(),
+      'template' => $message_template->id(),
       'uid' => $this->user->id(),
     ]);
     $this->assertTrue($original_message->getArguments() == FALSE, 'No message arguments exist prior to saving the message.');

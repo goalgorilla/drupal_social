@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\message\MessageTypeListBuilder.
+ * Contains \Drupal\message\MessageTemplateListBuilder.
  */
 
 namespace Drupal\message;
@@ -12,11 +12,11 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Component\Utility\Xss;
 
 /**
- * Defines a class to build a listing of message type entities.
+ * Defines a class to build a listing of message template entities.
  *
- * @see \Drupal\message\Entity\MessageType
+ * @see \Drupal\message\Entity\MessageTemplate
  */
-class MessageTypeListBuilder extends ConfigEntityListBuilder {
+class MessageTemplateListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}

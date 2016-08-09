@@ -2,7 +2,7 @@ uuid: 6ebdb821-a3a5-4ee3-9407-7a985d3882a8
 langcode: en
 status: true
 dependencies: {  }
-type: example_create_node
+template: example_create_node
 label: 'Example - Create node'
 description: 'Working upon creating of a node.'
 text:

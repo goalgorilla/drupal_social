@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\message\Entity\MessageType.
+ * Contains \Drupal\message\Entity\MessageTemplate.
  */
 
 namespace Drupal\message\Entity;
@@ -13,71 +13,71 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Language\Language;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\message\MessageException;
-use Drupal\message\MessageTypeInterface;
+use Drupal\message\MessageTemplateInterface;
 
 
 /**
- * Defines the Message type entity class.
+ * Defines the Message template entity class.
  *
  * @ConfigEntityType(
- *   id = "message_type",
- *   label = @Translation("Message type"),
- *   config_prefix = "type",
+ *   id = "message_template",
+ *   label = @Translation("Message template"),
+ *   config_prefix = "template",
  *   bundle_of = "message",
  *   entity_keys = {
- *     "id" = "type",
+ *     "id" = "template",
  *     "label" = "label",
  *     "langcode" = "langcode",
  *   },
- *   admin_permission = "administer message types",
+ *   admin_permission = "administer message templates",
  *   handlers = {
  *     "form" = {
- *       "add" = "Drupal\message\Form\MessageTypeForm",
- *       "edit" = "Drupal\message\Form\MessageTypeForm",
- *       "delete" = "Drupal\message\Form\MessageTypeDeleteConfirm"
+ *       "add" = "Drupal\message\Form\MessageTemplateForm",
+ *       "edit" = "Drupal\message\Form\MessageTemplateForm",
+ *       "delete" = "Drupal\message\Form\MessageTemplateDeleteConfirm"
  *     },
- *     "list_builder" = "Drupal\message\MessageTypeListBuilder",
+ *     "list_builder" = "Drupal\message\MessageTemplateListBuilder",
  *     "view_builder" = "Drupal\message\MessageViewBuilder",
  *   },
  *   links = {
- *     "add-form" = "/admin/structure/message/type/add",
- *     "edit-form" = "/admin/structure/message/manage/{message_type}",
- *     "delete-form" = "/admin/structure/message/delete/{message_type}"
+ *     "add-form" = "/admin/structure/message/template/add",
+ *     "edit-form" = "/admin/structure/message/manage/{message_template}",
+ *     "delete-form" = "/admin/structure/message/delete/{message_template}"
  *   }
  * )
  */
-class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface {
+class MessageTemplate extends ConfigEntityBundleBase implements MessageTemplateInterface {
 
   /**
-   * The ID of this message type.
+   * The ID of this message template.
    *
    * @var string
    */
-  protected $type;
+  protected $template;
 
   /**
-   * The UUID of the message type.
+   * The UUID of the message template.
    *
    * @var string
    */
   protected $uuid;
 
   /**
-   * The human-readable name of the message type.
+   * The human-readable name of the message template.
    *
    * @var string
    */
   protected $label;
 
   /**
-   * A brief description of this message type.
+   * A brief description of this message template.
    *
    * @var string
    */
   protected $description;
 
   /**
-   * The serialised text of the message type.
+   * The serialised text of the message template.
    *
    * @var array
    */
@@ -95,7 +95,7 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
    * // Assuming out message-text is:
    * // %user-name created <a href="@message-url">@message-title</a>
    *
-   * $message_type->arguments = [
+   * $message_template->arguments = [
    *   // Hard code the argument.
    *   '%user-name' => 'foo',
    *
@@ -116,7 +116,7 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
    * ];
    * @endcode
    *
-   * Arguments assigned to message-type can be overridden by the ones
+   * Arguments assigned to message-template can be overridden by the ones
    * assigned to the message.
    *
    * @var array
@@ -126,17 +126,12 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
   /**
    * Serialized array with misc options.
    *
-   * Purge settings (under $message_type->data['purge]). Note that the
-   * purge settings can be added only to the message-type.
-   * - 'enabled': TRUE or FALSE to explicitly enable or disable message
-   *    purging. IF not set, the default purge settings defined in the
-   *    "Message settings" will apply.
-   * - 'quota': Optional; Maximal (approximate) amount of allowed messages
-   *    of the message type. IF not set, the default purge settings defined in
-   *    the "Message settings" will apply.
-   * - 'days': Optional; Maximal message age in days. IF not set, the default
-   *    purge settings defined in the
-   *    "Message settings" will apply.
+   * Purge settings:
+   * - 'purge_override': TRUE or FALSE override the global behavior.
+   *    "Message settings" will apply. Defaults to FALSE.
+   * - 'purge_methods': An array of purge method plugin configuration, keyed by
+   *   the plugin ID. An empty array indicates no purge is enabled (although
+   *   global settings will be used unless 'purge_override' is TRUE).
    *
    * Token settings:
    * - 'token replace': Indicate if message's text should be passed
@@ -144,21 +139,18 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
    * - 'token options': Array with options to be passed to
    *    token_replace().
    *
-   * Tokens settings assigned to message-type can be overriden by the ones
+   * Tokens settings assigned to message-template can be overriden by the ones
    * assigned to the message.
    *
    * @var array
-   *
-   * @todo: A better name would be $settings, however we might want to keep this
-   * for easier migration from Drupal 7?
    */
-  public $settings = [];
+  protected $settings = [];
 
   /**
    * {@inheritdoc}
    */
   public function id() {
-    return $this->type;
+    return $this->template;
   }
 
   /**
@@ -220,16 +212,16 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
   /**
    * {@inheritdoc}
    */
-  public function setType($type) {
-    $this->type = $type;
+  public function setTemplate($template) {
+    $this->template = $template;
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getType() {
-    return $this->type;
+  public function getTemplate() {
+    return $this->template;
   }
 
   /**
@@ -261,7 +253,7 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
         $langcode = $language_manager->getDefaultLanguage()->getId();
       }
 
-      $config_translation = $language_manager->getLanguageConfigOverride($langcode, 'message.type.' . $this->id());
+      $config_translation = $language_manager->getLanguageConfigOverride($langcode, 'message.template.' . $this->id());
       $translated_text = $config_translation->get('text');
 
       // If there was no translated text, we return nothing instead of falling
@@ -287,8 +279,8 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
   /**
    * {@inheritdoc}
    *
-   * @return \Drupal\message\MessageTypeInterface
-   *   A message type object ready to be save.
+   * @return \Drupal\message\MessageTemplateInterface
+   *   A message template object ready to be save.
    */
   public static function create(array $values = []) {
     return parent::create($values);
@@ -304,7 +296,7 @@ class MessageType extends ConfigEntityBundleBase implements MessageTypeInterface
 
     if ($language_manager instanceof ConfigurableLanguageManagerInterface) {
       // Set the values for the default site language.
-      $config_translation = $language_manager->getLanguageConfigOverride($language_manager->getDefaultLanguage()->getId(), 'message.type.' . $this->id());
+      $config_translation = $language_manager->getLanguageConfigOverride($language_manager->getDefaultLanguage()->getId(), 'message.template.' . $this->id());
       $config_translation->set('text', $this->text);
       $config_translation->save();
     }

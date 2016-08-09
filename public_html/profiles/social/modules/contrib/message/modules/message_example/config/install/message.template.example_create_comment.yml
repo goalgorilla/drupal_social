@@ -2,7 +2,7 @@ uuid: e7d49a42-8348-4379-bb08-8b7309c6f794
 langcode: en
 status: true
 dependencies: {  }
-type: example_create_comment
+template: example_create_comment
 label: 'Example - Create comment'
 description: 'A user created comment.'
 text:

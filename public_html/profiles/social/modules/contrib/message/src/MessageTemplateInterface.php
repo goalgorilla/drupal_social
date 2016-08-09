@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\message\MessageTypeInterface.
+ * Contains \Drupal\message\MessageTemplateInterface.
  */
 
 namespace Drupal\message;
@@ -12,67 +12,67 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Language\Language;
 
 /**
- * Provides an interface defining a Message type entity.
+ * Provides an interface defining a Message template entity.
  */
-interface MessageTypeInterface extends ConfigEntityInterface {
+interface MessageTemplateInterface extends ConfigEntityInterface {
 
 
   /**
-   * Set the message type description.
+   * Set the message template description.
    *
    * @param string $description
-   *   Description for the message type.
+   *   Description for the message template.
    *
-   * @return \Drupal\message\MessageTypeInterface
-   *   Returns the message type instance.
+   * @return \Drupal\message\MessageTemplateInterface
+   *   Returns the message template instance.
    */
   public function setDescription($description);
 
   /**
-   * Get the message type description.
+   * Get the message template description.
    *
    * @return string
-   *   Returns the message type description.
+   *   Returns the message template description.
    */
   public function getDescription();
 
   /**
-   * Set the message type label.
+   * Set the message template label.
    *
    * @param string $label
-   *   The message type label.
+   *   The message template label.
    *
-   * @return \Drupal\message\MessageTypeInterface
-   *   Returns the message type instance.
+   * @return \Drupal\message\MessageTemplateInterface
+   *   Returns the message template instance.
    */
   public function setLabel($label);
 
   /**
-   * Get the message type label.
+   * Get the message template label.
    *
    * @return string
-   *   Returns the message type label.
+   *   Returns the message template label.
    */
   public function getLabel();
 
   /**
-   * Set the message type.
+   * Set the message template.
    *
-   * @param string $type
-   *   The message type.
+   * @param string $template
+   *   The message template.
    *
-   * @return \Drupal\message\MessageTypeInterface
-   *   Returns the message type instance.
+   * @return \Drupal\message\MessageTemplateInterface
+   *   Returns the message template instance.
    */
-  public function setType($type);
+  public function setTemplate($template);
 
   /**
-   * Get the message type.
+   * Get the message template.
    *
    * @return string
-   *   Returns the message type.
+   *   Returns the message template.
    */
-  public function getType();
+  public function getTemplate();
 
   /**
    * Set the UUID.
@@ -80,8 +80,8 @@ interface MessageTypeInterface extends ConfigEntityInterface {
    * @param string $uuid
    *   The UUID.
    *
-   * @return \Drupal\message\MessageTypeInterface
-   *   Returns the message type instance.
+   * @return \Drupal\message\MessageTemplateInterface
+   *   Returns the message template instance.
    */
   public function setUuid($uuid);
 
@@ -109,15 +109,15 @@ interface MessageTypeInterface extends ConfigEntityInterface {
   public function getText($langcode = Language::LANGCODE_NOT_SPECIFIED, $delta = NULL);
 
   /**
-   * Set additional settings for the message type.
+   * Set additional settings for the message template.
    */
   public function setSettings(array $settings);
 
   /**
-   * Return the message type settings.
+   * Return the message template settings.
    *
    * @return array
-   *   Array of the message type settings.
+   *   Array of the message template settings.
    */
   public function getSettings();
 

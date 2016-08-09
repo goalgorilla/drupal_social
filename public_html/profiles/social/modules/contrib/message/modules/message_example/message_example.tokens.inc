@@ -5,9 +5,6 @@
  * Place holder for the message example module.
  */
 
-use Drupal\Component\Utility\String;
-use Drupal\Component\Utility\Xss;
-
 /**
  * Implements hook_token_info().
  *

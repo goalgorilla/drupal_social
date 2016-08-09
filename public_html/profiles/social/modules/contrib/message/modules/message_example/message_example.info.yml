@@ -7,8 +7,8 @@ dependencies:
  - message
  - token
 
-# Information added by Drupal.org packaging script on 2016-05-19
-version: '8.x-1.x-dev'
+# Information added by Drupal.org packaging script on 2016-08-03
+version: '8.x-1.0-alpha1'
 core: '8.x'
 project: 'message'
-datestamp: 1463642965
+datestamp: 1470247441

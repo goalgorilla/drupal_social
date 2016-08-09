@@ -9,16 +9,16 @@ namespace Drupal\message\Form;
 
 use Drupal\config_translation\Form\ConfigTranslationDeleteForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\message\Entity\MessageType;
+use Drupal\message\Entity\MessageTemplate;
 /**
  * Builds a form to delete configuration translation.
  */
-class MessageTypeConfigTranslationDeleteForm extends ConfigTranslationDeleteForm {
+class MessageTemplateConfigTranslationDeleteForm extends ConfigTranslationDeleteForm {
 
   /**
    * {@inheritdoc}
    */
   public function getFormID() {
-    return 'message_type_config_translation_delete_form';
+    return 'message_template_config_translation_delete_form';
   }
 }
