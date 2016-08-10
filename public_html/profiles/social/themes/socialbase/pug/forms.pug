@@ -1,47 +1,39 @@
 - var pagetype = "styleguide"
 - var page = "Forms"
+- var datepicker = "true"
 
 doctype html
 html(lang="en")
   head
     include ./layout/_head.pug
-  body(class='#{pagetype}')
-    header.styleguide-header
-      include ./layout/_navbar.pug
-      
-    main.styleguide-container(role='main')
 
+  body
+    include ./layout/_gtm.pug
+    include ./layout/_header-styleguide.pug
+    include ../images/icons.svg
+
+    .docsheader
+      .container
+        h1 Components
+        p.lead Over a dozen reusable components built to provide buttons, dropdowns, navigation, input groups, navigation, alerts, and much more.
+
+    main.main-container.styleguide-container(role='main')
       .container
         .row
-          #scrollspy.col-md-3.col-md-last(role='complementary')
-            .toc-wrapper.hidden-print
-              ul.table-of-contents.nav
-                li
-                  a(href='#input') Input Fields
-                li
-                  a(href='#textarea') Textareas
-                li
-                  a(href='#select') Select
-                li
-                  a(href='#radio') Radio Buttons
-                li
-                  a(href='#checkbox') Checkboxes
-                li
-                  a(href='#switches') Switches
-                li
-                  a(href='#file') File Input Button
-                li
-                  a(href='#date-picker') Date picker
-        
-          .col-xs-12.col-md-9
+          #scrollspy.col-xs-12.col-sm-3.col-sm-last(role='complementary')
+            include ./layout/_component-nav.pug
+
+          .col-xs-12.col-sm-9
+            h2.page-header Forms
+
             #input.section.scrollspy
-              p.caption Forms are the standard way to receive user inputted data. The transitions and smoothness of these elements are very important because of the inherent user interaction associated with forms.
-              
-              h2.header Input fields
+              p Forms are the standard way to receive user inputted data. The transitions and smoothness of these elements are very important because of the inherent user interaction associated with forms.
+
+              h2.page-header Input fields
               p
                 :markdown
                   Input fields allow user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have put a `.form-control` class on each input.
-                
+
               .row
                 form.col-xs-12
                   .row
@@ -62,50 +54,50 @@ html(lang="en")
                   .form-group
                     label(for='email') Email
                     input#email.form-control(type='email')
-              pre      
+              pre
                 code.language-markup.
                     <div class="form-group">
                       <label for="first_name">First Name</label>
                       <input id="first_name" type="text" class="form-control">
                     </div>
-                  
-              
+
+
             // Textarea Section
             #textarea.section.scrollspy
-              h2.header Textarea
+              h2.page-header Textarea
               :markdown
                 Textareas allow larger expandable user input. The border should light up simply and clearly indicating which field the user is currently editing. You must have a `.form-control` class on the textarea element.
-                
-                If you want the textarea to autogrow you need to add `.materialize-textarea` to the element as well.  
+
+                If you want the textarea to autogrow you need to add `.materialize-textarea` to the element as well.
               p
                 strong Textareas will auto resize to the text inside.
               form
                 .form-group
                   label(for='textarea1') Textarea
                   textarea#textarea1.form-control.materialize-textarea
-                    
+
               pre
                 code.language-markup.
                   <form>
                     <div class="form-group">
                       <label for="textarea1">Textarea</label>
-                      <textarea id="textarea1" class="form-control materialize-textarea"></textarea>         
+                      <textarea id="textarea1" class="form-control materialize-textarea"></textarea>
                     </div>
                   </form>
-                
+
               :markdown
                 **Advanced note**: When dynamically changing the value of a textarea with methods like jQuery's `.val()`, you must trigger an autoresize on it afterwords because `.val()` does not automatically trigger the events we've binded to the textarea.
-              
+
               pre
                 code.language-javascript.
                   $('#textarea1').val('New Text');
                   $('#textarea1').trigger('autoresize');
-              
+
             #select.section.scrollspy
-              h2.header Select
+              h2.page-header Select
               :markdown
                 Select allows user input through specified options. Make sure you add the class `.form-control` to the select element.
-              
+
               .row
                 .col-sm-6
                   .form-group
@@ -116,11 +108,11 @@ html(lang="en")
                         option(value='1') Option 1
                         option(value='2') Option 2
                         option(value='3') Option 3
-                  
-                      
-                      
+
+
+
             #radio.section.scrollspy
-              h2.header Radio Buttons
+              h2.page-header Radio Buttons
               p Radio Buttons are used when the user must make only one selection out of a group of items
               .form-group
                 .radio
@@ -156,11 +148,11 @@ html(lang="en")
                       <label for="test4">Brown</label>
                     </div>
                   </div>
-                
-              
+
+
             // Checkboxes
             #checkbox.section.scrollspy
-              h2.header Checkboxes
+              h2.page-header Checkboxes
               :markdown
                 Use checkboxes when looking for yes or no answers. The `for` attribute is necessary to bind the our custom checkbox with the input. Add the input's `id` as the value of the `for` attribute of the label.
               .form-group
@@ -172,7 +164,7 @@ html(lang="en")
                   label(for='test6') Default checked
                 .checkbox
                   input#test7(type='checkbox', disabled='disabled')
-                  label(for='test7') Disabled 
+                  label(for='test7') Disabled
                 .checkbox
                   input#test8(type='checkbox', checked, disabled='disabled')
                   label(for='test8') Disabled checked
@@ -199,7 +191,7 @@ html(lang="en")
                   </div>
             // Switches
             #switches.section.scrollspy
-              h2.header Switches
+              h2.page-header Switches
               form(action='#')
                 p
                   .switch
@@ -236,9 +228,9 @@ html(lang="en")
                       On
                     </label>
                   </div>
-                  
+
             #file.section.scrollspy
-              h2.header File Input
+              h2.page-header File Input
               p If you want to style an input button with a path input we provide this structure.
               .form-group.form__type-managed-file
                 label File input label
@@ -254,14 +246,14 @@ html(lang="en")
                       <div class="help-block">One file only - 2 MB limit - Allowed types: png gif jpg jpeg</div>
                     </div>
                   </div>
-                
+
               :markdown
                 You can also use the `multiple` attribute to allow multiple file uploads.
-              
-                  
+
+
             #date-picker.section.scrollspy
-              
-              h2.header Date Picker
+
+              h2.page-header Date Picker
               p We use a modified version of pickadate.js to create a materialized date picker. Test it out below!
               .row
                 .col-xs-12.col-sm-6
@@ -273,21 +265,15 @@ html(lang="en")
               pre
                 code.language-markup.
                   <input type="date" class="form-control datepicker">
-                  
+
               h4 Initialization
               p At this time, not all pickadate.js options are working with our implementation
-              
+
               pre
                 code.language-javascript.
                   $('.datepicker').pickadate({
                     selectMonths: true, // Creates a dropdown to control month
                     selectYears: 15 // Creates a dropdown of 15 years to control year
                   });
-                
-                
+
     include ./layout/_scripts.pug
-    script(src="js/contrib/date_picker/picker.js")
-    script(src="js/contrib/date_picker/picker.date.js")
-    script(src="js/contrib/date_picker/picker.time.js")
-    script(src="js/contrib/date_picker/picker.init.js")
-    link(href='css/components/asset-builds/datepicker.css', rel='stylesheet')

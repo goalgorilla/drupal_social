@@ -9,7 +9,7 @@ dependencies:
     - field.field.node.topic.field_topic_type
     - node.type.topic
   module:
-    - comment
+    - group_core_comments
     - text
     - user
 id: node.topic.default
@@ -29,7 +29,7 @@ content:
     settings:
       pager_id: 0
     third_party_settings: {  }
-    type: comment_default
+    type: comment_group_content
 hidden:
   field_content_visibility: true
   field_topic_image: true

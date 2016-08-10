@@ -613,6 +613,7 @@ function socialbase_preprocess_field(&$variables) {
     case 'field_profile_function':
     case 'field_profile_organization':
     case 'field_group_description':
+    case 'field_group_location':
     case 'field_topic_image':
     case 'field_comment_body':
     case 'field_activity_output_text':
@@ -630,6 +631,7 @@ function socialbase_preprocess_field(&$variables) {
 
   switch ($variables['element']['#formatter']) {
     case 'comment_default':
+    case 'comment_group_content':
       $variables['node'] = TRUE;
       break;
 

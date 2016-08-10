@@ -73,7 +73,8 @@ a.card:hover {
 .card-nested-section {
   margin: 10px -20px -20px;
   padding: $card-padding;
-  background: $gray-lightest;
+  background: $gray-lighter-1;
+  border-top: 1px solid $gray-lighter;
 
   .extra-padding & {
     @include MQ($small) {
