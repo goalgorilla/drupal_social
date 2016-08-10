@@ -10,10 +10,10 @@
     .media-heading.text-m
       if user == "isAnonymous"
         | Mary-Lou Wallace
-      else 
-        a(href="my-stream.html") Mary-Lou Wallace 
-        | commented on an event in group 
-        a(href='group-stream.html') Happy campers        
+      else
+        a(href="my-stream.html") Mary-Lou Wallace
+        | commented on an event in group
+        a(href='group-stream.html') Happy campers
       br
       .text-gray-lighter 2 hours ago
 .card--teaser.card--teaser-stream.card-with-actionbar
@@ -22,18 +22,18 @@
     .teaser-date 19
       .text-xs jul
   .card-body
-    h4.card-title 
+    h4.card-title
       a(href="event.html") Security and modern internet
     .text-gray.text-m.text-truncate
-      svg.icon-gray.icon-small
+      svg.teaser-icon
         use(xlink:href='#icon-event')
       | &nbsp;
       span.inline-center 19 jul 09:00 - 18:00
-      | &nbsp; 
+      | &nbsp;
       unless user == "isAnonymous"
         span.label.label-primary enrolled
     .text-gray.text-m.text-truncate
-      svg.icon-gray.icon-small
+      svg.teaser-icon
         use(xlink:href='#icon-location')
       | &nbsp;
       span.inline-center Keizersgracht 376, Amsterdam
@@ -42,7 +42,7 @@
         label
           input(type='checkbox')
           svg.icon-badge-toggle
-            use(xlink:href='#icon-community')        
+            use(xlink:href='#icon-community')
           span.badge--toggle__label community
       a.btn.btn-flat.btn-sm.pull-right(href="event.html") Read more
 
@@ -52,7 +52,7 @@ if user != "isAnonymous"
   .card-nested-section
 
     include ./_activity3-reply1.pug
-  
+
     .margin-top-l.text-center
       a.btn.btn-link(href='event.html#comment-1') show all 2 comments
         svg.icon-small

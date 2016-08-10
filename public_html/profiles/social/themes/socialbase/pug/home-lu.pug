@@ -3,7 +3,6 @@ extends ./layout/base-lu.pug
 block title
   title Homepage Logged-in user
 
-
 block content
 
   .row.margin-top-xl
@@ -16,7 +15,6 @@ block content
       include ./molecules/_new-users.pug
 
     .col-xs-12.col-sm-8
-
       ul.stream
         li.stream-item
           i.stream-icon.stream-icon-new
@@ -81,10 +79,7 @@ block content
               //- commented on a post on a profile
 
 
-
-
 block scriptinline
-
   script.
     function showMe (it, radio) {
       var visibility = radio.value;
