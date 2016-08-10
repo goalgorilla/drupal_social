@@ -4,8 +4,13 @@
 
 
 .popover {
+  font-size: 0.875rem;
   padding: 0;
   border-radius: $border-radius-base;
+}
+
+.popover-title {
+  font-size: 0.875rem;
 }
 
 [data-toggle="popover"] {

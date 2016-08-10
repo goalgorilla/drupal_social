@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\group\Form\GroupSettingsForm.
- */
 
 namespace Drupal\group\Form;
 

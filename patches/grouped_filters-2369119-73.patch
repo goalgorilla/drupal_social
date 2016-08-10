@@ -1,0 +1,533 @@
+diff --git a/core/modules/views/config/schema/views.data_types.schema.yml b/core/modules/views/config/schema/views.data_types.schema.yml
+index 0683380..a3d1b34 100644
+--- a/core/modules/views/config/schema/views.data_types.schema.yml
++++ b/core/modules/views/config/schema/views.data_types.schema.yml
+@@ -777,7 +777,7 @@ views_filter_group_item:
+       type: string
+       label: 'Operator'
+     value:
+-      type: label
++      type: views.filter_value.[%parent.%parent.%parent.%parent.plugin_id]
+       label: 'Value'
+
+ views_relationship:
+diff --git a/core/modules/views/config/schema/views.filter.schema.yml b/core/modules/views/config/schema/views.filter.schema.yml
+index 44a5661..a3c0216 100644
+--- a/core/modules/views/config/schema/views.filter.schema.yml
++++ b/core/modules/views/config/schema/views.filter.schema.yml
+@@ -31,18 +31,6 @@ views.filter.combine:
+         type: string
+         label: 'Field'
+
+-views.filter_value.date:
+-  type: views.filter_value.numeric
+-  label: 'Date'
+-  mapping:
+-    type:
+-      type: string
+-      label: 'Type'
+-
+-views.filter_value.groupby_numeric:
+-  type: views.filter_value.numeric
+-  label: 'Group by numeric'
+-
+ views.filter.in_operator:
+   type: views_filter
+   label: 'IN operator'
+@@ -79,24 +67,6 @@ views.filter.string:
+       type: string
+       label: 'Value'
+
+-views.filter_value.numeric:
+-  type: mapping
+-  label: 'Numeric'
+-  mapping:
+-    min:
+-      type: string
+-      label: 'Min'
+-    max:
+-      type: string
+-      label: 'And max'
+-    value:
+-      type: string
+-      label: 'Value'
+-
+-views.filter_value.equality:
+-  type: views.filter_value.numeric
+-  label: 'Equality'
+-
+ views.filter.many_to_one:
+   type: views.filter.in_operator
+   label: 'Many to one'
+@@ -109,18 +79,31 @@ views.filter.standard:
+   type: views_filter
+   label: 'Standard'
+
++views.filter.language:
++  type: views.filter.in_operator
++  label: 'Language'
++
++# Schema for the views group items.
+ views.filter.group_item.*:
+   type: views_filter_group_item
+-  label: 'Default'
++  label: 'Group item'
+
+-views.filter.group_item.numeric:
++views.filter.group_item.boolean:
+   type: views_filter_group_item
+-  label: 'Group items'
+   mapping:
+     value:
+-      type: views.filter_value.numeric
++      type: views.filter_value.string
+
+ # Schema for the views filter value.
++views.filter_value.*:
++  type: string
++  label: 'Filter value'
++
++views.fiter_value.equality:
++  label: 'Equality'
++
++views.filter_value.string:
++  type: string
+
+ views.filter_value.boolean:
+   type: boolean
+@@ -128,6 +111,43 @@ views.filter_value.boolean:
+ views.filter_value.combine:
+   type: string
+
+-views.filter.language:
+-  type: views.filter.in_operator
+-  label: 'Language'
++views.filter_value.numeric:
++  type: mapping
++  label: 'Numeric'
++  mapping:
++    min:
++      type: string
++      label: 'Min'
++    max:
++      type: string
++      label: 'And max'
++    value:
++      type: string
++      label: 'Value'
++
++views.filter_value.date:
++  type: views.filter_value.numeric
++  label: 'Date'
++  mapping:
++    type:
++      type: string
++      label: 'Type'
++
++views.filter_value.datetime:
++  type: views.filter_value.numeric
++  label: 'Date'
++  mapping:
++    type:
++      type: string
++      label: 'Type'
++
++views.filter_value.groupby_numeric:
++  type: views.filter_value.numeric
++  label: 'Group by numeric'
++
++views.filter_value.bundle:
++  type: sequence
++  label: 'Bundle'
++  sequence:
++    type: string
++    label: 'Bundle'
+diff --git a/core/modules/views/src/Plugin/views/filter/Date.php b/core/modules/views/src/Plugin/views/filter/Date.php
+index 8ea3750..420dc19 100644
+--- a/core/modules/views/src/Plugin/views/filter/Date.php
++++ b/core/modules/views/src/Plugin/views/filter/Date.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\views\Plugin\views\filter;
+
+ use Drupal\Core\Form\FormStateInterface;
++use Drupal\views\Plugin\views\argument\NullArgument;
+
+ /**
+  * Filter to handle dates stored as a timestamp.
+@@ -131,7 +132,15 @@ public function acceptExposedInput($input) {
+     }
+
+     // Store this because it will get overwritten.
+-    $type = $this->value['type'];
++    $type = NULL;
++    if ($this->isAGroup()) {
++      if (is_array($this->group_info)) {
++        $type = $this->group_info['type'];
++      }
++    }
++    else {
++      $type = $this->value['type'];
++    }
+     $rc = parent::acceptExposedInput($input);
+
+     // Don't filter if value(s) are empty.
+@@ -154,8 +163,11 @@ public function acceptExposedInput($input) {
+       }
+     }
+
+-    // restore what got overwritten by the parent.
+-    $this->value['type'] = $type;
++    // Restore what got overwritten by the parent.
++    if (!is_null($type)) {
++      $this->value['type'] = $type;
++    }
++
+     return $rc;
+   }
+
+diff --git a/core/modules/views/src/Plugin/views/filter/FilterPluginBase.php b/core/modules/views/src/Plugin/views/filter/FilterPluginBase.php
+index 34b8cb4..a40ae62 100644
+--- a/core/modules/views/src/Plugin/views/filter/FilterPluginBase.php
++++ b/core/modules/views/src/Plugin/views/filter/FilterPluginBase.php
+@@ -1001,17 +1001,20 @@ protected function buildExposedFiltersGroupForm(&$form, FormStateInterface $form
+       $children = Element::children($row['value']);
+       if (!empty($children)) {
+         foreach ($children as $child) {
+-          foreach ($row['value'][$child]['#states']['visible'] as $state) {
+-            if (isset($state[':input[name="options[group_info][group_items][' . $item_id . '][operator]"]'])) {
+-              $row['value'][$child]['#title'] = '';
++          if (!empty($row['value'][$child]['#states']['visible'])) {
++            foreach ($row['value'][$child]['#states']['visible'] as $state) {
++              if (isset($state[':input[name="options[group_info][group_items][' . $item_id . '][operator]"]'])) {
++                $row['value'][$child]['#title'] = '';
+
+-              if (!empty($this->options['group_info']['group_items'][$item_id]['value'][$child])) {
+-                $row['value'][$child]['#default_value'] = $this->options['group_info']['group_items'][$item_id]['value'][$child];
++                // Exit this loop and process the next child element.
++                break;
+               }
+-              // Exit this loop and process the next child element.
+-              break;
+             }
+           }
++
++          if (!empty($this->options['group_info']['group_items'][$item_id]['value'][$child])) {
++            $row['value'][$child]['#default_value'] = $this->options['group_info']['group_items'][$item_id]['value'][$child];
++          }
+         }
+       }
+       else {
+@@ -1259,7 +1262,7 @@ public function convertExposedInput(&$input, $selected_group_id = NULL) {
+         $input[$this->options['expose']['operator']] = $this->options['group_info']['group_items'][$selected_group]['operator'];
+
+         // Value can be optional, For example for 'empty' and 'not empty' filters.
+-        if (isset($this->options['group_info']['group_items'][$selected_group]['value']) && $this->options['group_info']['group_items'][$selected_group]['value'] != '') {
++        if (isset($this->options['group_info']['group_items'][$selected_group]['value']) && $this->options['group_info']['group_items'][$selected_group]['value'] !== '') {
+           $input[$this->options['expose']['identifier']] = $this->options['group_info']['group_items'][$selected_group]['value'];
+         }
+         $this->options['expose']['use_operator'] = TRUE;
+diff --git a/core/modules/views/src/Tests/Handler/FilterDateTest.php b/core/modules/views/src/Tests/Handler/FilterDateTest.php
+index 127c3ec..94cd1bf 100644
+--- a/core/modules/views/src/Tests/Handler/FilterDateTest.php
++++ b/core/modules/views/src/Tests/Handler/FilterDateTest.php
+@@ -2,6 +2,10 @@
+
+ namespace Drupal\views\Tests\Handler;
+
++use Drupal\config\Tests\SchemaCheckTestTrait;
++use Drupal\field\Entity\FieldConfig;
++use Drupal\field\Entity\FieldStorageConfig;
++use Drupal\node\Entity\NodeType;
+ use Drupal\views\Views;
+
+ /**
+@@ -10,6 +14,7 @@
+  * @group views
+  */
+ class FilterDateTest extends HandlerTestBase {
++  use SchemaCheckTestTrait;
+
+   /**
+    * Views used by this test.
+@@ -23,16 +28,39 @@ class FilterDateTest extends HandlerTestBase {
+    *
+    * @var array
+    */
+-  public static $modules = array('node', 'views_ui');
++  public static $modules = array('node', 'views_ui', 'datetime');
+
+   protected function setUp() {
+     parent::setUp();
++
++    // Add a date field so we can test datetime handling.
++    NodeType::create([
++      'type' => 'page',
++      'name' => 'Page',
++    ])->save();
++
++    // Setup a field storage and field, but also change the views data for the
++    // entity_test entity type.
++    $field_storage = FieldStorageConfig::create([
++      'field_name' => 'field_date',
++      'type' => 'datetime',
++      'entity_type' => 'node',
++    ]);
++    $field_storage->save();
++
++    $field = FieldConfig::create([
++      'field_name' => 'field_date',
++      'entity_type' => 'node',
++      'bundle' => 'page',
++    ]);
++    $field->save();
++
+     // Add some basic test nodes.
+     $this->nodes = array();
+-    $this->nodes[] = $this->drupalCreateNode(array('created' => 100000));
+-    $this->nodes[] = $this->drupalCreateNode(array('created' => 200000));
+-    $this->nodes[] = $this->drupalCreateNode(array('created' => 300000));
+-    $this->nodes[] = $this->drupalCreateNode(array('created' => time() + 86400));
++    $this->nodes[] = $this->drupalCreateNode(array('created' => 100000, 'field_date' => 10000));
++    $this->nodes[] = $this->drupalCreateNode(array('created' => 200000, 'field_date' => 20000));
++    $this->nodes[] = $this->drupalCreateNode(array('created' => 300000, 'field_date' => 30000));
++    $this->nodes[] = $this->drupalCreateNode(array('created' => time() + 86400, 'field_date' => time() + 86400));
+
+     $this->map = array(
+       'nid' => 'nid',
+@@ -46,6 +74,8 @@ public function testDateFilter() {
+     $this->_testOffset();
+     $this->_testBetween();
+     $this->_testUiValidation();
++    $this->_testFilterDateUI();
++    $this->_testFilterDatetimeUI();
+   }
+
+   /**
+@@ -88,8 +118,8 @@ protected function _testBetween() {
+     // Test between with min and max.
+     $view->initHandlers();
+     $view->filter['created']->operator = 'between';
+-    $view->filter['created']->value['min'] = format_date(150000, 'custom', 'Y-m-d H:s');
+-    $view->filter['created']->value['max'] = format_date(250000, 'custom', 'Y-m-d H:s');
++    $view->filter['created']->value['min'] = format_date(150000, 'custom', 'Y-m-d H:i:s');
++    $view->filter['created']->value['max'] = format_date(250000, 'custom', 'Y-m-d H:i:s');
+     $view->executeDisplay('default');
+     $expected_result = array(
+       array('nid' => $this->nodes[1]->id()),
+@@ -100,7 +130,7 @@ protected function _testBetween() {
+     // Test between with just max.
+     $view->initHandlers();
+     $view->filter['created']->operator = 'between';
+-    $view->filter['created']->value['max'] = format_date(250000, 'custom', 'Y-m-d H:s');
++    $view->filter['created']->value['max'] = format_date(250000, 'custom', 'Y-m-d H:i:s');
+     $view->executeDisplay('default');
+     $expected_result = array(
+       array('nid' => $this->nodes[0]->id()),
+@@ -112,8 +142,8 @@ protected function _testBetween() {
+     // Test not between with min and max.
+     $view->initHandlers();
+     $view->filter['created']->operator = 'not between';
+-    $view->filter['created']->value['min'] = format_date(150000, 'custom', 'Y-m-d H:s');
+-    $view->filter['created']->value['max'] = format_date(250000, 'custom', 'Y-m-d H:s');
++    $view->filter['created']->value['min'] = format_date(150000, 'custom', 'Y-m-d H:i:s');
++    $view->filter['created']->value['max'] = format_date(250000, 'custom', 'Y-m-d H:i:s');
+     $view->executeDisplay('default');
+     $expected_result = array(
+       array('nid' => $this->nodes[0]->id()),
+@@ -126,7 +156,7 @@ protected function _testBetween() {
+     // Test not between with just max.
+     $view->initHandlers();
+     $view->filter['created']->operator = 'not between';
+-    $view->filter['created']->value['max'] = format_date(150000, 'custom', 'Y-m-d H:s');
++    $view->filter['created']->value['max'] = format_date(150000, 'custom', 'Y-m-d H:i:s');
+     $view->executeDisplay('default');
+     $expected_result = array(
+       array('nid' => $this->nodes[1]->id()),
+@@ -153,4 +183,114 @@ protected function _testUiValidation() {
+     $this->assertText(t('Invalid date format.'), 'Make sure that validation is run and the invalidate date format is identified.');
+   }
+
++  /**
++   * Test date filter UI.
++   */
++  protected function _testFilterDateUI() {
++    $this->drupalLogin($this->drupalCreateUser(array('administer views')));
++    $this->drupalGet('admin/structure/views/nojs/handler/test_filter_date_between/default/filter/created');
++    $this->drupalPostForm(NULL, array(), t('Expose filter'));
++    $this->drupalPostForm(NULL, array(), t('Grouped filters'));
++
++    $edit = array();
++    $edit['options[group_info][group_items][1][title]'] = 'simple-offset';
++    $edit['options[group_info][group_items][1][operator]'] = '>';
++    $edit['options[group_info][group_items][1][value][type]'] = 'offset';
++    $edit['options[group_info][group_items][1][value][value]'] = '+1 hour';
++    $edit['options[group_info][group_items][2][title]'] = 'between-offset';
++    $edit['options[group_info][group_items][2][operator]'] = 'between';
++    $edit['options[group_info][group_items][2][value][type]'] = 'offset';
++    $edit['options[group_info][group_items][2][value][min]'] = '+1 hour';
++    $edit['options[group_info][group_items][2][value][max]'] = '+2 days';
++    $edit['options[group_info][group_items][3][title]'] = 'between-date';
++    $edit['options[group_info][group_items][3][operator]'] = 'between';
++    $edit['options[group_info][group_items][3][value][min]'] = format_date(150000, 'custom', 'Y-m-d H:i:s');
++    $edit['options[group_info][group_items][3][value][max]'] = format_date(250000, 'custom', 'Y-m-d H:i:s');
++
++    $this->drupalPostForm(NULL, $edit, t('Apply'));
++
++    $this->drupalGet('admin/structure/views/nojs/handler/test_filter_date_between/default/filter/created');
++    foreach ($edit as $name => $value) {
++      $this->assertFieldByName($name, $value);
++      if (strpos($name, '[value][type]')) {
++        $radio = $this->cssSelect('input[name="' . $name . '"][checked="checked"][type="radio"]');
++        $this->assertEqual((string) $radio[0]['value'], $value);
++      }
++    }
++
++    $this->drupalPostForm('admin/structure/views/view/test_filter_date_between', array(), t('Save'));
++    $this->assertConfigSchemaByName('views.view.test_filter_date_between');
++
++    // Test that the exposed filter works as expected.
++    $this->drupalGet('admin/structure/views/view/test_filter_date_between/edit');
++    $this->drupalPostForm(NULL, array(), t('Update preview'));
++    $results = $this->cssSelect('.view-content .field-content');
++    $this->assertEqual(count($results), 4);
++    $this->drupalPostForm(NULL, array('created' => '1'), t('Update preview'));
++    $results = $this->cssSelect('.view-content .field-content');
++    $this->assertEqual(count($results), 1);
++    $this->assertEqual((string) $results[0], $this->nodes[3]->id());
++    $this->drupalPostForm(NULL, array('created' => '2'), t('Update preview'));
++    $results = $this->cssSelect('.view-content .field-content');
++    $this->assertEqual(count($results), 1);
++    $this->assertEqual((string) $results[0], $this->nodes[3]->id());
++    $this->drupalPostForm(NULL, array('created' => '3'), t('Update preview'));
++    $results = $this->cssSelect('.view-content .field-content');
++    $this->assertEqual(count($results), 1);
++    $this->assertEqual((string) $results[0], $this->nodes[1]->id());
++
++    // Change the filter to a single filter to test the schema when the operator
++    // is not exposed.
++    $this->drupalPostForm('admin/structure/views/nojs/handler/test_filter_date_between/default/filter/created', array(), t('Single filter'));
++    $edit = array();
++    $edit['options[operator]'] = '>';
++    $edit['options[value][type]'] = 'date';
++    $edit['options[value][value]'] = format_date(350000, 'custom', 'Y-m-d H:i:s');
++    $this->drupalPostForm(NULL, $edit, t('Apply'));
++    $this->drupalPostForm('admin/structure/views/view/test_filter_date_between', array(), t('Save'));
++    $this->assertConfigSchemaByName('views.view.test_filter_date_between');
++
++    // Test that the filter works as expected.
++    $this->drupalPostForm(NULL, array(), t('Update preview'));
++    $results = $this->cssSelect('.view-content .field-content');
++    $this->assertEqual(count($results), 1);
++    $this->assertEqual((string) $results[0], $this->nodes[3]->id());
++    $this->drupalPostForm(NULL, array('created' => format_date(250000, 'custom', 'Y-m-d H:i:s')), t('Update preview'));
++    $results = $this->cssSelect('.view-content .field-content');
++    $this->assertEqual(count($results), 2);
++    $this->assertEqual((string) $results[0], $this->nodes[2]->id());
++    $this->assertEqual((string) $results[1], $this->nodes[3]->id());
++  }
++
++  /**
++   * Test datetime grouped filter UI.
++   */
++  protected function _testFilterDatetimeUI() {
++    $this->drupalLogin($this->drupalCreateUser(array('administer views')));
++    $this->drupalPostForm('admin/structure/views/nojs/add-handler/test_filter_date_between/default/filter', ['name[node__field_date.field_date_value]' => 'node__field_date.field_date_value'], t('Add and configure filter criteria'));
++
++    $this->drupalPostForm(NULL, array(), t('Expose filter'));
++    $this->drupalPostForm(NULL, array(), t('Grouped filters'));
++
++    $edit = array();
++    $edit['options[group_info][group_items][1][title]'] = 'simple-offset';
++    $edit['options[group_info][group_items][1][operator]'] = '>';
++    $edit['options[group_info][group_items][1][value][type]'] = 'offset';
++    $edit['options[group_info][group_items][1][value][value]'] = '+1 hour';
++    $edit['options[group_info][group_items][2][title]'] = 'between-offset';
++    $edit['options[group_info][group_items][2][operator]'] = 'between';
++    $edit['options[group_info][group_items][2][value][type]'] = 'offset';
++    $edit['options[group_info][group_items][2][value][min]'] = '+1 hour';
++    $edit['options[group_info][group_items][2][value][max]'] = '+2 days';
++    $edit['options[group_info][group_items][3][title]'] = 'between-date';
++    $edit['options[group_info][group_items][3][operator]'] = 'between';
++    $edit['options[group_info][group_items][3][value][min]'] = format_date(150000, 'custom', 'Y-m-d H:i:s');
++    $edit['options[group_info][group_items][3][value][max]'] = format_date(250000, 'custom', 'Y-m-d H:i:s');
++
++    $this->drupalPostForm(NULL, $edit, t('Apply'));
++
++    $this->drupalPostForm('admin/structure/views/view/test_filter_date_between', array(), t('Save'));
++    $this->assertConfigSchemaByName('views.view.test_filter_date_between');
++  }
++
+ }
+diff --git a/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_exposed_admin_ui.yml b/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_exposed_admin_ui.yml
+index db16bcb..0c34b8c 100644
+--- a/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_exposed_admin_ui.yml
++++ b/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_exposed_admin_ui.yml
+@@ -31,7 +31,7 @@ display:
+           field: type
+           id: type
+           table: node_field_data
+-          plugin_id: node_type
++          plugin_id: bundle
+           entity_type: node
+           entity_field: type
+         body_value:
+diff --git a/core/modules/views_ui/src/Tests/ExposedFormUITest.php b/core/modules/views_ui/src/Tests/ExposedFormUITest.php
+index fd70978..a2fc1f6 100644
+--- a/core/modules/views_ui/src/Tests/ExposedFormUITest.php
++++ b/core/modules/views_ui/src/Tests/ExposedFormUITest.php
+@@ -170,4 +170,55 @@ function testExposedAdminUi() {
+     $this->assertEqual($display['display_options']['sorts']['created']['order'], 'DESC');
+   }
+
++  /**
++  * Tests the configuration of grouped exposed filters.
++  */
++  public function testExposedGroupedFilter() {
++    // Click the Expose filter button.
++    $this->drupalPostForm('admin/structure/views/nojs/handler/test_exposed_admin_ui/default/filter/type', [], t('Expose filter'));
++    // Select 'Grouped filters' radio button.
++    $this->drupalPostForm('admin/structure/views/nojs/handler/test_exposed_admin_ui/default/filter/type', [], t('Grouped filters'));
++    // Add 3 groupings.
++    $edit = [
++      'options[group_button][radios][radios]' => 1,
++      'options[group_info][group_items][1][title]' => '1st',
++      'options[group_info][group_items][1][value][all]' => 'all',
++      'options[group_info][group_items][2][title]' => '2nd',
++      'options[group_info][group_items][2][value][article]' => 'article',
++      'options[group_info][group_items][3][title]' => '3rd',
++      'options[group_info][group_items][3][value][page]' => 'page',
++    ];
++    // Apply the filter settings.
++    $this->drupalPostForm(NULL, $edit, t('Apply'));
++    // Check that the view is saved without errors.
++    $this->drupalPostForm(NULL, [], t('Save'));
++    $this->assertResponse(200);
++
++    // Click the Expose filter button.
++    $this->drupalPostForm('admin/structure/views/nojs/add-handler/test_exposed_admin_ui/default/filter', ['name[node_field_data.status]' => 1], t('Add and configure filter criteria'));
++    $this->drupalPostForm('admin/structure/views/nojs/handler/test_exposed_admin_ui/default/filter/status', [], t('Expose filter'));
++    // Select 'Grouped filters' radio button.
++    $this->drupalPostForm('admin/structure/views/nojs/handler/test_exposed_admin_ui/default/filter/status', [], t('Grouped filters'));
++    // Add 3 groupings.
++    $edit = [
++      'options[group_button][radios][radios]' => 1,
++      'options[group_info][group_items][1][title]' => 'Any',
++      'options[group_info][group_items][1][value]' => 'All',
++      'options[group_info][group_items][2][title]' => 'Published',
++      'options[group_info][group_items][2][value]' => 1,
++      'options[group_info][group_items][3][title]' => 'Unpublished',
++      'options[group_info][group_items][3][value]' => 0,
++    ];
++    // Apply the filter settings.
++    $this->drupalPostForm(NULL, $edit, t('Apply'));
++    // Check that the view is saved without errors.
++    $this->drupalPostForm(NULL, [], t('Save'));
++    $this->assertResponse(200);
++
++    $this->drupalGet('admin/structure/views/nojs/handler/test_exposed_admin_ui/default/filter/status');
++    // Assert the same settings defined before still are there.
++    $this->assertFieldChecked('edit-options-group-info-group-items-1-value-all');
++    $this->assertFieldChecked('edit-options-group-info-group-items-2-value-1');
++    $this->assertFieldChecked('edit-options-group-info-group-items-3-value-0');
++  }
+ }

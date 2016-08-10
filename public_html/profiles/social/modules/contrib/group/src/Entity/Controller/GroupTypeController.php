@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Controller\GroupTypeController.
- */
-
 namespace Drupal\group\Entity\Controller;
 
 use Drupal\group\Entity\GroupTypeInterface;
@@ -83,13 +78,13 @@ class GroupTypeController extends ControllerBase {
       $container->get('plugin.manager.group_content_enabler')
     );
   }
-  
+
   /**
    * Builds an admin interface to manage the group type's group content plugins.
    *
    * @param \Drupal\group\Entity\GroupTypeInterface $group_type
    *   The group type to build an interface for.
-   * 
+   *
    * @return array
    *   The render array for the page.
    */
@@ -234,7 +229,9 @@ class GroupTypeController extends ControllerBase {
         ];
       }
 
-      $operations += field_ui_entity_operation($group_content_type);
+      if ($this->moduleHandler->moduleExists('field_ui')) {
+        $operations += field_ui_entity_operation($group_content_type);
+      }
     }
     elseif (!$plugin->isEnforced()) {
       $operations['install'] = [

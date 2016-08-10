@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\Form\GroupContentTypeDeleteForm.
- */
-
 namespace Drupal\group\Entity\Form;
 
 use Drupal\Core\Entity\Query\QueryFactory;
@@ -115,9 +110,14 @@ class GroupContentTypeDeleteForm extends EntityDeleteForm {
     /** @var \Drupal\group\Entity\GroupContentTypeInterface $group_content_type */
     $group_content_type = $this->getEntity();
     $group_type = $group_content_type->getGroupType();
-    $group_type->uninstallContentPlugin($group_content_type->getContentPluginId());
+    $plugin = $group_type->getContentPlugin($group_content_type->getContentPluginId());
 
-    // @todo Could use some logging here.
+    $group_type->uninstallContentPlugin($plugin->getPluginId());
+    \Drupal::logger('group_content_type')->notice('Uninstalled %plugin from %group_type.', [
+      '%plugin' => $plugin->getLabel(),
+      '%group_type' => $group_type->label(),
+    ]);
+
     $form_state->setRedirect('entity.group_type.content_plugins', ['group_type' => $group_type->id()]);
     drupal_set_message($this->t('The content plugin was uninstalled from the group type.'));
   }

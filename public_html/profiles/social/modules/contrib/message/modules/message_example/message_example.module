@@ -14,7 +14,7 @@ use Drupal\message\Entity\Message;
  * Implements hook_node_insert().
  */
 function message_example_node_insert(Node $node) {
-  $message = Message::create(['type' => 'example_create_node', 'uid' => $node->get('uid')]);
+  $message = Message::create(['template' => 'example_create_node', 'uid' => $node->get('uid')]);
   $message->set('field_node_reference', $node);
   $message->set('field_published', $node->isPublished());
   $message->save();
@@ -24,7 +24,7 @@ function message_example_node_insert(Node $node) {
  * Implements hook_comment_insert().
  */
 function message_example_comment_insert(Comment $comment) {
-  $message = Message::create(['type' => 'example_create_comment', 'uid' => $comment->getOwnerId()]);
+  $message = Message::create(['template' => 'example_create_comment', 'uid' => $comment->getOwnerId()]);
   $message->set('field_comment_reference', $comment);
   $message->set('field_published', $comment->isPublished());
   $message->save();
@@ -34,7 +34,7 @@ function message_example_comment_insert(Comment $comment) {
  * Implements hook_user_insert()
  */
 function message_example_user_insert(User $account) {
-  Message::create(['type' => 'example_user_register', 'uid' => $account->id()])->save();
+  Message::create(['template' => 'example_user_register', 'uid' => $account->id()])->save();
 }
 
 /**

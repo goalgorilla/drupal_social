@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Routing\GroupAdminRouteSubscriber.
- */
-
 namespace Drupal\group\Routing;
 
 use Drupal\Core\Config\ConfigFactoryInterface;

@@ -4,6 +4,7 @@ namespace Drupal\search_api\Processor;
 
 use Drupal\search_api\Datasource\DatasourceInterface;
 use Drupal\search_api\IndexInterface;
+use Drupal\search_api\Item\ItemInterface;
 use Drupal\search_api\Plugin\IndexPluginInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\Query\ResultSetInterface;
@@ -25,22 +26,45 @@ use Drupal\search_api\Query\ResultSetInterface;
 interface ProcessorInterface extends IndexPluginInterface {
 
   /**
+   * Processing stage: add properties.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorInterface::getPropertyDefinitions()
+   * @see \Drupal\search_api\Processor\ProcessorInterface::addFieldValues()
+   */
+  const STAGE_ADD_PROPERTIES = 'add_properties';
+
+  /**
    * Processing stage: preprocess index.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorInterface::preIndexSave()
    */
   const STAGE_PRE_INDEX_SAVE = 'pre_index_save';
 
   /**
+   * Processing stage: alter indexed items.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorInterface::alterIndexedItems()
+   */
+  const STAGE_ALTER_ITEMS = 'alter_items';
+
+  /**
    * Processing stage: preprocess index.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorInterface::preprocessIndexItems()
    */
   const STAGE_PREPROCESS_INDEX = 'preprocess_index';
 
   /**
    * Processing stage: preprocess query.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorInterface::preprocessSearchQuery()
    */
   const STAGE_PREPROCESS_QUERY = 'preprocess_query';
 
   /**
    * Processing stage: postprocess query.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorInterface::postprocessSearchResults()
    */
   const STAGE_POSTPROCESS_QUERY = 'postprocess_query';
 
@@ -65,31 +89,40 @@ interface ProcessorInterface extends IndexPluginInterface {
   /**
    * Checks whether this processor implements a particular stage.
    *
-   * @param string $stage_identifier
+   * @param string $stage
    *   The stage to check: one of the self::STAGE_* constants.
    *
    * @return bool
    *   TRUE if the processor runs on this particular stage; FALSE otherwise.
    */
-  public function supportsStage($stage_identifier);
+  public function supportsStage($stage);
 
   /**
-   * Returns the default weight for a specific processing stage.
-   *
-   * Some processors should ensure they run earlier or later in a particular
-   * stage. Processors with lower weights are run earlier. The default value is
-   * used when the processor is first enabled. It can then be changed through
-   * reordering by the user.
+   * Returns the weight for a specific processing stage.
    *
    * @param string $stage
-   *   The stage whose default weight should be returned. See
-   *   \Drupal\search_api\Processor\ProcessorPluginManager::getProcessingStages()
-   *   for the valid values.
+   *   The stage whose weight should be returned.
    *
    * @return int
    *   The default weight for the given stage.
+   *
+   * @see \Drupal\search_api\Processor\ProcessorPluginManager::getProcessingStages()
    */
-  public function getDefaultWeight($stage);
+  public function getWeight($stage);
+
+  /**
+   * Sets the weight for a specific processing stage.
+   *
+   * @param string $stage
+   *   The stage whose weight should be set.
+   * @param int $weight
+   *   The weight for the given stage.
+   *
+   * @return $this
+   *
+   * @see \Drupal\search_api\Processor\ProcessorPluginManager::getProcessingStages()
+   */
+  public function setWeight($stage, $weight);
 
   /**
    * Determines whether this processor should always be enabled.
@@ -108,15 +141,30 @@ interface ProcessorInterface extends IndexPluginInterface {
   public function isHidden();
 
   /**
-   * Alters the given datasource's property definitions.
+   * Retrieves the properties this processor defines for the given datasource.
    *
-   * @param \Drupal\Core\TypedData\DataDefinitionInterface[] $properties
-   *   An array of property definitions for this datasource.
+   * Property names have to start with a letter or an underscore, followed by
+   * any number of letters, numbers and underscores. To avoid collisions, it is
+   * also recommended to prefix the property name with the identifier of the
+   * module defining the processor.
+   *
    * @param \Drupal\search_api\Datasource\DatasourceInterface|null $datasource
    *   (optional) The datasource this set of properties belongs to. If NULL, the
    *   datasource-independent properties should be added (or modified).
+   *
+   * @return \Drupal\search_api\Processor\ProcessorPropertyInterface[]
+   *   An array of property definitions for that datasource, keyed by
+   *   property names.
    */
-  public function alterPropertyDefinitions(array &$properties, DatasourceInterface $datasource = NULL);
+  public function getPropertyDefinitions(DatasourceInterface $datasource = NULL);
+
+  /**
+   * Adds the values of properties defined by this processor to the item.
+   *
+   * @param \Drupal\search_api\Item\ItemInterface $item
+   *   The item whose field values should be added.
+   */
+  public function addFieldValues(ItemInterface $item);
 
   /**
    * Preprocesses the search index entity before it is saved.
@@ -127,12 +175,20 @@ interface ProcessorInterface extends IndexPluginInterface {
   public function preIndexSave();
 
   /**
+   * Alter the items to be indexed.
+   *
+   * @param \Drupal\search_api\Item\ItemInterface[] $items
+   *   An array of items to be indexed, passed by reference.
+   */
+  public function alterIndexedItems(array &$items);
+
+  /**
    * Preprocesses search items for indexing.
    *
    * @param \Drupal\search_api\Item\ItemInterface[] $items
-   *   An array of items to be preprocessed for indexing, passed by reference.
+   *   An array of items to be preprocessed for indexing.
    */
-  public function preprocessIndexItems(array &$items);
+  public function preprocessIndexItems(array $items);
 
   /**
    * Preprocesses a search query.

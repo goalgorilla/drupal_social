@@ -1,19 +1,15 @@
 <?php
-/**
- * @file
- * Contains \Drupal\group\Entity\Group.
- */
 
 namespace Drupal\group\Entity;
 
-use Drupal\group\GroupMembership;
-use Drupal\user\UserInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\user\UserInterface;
 
 /**
  * Defines the Group entity.
@@ -23,6 +19,12 @@ use Drupal\Core\Session\AccountInterface;
  * @ContentEntityType(
  *   id = "group",
  *   label = @Translation("Group"),
+ *   label_singular = @Translation("group"),
+ *   label_plural = @Translation("groups"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count group",
+ *     plural = "@count groups"
+ *   ),
  *   bundle_label = @Translation("Group type"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -43,16 +45,18 @@ use Drupal\Core\Session\AccountInterface;
  *   translatable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
- *     "bundle" = "type",
- *     "label" = "label",
- *     "langcode" = "langcode",
  *     "uuid" = "uuid",
+ *     "langcode" = "langcode",
+ *     "bundle" = "type",
+ *     "label" = "label"
  *   },
  *   links = {
+ *     "add-form" = "/group/add/{group_type}",
+ *     "add-page" = "/group/add",
  *     "canonical" = "/group/{group}",
+ *     "collection" = "/group/list",
  *     "edit-form" = "/group/{group}/edit",
- *     "delete-form" = "/group/{group}/delete",
- *     "collection" = "/group/list"
+ *     "delete-form" = "/group/{group}/delete"
  *   },
  *   bundle_entity_type = "group_type",
  *   field_ui_base_route = "entity.group_type.edit_form",
@@ -62,6 +66,33 @@ use Drupal\Core\Session\AccountInterface;
 class Group extends ContentEntityBase implements GroupInterface {
 
   use EntityChangedTrait;
+
+  /**
+   * Gets the group membership loader.
+   *
+   * @return \Drupal\group\GroupMembershipLoaderInterface
+   */
+  protected function membershipLoader() {
+    return \Drupal::service('group.membership_loader');
+  }
+
+  /**
+   * Gets the group content storage.
+   *
+   * @return \Drupal\group\Entity\Storage\GroupContentStorageInterface
+   */
+  protected function groupContentStorage() {
+    return $this->entityTypeManager()->getStorage('group_content');
+  }
+
+  /**
+   * Gets the group role storage.
+   *
+   * @return \Drupal\group\Entity\Storage\GroupRoleStorageInterface
+   */
+  protected function groupRoleStorage() {
+    return $this->entityTypeManager()->getStorage('group_role');
+  }
 
   /**
    * {@inheritdoc}
@@ -117,35 +148,43 @@ class Group extends ContentEntityBase implements GroupInterface {
   /**
    * {@inheritdoc}
    */
-  public function getContent($content_enabler = NULL, $filters = []) {
-    $properties = ['gid' => $this->id()] + $filters;
-
-    // If a plugin ID was provided, set the group content type ID for it.
-    if (isset($content_enabler)) {
-      /** @var \Drupal\group\Plugin\GroupContentEnablerInterface $plugin */
-      $plugin = $this->getGroupType()->getContentPlugin($content_enabler);
-      $properties['type'] = $plugin->getContentTypeConfigId();
+  public function addContent(ContentEntityInterface $entity, $plugin_id, $values = []) {
+    $plugin = $this->getGroupType()->getContentPlugin($plugin_id);
+    
+    // Only add the entity if the provided plugin supports it.
+    // @todo Verify bundle as well and throw exceptions?
+    if ($entity->getEntityTypeId() == $plugin->getEntityTypeId()) {
+      $keys = [
+        'type' => $plugin->getContentTypeConfigId(),
+        'gid' => $this->id(),
+        'entity_id' => $entity->id(),
+      ];
+      GroupContent::create($keys + $values)->save();
     }
-
-    return \Drupal::entityTypeManager()->getStorage('group_content')->loadByProperties($properties);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getContentByEntityId($content_enabler, $id) {
-    return $this->getContent($content_enabler, ['entity_id' => $id]);
+  public function getContent($plugin_id = NULL, $filters = []) {
+    return $this->groupContentStorage()->loadByGroup($this, $plugin_id, $filters);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getContentEntities($content_enabler = NULL, $filters = []) {
+  public function getContentByEntityId($plugin_id, $id) {
+    return $this->getContent($plugin_id, ['entity_id' => $id]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getContentEntities($plugin_id = NULL, $filters = []) {
     $entities = [];
 
-    foreach ($this->getContent($content_enabler, $filters) as $group_content) {
-      $entity = $group_content->getEntity();
-      $entities[$entity->id()] = $entity;
+    foreach ($this->getContent($plugin_id, $filters) as $group_content) {
+      $entities[] = $group_content->getEntity();
     }
 
     return $entities;
@@ -154,15 +193,9 @@ class Group extends ContentEntityBase implements GroupInterface {
   /**
    * {@inheritdoc}
    */
-  public function addMember(AccountInterface $account, $values = []) {
+  public function addMember(UserInterface $account, $values = []) {
     if (!$this->getMember($account)) {
-      $plugin = $this->getGroupType()->getContentPlugin('group_membership');
-      $group_content = GroupContent::create([
-          'type' => $plugin->getContentTypeConfigId(),
-          'gid' => $this->id(),
-          'entity_id' => $account->id(),
-        ] + $values);
-      $group_content->save();
+      $this->addContent($account, 'group_membership', $values);
     }
   }
 
@@ -170,14 +203,14 @@ class Group extends ContentEntityBase implements GroupInterface {
    * {@inheritdoc}
    */
   public function getMember(AccountInterface $account) {
-    return GroupMembership::load($this, $account);
+    return $this->membershipLoader()->load($this, $account);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getMembers($roles = NULL) {
-    return GroupMembership::loadByGroup($this, $roles);
+    return $this->membershipLoader()->loadByGroup($this, $roles);
   }
 
   /**
@@ -194,47 +227,25 @@ class Group extends ContentEntityBase implements GroupInterface {
       return TRUE;
     }
 
-    // If the user has a membership, check for the permission there.
-    if ($group_membership = $this->getMember($account)) {
-      return $group_membership->hasPermission($permission);
+    // Retrieve all of the group roles the user may get for the group.
+    $group_roles = $this->groupRoleStorage()->loadByUserAndGroup($account, $this);
+
+    // Check each retrieved role for the requested permission.
+    foreach ($group_roles as $group_role) {
+      if ($group_role->hasPermission($permission)) {
+        return TRUE;
+      }
     }
 
-    // Otherwise, check the outsider or anonymous role.
-    return $account->isAuthenticated()
-      ? GroupRole::load($this->bundle() . '-outsider')->hasPermission($permission)
-      : GroupRole::load($this->bundle() . '-anonymous')->hasPermission($permission);
+    // If no role had the requested permission, we deny access.
+    return FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-    $fields['id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Group ID'))
-      ->setDescription(t('The ID of the Group entity.'))
-      ->setReadOnly(TRUE)
-      ->setSetting('unsigned', TRUE);
-
-    $fields['uuid'] = BaseFieldDefinition::create('uuid')
-      ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Group entity.'))
-      ->setReadOnly(TRUE);
-
-    $fields['type'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Type'))
-      ->setDescription(t('The group type.'))
-      ->setSetting('target_type', 'group_type')
-      ->setReadOnly(TRUE);
-
-    $fields['langcode'] = BaseFieldDefinition::create('language')
-      ->setLabel(t('Language'))
-      ->setDescription(t('The group language code.'))
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', ['type' => 'hidden'])
-      ->setDisplayOptions('form', [
-        'type' => 'language_select',
-        'weight' => 2,
-      ]);
+    $fields = parent::baseFieldDefinitions($entity_type);
 
     $fields['label'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
@@ -285,6 +296,18 @@ class Group extends ContentEntityBase implements GroupInterface {
       ))
       ->setDisplayConfigurable('view', TRUE);
 
+    if (\Drupal::moduleHandler()->moduleExists('path')) {
+      $fields['path'] = BaseFieldDefinition::create('path')
+        ->setLabel(t('URL alias'))
+        ->setTranslatable(TRUE)
+        ->setDisplayOptions('form', array(
+          'type' => 'path',
+          'weight' => 30,
+        ))
+        ->setDisplayConfigurable('form', TRUE)
+        ->setCustomStorage(TRUE);
+    }
+
     return $fields;
   }
 
@@ -317,7 +340,7 @@ class Group extends ContentEntityBase implements GroupInterface {
   /**
    * {@inheritdoc}
    */
-  public static function postDelete(EntityStorageInterface $storage, array $entities) {
+  public static function preDelete(EntityStorageInterface $storage, array $entities) {
     // Remove all group content from these groups as well.
     foreach ($entities as $group) {
       foreach ($group->getContent() as $group_content) {

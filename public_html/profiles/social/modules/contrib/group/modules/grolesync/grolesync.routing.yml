@@ -1,0 +1,7 @@
+entity.group_type.grolesync:
+  path: '/admin/group/types/manage/{group_type}/rolesync'
+  defaults:
+    _form: '\Drupal\grolesync\Form\GroupRoleSyncForm'
+    _title: 'Synchronized roles'
+  requirements:
+    _permission: 'administer group'

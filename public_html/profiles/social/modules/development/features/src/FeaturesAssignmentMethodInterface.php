@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesAssignmentMethodInterface.
- */
-
 namespace Drupal\features;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;

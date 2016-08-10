@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesManager.
- */
-
 namespace Drupal\features;
 use Drupal;
 use Drupal\Component\Serialization\Yaml;
@@ -411,12 +406,8 @@ class FeaturesManager implements FeaturesManagerInterface {
       // @see _system_rebuild_module_data().
       $listing = new ExtensionDiscovery(\Drupal::root());
 
-      $profile_directories = [];
-      // Register the install profile.
+      $profile_directories = $listing->setProfileDirectoriesFromSettings()->getProfileDirectories();
       $installed_profile = $this->drupalGetProfile();
-      if ($installed_profile) {
-        $profile_directories[] = drupal_get_path('profile', $installed_profile);
-      }
       if (isset($bundle) && $bundle->isProfile()) {
         $profile_directory = 'profiles/' . $bundle->getProfileName();
         if (($bundle->getProfileName() != $installed_profile) && is_dir($profile_directory)) {
@@ -637,9 +628,7 @@ class FeaturesManager implements FeaturesManagerInterface {
           if (isset($config_collection[$dependent_item_name]) && (!empty($package) || empty($config_collection[$dependent_item_name]->getPackage()))) {
             try {
               $package_name = !empty($package) ? $package : $config_collection[$item_name]->getPackage();
-              // If a Package is specified, force assign it to the given
-              // package.
-              $this->assignConfigPackage($package_name, [$dependent_item_name], !empty($package));
+              $this->assignConfigPackage($package_name, [$dependent_item_name]);
             }
             catch (\Exception $exception) {
               \Drupal::logger('features')->error($exception->getMessage());
@@ -957,7 +946,9 @@ class FeaturesManager implements FeaturesManagerInterface {
         // avoid extraneous additions, reset permissions.
         if ($config->getType() == 'user_role') {
           $data = $config->getData();
-          $data['permissions'] = [];
+          // Unset and not empty permissions data to prevent loss of configured
+          // role permissions in the event of a feature revert.
+          unset($data['permissions']);
           $config->setData($data);
         }
         $package->appendFile([
@@ -1078,13 +1069,40 @@ class FeaturesManager implements FeaturesManagerInterface {
   }
 
   /**
+   * Creates a high performant version of the ConfigDependencyManager.
+   *
+   * @return \Drupal\features\FeaturesConfigDependencyManager
+   *   A high performant version of the ConfigDependencyManager.
+   *
+   * @see \Drupal\Core\Config\Entity\ConfigDependencyManager
+   */
+  protected function getFeaturesConfigDependencyManager() {
+    $dependency_manager = new FeaturesConfigDependencyManager();
+    // Read all configuration using the factory. This ensures that multiple
+    // deletes during the same request benefit from the static cache. Using the
+    // factory also ensures configuration entity dependency discovery has no
+    // dependencies on the config entity classes. Assume data with UUID is a
+    // config entity. Only configuration entities can be depended on so we can
+    // ignore everything else.
+    $data = array_map(function(Drupal\Core\Config\ImmutableConfig $config) {
+      $data = $config->get();
+      if (isset($data['uuid'])) {
+        return $data;
+      }
+      return FALSE;
+    }, $this->configFactory->loadMultiple($this->configStorage->listAll()));
+    $dependency_manager->setData(array_filter($data));
+    return $dependency_manager;
+  }
+
+  /**
    * Loads configuration from storage into a property.
    */
   protected function initConfigCollection($reset = FALSE) {
     if ($reset || empty($this->configCollection)) {
       $config_collection = [];
       $config_types = $this->listConfigTypes();
-      $dependency_manager = $this->configManager->getConfigDependencyManager();
+      $dependency_manager = $this->getFeaturesConfigDependencyManager();
       // List configuration provided by installed features.
       $existing_config = $this->listExistingConfig(NULL);
       foreach (array_keys($config_types) as $config_type) {
@@ -1093,28 +1111,11 @@ class FeaturesManager implements FeaturesManagerInterface {
           $name = $this->getFullName($config_type, $item_name);
           $data = $this->configStorage->read($name);
 
-          // Compute dependent config.
-          $dependent_list = $dependency_manager->getDependentEntities('config', $name);
-          $dependents = array();
-          foreach ($dependent_list as $config_name => $item) {
-            if (!isset($dependents[$config_name])) {
-              $dependents[$config_name] = $config_name;
-            }
-            // Grab any dependent graph paths.
-            if (isset($item['reverse_paths'])) {
-              foreach ($item['reverse_paths'] as $dependent_name => $value) {
-                if ($value && !isset($dependents[$dependent_name])) {
-                  $dependents[$dependent_name] = $dependent_name;
-                }
-              }
-            }
-          }
-
           $config_collection[$name] = (new ConfigurationItem($name, $data, [
             'shortName' => $item_name,
             'label' => $label,
             'type' => $config_type,
-            'dependents' => array_keys($dependents),
+            'dependents' => array_keys($dependency_manager->getDependentEntities('config', $name)),
             // Default to the install directory.
             'subdirectory' => InstallStorage::CONFIG_INSTALL_DIRECTORY,
             'package' => '',
@@ -1157,6 +1158,12 @@ class FeaturesManager implements FeaturesManagerInterface {
       if (!empty($export_settings['folder'])) {
         $path .= '/' . $export_settings['folder'];
       }
+    }
+
+    // Use the same path of a package to override it.
+    if ($extension = $package->getExtension()) {
+      $extension_path = $extension->getPath();
+      $path = dirname($extension_path);
     }
 
     return array($full_name, $path);
@@ -1231,13 +1238,15 @@ class FeaturesManager implements FeaturesManagerInterface {
   }
 
   protected function addConfigList($full_name, &$list) {
-    if (!in_array($full_name, $list)) {
-      array_unshift($list, $full_name);
-      $value = $this->extensionStorages->read($full_name);
-      if (isset($value['dependencies']['config'])) {
-        foreach ($value['dependencies']['config'] as $config_name) {
-          $this->addConfigList($config_name, $list);
-        }
+    $index = array_search($full_name, $list);
+    if ($index !== FALSE) {
+      unset($list[$index]);
+    }
+    array_unshift($list, $full_name);
+    $value = $this->extensionStorages->read($full_name);
+    if (isset($value['dependencies']['config'])) {
+      foreach ($value['dependencies']['config'] as $config_name) {
+        $this->addConfigList($config_name, $list);
       }
     }
   }

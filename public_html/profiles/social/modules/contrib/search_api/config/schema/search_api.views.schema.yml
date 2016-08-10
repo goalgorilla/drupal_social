@@ -26,6 +26,28 @@ views.row.search_api:
           type: string
           label: View mode for the specific bundle
 
+views.argument.search_api:
+  type: views.argument.numeric
+  label: 'Search API'
+
+views.argument.search_api:
+  type: views.argument.search_api
+  label: 'Search API date'
+
+views.argument.search_api_fulltext:
+  type: views.argument.search_api
+  label: 'Search API more like this'
+  mapping:
+    conjunction:
+      type: string
+      label: 'Conjunction'
+    fields:
+      type: sequence
+      label: 'Fields'
+      sequence:
+        type: string
+        label: 'Field'
+
 views.argument.search_api_more_like_this:
   type: views_argument
   label: 'Search API more like this'
@@ -36,6 +58,10 @@ views.argument.search_api_more_like_this:
       sequence:
         type: string
         label: 'Field'
+
+views.argument.search_api_taxonomy_term:
+  type: views.argument.search_api
+  label: 'Search API taxonomy term'
 
 views.field.search_api:
   type: views_field
@@ -139,8 +165,8 @@ views.filter.search_api_datasource:
   type: views.filter.search_api_options
   label: 'Search API datasource'
 
-views.filter.search_api_date:
-  type: views.filter.date
+views.filter_value.search_api_date:
+  type: views.filter_value.date
   label: 'Search API date'
 
 views.filter.search_api_fulltext:
@@ -158,7 +184,7 @@ views.filter.search_api_fulltext:
         label: Field name
 
 views.filter.search_api_language:
-  type: views.filter.search_api_options
+  type: views.filter.language
   label: 'Search API language'
 
 views.filter.search_api_numeric:

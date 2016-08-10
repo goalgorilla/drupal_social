@@ -306,7 +306,7 @@ class SubFormState implements FormStateInterface {
    * {@inheritdoc}
    */
   public function setValue($key, $value) {
-    $this->values[$key] = $value;
+    NestedArray::setValue($this->getValues(), (array) $key, $value, TRUE);
     return $this;
   }
 
@@ -513,8 +513,8 @@ class SubFormState implements FormStateInterface {
   /**
    * {@inheritdoc}
    */
-  // @todo What are groups? Is this the way to handle them in a sub-form?
   public function setGroups(array $groups) {
+    // @todo What are groups? Is this the way to handle them in a sub-form?
     $this->mainFormState->setGroups($groups);
     return $this;
   }

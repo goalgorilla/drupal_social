@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Entity\GroupType.
- */
-
 namespace Drupal\group\Entity;
 
 use Drupal\group\Plugin\GroupContentEnablerCollection;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 use Drupal\Core\Config\Entity\Exception\ConfigEntityIdLengthException;
+use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 
 /**
@@ -18,6 +14,12 @@ use Drupal\Core\Entity\EntityStorageInterface;
  * @ConfigEntityType(
  *   id = "group_type",
  *   label = @Translation("Group type"),
+ *   label_singular = @Translation("group type"),
+ *   label_plural = @Translation("group types"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count group type",
+ *     plural = "@count group types"
+ *   ),
  *   handlers = {
  *     "access" = "Drupal\group\Entity\Access\GroupTypeAccessControlHandler",
  *     "form" = {
@@ -104,6 +106,14 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
   /**
    * {@inheritdoc}
    */
+  public function setDescription($description) {
+    $this->description = $description;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getRoles() {
     return $this->entityTypeManager()
       ->getStorage('group_role')
@@ -119,6 +129,54 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
       $role_ids[] = $group_role->id();
     }
     return $role_ids;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAnonymousRole() {
+    return $this->entityTypeManager()
+      ->getStorage('group_role')
+      ->load($this->getAnonymousRoleId());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAnonymousRoleId() {
+    return $this->id() . '-anonymous';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOutsiderRole() {
+    return $this->entityTypeManager()
+      ->getStorage('group_role')
+      ->load($this->getOutsiderRoleId());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOutsiderRoleId() {
+    return $this->id() . '-outsider';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberRole() {
+    return $this->entityTypeManager()
+      ->getStorage('group_role')
+      ->load($this->getMemberRoleId());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberRoleId() {
+    return $this->id() . '-member';
   }
 
   /**
@@ -141,32 +199,34 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
 
     if (!$update) {
       // Store the id in a short variable for readability.
-      $id = $this->id();
+      $group_type_id = $this->id();
 
       // @todo Remove this line when https://www.drupal.org/node/2645202 lands.
-      $this->setOriginalId($this->id());
+      $this->setOriginalId($group_type_id);
 
       // Create the three special roles for the group type.
       GroupRole::create([
-        'id' => "$id-anonymous",
+        'id' => $this->getAnonymousRoleId(),
         'label' => t('Anonymous'),
         'weight' => -102,
         'internal' => TRUE,
-        'group_type' => $id,
+        'audience' => 'anonymous',
+        'group_type' => $group_type_id,
       ])->save();
       GroupRole::create([
-        'id' => "$id-outsider",
+        'id' => $this->getOutsiderRoleId(),
         'label' => t('Outsider'),
         'weight' => -101,
         'internal' => TRUE,
-        'group_type' => $id,
+        'audience' => 'outsider',
+        'group_type' => $group_type_id,
       ])->save();
       GroupRole::create([
-        'id' => "$id-member",
+        'id' => $this->getMemberRoleId(),
         'label' => t('Member'),
         'weight' => -100,
         'internal' => TRUE,
-        'group_type' => $id,
+        'group_type' => $group_type_id,
       ])->save();
 
       // Enable enforced content plugins for new group types.
@@ -246,21 +306,6 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
     // Run the post install tasks on the plugin.
     $plugin->postInstall();
 
-    // Rebuild the routes if the plugin defines any.
-    if (!empty($plugin->getRoutes())) {
-      \Drupal::service('router.builder')->setRebuildNeeded();
-    }
-
-    // Rebuild the local actions if the plugin defines any.
-    if (!empty($plugin->getLocalActions())) {
-      \Drupal::service('plugin.manager.menu.local_action')->clearCachedDefinitions();
-    }
-
-    // Clear the entity type cache if the plugin adds to the GroupContent info.
-    if (!empty($plugin->getEntityForms())) {
-      $this->entityTypeManager()->clearCachedDefinitions();
-    }
-
     return $this;
   }
 
@@ -269,11 +314,14 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
    */
   public function updateContentPlugin($plugin_id, array $configuration) {
     if ($this->hasContentPlugin($plugin_id)) {
-      // @todo Refactor the way GroupContentEnablerBase saves config.
       $plugin = $this->getContentPlugin($plugin_id);
-      $old = $plugin->getConfiguration();
-      $old['data'] = $configuration + $old['data'];
-      $this->getInstalledContentPlugins()->setInstanceConfiguration($plugin_id, $old);
+      
+      // Merge in the new configuration with the old. @todo Merge deep?
+      $old_conf = $plugin->getConfiguration();
+      $new_conf['data'] = $configuration + $old_conf['data'];
+      
+      // Set the new configuration and save the group type.
+      $this->getInstalledContentPlugins()->setInstanceConfiguration($plugin_id, $new_conf);
       $this->save();
     }
   }
@@ -292,6 +340,33 @@ class GroupType extends ConfigEntityBundleBase implements GroupTypeInterface {
 
     // Delete the group content type config entity.
     GroupContentType::load($content_type_id)->delete();
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    // All dependencies should be recalculated on every save apart from enforced
+    // dependencies. This ensures stale dependencies are never saved.
+    $this->dependencies = array_intersect_key($this->dependencies, ['enforced' => '']);
+
+    // The parent calculateDependencies() would merge in the installed plugin
+    // dependencies at this point. However, because we have an uninstall
+    // validator preventing you from removing any module that provides a plugin
+    // which has content for it, we don't want the plugin's dependencies added
+    // to the group type as it would get deleted when the module which provides
+    // that plugin is uninstalled.
+
+    // Taken from the parent function 1:1.
+    if ($this instanceof ThirdPartySettingsInterface) {
+      // Configuration entities need to depend on the providers of any third
+      // parties that they store the configuration for.
+      foreach ($this->getThirdPartyProviders() as $provider) {
+        $this->addDependency('module', $provider);
+      }
+    }
 
     return $this;
   }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\features\FeaturesGenerationMethodBase.
- */
-
 namespace Drupal\features;
 
 use Drupal\Component\Serialization\Yaml;

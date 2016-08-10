@@ -53,6 +53,7 @@ form {
 
 }
 
+
 .form-no-label label + .form-required {
   float: right;
 }
@@ -147,10 +148,10 @@ span.form-required {
     display: table-cell;
     // Reset rounded corners
     &:first-child .form-control:first-child {
-      @include border-left-radius($border-radius-base);
+      @include border-left-radius($input-border-radius);
     }
     &:last-child .form-control:first-child {
-      @include border-right-radius($border-radius-base);
+      @include border-right-radius($input-border-radius);
     }
   }
 
@@ -398,6 +399,26 @@ span.form-required {
 }
 
 
+.form-inline {
+
+  @include MQ($small) {
+
+    .radio input[type="radio"],
+    .checkbox input[type="checkbox"] {
+      position: absolute;
+    }
+
+    .radio label,
+    .checkbox label {
+      padding-left: ($radio-width - 3);
+      margin-right: $radio-width;
+    }
+
+  }
+
+}
+
+
 // ***************
 // ckeditor
 // ***************
@@ -417,7 +438,7 @@ span.form-required {
   background-color: white;
 
 		li {
-			color: $grey-dark-1;
+			color: $default-color;
 			cursor: pointer;
 			line-height: 1.5em;
 			width: 100%;

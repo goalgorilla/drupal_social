@@ -2,7 +2,6 @@
 
 namespace Drupal\search_api_db\DatabaseCompatibility;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\search_api\SearchApiException;
 
 /**
@@ -24,11 +23,9 @@ class MySql extends GenericDatabase {
       $this->database->query("ALTER TABLE {{$table}} CONVERT TO CHARACTER SET 'utf8' COLLATE '$collation'");
     }
     catch (\PDOException $e) {
-      $arguments['%type'] = get_class($e);
-      $arguments['@message'] = $e->getMessage();
-      $arguments['%table'] = $table;
-      $arguments['@table_type'] = $type;
-      throw new SearchApiException(new FormattableMarkup('%type while trying to change collation of @table_type search data table %table: @message.', $arguments), 0, $e);
+      $class = get_class($e);
+      $message = $e->getMessage();
+      throw new SearchApiException("$class while trying to change collation of $type search data table '$table': $message", 0, $e);
     }
   }
 

@@ -22,10 +22,6 @@
 
 .navbar > .container .navbar-brand {
   margin-left: -$navbar-padding-horizontal;
-
-  object {
-    pointer-events: none;
-  }
 }
 
 @media (min-width: $grid-float-breakpoint) {
@@ -55,11 +51,6 @@
     background-color: $dropdown-bg;
     border: 1px solid $dropdown-border;
     @include box-shadow(0 6px 12px rgba(0,0,0,.175));
-    > li > a,
-    .dropdown-header {
-      padding: 5px 20px;
-    }
-
   }
 
   .navbar-fixed-top .navbar-nav .open .dropdown-menu {
@@ -71,7 +62,7 @@
     width: 100%;
     max-width: none;
     max-height: 100%;
-    height: calc(95% - 50px);
+    height: calc(100% - 50px);
     overflow-x: hidden;
     overflow-y: auto;
     backface-visibility: hidden;
@@ -194,9 +185,18 @@
 .navbar-default .navbar-brand,
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
-  background-color: $brand-primary;
-  padding: 10px 15px;
-  width: 60px;
+  width: auto;
+  padding: 0;
+  max-width: 200px;
+  height: 50px;
+  overflow: hidden;
+
+  img {
+    pointer-events: none;
+    width: auto;
+    height: 50px;
+  }
+
 }
 
 .navbar-default .navbar-nav > li > a:focus,
@@ -224,7 +224,7 @@
 .navbar-default .navbar-nav > .open > a:focus,
 .navbar-default .navbar-nav > .open > a:hover {
   transition: color .2s ease, background-color .2s ease;
-  color: $grey-light-3;
+  color: $gray-lightest;
   background-color: $brand-secondary;
 }
 
@@ -254,6 +254,7 @@
   left: 30px;
   background-color: $brand-accent;
   color: $default-color;
+  border-radius: 50%;
 }
 
 
@@ -285,6 +286,7 @@
     height: 38px;
     display: block;
     position: absolute;
+    overflow: hidden;
     right: 0;
     top: 0;
     line-height: 38px;
@@ -295,15 +297,14 @@
 
   .search-icon {
     line-height: 38px;
-    color: $brand-primary;
+    fill: $brand-primary;
     background: white;
     speak: none;
     pointer-events: none;
 
-    i {
-      line-height: 38px;
-      width: 38px;
-      height: 38px;
+    svg {
+      width: 24px;
+      height: 24px;
     }
 
   }
@@ -346,7 +347,7 @@
       z-index: 90;
       border-radius: 0;
       background: $navbar-default-bg;
-      color: white;
+      fill: white;
       pointer-events: initial;
       transition: border-radius 0.3s, background-color 0.3s, color 0.3s;;
     }
@@ -367,7 +368,7 @@
 
   .search-icon {
   	background: white;
-  	color: $brand-primary;
+  	fill: $brand-primary;
   	z-index: 11;
     border-radius: 0 $input-border-radius $input-border-radius 0;
   }

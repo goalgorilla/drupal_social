@@ -1,8 +1,8 @@
-message.overview_types:
-  title: 'Message types'
+message.overview_templates:
+  title: 'Message templates'
   parent: system.admin_structure
-  description: 'Manage message types.'
-  route_name: message.overview_types
+  description: 'Manage message templates.'
+  route_name: message.overview_templates
 
 message.main_settings:
   title: 'Message'

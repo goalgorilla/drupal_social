@@ -7,7 +7,9 @@ id: open_group-group_manager
 label: 'Group Manager'
 weight: -99
 internal: false
+audience: member
 group_type: open_group
+permissions_ui: true
 permissions:
   - 'delete group'
   - 'edit group'
@@ -32,3 +34,5 @@ permissions:
   - 'access posts in group'
   - 'add post entities in group'
   - 'enroll to events in groups'
+  - 'access group_node overview'
+  - 'access content overview'

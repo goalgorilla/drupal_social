@@ -10,6 +10,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\search_api\Entity\Index;
+use Drupal\search_api\ParseMode\ParseModeInterface;
+use Drupal\search_api\ParseMode\ParseModePluginManager;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\Query\ResultSetInterface;
@@ -103,7 +105,7 @@ class SearchApiQuery extends QueryPluginBase {
    *
    * @var array
    */
-  protected $conditions = array();
+  protected $where = array();
 
   /**
    * The conjunction with which multiple filter groups are combined.
@@ -126,9 +128,8 @@ class SearchApiQuery extends QueryPluginBase {
     /** @var static $plugin */
     $plugin = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var \Psr\Log\LoggerInterface $logger */
-    $logger = $container->get('logger.factory')->get('search_api');
-    $plugin->setLogger($logger);
+    $plugin->setLogger($container->get('logger.channel.search_api'));
+    $plugin->setParseModeManager($container->get('plugin.manager.search_api.parse_mode'));
 
     return $plugin;
   }
@@ -140,7 +141,7 @@ class SearchApiQuery extends QueryPluginBase {
    *   The logger to use.
    */
   public function getLogger() {
-    return $this->logger ?: \Drupal::logger('search_api');
+    return $this->logger ?: \Drupal::service('logger.channel.search_api');
   }
 
   /**
@@ -156,6 +157,35 @@ class SearchApiQuery extends QueryPluginBase {
     return $this;
   }
 
+  /**
+   * The parse mode manager.
+   *
+   * @var \Drupal\search_api\ParseMode\ParseModePluginManager|null
+   */
+  protected $parseModeManager;
+
+  /**
+   * Retrieves the parse mode manager.
+   *
+   * @return \Drupal\search_api\ParseMode\ParseModePluginManager
+   *   The parse mode manager.
+   */
+  public function getParseModeManager() {
+    return $this->parseModeManager ?: \Drupal::service('plugin.manager.search_api.parse_mode');
+  }
+
+  /**
+   * Sets the parse mode manager.
+   *
+   * @param \Drupal\search_api\ParseMode\ParseModePluginManager $parse_mode_manager
+   *   The new parse mode manager.
+   *
+   * @return $this
+   */
+  public function setParseModeManager(ParseModePluginManager $parse_mode_manager) {
+    $this->parseModeManager = $parse_mode_manager;
+    return $this;
+  }
   /**
    * Loads the search index belonging to the given Views base table.
    *
@@ -194,11 +224,22 @@ class SearchApiQuery extends QueryPluginBase {
       $this->retrievedProperties = array_fill_keys($this->index->getDatasourceIds(), array());
       $this->retrievedProperties[NULL] = array();
       $this->query = $this->index->query();
-      $this->query->setParseMode($this->options['parse_mode']);
+      $parse_mode = $this->getParseModeManager()
+        ->createInstance($this->options['parse_mode']);
+      $this->query->setParseMode($parse_mode);
       $this->query->addTag('views');
       $this->query->addTag('views_' . $view->id());
       $this->query->setOption('search_api_view', $view);
 
+      // We only provide a display plugin for Views page displays.
+      // @todo figure out how to allow new displays for other views display
+      //   types to be added. Do we need a hook for this?
+      if ($display->getPluginId() == 'page') {
+        // Load the Search API display and attach it to the query.
+        $display_plugin_manager = \Drupal::service('plugin.manager.search_api.display');
+        $search_api_display = $display_plugin_manager->createInstance('views_page:' . $view->id() . '__' . $view->current_display);
+        $this->query->setOption('search_api_display', $search_api_display);
+      }
     }
     catch (\Exception $e) {
       $this->abort($e->getMessage());
@@ -298,17 +339,16 @@ class SearchApiQuery extends QueryPluginBase {
       '#type' => 'select',
       '#title' => $this->t('Parse mode'),
       '#description' => $this->t('Choose how the search keys will be parsed.'),
-      '#options' => array(),
+      '#options' => $this->getParseModeManager()->getInstancesOptions(),
       '#default_value' => $this->options['parse_mode'],
     );
-    foreach ($this->query->parseModes() as $key => $mode) {
-      $form['parse_mode']['#options'][$key] = $mode['name'];
-      if (!empty($mode['description'])) {
+    foreach ($this->getParseModeManager()->getInstances() as $key => $mode) {
+      if ($mode->getDescription()) {
         $states['visible'][':input[name="query[options][parse_mode]"]']['value'] = $key;
         $form["parse_mode_{$key}_description"] = array(
           '#type' => 'item',
-          '#title' => $mode['name'],
-          '#description' => $mode['description'],
+          '#title' => $mode->label(),
+          '#description' => $mode->getDescription(),
           '#states' => $states,
         );
       }
@@ -326,9 +366,9 @@ class SearchApiQuery extends QueryPluginBase {
    *   containing entities to their entity types. Otherwise, TRUE if there is at
    *   least one such datasource.
    */
-  // @todo Might be useful enough to be moved to the Index class? Or maybe
-  //   Utility, to finally stop the growth of the Index class.
   public function getEntityTypes($return_bool = FALSE) {
+    // @todo Might be useful enough to be moved to the Index class? Or maybe
+    //   Utility, to finally stop the growth of the Index class.
     $types = array();
     foreach ($this->index->getDatasources() as $datasource_id => $datasource) {
       if ($type = $datasource->getEntityTypeId()) {
@@ -352,7 +392,7 @@ class SearchApiQuery extends QueryPluginBase {
     }
 
     // Setup the nested filter structure for this query.
-    if (!empty($this->conditions)) {
+    if (!empty($this->where)) {
       // If the different groups are combined with the OR operator, we have to
       // add a new OR filter to the query to which the filters for the groups
       // will be added.
@@ -364,7 +404,7 @@ class SearchApiQuery extends QueryPluginBase {
         $base = $this->query;
       }
       // Add a nested filter for each filter group, with its set conjunction.
-      foreach ($this->conditions as $group_id => $group) {
+      foreach ($this->where as $group_id => $group) {
         if (!empty($group['conditions']) || !empty($group['condition_groups'])) {
           $group += array('type' => 'AND');
           // For filters without a group, we want to always add them directly to
@@ -491,7 +531,7 @@ class SearchApiQuery extends QueryPluginBase {
    * Used by handlers to flag a fatal error which shouldn't be displayed but
    * still lead to the view returning empty and the search not being executed.
    *
-   * @param string|null $msg
+   * @param \Drupal\Component\Render\MarkupInterface|string|null $msg
    *   Optionally, a translated, unescaped error message to display.
    */
   public function abort($msg = NULL) {
@@ -499,6 +539,9 @@ class SearchApiQuery extends QueryPluginBase {
       $this->errors[] = $msg;
     }
     $this->abort = TRUE;
+    if (isset($this->query)) {
+      $this->query->abort($msg);
+    }
   }
 
   /**
@@ -554,6 +597,7 @@ class SearchApiQuery extends QueryPluginBase {
       }
       $values['search_api_id'] = $item_id;
       $values['search_api_datasource'] = $result->getDatasourceId();
+      $values['search_api_language'] = $result->getLanguage();
       $values['search_api_relevance'] = $result->getScore();
       $values['search_api_excerpt'] = $result->getExcerpt() ?: '';
 
@@ -655,6 +699,72 @@ class SearchApiQuery extends QueryPluginBase {
   //
 
   /**
+   * Retrieves the parse mode.
+   *
+   * @return \Drupal\search_api\ParseMode\ParseModeInterface
+   *   The parse mode.
+   *
+   * @see \Drupal\search_api\Query\QueryInterface::getParseMode()
+   */
+  public function getParseMode() {
+    if (!$this->shouldAbort()) {
+      return $this->query->getParseMode();
+    }
+    return NULL;
+  }
+
+  /**
+   * Sets the parse mode.
+   *
+   * @param \Drupal\search_api\ParseMode\ParseModeInterface $parse_mode
+   *   The parse mode.
+   *
+   * @return $this
+   *
+   * @see \Drupal\search_api\Query\QueryInterface::setParseMode()
+   */
+  public function setParseMode(ParseModeInterface $parse_mode) {
+    if (!$this->shouldAbort()) {
+      $this->query->setParseMode($parse_mode);
+    }
+    return $this;
+  }
+
+  /**
+   * Retrieves the languages that will be searched by this query.
+   *
+   * @return string[]|null
+   *   The language codes of languages that will be searched by this query, or
+   *   NULL if there shouldn't be any restriction on the language.
+   *
+   * @see \Drupal\search_api\Query\QueryInterface::getLanguages()
+   */
+  public function getLanguages() {
+    if (!$this->shouldAbort()) {
+      return $this->query->getLanguages();
+    }
+    return NULL;
+  }
+
+  /**
+   * Sets the languages that should be searched by this query.
+   *
+   * @param string[]|null $languages
+   *   The language codes to search for, or NULL to not restrict the query to
+   *   specific languages.
+   *
+   * @return $this
+   *
+   * @see \Drupal\search_api\Query\QueryInterface::setLanguages()
+   */
+  public function setLanguages(array $languages = NULL) {
+    if (!$this->shouldAbort()) {
+      $this->query->setLanguages($languages);
+    }
+    return $this;
+  }
+
+  /**
    * Creates a new condition group to use with this query object.
    *
    * @param string $conjunction
@@ -740,7 +850,7 @@ class SearchApiQuery extends QueryPluginBase {
       if (empty($group)) {
         $group = 0;
       }
-      $this->conditions[$group]['condition_groups'][] = $condition_group;
+      $this->where[$group]['condition_groups'][] = $condition_group;
     }
     return $this;
   }
@@ -777,7 +887,7 @@ class SearchApiQuery extends QueryPluginBase {
         $group = 0;
       }
       $condition = array($field, $value, $operator);
-      $this->conditions[$group]['conditions'][] = $condition;
+      $this->where[$group]['conditions'][] = $condition;
     }
     return $this;
   }
@@ -836,7 +946,7 @@ class SearchApiQuery extends QueryPluginBase {
         $field = $this->transformDbCondition($field);
       }
       if ($field instanceof ConditionGroupInterface) {
-        $this->conditions[$group]['condition_groups'][] = $field;
+        $this->where[$group]['condition_groups'][] = $field;
       }
       elseif (!$this->shouldAbort()) {
         // We only need to abort  if that wasn't done by transformDbCondition()
@@ -850,10 +960,33 @@ class SearchApiQuery extends QueryPluginBase {
         $value,
         $this->sanitizeOperator($operator),
       );
-      $this->conditions[$group]['conditions'][] = $condition;
+      $this->where[$group]['conditions'][] = $condition;
     }
 
     return $this;
+  }
+
+  /**
+   * Retrieves the conjunction with which multiple filter groups are combined.
+   *
+   * @return string
+   *   Either "AND" or "OR".
+   */
+  public function getGroupOperator() {
+    return $this->groupOperator;
+  }
+
+  /**
+   * Returns the group type of the given group.
+   *
+   * @param int $group
+   *   The group whose type should be retrieved.
+   *
+   * @return string
+   *   The group type – "AND" or "OR".
+   */
+  public function getGroupType($group) {
+    return !empty($this->where[$group]) ? $this->where[$group] : 'AND';
   }
 
   /**
@@ -1162,11 +1295,7 @@ class SearchApiQuery extends QueryPluginBase {
    *   The name of an option. The following options are recognized by default:
    *   - conjunction: The type of conjunction to use for this query – either
    *     'AND' or 'OR'. 'AND' by default. This only influences the search keys,
-   *     filters will always use AND by default.
-   *   - 'parse mode': The mode with which to parse the $keys variable, if it
-   *     is set and not already an array. See
-   *     \Drupal\search_api\Query\Query::parseModes() for recognized parse
-   *     modes.
+   *     condition groups will always use AND by default.
    *   - offset: The position of the first returned search results relative to
    *     the whole result in the index.
    *   - limit: The maximum number of search results to return. -1 means no

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\group\Plugin\GroupContentEnablerCollection.
- */
-
 namespace Drupal\group\Plugin;
 
 use Drupal\Core\Plugin\DefaultLazyPluginCollection;

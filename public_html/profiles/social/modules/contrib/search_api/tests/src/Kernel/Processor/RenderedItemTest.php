@@ -2,12 +2,15 @@
 
 namespace Drupal\Tests\search_api\Kernel\Processor;
 
-use Drupal\Core\TypedData\DataDefinition;
+use Drupal\Core\Entity\Entity\EntityViewMode;
+use Drupal\Core\TypedData\DataDefinitionInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
+use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Utility;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
 
 /**
  * Tests the "Rendered item" processor.
@@ -33,7 +36,7 @@ class RenderedItemTest extends ProcessorTestBase {
     'node',
     'search_api',
     'search_api_db',
-    'search_api_test_backend',
+    'search_api_test',
     'comment',
     'system',
     'filter',
@@ -94,22 +97,28 @@ class RenderedItemTest extends ProcessorTestBase {
     $this->nodes[2] = Node::create($node_data);
     $this->nodes[2]->save();
 
-    // Set proper configuration for the tested processor.
-    $config = $this->processor->getConfiguration();
-    $config['view_mode'] = array(
-      'entity:node' => array(
-        'page' => 'full',
-        'article' => 'teaser',
-      ),
-      'entity:user' => array(
-        'user' => 'compact',
-      ),
-      'entity:comment' => array(
-        'comment' => 'teaser',
+    // Add a field based on the "rendered_item" property.
+    $field_info = array(
+      'type' => 'text',
+      'property_path' => 'rendered_item',
+      'configuration' => array(
+        'roles' => array($role->id()),
+        'view_mode' => array(
+          'entity:node' => array(
+            'page' => 'full',
+            'article' => 'teaser',
+          ),
+          'entity:user' => array(
+            'user' => 'default',
+          ),
+          'entity:comment' => array(
+            'comment' => 'full',
+          ),
+        ),
       ),
     );
-    $config['roles'] = array($role->id());
-    $this->processor->setConfiguration($config);
+    $field = Utility::createField($this->index, 'rendered_item', $field_info);
+    $this->index->addField($field);
 
     $this->index->save();
 
@@ -121,38 +130,9 @@ class RenderedItemTest extends ProcessorTestBase {
   }
 
   /**
-   * Tests that the processor is added correctly.
-   */
-  public function testAddProcessor() {
-    $processors = $this->index->getProcessors();
-    $this->assertTrue(
-      array_key_exists('rendered_item', $processors),
-      'Processor successfully added.'
-    );
-
-    $items = array();
-    foreach ($this->nodes as $node) {
-      $items[] = array(
-        'datasource' => 'entity:node',
-        'item' => $node->getTypedData(),
-        'item_id' => $node->id(),
-        'text' => 'node text' . $node->id(),
-      );
-    }
-    $items = $this->generateItems($items);
-
-    foreach ($items as $item) {
-      $this->assertTrue(
-        array_key_exists('rendered_item', $item->getFields()),
-        'Field successfully added.'
-      );
-    }
-  }
-
-  /**
    * Tests whether the rendered_item field is correctly filled by the processor.
    */
-  public function testPreprocessIndexItems() {
+  public function testAddFieldValues() {
     $items = array();
     foreach ($this->nodes as $node) {
       $items[] = array(
@@ -164,14 +144,22 @@ class RenderedItemTest extends ProcessorTestBase {
     }
     $items = $this->generateItems($items);
 
-    $this->processor->preprocessIndexItems($items);
+    // Add the processor's field values to the items.
+    foreach ($items as $item) {
+      $this->processor->addFieldValues($item);
+    }
+
     foreach ($items as $key => $item) {
       list(, $nid) = Utility::splitCombinedId($key);
       $field = $item->getField('rendered_item');
       $this->assertEquals('text', $field->getType(), 'Node item ' . $nid . ' rendered value is identified as text.');
+      /** @var \Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface[] $values */
       $values = $field->getValues();
-      // Test that the value is a string (not, e.g., a SafeString object).
-      $this->assertTrue(is_string($values[0]), 'Node item ' . $nid . ' rendered value is a string.');
+      // Test that the value is properly wrapped in a
+      // \Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface
+      // object, which contains a string (not, e.g., some markup object).
+      $this->assertInstanceOf('Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface', $values[0], "Node item $nid rendered value is properly wrapped in a text value object.");
+      $this->assertInternalType('string', $values[0]->getText(), "Node item $nid rendered value is a string.");
       $this->assertEquals(1, count($values), 'Node item ' . $nid . ' rendered value is a single value.');
       // These tests rely on the template not changing. However, if we'd only
       // check whether the field values themselves are included, there could
@@ -192,14 +180,15 @@ class RenderedItemTest extends ProcessorTestBase {
   public function testHideRenderedItem() {
     // Change the processor configuration to make sure that that the rendered
     // item content will be empty.
-    $config = $this->processor->getConfiguration();
+    $field = $this->index->getField('rendered_item');
+    $config = $field->getConfiguration();
     $config['view_mode'] = array(
-      'entity:node' => [
+      'entity:node' => array(
         'page' => '',
         'article' => '',
-      ],
+      ),
     );
-    $this->processor->setConfiguration($config);
+    $field->setConfiguration($config);
 
     // Create items that we can index.
     $items = array();
@@ -213,8 +202,10 @@ class RenderedItemTest extends ProcessorTestBase {
     }
     $items = $this->generateItems($items);
 
-    // Preprocess the items for indexing.
-    $this->processor->preprocessIndexItems($items);
+    // Add the processor's field values to the items.
+    foreach ($items as $item) {
+      $this->processor->addFieldValues($item);
+    }
 
     // Verify that no field values were added.
     foreach ($items as $key => $item) {
@@ -227,18 +218,47 @@ class RenderedItemTest extends ProcessorTestBase {
    * Tests whether the property is correctly added by the processor.
    */
   public function testAlterPropertyDefinitions() {
-    // Check for modified properties when no datasource is given.
-    /** @var \Drupal\Core\TypedData\DataDefinitionInterface[] $properties */
-    $properties = array();
-    $this->processor->alterPropertyDefinitions($properties, NULL);
+    // Check for added properties when no datasource is given.
+    $properties = $this->processor->getPropertyDefinitions(NULL);
     $this->assertTrue(array_key_exists('rendered_item', $properties), 'The Properties where modified with the "rendered_item".');
-    $this->assertTrue(($properties['rendered_item'] instanceof DataDefinition), 'The "rendered_item" contains a valid DataDefinition instance.');
+    $this->assertInstanceOf('Drupal\search_api\Plugin\search_api\processor\Property\RenderedItemProperty', $properties['rendered_item'], 'Added property has the correct class.');
+    $this->assertTrue(($properties['rendered_item'] instanceof DataDefinitionInterface), 'The "rendered_item" contains a valid DataDefinition instance.');
     $this->assertEquals('text', $properties['rendered_item']->getDataType(), 'Correct DataType set in the DataDefinition.');
 
-    // Check if the properties stay untouched if a datasource is given.
-    $properties = array();
-    $this->processor->alterPropertyDefinitions($properties, $this->index->getDatasource('entity:node'));
+    // Verify that there are no properties if a datasource is given.
+    $properties = $this->processor->getPropertyDefinitions($this->index->getDatasource('entity:node'));
     $this->assertEquals(array(), $properties, '"render_item" property not added when data source is given.');
+  }
+
+  /**
+   * Tests whether the processor reacts correctly to removed dependencies.
+   */
+  public function testDependencyRemoval() {
+    $expected = array(
+      'config' => array(
+        'core.entity_view_mode.comment.full',
+        'core.entity_view_mode.node.full',
+        'core.entity_view_mode.node.teaser',
+      ),
+    );
+    $this->assertEquals($expected, $this->processor->calculateDependencies());
+
+    EntityViewMode::load('node.teaser')->delete();
+    $expected = array(
+      'entity:node' => array(
+        'page' => 'full',
+      ),
+      'entity:user' => array(
+        'user' => 'default',
+      ),
+      'entity:comment' => array(
+        'comment' => 'full',
+      ),
+    );
+    // We need to reload the index.
+    $index = Index::load($this->index->id());
+    $field_config = $index->getField('rendered_item')->getConfiguration();
+    $this->assertEquals($expected, $field_config['view_mode']);
   }
 
 }

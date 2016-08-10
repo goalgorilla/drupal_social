@@ -73,6 +73,24 @@ interface ItemInterface extends \Traversable {
   public function getIndex();
 
   /**
+   * Retrieves the item language.
+   *
+   * @return string
+   *   The item language.
+   */
+  public function getLanguage();
+
+  /**
+   * Sets the item language.
+   *
+   * @param string $language
+   *   The new item language.
+   *
+   * @return $this
+   */
+  public function setLanguage($language);
+
+  /**
    * Retrieves a single field of this item.
    *
    * @param string $field_id

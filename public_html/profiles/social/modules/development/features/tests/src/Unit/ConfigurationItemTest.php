@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\features\Unit\ConfigurationItemTest.
- */
-
 namespace Drupal\Tests\features\Unit;
 use Drupal\features\ConfigurationItem;
 use Drupal\features\FeaturesManagerInterface;

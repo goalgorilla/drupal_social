@@ -1,0 +1,35 @@
+plugin.plugin_configuration.search_api_backend.search_api_test:
+  type: mapping
+  label: Test backend
+  mapping:
+    test:
+      type: string
+      label: Test configuration
+    dependencies:
+      type: config_dependencies
+      label: Dependencies
+
+plugin.plugin_configuration.search_api_datasource.search_api_test:
+  type: config_dependencies
+
+plugin.plugin_configuration.search_api_processor.search_api_test:
+  type: config_dependencies
+  label: Test processor
+  mapping:
+    weights:
+      type: sequence
+      label: 'The processor''s weights for the different processing stages'
+      sequence:
+        type: integer
+        label: 'The processor''s weight for this stage'
+
+plugin.plugin_configuration.search_api_tracker.search_api_test:
+  type: mapping
+  label: Test tracker
+  mapping:
+    foo:
+      type: string
+      label: Foo
+    dependencies:
+      type: config_dependencies
+      label: Dependencies

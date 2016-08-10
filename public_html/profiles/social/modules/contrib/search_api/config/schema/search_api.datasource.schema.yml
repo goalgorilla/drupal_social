@@ -2,18 +2,29 @@
   type: mapping
   label: 'Entity datasource configuration'
   mapping:
-    default:
-      type: string
-      label: 'Decides if we want to include or exclude the selected bundles.'
     bundles:
-      type: sequence
-      label: 'The selected bundles'
-      sequence:
-        type: string
-        label: 'An entity bundle'
+      type: mapping
+      label: 'Bundles'
+      mapping:
+        default:
+          type: boolean
+          label: 'Whether to exclude (TRUE) or include (FALSE) the selected bundles.'
+        selected:
+          type: sequence
+          label: 'The selected bundles'
+          sequence:
+            type: string
+            label: 'A bundle machine name'
     languages:
-      type: sequence
-      label: 'The selected languages'
-      sequence:
-        type: string
-        label: 'An entity language'
+      type: mapping
+      label: 'Languages'
+      mapping:
+        default:
+          type: boolean
+          label: 'Whether to exclude (TRUE) or include (FALSE) the selected languages.'
+        selected:
+          type: sequence
+          label: 'The selected languages'
+          sequence:
+            type: string
+            label: 'A language code'

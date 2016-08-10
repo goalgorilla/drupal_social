@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\features\FeaturesConfigInstaller.
- */
-
 namespace Drupal\features;
 
 use Drupal\Core\Config\ConfigInstaller;

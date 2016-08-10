@@ -98,6 +98,7 @@ class D6NodeDeriver extends DeriverBase implements ContainerDeriverInterface {
           '@type' => $node_type,
         ]);
         $values['source']['node_type'] = $node_type;
+        $values['destination']['default_bundle'] = $node_type;
 
         // If this migration is based on the d6_node_revision migration, it
         // should explicitly depend on the corresponding d6_node variant.
@@ -111,7 +112,7 @@ class D6NodeDeriver extends DeriverBase implements ContainerDeriverInterface {
             $field_type = $info['type'];
             if ($this->cckPluginManager->hasDefinition($info['type'])) {
               if (!isset($this->cckPluginCache[$field_type])) {
-                $this->cckPluginCache[$field_type] = $this->cckPluginManager->createInstance($field_type, [], $migration);
+                $this->cckPluginCache[$field_type] = $this->cckPluginManager->createInstance($field_type, ['core' => 6], $migration);
               }
               $this->cckPluginCache[$field_type]
                 ->processCckFieldValues($migration, $field_name, $info);

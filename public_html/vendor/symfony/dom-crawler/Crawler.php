@@ -58,8 +58,6 @@ class Crawler implements \Countable, \IteratorAggregate
     private $isHtml = true;
 
     /**
-     * Constructor.
-     *
      * @param mixed  $node       A Node to use as the base for the crawling
      * @param string $currentUri The current URI
      * @param string $baseHref   The base href value
@@ -70,6 +68,26 @@ class Crawler implements \Countable, \IteratorAggregate
         $this->baseHref = $baseHref ?: $currentUri;
 
         $this->add($node);
+    }
+
+    /**
+     * Returns the current URI.
+     *
+     * @return string
+     */
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    /**
+     * Returns base href.
+     *
+     * @return string
+     */
+    public function getBaseHref()
+    {
+        return $this->baseHref;
     }
 
     /**
@@ -319,7 +337,7 @@ class Crawler implements \Countable, \IteratorAggregate
      *
      * @param int $position The position
      *
-     * @return Crawler A new instance of the Crawler with the selected node, or an empty Crawler if it does not exist.
+     * @return Crawler A new instance of the Crawler with the selected node, or an empty Crawler if it does not exist
      */
     public function eq($position)
     {
@@ -376,7 +394,7 @@ class Crawler implements \Countable, \IteratorAggregate
      *
      * @param \Closure $closure An anonymous function
      *
-     * @return Crawler A Crawler instance with the selected nodes.
+     * @return Crawler A Crawler instance with the selected nodes
      */
     public function reduce(\Closure $closure)
     {
@@ -672,6 +690,20 @@ class Crawler implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Selects images by alt value.
+     *
+     * @param string $value The image alt
+     *
+     * @return Crawler A new instance of Crawler with the filtered list of nodes
+     */
+    public function selectImage($value)
+    {
+        $xpath = sprintf('descendant-or-self::img[contains(normalize-space(string(@alt)), %s)]', static::xpathLiteral($value));
+
+        return $this->filterRelativeXPath($xpath);
+    }
+
+    /**
      * Selects a button by name or alt value for images.
      *
      * @param string $value The button text
@@ -731,6 +763,47 @@ class Crawler implements \Countable, \IteratorAggregate
         }
 
         return $links;
+    }
+
+    /**
+     * Returns an Image object for the first node in the list.
+     *
+     * @return Image An Image instance
+     *
+     * @throws \InvalidArgumentException If the current node list is empty
+     */
+    public function image()
+    {
+        if (!count($this)) {
+            throw new \InvalidArgumentException('The current node list is empty.');
+        }
+
+        $node = $this->getNode(0);
+
+        if (!$node instanceof \DOMElement) {
+            throw new \InvalidArgumentException(sprintf('The selected node should be instance of DOMElement, got "%s".', get_class($node)));
+        }
+
+        return new Image($node, $this->baseHref);
+    }
+
+    /**
+     * Returns an array of Image objects for the nodes in the list.
+     *
+     * @return Image[] An array of Image instances
+     */
+    public function images()
+    {
+        $images = array();
+        foreach ($this as $node) {
+            if (!$node instanceof \DOMElement) {
+                throw new \InvalidArgumentException(sprintf('The current node list should contain only DOMElement instances, "%s" found.', get_class($node)));
+            }
+
+            $images[] = new Image($node, $this->baseHref);
+        }
+
+        return $images;
     }
 
     /**

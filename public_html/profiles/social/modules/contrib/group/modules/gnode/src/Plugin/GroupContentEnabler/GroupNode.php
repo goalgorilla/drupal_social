@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\gnode\Plugin\GroupContentEnabler\GroupNode.
- */
-
 namespace Drupal\gnode\Plugin\GroupContentEnabler;
 
 use Drupal\group\Entity\GroupInterface;
@@ -22,7 +17,7 @@ use Symfony\Component\Routing\Route;
  *   label = @Translation("Group node"),
  *   description = @Translation("Adds nodes to groups both publicly and privately."),
  *   entity_type_id = "node",
- *   path_key = "node",
+ *   pretty_path_key = "node",
  *   deriver = "Drupal\gnode\Plugin\GroupContentEnabler\GroupNodeDeriver"
  * )
  */
@@ -47,21 +42,15 @@ class GroupNode extends GroupContentEnablerBase {
     $operations = [];
 
     if ($group->hasPermission("create $type node", $account)) {
+      $route_params = ['group' => $group->id(), 'node_type' => $this->getEntityBundle()];
       $operations["gnode-create-$type"] = [
         'title' => $this->t('Create @type', ['@type' => $this->getNodeType()->label()]),
-        'url' => new Url($this->getRouteName('create-form'), ['group' => $group->id()]),
+        'url' => new Url('entity.group_content.group_node_add_form', $route_params),
         'weight' => 30,
       ];
     }
 
     return $operations;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEntityForms() {
-    return ['gnode-form' => 'Drupal\gnode\Form\GroupNodeFormStep2'];
   }
 
   /**
@@ -115,103 +104,13 @@ class GroupNode extends GroupContentEnablerBase {
   /**
    * {@inheritdoc}
    */
-  public function getPaths() {
-    $paths = parent::getPaths();
-
-    $type = $this->getEntityBundle();
-    $paths['add-form'] = "/group/{group}/node/add/$type";
-    $paths['create-form'] = "/group/{group}/node/create/$type";
-
-    return $paths;
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * @see \Drupal\gnode\Routing\GroupNodeRouteProvider
-   */
-  public function getRouteName($name) {
-    if ($name == 'collection') {
-      return 'entity.group_content.group_node.collection';
-    }
-    return parent::getRouteName($name);
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * @see \Drupal\gnode\Routing\GroupNodeRouteProvider
-   */
-  protected function getCollectionRoute() {
-  }
-
-  /**
-   * Gets the create form route.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getCreateFormRoute() {
-    if ($path = $this->getPath('create-form')) {
-      $route = new Route($path);
-
-      $route
-        ->setDefaults([
-          '_controller' => '\Drupal\gnode\Controller\GroupNodeController::add',
-          '_title_callback' => '\Drupal\gnode\Controller\GroupNodeController::addTitle',
-          'node_type' => $this->getEntityBundle(),
-        ])
-        ->setRequirement('_group_permission', 'create ' . $this->getEntityBundle() . ' node')
-        ->setRequirement('_group_installed_content', $this->getPluginId())
-        ->setOption('_group_operation_route', TRUE)
-        ->setOption('parameters', [
-          'group' => ['type' => 'entity:group'],
-        ]);
-
-      return $route;
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRoutes() {
-    $routes = parent::getRoutes();
-
-    if ($route = $this->getCreateFormRoute()) {
-      $routes[$this->getRouteName('create-form')] = $route;
-    }
-
-    return $routes;
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * @see \Drupal\gnode\Routing\GroupNodeRouteProvider
-   */
-  public function getLocalActions() {
-    $actions['group_node.add'] = [
-      'title' => 'Add node',
-      'route_name' => 'entity.group_content.group_node.add_page',
-      'appears_on' => [$this->getRouteName('collection')],
-    ];
-
-    $actions['group_node.create'] = [
-      'title' => 'Create node',
-      'route_name' => 'entity.group_content.group_node.create_page',
-      'appears_on' => [$this->getRouteName('collection')],
-    ];
-
-    return $actions;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function defaultConfiguration() {
     $config = parent::defaultConfiguration();
     $config['entity_cardinality'] = 1;
+
+    // This string will be saved as part of the group type config entity. We do
+    // not use a t() function here as it needs to be stored untranslated.
+    $config['info_text']['value'] = '<p>By submitting this form you will add this content to the group.<br />It will then be subject to the access control settings that were configured for the group.<br/>Please fill out any available fields to describe the relation between the content and the group.</p>';
     return $config;
   }
 

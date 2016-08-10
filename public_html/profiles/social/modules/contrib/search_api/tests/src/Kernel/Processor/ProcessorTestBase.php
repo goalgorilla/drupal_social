@@ -23,7 +23,7 @@ abstract class ProcessorTestBase extends KernelTestBase {
     'field',
     'search_api',
     'search_api_db',
-    'search_api_test_backend',
+    'search_api_test',
     'comment',
     'text',
     'action',
@@ -69,6 +69,7 @@ abstract class ProcessorTestBase extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installEntitySchema('node');
     $this->installEntitySchema('comment');
+    $this->installSchema('comment', array('comment_entity_statistics'));
     $this->installConfig(array('field'));
 
     Action::create([
@@ -77,15 +78,18 @@ abstract class ProcessorTestBase extends KernelTestBase {
       'plugin' => 'comment_publish_action',
     ])->save();
 
+    // Do not use a batch for tracking the initial items after creating an
+    // index when running the tests via the GUI. Otherwise, it seems Drupal's
+    // Batch API gets confused and the test fails.
+    if (php_sapi_name() != 'cli') {
+      \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
+    }
+
+    // Set tracking page size so tracking will work properly.
     \Drupal::configFactory()
       ->getEditable('search_api.settings')
       ->set('tracking_page_size', 100)
       ->save();
-
-    // Do not use a batch for tracking the initial items after creating an
-    // index when running the tests via the GUI. Otherwise, it seems Drupal's
-    // Batch API gets confused and the test fails.
-    \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
 
     $this->server = Server::create(array(
       'id' => 'server',
@@ -140,8 +144,7 @@ abstract class ProcessorTestBase extends KernelTestBase {
 
     if ($processor) {
       /** @var \Drupal\search_api\Processor\ProcessorPluginManager $plugin_manager */
-      $plugin_manager = \Drupal::service('plugin.manager.search_api.processor');
-      $this->processor = $plugin_manager->createInstance($processor, array('index' => $this->index));
+      $this->processor = $this->index->createPlugin('processor', $processor);
       $this->index->addProcessor($this->processor);
     }
     $this->index->save();

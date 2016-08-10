@@ -5,7 +5,6 @@ namespace Drupal\search_api\Plugin\search_api\processor;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
 use Drupal\search_api\Query\QueryInterface;
-use Drupal\search_api\Query\ResultSetInterface;
 use Drupal\search_api\Utility;
 
 /**
@@ -18,7 +17,6 @@ use Drupal\search_api\Utility;
  *   stages = {
  *     "preprocess_index" = -5,
  *     "preprocess_query" = -2,
- *     "postprocess_query" = -2
  *   }
  * )
  */
@@ -101,12 +99,8 @@ class Stopwords extends FieldsProcessorPluginBase {
   public function preprocessSearchQuery(QueryInterface $query) {
     $this->ignored = array();
     parent::preprocessSearchQuery($query);
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function postprocessSearchResults(ResultSetInterface $results) {
+    $results = $query->getResults();
     foreach ($this->ignored as $ignored_search_key) {
       $results->addIgnoredSearchKey($ignored_search_key);
     }
@@ -116,7 +110,7 @@ class Stopwords extends FieldsProcessorPluginBase {
    * {@inheritdoc}
    */
   protected function testType($type) {
-    return Utility::isTextType($type, array('text', 'tokenized_text'));
+    return Utility::isTextType($type);
   }
 
   /**

@@ -11,9 +11,9 @@
 name: '<strong>Test theme</strong>'
 type: theme
 description: 'Theme for testing the theme system'
-version: VERSION
+# version: VERSION
 base theme: classy
-core: 8.x
+# core: 8.x
 stylesheets-remove:
   - '@system/css/js.module.css'
 libraries:
@@ -65,3 +65,9 @@ regions:
   content: Content
   left: Left
   right: Right
+
+# Information added by Drupal.org packaging script on 2016-07-11
+version: '8.1.6'
+core: '8.x'
+project: 'drupal'
+datestamp: 1468243400

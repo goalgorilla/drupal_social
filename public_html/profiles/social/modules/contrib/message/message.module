@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\Element;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\message\Entity\Message;
-use Drupal\message\Entity\MessageType;
+use Drupal\message\Entity\MessageTemplate;
 
 /**
  * Implements hook_entity_delete().
@@ -105,130 +105,14 @@ function message_entity_delete(EntityInterface $entity) {
 /**
  * Implements hook_cron().
  *
- * Fetch all message types and purge old messages.
+ * Fetch all message templates and purge old messages.
  */
 function message_cron() {
-  $config = \Drupal::config('message.settings');
-
-  // The maximal amount of messages to purge per cron run.
-  $purge_limit = $config->get('delete_cron_limit');
-
-  // Messages to be deleted.
-  $purge_messages = [];
-  // Names of non global-purge-settings overriding message types.
-  $no_override_type_names = [];
-  // Message types that override global purge settings.
-  $override_types = [];
-
-  // Iterate all message types to distinguish between overriding and non-
-  // overriding types.
-  /** @var MessageType[] $message_types */
-  $message_types = MessageType::loadMultiple();
-  foreach ($message_types as $message_type) {
-    $settings = $message_type->getSetting('purge');
-    if (empty($settings['override'])) {
-      $no_override_type_names[] = $message_type->id();
-    }
-    else {
-      // For overriding types, store the type and not its name to later extract
-      // the specific purge settings.
-      $override_types[] = $message_type;
-    }
-  }
-
-  // Gather purgeable messages of overriding types.
-  /** @var MessageType[] $override_types */
-  foreach ($override_types as $message_type) {
-    // Ignore message type with unchecked "Purge messages". Also make sure that
-    // purging settings are present.
-    $settings = $message_type->getSetting('purge');
-    if (empty($settings['enabled'])) {
-      continue;
-    }
-
-    $purge_messages += message_get_purgeable_by_type($purge_limit, $message_type->id(), $settings);
-  }
-
-  // Gather purgeable messages of non-overriding types according to global
-  // settings.
-  if (!empty($no_override_type_names)) {
-    // Do nothing if purge isn't enabled.
-    if ($config->get('purge_enable', FALSE)) {
-      $purge_settings = [
-        'quota' => $config->get('purge_quota'),
-        'days' => $config->get('purge_days'),
-      ];
-
-      $purge_messages += message_get_purgeable_by_type($purge_limit, $no_override_type_names, $purge_settings);
-    }
-  }
-
-  // Delete all gathered messages.
-  if (!empty($purge_messages)) {
-    \Drupal::entityManager()->getStorage('message')->delete($purge_messages);
-  }
+  /** @var \Drupal\message\MessagePurgeOrchestrator $purge_orchestrator */
+  $purge_orchestrator = \Drupal::service('message.purge_orchestrator');
+  $purge_orchestrator->purgeAllTemplateMessages();
 }
 
-/**
- * Find purgeable messages according to type and purge settings.
- *
- * @param $purge_limit
- *   The maximal amount of messages to fetch. Decremented each time messages
- *   are fetched.
- * @param $message_type_name
- *   Either a single message type name or an array of names.
- * @param $purge_settings
- *   Array containing purging settings: 'quota' and 'days'.
- *
- * @return Message[]
- *   Messages of the given type(s) that should be purged according to the given
- *   settings.
- */
-function message_get_purgeable_by_type(&$purge_limit, $message_type_name, $purge_settings) {
-  if ($purge_limit <= 0) {
-    return [];
-  }
-
-  // Messages to be deleted.
-  $purge_messages = [];
-
-  // Base query for both purging methods.
-  $query = \Drupal::entityQuery('message')
-    ->condition('type', $message_type_name, is_array($message_type_name) ? 'IN' : '=')
-    ->sort('created', 'DESC')
-    ->sort('mid', 'DESC');
-
-  // Purge according to quota definition.
-  if (!empty($purge_settings['quota'])) {
-    $quota_query = clone $query;
-    $result = $quota_query
-      ->range($purge_settings['quota'], $purge_limit)
-      ->execute();
-
-    if (!empty($result)) {
-      $purge_limit -= count($result);
-      $purge_messages += $result;
-    }
-  }
-
-  // Purge according to maximal age definition.
-  if (!empty($purge_settings['days'])) {
-    $age_query = clone $query;
-    // Find messages older than current time - maximal age in days times
-    // the seconds per day.
-    $earlier_than = time() - $purge_settings['days'] * 86400;
-    $result = $age_query->condition('created', $earlier_than, '<')
-      ->range(0, $purge_limit)
-      ->execute();
-
-    if (!empty($result)) {
-      $purge_limit -= count($result);
-      $purge_messages += $result;
-    }
-  }
-
-  return Message::loadMultiple($purge_messages);
-}
 
 /**
  * usort callback; Order the form elements by their weight.
@@ -247,8 +131,8 @@ function message_order_text_weight($a, $b) {
 function message_entity_extra_field_info() {
   $extra = [];
 
-  /** @var MessageType[] $bundles */
-  $bundles = MessageType::loadMultiple();
+  /** @var MessageTemplate[] $bundles */
+  $bundles = MessageTemplate::loadMultiple();
   foreach ($bundles as $bundle) {
 
     foreach (array_keys($bundle->getText()) as $delta) {
@@ -275,7 +159,7 @@ function message_entity_extra_field_info() {
  * Implements hook_config_translation_info_alter().
  */
 function message_config_translation_info_alter(&$info) {
-  $info['message_type']['class'] = '\Drupal\message\MessageConfigEntityMapper';
+  $info['message_template']['class'] = '\Drupal\message\MessageConfigEntityMapper';
 }
 
 /**

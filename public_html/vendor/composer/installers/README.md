@@ -38,7 +38,7 @@ is not needed to install packages with these frameworks:
 | AGL          | `agl-module`
 | Bonefish     | `bonefish-package`
 | AnnotateCms  | `annotatecms-module`<br>`annotatecms-component`<br>`annotatecms-service`
-| Bitrix       | `bitrix-module`<br>`bitrix-component`<br>`bitrix-theme`
+| Bitrix       | `bitrix-module` (deprecated) <br>`bitrix-component` (deprecated) <br>`bitrix-theme` (deprecated) <br><br> `bitrix-d7-module` <br> `bitrix-d7-component` <br> `bitrix-d7-template`
 | CakePHP 2+   | **`cakephp-plugin`**
 | Chef         | `chef-cookbook`<br>`chef-role`
 | CCFramework  | `ccframework-ship`<br>`ccframework-theme`
@@ -46,10 +46,12 @@ is not needed to install packages with these frameworks:
 | concrete5    | `concrete5-block`<br>`concrete5-package`<br>`concrete5-theme`<br>`concrete5-update`
 | Craft        | `craft-plugin`
 | Croogo       | `croogo-plugin`<br>`croogo-theme`
+| Decibel      | `decibel-app`
 | DokuWiki     | `dokuwiki-plugin`<br>`dokuwiki-template`
 | Dolibarr     | `dolibarr-module`
 | Drupal       | <b>`drupal-core`<br>`drupal-module`<br>`drupal-theme`</b><br>`drupal-library`<br>`drupal-profile`<br>`drupal-drush`
 | Elgg         | `elgg-plugin`
+| ExpressionEngine 3         | `ee3-addon`<br>`ee3-theme`
 | FuelPHP v1.x | `fuel-module`<br>`fuel-package`<br/>`fuel-theme`
 | FuelPHP v2.x | `fuelphp-component`
 | Grav         | `grav-plugin`<br>`grav-theme`
@@ -75,6 +77,7 @@ is not needed to install packages with these frameworks:
 | Pimcore      | `pimcore-plugin`
 | PPI          | **`ppi-module`**
 | Puppet       | `puppet-module`
+| RadPHP       | `radphp-bundle`
 | REDAXO       | `redaxo-addon`
 | Roundcube    | `roundcube-plugin`
 | shopware     | `shopware-backend-plugin`<br/>`shopware-core-plugin`<br/>`shopware-frontend-plugin`<br/>`shopware-theme`
@@ -89,6 +92,7 @@ is not needed to install packages with these frameworks:
 | Zend         | `zend-library`<br>`zend-extra`<br>`zend-module`
 | Zikula       | `zikula-module`<br>`zikula-theme`
 | Prestashop   | `prestashop-module`<br>`prestashop-theme`
+| Phifty       | `phifty-bundle`<br>`phifty-framework`<br>`phifty-library`
 
 ## Example `composer.json` File
 

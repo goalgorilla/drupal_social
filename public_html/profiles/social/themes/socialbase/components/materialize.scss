@@ -1,10 +1,6 @@
 @charset "UTF-8";
 
 //
-// Custom brand settings
-@import "theme/styles";
-
-//
 // Variables and mixins
 @import "init";
 
@@ -70,7 +66,6 @@
 
 //
 // Components
-@import "components/waves";
 @import "components/tabs";
 @import "components/off-canvas";
 @import "components/forms/switch";
