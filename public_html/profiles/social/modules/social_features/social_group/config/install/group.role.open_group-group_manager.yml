@@ -38,6 +38,3 @@ permissions:
   24: 'access comments'
   25: 'edit own comments'
   26: 'administer comments'
-  27: 'access group_node overview'
-  28: 'access content overview'
-
