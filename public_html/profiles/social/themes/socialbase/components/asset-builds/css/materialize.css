@@ -417,7 +417,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   color: #4d4d4d;
-  background-color: #e6e6e6;
+  background-color: #f3f3f3;
 }
 
 input,
@@ -465,7 +465,7 @@ img {
 .img-thumbnail {
   padding: 0;
   line-height: 1.5;
-  background-color: #e6e6e6;
+  background-color: #f3f3f3;
   border: 1px solid #ddd;
   border-radius: 10px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -2616,7 +2616,7 @@ th {
 }
 
 .table .table {
-  background-color: #e6e6e6;
+  background-color: #f3f3f3;
 }
 
 .table-condensed > thead > tr > th,
@@ -3227,7 +3227,8 @@ a.card:hover {
 .card-nested-section {
   margin: 10px -20px -20px;
   padding: 20px;
-  background: #f5f5f5;
+  background: #f7f7f7;
+  border-top: 1px solid #e6e6e6;
 }
 
 .card-nested-section.indented {
@@ -4444,11 +4445,6 @@ i.large {
   height: 24px;
 }
 
-.img-tiny {
-  width: 16px;
-  height: 16px;
-}
-
 .img-grid {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4723,7 +4719,7 @@ hr.ruler-l {
 .navbar-default .navbar-nav > .open > a:hover {
   -webkit-transition: color .2s ease, background-color .2s ease;
   transition: color .2s ease, background-color .2s ease;
-  color: #f5f5f5;
+  color: #f3f3f3;
   background-color: #1f80aa;
 }
 
@@ -5227,6 +5223,11 @@ a.list-group-item {
   font-weight: 300;
 }
 
+.list-group-item-heading {
+  margin: 0;
+  line-height: inherit;
+}
+
 .list-group-item .icon-small,
 .list-group-item:focus .icon-small {
   fill: #4d4d4d;
@@ -5327,7 +5328,7 @@ a.list-group-item {
 }
 
 .vertical-tabs-list {
-  background-color: #f5f5f5;
+  background-color: #f3f3f3;
 }
 
 .popover {

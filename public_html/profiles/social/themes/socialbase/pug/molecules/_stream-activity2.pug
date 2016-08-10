@@ -9,17 +9,17 @@
   .media-body
     .media-heading.text-m
       if user != "isAnonymous"
-        a(href="other-stream.html") Jenny Baker 
-      else 
-        | Jenny Baker 
-      | posted in the community
+        a(href="other-stream.html") Jenny Baker
+      else
+        | Jenny Baker
+      | &nbsp;posted
       br
       if user == "isAnonymous"
         a(href="single-post-an.html").text-gray-lighter 54 minutes ago
-      else 
+      else
         a(href="single-post.html").text-gray-lighter 54 minutes ago
 
-.margin-top-s.margin-bottom-m We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege. 
+.margin-top-s.margin-bottom-m We know that not paying speakers and not covering speaker expenses causes events to become less diverse. The ability to give time, energy and professional skills free of charge is a privilege.
 
 .visible-xs-block
   if user != "isAnonymous"
@@ -27,7 +27,7 @@
     hr.ruler-xs
     a.btn.btn-block.btn-link(href='single-post.html#comment-1') show all 5 comments
       svg.icon-small
-        use(xlink:href='#icon-navigate_next') 
+        use(xlink:href='#icon-navigate_next')
 
 .card-nested-section.hidden-xs
 
@@ -45,8 +45,8 @@
   include ./_post1-reply2.pug
   include ./_post1-reply1.pug
 
-  .margin-top-l.text-center
-    if user != "isAnonymous"
+  if user != "isAnonymous"
+    .margin-top-l.text-center
       a.btn.btn-link(href='single-post.html') show all 5 comments
         svg.icon-small
           use(xlink:href='#icon-navigate_next')

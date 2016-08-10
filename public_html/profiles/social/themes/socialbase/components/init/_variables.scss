@@ -33,6 +33,7 @@
 // *  26. Code
 // *  27. Tooltip
 // *  28. Modals
+// *  29. Jumbotron
 
 // 0. Options
 // ==========================================================================
@@ -71,7 +72,8 @@ $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             #777777 !default;
 $gray-light-1:           #aaaaaa !default;
 $gray-lighter:           #e6e6e6 !default;
-$gray-lightest:          #f5f5f5 !default;
+$gray-lighter-1:         #f7f7f7 !default;
+$gray-lightest:          #f3f3f3 !default;
 
 $brand-primary-dark: mix(black, $brand-primary, 30%) !default;
 $brand-primary-light: mix(white, $brand-primary, 30%) !default;
@@ -81,7 +83,7 @@ $brand-primary-bright: mix(white, $brand-primary, 60%) !default;
 // 2. Scaffolding
 // ==========================================================================
 //** Background color for `<body>`.
-$body-bg:               $gray-lighter !default;
+$body-bg:               $gray-lightest !default;
 //** Global text color on `<body>`.
 $text-color:            $default-color !default;
 
@@ -762,7 +764,7 @@ $blockquote-font-size:        ($font-size-base * 1.125) !default;
 //** Blockquote border color
 $blockquote-border-color:     $gray-lighter !default;
 //** Page header border color
-$page-header-border-color:    $gray-lighter !default;
+$page-header-border-color:    rgba($gray-light, 0.2) !default;
 //** Width of horizontal description list titles
 $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Point at which .dl-horizontal becomes horizontal
@@ -897,3 +899,14 @@ $modal-footer-border-color:   $modal-header-border-color !default;
 $modal-lg:                    900px !default;
 $modal-md:                    600px !default;
 $modal-sm:                    300px !default;
+
+
+// 29.  Jumbotron
+// ==========================================================================
+
+$jumbotron-padding:              30px !default;
+$jumbotron-color:                inherit !default;
+$jumbotron-bg:                   white !default;
+$jumbotron-heading-color:        inherit !default;
+$jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
+$jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
