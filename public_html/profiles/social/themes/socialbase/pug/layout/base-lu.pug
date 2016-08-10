@@ -7,7 +7,7 @@ html(lang="en")
     meta(name='viewport', content='width=device-width, initial-scale=1')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(charset='utf-8')
-  
+
     block title
       title  Documentation - Drupal Social
 
@@ -32,7 +32,7 @@ html(lang="en")
     meta(name='theme-color', content='#ffffff')
 
     include _components.pug
-  
+
   body(class='#{pagetype}')
     include ../../images/icons.svg
     //- Google Tag Manager
@@ -46,45 +46,31 @@ html(lang="en")
       })(window,document,'script','dataLayer','GTM-5BGZV3');
     // End Google Tag Manager
     include _header-lu.pug
-    
+
     main.main-container(role='main')
-      
+
       nav.visible-md-block.visible-lg-block.bg-white
         ol.breadcrumb.container
-          block breadcrumbs  
+          block breadcrumbs
             li
               a(href='home-lu.html') Home
             li
               a(href='#!') Overview
             li.active Detail
-      
+
       block pagetitle
 
       .main-content
-      
+
         block secondary_navigation
-        
+
         .container
           block content
-      
+
     include _footer.pug
+    
   block scriptinline_before
 
-  script(src='js/drupal-core.js')
-  script(src='js/contrib/bootstrap.min.js')
-  script(src='js/contrib/waves/waves.js')
-  script(src='js/custom/offcanvas.js')
-  script(src='js/custom/textarea-autogrow.js')
-  script(src='js/init.js')
-  script(src='js/custom/navbar-search.js')
-  
-  // Does not work for Safari iOS, debug later
-  // include _fontfaceobserver.pug
-  
-  script.
-    new UISearch( document.getElementById( 'navbar-search' ) );
-  
-  unless pagetype == "template"
-    script(src='js/prism.js')
+  include _scripts.pug
 
   block scriptinline

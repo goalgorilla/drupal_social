@@ -143,15 +143,15 @@ gulp.task('styleguide', function() {
     }))
 
     //only pass changed *main* files and *all* the partials
-    .pipe(changed(options.rootPath.dist, {extension: '.html'}))
+    //.pipe(changed(options.rootPath.dist, {extension: '.html'}))
 
     //filter out unchanged partials, but it only works when watching
-    .pipe(gulpif(global.isWatching, cached('pug')))
+    //.pipe(gulpif(global.isWatching, cached('pug')))
 
     //filter out partials (folders and files starting with "_" )
-    .pipe(filter(function (file) {
-      return !/\/_/.test(file.path) || !/^_/.test(file.relative);
-    }))
+    // .pipe(filter(function (file) {
+    //  return !/\/_/.test(file.path) || !/^_/.test(file.relative);
+    // }))
 
     .pipe(pug({
       pretty: true
@@ -168,18 +168,6 @@ gulp.task('setWatch', function() {
 // ===================================================
 // Scripts
 // ===================================================
-
-// get component scripts used for styleguide only
-gulp.task('script-styleguide', function() {
-  return gulp.src([
-    options.theme.js + "styleguide/sideNav.js",
-    options.theme.js + "styleguide/jquery.timeago.min.js",
-    options.theme.js + "styleguide/jquery.easing.1.3.js",
-    options.theme.js + "styleguide/jquery.touch-swipe.js"
-  ])
-  .pipe( concat('styleguide.js') )
-  .pipe( gulp.dest(options.rootPath.dist + '/js') );
-});
 
 //copy drupal scripts from drupal to make them available for the styleguide
 gulp.task('script-drupal', function() {
@@ -205,11 +193,11 @@ gulp.task('copy-scripts', function() {
   .pipe( gulp.dest(options.rootPath.dist + '/js') );
 });
 
+
 // ===================================================
 // Icons
 // svgmin minifies our SVG files and strips out unnecessary code that you might inherit from your graphics editor. svgstore binds them together in one giant SVG container called icons.svg. Then cheerio gives us the ability to interact with the DOM components in this file in a jQuery-like way. cheerio in this case is removing any fill attributes from the SVG elements (you’ll want to use CSS to manipulate them) and adds a class of .hide to our parent SVG. It gets deposited into our inc directory with the rest of the HTML partials.
 // ===================================================
-
 
 gulp.task('icons', function () {
   return gulp.src(options.theme.icons + '*.svg')
