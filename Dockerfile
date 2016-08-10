@@ -38,7 +38,7 @@ RUN composer global install --prefer-dist
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
 RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
-ADD public_html/ /var/www/html/
+ADD html/ /var/www/html/
 WORKDIR /var/www/html/
 RUN chown -R www-data:www-data *
 

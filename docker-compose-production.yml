@@ -10,6 +10,7 @@ services:
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
+    container_name: social_web
 
   db:
     image: mysql:5.6
@@ -19,6 +20,7 @@ services:
     volumes:
      - db_data:/var/lib/mysql
     network_mode: "bridge"
+    container_name: social_db
 
 volumes:
   db_data:

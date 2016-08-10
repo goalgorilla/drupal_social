@@ -3,9 +3,10 @@
 # Install script for in the docker container.
 cd /var/www/html/;
 
-# php profiles/social/modules/contrib/composer_manager/scripts/init.php
+# drush make profiles/contrib/social/build-social.make -y;
+# php profiles/contrib/social/modules/contrib/composer_manager/scripts/init.php;
 # composer drupal-rebuild
-# composer update --lock
+# composer update -n --lock
 
 LOCAL=$1
 NFS=$2
@@ -27,12 +28,14 @@ if [[ $NFS != "nfs" ]]
     fn_sleep
     echo "set the correct owner"
   fi
+
 php -r 'opcache_reset();';
 fn_sleep
 echo "opcache reset"
 chmod 444 sites/default/settings.php
+chmod 777 sites/default/files
 fn_sleep
-echo "settings.php"
+echo "settings.php and files directory permissions"
 drush pm-enable social_demo -y
 fn_sleep
 echo "enabled module"
@@ -53,5 +56,5 @@ drush php-eval 'node_access_rebuild()';
 # development modules e.g. pause nfs dev.
 if [[ $DEV == "dev" ]]
 then
-  drush en devel, views_ui, field_ui, dblog -y
+  drush en social_devel -y
 fi
