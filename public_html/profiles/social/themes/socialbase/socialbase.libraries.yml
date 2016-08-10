@@ -73,6 +73,10 @@ pickadate:
     js/contrib/date_picker/picker.time.js: {}
     js/contrib/date_picker/picker.init.js: {}
 
+drupal.tabledrag:
+  js:
+    js/misc/tabledrag.js: {}
+
 tablesaw:
   css:
     component:
