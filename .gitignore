@@ -1,13 +1,13 @@
-.DS_STORE
-.idea/
+# Social dev files #
+####################
 test-results/
 dev-scripts/local
 
-public_html/sites/*/settings*.php
-public_html/sites/*/services*.yml
-public_html/sites/*/files
-public_html/sites/*/private
-public_html/sites/simpletest
+# Composer files #
+##################
+composer.lock
+vendor/
+html
 
 # Compiled source #
 ###################
