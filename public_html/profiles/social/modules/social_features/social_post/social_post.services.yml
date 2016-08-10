@@ -1,5 +1,0 @@
-services:
-  social_post.route_subscriber:
-    class: Drupal\social_post\Routing\RouteSubscriber
-    tags:
-      - { name: event_subscriber }

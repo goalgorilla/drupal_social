@@ -1,5 +1,0 @@
-services:
-  social_search.breadcrumb:
-    class: Drupal\social_search\SocialSearchBreadcrumbBuilder
-    tags:
-      - { name: breadcrumb_builder, priority: 100 }

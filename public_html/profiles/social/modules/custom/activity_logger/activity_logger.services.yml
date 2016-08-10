@@ -1,3 +1,0 @@
-services:
-  activity_logger.activity_factory:
-    class: Drupal\activity_logger\Service\ActivityLoggerFactory
