@@ -15,6 +15,7 @@ dependencies:
   module:
     - comment
     - file
+    - group_core_comments
     - text
     - user
 id: node.event.default
@@ -34,7 +35,7 @@ content:
     settings:
       pager_id: 0
     third_party_settings: {  }
-    type: comment_default
+    type: comment_group_content
   field_files:
     weight: 2
     label: above
