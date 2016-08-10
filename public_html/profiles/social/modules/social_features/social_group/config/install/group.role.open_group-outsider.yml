@@ -20,3 +20,4 @@ permissions:
   - 'access posts in group'
   - 'edit own topic node'
   - 'edit own event node'
+  - 'access comments'
