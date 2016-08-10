@@ -33,7 +33,9 @@
 // *  26. Code
 // *  27. Tooltip
 // *  28. Modals
-// *  29. Jumbotron
+// *  29. Hero
+// *  30. Jumbotron
+
 
 // 0. Options
 // ==========================================================================
@@ -70,7 +72,7 @@ $gray-darker:            lighten($gray-base, 13.5%) !default; // #222
 $gray-dark:              lighten($gray-base, 20%) !default;   // #333
 $gray:                   lighten($gray-base, 33.5%) !default; // #555
 $gray-light:             #777777 !default;
-$gray-light-1:           #aaaaaa !default;
+$gray-light-1:           #adadad !default;
 $gray-lighter:           #e6e6e6 !default;
 $gray-lighter-1:         #f7f7f7 !default;
 $gray-lightest:          #f3f3f3 !default;
@@ -900,8 +902,17 @@ $modal-lg:                    900px !default;
 $modal-md:                    600px !default;
 $modal-sm:                    300px !default;
 
+// 29.  Hero
+// ==========================================================================
 
-// 29.  Jumbotron
+// Radius of the profile image
+$hero-avatar-radius:         50% !default;
+
+// Border color of the profile image
+$hero-avatar-border:           white !default;
+
+
+// 30.  Jumbotron
 // ==========================================================================
 
 $jumbotron-padding:              30px !default;

@@ -143,6 +143,22 @@
   z-index: 3;
 }
 
+// Profile
+
+.hero-avatar {
+  @include z-depth-2;
+  border-radius: $hero-avatar-radius;
+  width: 80px;
+  height: 80px;
+  border: 2px solid $hero-avatar-border;
+
+  @include MQ($small) {
+    width: 128px;
+    height: 128px;
+    border-width: 3px;
+  }
+}
+
 
 // Hero search
 

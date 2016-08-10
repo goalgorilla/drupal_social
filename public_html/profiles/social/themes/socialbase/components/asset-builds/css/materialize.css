@@ -3297,9 +3297,9 @@ a.card:hover {
   top: 0;
   height: auto;
   pointer-events: none;
-  width: 32px;
-  height: 32px;
-  padding: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
   background-color: #adadad;
   border-radius: 0 0 8px 8px;
   left: 20px;
@@ -3307,10 +3307,11 @@ a.card:hover {
   margin-bottom: -10px;
 }
 
-.card--teaser .teaser-type img {
-  width: 16px;
-  height: 16px;
+.card--teaser .teaser-type .teaser-type-icon {
+  width: 12px;
+  height: 12px;
   display: table;
+  fill: white;
 }
 
 .card--teaser .card-title {
@@ -3326,6 +3327,16 @@ a.card:hover {
           flex: 1 1 auto;
 }
 
+.teaser-icon {
+  width: 14px;
+  height: 14px;
+  line-height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  fill: #555555;
+  margin-right: 12px;
+}
+
 .card--teaser-desc {
   max-height: 3em;
   overflow: hidden;
@@ -3338,7 +3349,7 @@ a.card:hover {
   right: 0;
   z-index: 1;
   background-color: inherit;
-  padding: 6px 20px;
+  padding: 6px 20px 6px 16px;
 }
 
 .card-actionbar:before, .card-actionbar:after {
@@ -4307,6 +4318,14 @@ span.form-required {
   z-index: 3;
 }
 
+.hero-avatar {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border: 2px solid white;
+}
+
 .hero-form[role='search'] .form-group {
   position: relative;
   max-width: 400px;
@@ -4456,6 +4475,10 @@ i.large {
 
 .img-grid img {
   margin: 3px;
+}
+
+.img-bordered {
+  border: 3px solid white;
 }
 
 .truncate {
@@ -4826,6 +4849,7 @@ hr.ruler-l {
   padding-bottom: 0;
   border-radius: 0;
   max-width: 500px;
+  border: 0;
 }
 
 .dropdown-menu li > a {
@@ -6660,12 +6684,12 @@ input[type=range]:focus::-ms-fill-upper {
     left: 0;
     width: 44px;
     height: 44px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 0 0 10px 0;
   }
-  .card--teaser .teaser-type img{
-    width: 24px;
-    height: 24px;
+  .card--teaser .teaser-type .teaser-type-icon{
+    width: 18px;
+    height: 18px;
   }
   .unpublished .card-image.blue-overlay:before{
     background: rgba(77, 77, 77, 0.8);
@@ -6751,6 +6775,11 @@ input[type=range]:focus::-ms-fill-upper {
   }
   .hero-canvas .page-title{
     margin: 1em 0 .5em;
+  }
+  .hero-avatar{
+    width: 128px;
+    height: 128px;
+    border-width: 3px;
   }
   .pagination > li{
     display: inline-block;
@@ -7894,7 +7923,7 @@ input[type=range]:focus::-ms-fill-upper {
     position: absolute;
     margin-top: 0;
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 0;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   }
   .navbar-fixed-top .navbar-nav .open .dropdown-menu{
