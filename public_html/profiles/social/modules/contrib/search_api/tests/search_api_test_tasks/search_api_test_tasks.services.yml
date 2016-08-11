@@ -1,6 +1,0 @@
-services:
-  search_api_test_tasks.test_task_worker:
-    class: Drupal\search_api_test_tasks\TestTaskWorker
-    arguments: ['@search_api.task_manager']
-    tags:
-      - { name: event_subscriber }

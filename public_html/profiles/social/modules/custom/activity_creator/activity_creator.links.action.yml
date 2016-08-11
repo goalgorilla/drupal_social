@@ -1,5 +1,0 @@
-entity.activity.add_form:
-  route_name: entity.activity.add_form
-  title: 'Add Activity'
-  appears_on:
-    - entity.activity.collection

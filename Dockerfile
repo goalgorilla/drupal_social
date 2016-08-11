@@ -38,9 +38,16 @@ RUN composer global install --prefer-dist
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
 RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
-ADD public_html/ /var/www/html/
+# Install via composer.
+ADD composer.json /var/www/composer.json
+WORKDIR /var/www/
+RUN composer install
+
+#ADD html/ /var/www/html/
 WORKDIR /var/www/html/
 RUN chown -R www-data:www-data *
+
+#ADD vendor/ /var/www/vendor/
 
 # Install Drupal console
 RUN curl https://drupalconsole.com/installer -L -o drupal.phar

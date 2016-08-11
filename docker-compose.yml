@@ -4,8 +4,9 @@ services:
   web:
     build: docker_build/drupal8/development
     volumes:
-     - ./public_html:/var/www/html
+     - ./html:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
+     - ./vendor:/var/www/vendor
     links:
      - db
      - mailcatcher
@@ -15,6 +16,7 @@ services:
     ports:
      - "80"
     network_mode: "bridge"
+    container_name: social_web
 
   db:
     image: mysql:5.6
@@ -26,6 +28,7 @@ services:
     ports:
       - "3307:3306"
     network_mode: "bridge"
+    container_name: social_db
 
   mailcatcher:
     image: schickling/mailcatcher
@@ -35,6 +38,7 @@ services:
     ports:
       - "1080"
     network_mode: "bridge"
+    container_name: social_mailcatcher
 
 # Currently disabled because of rate limits.
 # Enable and use the normal ssmtp.conf file to sent emails with postfix.
@@ -52,20 +56,20 @@ services:
     ports:
      - "4444"
      - "5900"
-    container_name: social_selenium
     cap_add:
      - NET_ADMIN
      - NET_RAW
     network_mode: "bridge"
+    container_name: social_selenium
 
   behat:
     build: docker_build/drupal8/development
-    container_name: social_behat
     volumes:
-     - ./public_html/:/var/www/html
+     - ./html/:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
      - ./travis_artifacts/:/root/travis_artifacts
-     - ./public_html/profiles/social/tests/behat/:/root/behat
+     - ./html/profiles/contrib/social/tests/behat/:/root/behat
+     - ./vendor:/var/www/vendor
     links:
      - web:web
      - db:db
@@ -73,16 +77,20 @@ services:
     environment:
      - DRUPAL_SETTINGS=development
     network_mode: "bridge"
+    container_name: social_behat
+
   cron:
     build: docker_build/cron
     volumes:
-     - ./public_html:/var/www/html
+     - ./html:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
+     - ./vendor:/var/www/vendor
     links:
      - db
     environment:
      - DRUPAL_SETTINGS=development
     network_mode: "bridge"
+    container_name: social_cron
 
 volumes:
   db_data:

@@ -1,9 +1,0 @@
-message.template_add:
-  route_name: message.template_add
-  base_route: message.template_add
-  title: 'View'
-
-messages.admin:
-  title: Messages
-  route_name: message.messages
-  base_route: node.content_overview

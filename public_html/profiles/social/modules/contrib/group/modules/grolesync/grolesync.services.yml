@@ -1,4 +1,0 @@
-services:
-  grolesync.synchronizer:
-    class: 'Drupal\grolesync\GroupRoleSynchronizer'
-    arguments: ['@entity_type.manager']

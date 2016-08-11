@@ -1,5 +1,0 @@
-message.template_add:
-  route_name: message.template_add
-  title: 'Add message template'
-  appears_on:
-    - message.overview_templates
