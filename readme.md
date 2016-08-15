@@ -34,4 +34,6 @@ Do you want to join us in this effort? We are welcoming your [feedback](http://g
 
 If you find any issues feel free to file a bug report in the [issue queue](https://www.drupal.org/project/issues/social).
 
-[![Build Status](https://travis-ci.org/goalgorilla/drupal_social.svg?branch=master)](https://travis-ci.org/goalgorilla/drupal_social)
+[![Build Status Drupal Social](https://travis-ci.org/goalgorilla/drupal_social.svg?branch=master)](https://travis-ci.org/goalgorilla/drupal_social)
+[![Build Status Open Social](https://api.travis-ci.org/goalgorilla/open_social.svg?branch=8.x-1.x)](https://travis-ci.org/goalgorilla/open_social)
+
