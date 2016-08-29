@@ -29,6 +29,7 @@ services:
       - "3307:3306"
     network_mode: "bridge"
     container_name: social_db
+    command: mysqld --max_allowed_packet=16M
 
   mailcatcher:
     image: schickling/mailcatcher
