@@ -12,7 +12,7 @@ services:
       - "80"
     environment:
       - VIRTUAL_HOST=nightly_build.socialci.goalgorilla.com
-      - DRUPAL_SETTINGS=production
+      - DRUPAL_SETTINGS=nightly
     volumes:
      - /root/drupal_social/social-jenkins-data/workspace/nightly_build/dev-scripts:/root/dev-scripts
      - social_sites_default:/var/www/html/sites/default

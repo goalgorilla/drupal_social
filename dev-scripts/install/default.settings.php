@@ -716,7 +716,15 @@ if (isset($_ENV['DRUPAL_SETTINGS'])) {
   $drupal_settings = $_ENV['DRUPAL_SETTINGS'];
 }
 
-$settings['trusted_host_patterns'] = array('[\s\S]*');
+/** Todo: create better patterns on production sites */
+if ($drupal_settings !== 'production') {
+  $settings['trusted_host_patterns'] = array('[\s\S]*');
+}
+
+/**
+ * Set private file path directory.
+ */
+$settings['file_private_path'] =  '/var/www/files_private';
 
 /**
  * Load local development override configuration, if available.
