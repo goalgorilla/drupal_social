@@ -10,7 +10,6 @@ ADD php.ini /usr/local/etc/php/php.ini
 
 # Install composer dependencies.
 ADD composer.json /root/.composer/composer.json
-ADD composer.lock /root/.composer/composer.lock
 RUN composer global install --prefer-dist
 
 # Xdebug.

@@ -45,8 +45,9 @@ echo "opcache reset"
 chmod 444 sites/default/settings.php
 
 # Create private files directory.
-if [ ! -d /var/www/html/sites/default/files/private ]; then
-  mkdir /var/www/html/sites/default/files/private;
+if [ ! -d /var/www/files_private ]; then
+  mkdir /var/www/files_private;
+  chmod 777 -R /var/www/files_private;
 fi
 chmod 777 -R sites/default/files
 

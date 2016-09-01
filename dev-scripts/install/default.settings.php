@@ -724,7 +724,7 @@ if ($drupal_settings !== 'production') {
 /**
  * Set private file path directory.
  */
-$settings['file_private_path'] =  'sites/default/files/private';
+$settings['file_private_path'] =  '/var/www/files_private';
 
 /**
  * Load local development override configuration, if available.
