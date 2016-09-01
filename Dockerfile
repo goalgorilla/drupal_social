@@ -32,7 +32,6 @@ RUN mv composer.phar /usr/local/bin/composer
 
 # Install composer dependencies.
 ADD docker_build/drupal8/composer.json /root/.composer/composer.json
-ADD docker_build/drupal8/composer.lock /root/.composer/composer.lock
 RUN composer global install --prefer-dist
 
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
