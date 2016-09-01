@@ -10,7 +10,7 @@ services:
      - ./test-results/:/root/test-results
      - ./vendor:/var/www/vendor
     environment:
-     - DRUPAL_SETTINGS=production
+     - DRUPAL_SETTINGS=travis
     network_mode: "bridge"
     container_name: social_web_scripts
 

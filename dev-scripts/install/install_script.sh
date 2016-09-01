@@ -19,6 +19,23 @@ fn_sleep() {
   fi
 }
 
+# Set the correct settings.php requires dev-scripts folder to be mounted in /root/dev-scripts/.
+if [ -f /var/www/html/sites/default/settings.php ]; then
+  chmod 777 /var/www/html/sites/default/settings.php
+  rm /var/www/html/sites/default/settings.php
+fi
+
+chmod 777 /var/www/html/sites/default/default.settings.php
+rm /var/www/html/sites/default/default.settings.php
+cp /root/dev-scripts/install/default.settings.php /var/www/html/sites/default/default.settings.php
+
+chmod 777 sites/default/files
+# Create private files directory.
+if [ ! -d /var/www/html/sites/default/files/private ]; then
+  mkdir /var/www/html/sites/default/files/private;
+fi
+chmod 777 /var/www/html/sites/default/files/private
+
 drush -y site-install social --db-url=mysql://root:root@db:3306/social --account-pass=admin install_configure_form.update_status_module='array(FALSE,FALSE)';
 fn_sleep
 echo "installed drupal"
@@ -33,7 +50,7 @@ php -r 'opcache_reset();';
 fn_sleep
 echo "opcache reset"
 chmod 444 sites/default/settings.php
-chmod 777 sites/default/files
+
 fn_sleep
 echo "settings.php and files directory permissions"
 drush pm-enable social_demo -y
