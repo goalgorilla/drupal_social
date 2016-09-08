@@ -20,6 +20,8 @@ fn_sleep() {
 }
 
 # Set the correct settings.php requires dev-scripts folder to be mounted in /root/dev-scripts/.
+chmod 777 /var/www/html/sites/default
+
 if [ -f /var/www/html/sites/default/settings.php ]; then
   chmod 777 /var/www/html/sites/default/settings.php
   rm /var/www/html/sites/default/settings.php
