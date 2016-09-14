@@ -9,7 +9,9 @@
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "1.5.0",
-        "goalgorilla/open_social": "dev-8.x-1.x"
+        "goalgorilla/open_social": "dev-8.x-1.x",
+        "drush/drush": "~8.0",
+        "drupal/console": "~1.0"
     },
     "require-dev": {
         "behat/mink": "~1.7",
