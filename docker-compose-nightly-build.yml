@@ -42,6 +42,7 @@ services:
      - social_sites_default:/var/www/html/sites/default
     links:
      - social_nightly_db:db
+     - social_nightly_mailcatcher:mailcatcher
     network_mode: "bridge"
 
   # Currently disabled because of rate limits.
