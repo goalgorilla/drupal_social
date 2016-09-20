@@ -12,14 +12,14 @@ DRUSH=`which drush`
 # Current implementation of the cron. Can be another (EG: elysia-cron)
 CRON=core-cron
 # drush  must be installed.
-if [[ ! -f $DRUSH ]]
+if [ ! -f $DRUSH ]
 then
   echo `date`" - DRUSH NOT FOUND: SKIPPING CRON"
   exit
 fi
 
 # the run_cron file must be there.
-if [[ ! -f $CRON_ROOT/run_cron ]]
+if [ ! -f $CRON_ROOT/run_cron ]
 then
   echo `date`" - CRON TURNED OFF: SKIPPING CRON"
   exit
