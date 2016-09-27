@@ -30,17 +30,13 @@ RUN docker-php-ext-install bcmath
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
-# Install composer dependencies.
-ADD docker_build/drupal8/composer.json /root/.composer/composer.json
-RUN composer global install --prefer-dist
-
-# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
-RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
-
 # Install via composer.
 ADD composer.json /var/www/composer.json
 WORKDIR /var/www/
 RUN composer install
+
+# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
+RUN ln -s /var/www/vendor/drush/drush/drush /usr/local/bin/drush
 
 #ADD html/ /var/www/html/
 WORKDIR /var/www/html/
