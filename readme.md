@@ -5,7 +5,7 @@ For day to day technical documentation use the [Github Wiki](https://github.com/
 Useful links for developers:
 - [Roadmap]( https://www.drupal.org/node/2766871)
 - [Lo-fi prototype](http://prototype.goalgorilla.com/drupalsocial/current/)
-- [Hifi styleguide and prototype](http://goalgorilla.github.io/drupal_social/)
+- [Hifi styleguide and prototype](http://styleguide.getopensocial.com/)
 - [Travis CI](https://travis-ci.org/goalgorilla/drupal_social/builds)
 - [Docker Hub](https://hub.docker.com/r/goalgorilla/drupal_social/builds/)
 - [Drupal.org project page](https://drupal.org/project/social)
