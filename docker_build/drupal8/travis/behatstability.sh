@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PROJECT_FOLDER=/root/behat
+PROJECT_FOLDER=/var/www/html/profiles/contrib/social/tests/behat
 
 behat --version
 
