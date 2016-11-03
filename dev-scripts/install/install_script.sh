@@ -63,6 +63,10 @@ drush sda file user group topic event eventenrollment post comment # Add the dem
 #drush sdr eventenrollment topic event post comment group user file # Remove the demo content
 drush pm-uninstall social_demo -y
 fn_sleep
+echo "flush image caches"
+drush cc drush
+drush image-flush --all
+fn_sleep
 echo "Run activity queues"
 drush queue-run activity_logger_message
 drush queue-run activity_creator_logger
