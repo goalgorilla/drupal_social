@@ -6,7 +6,9 @@ RUN apt-get update && apt-get install -y \
   php-pclzip \
   mysql-client \
   git \
-  ssmtp && \
+  ssmtp \
+  nano \
+  vim && \
   apt-get clean
 
 ADD docker_build/drupal8/mailcatcher-ssmtp.conf /etc/ssmtp/ssmtp.conf
@@ -21,35 +23,30 @@ RUN echo 'sendmail_path = "/usr/sbin/ssmtp -t"' > /usr/local/etc/php/conf.d/mail
 
 ADD docker_build/drupal8/php.ini /usr/local/etc/php/php.ini
 
+# Install extensions
 RUN docker-php-ext-install zip
-
-# Install bcmath
 RUN docker-php-ext-install bcmath
 
 # Install Composer.
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
-# Install via composer.
+# Install Open Social via composer.
 ADD composer.json /var/www/composer.json
 WORKDIR /var/www/
-RUN composer install
-
-# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
-RUN ln -s /var/www/vendor/drush/drush/drush /usr/local/bin/drush
+RUN rm -rf /root/.composer
+RUN composer install --prefer-dist --no-interaction
 
 #ADD html/ /var/www/html/
+#ADD vendor/ /var/www/vendor/
+
 WORKDIR /var/www/html/
 RUN chown -R www-data:www-data *
 
-#ADD vendor/ /var/www/vendor/
+# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
+RUN ln -s /var/www/vendor/bin/drush /usr/local/bin/drush
 
-# Install Drupal console
-RUN curl https://drupalconsole.com/installer -L -o drupal.phar
-RUN mv drupal.phar /usr/local/bin/drupal
-RUN chmod +x /usr/local/bin/drupal
-
-RUN if [ ! -f /root/.composer/vendor/drush/drush/lib/Console_Table-1.1.3/Table.php ]; then pear install Console_Table; fi
+#RUN if [ ! -f /root/.composer/vendor/drush/drush/lib/Console_Table-1.1.3/Table.php ]; then pear install Console_Table; fi
 
 RUN php -r 'opcache_reset();'
 
