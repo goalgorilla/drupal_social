@@ -3,11 +3,6 @@
 # Install script for in the docker container.
 cd /var/www/html/;
 
-# drush make profiles/contrib/social/build-social.make -y;
-# php profiles/contrib/social/modules/contrib/composer_manager/scripts/init.php;
-# composer drupal-rebuild
-# composer update -n --lock
-
 LOCAL=$1
 NFS=$2
 DEV=$3

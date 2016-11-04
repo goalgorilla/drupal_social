@@ -2,12 +2,9 @@ version: "2"
 
 services:
   web:
-    build: docker_build/drupal8/development
+    image: goalgorilla/drupal_social:extended-dev-dev
     volumes:
-     - ./html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./vendor:/var/www/vendor
-     - ./docker_build/drupal8/development/php.ini:/usr/local/etc/php/php.ini
+     - ./:/var/www
     links:
      - db
      - mailcatcher
@@ -65,13 +62,9 @@ services:
     container_name: social_selenium
 
   behat:
-    build: docker_build/drupal8/development
+    image: goalgorilla/drupal_social:extended-dev-dev
     volumes:
-     - ./html/:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./travis_artifacts/:/root/travis_artifacts
-     - ./html/profiles/contrib/social/tests/behat/:/root/behat
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - web:web
      - db:db
@@ -82,11 +75,9 @@ services:
     container_name: social_behat
 
   cron:
-    build: docker_build/cron
+    image: goalgorilla/drupal_social:extended-dev-cron
     volumes:
-     - ./html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - db
      - mailcatcher

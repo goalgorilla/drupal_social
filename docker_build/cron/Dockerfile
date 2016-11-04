@@ -1,11 +1,9 @@
-FROM goalgorilla/drupal_social:latest
+FROM goalgorilla/drupal_social:extended-dev-prod
 MAINTAINER devel@goalgorilla.com
 
 # Install development related packages.
 RUN apt-get update && apt-get install -y \
-nano \
-cron \
-vim
+cron
 
 # Install crontab
 ADD cron.sh /root/dev-scripts/cron/cron.sh

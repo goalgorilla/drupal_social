@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
   vim && \
   apt-get clean
 
-ADD docker_build/drupal8/mailcatcher-ssmtp.conf /etc/ssmtp/ssmtp.conf
+ADD docker_build/prod/mailcatcher-ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Dockerhub currently runs on docker 1.8 and does not support the ARG command.
 # Reset the logic after the dockerhub is updated.
@@ -21,7 +21,7 @@ ADD docker_build/drupal8/mailcatcher-ssmtp.conf /etc/ssmtp/ssmtp.conf
 RUN echo "hostname=goalgorilla.com" >> /etc/ssmtp/ssmtp.conf
 RUN echo 'sendmail_path = "/usr/sbin/ssmtp -t"' > /usr/local/etc/php/conf.d/mail.ini
 
-ADD docker_build/drupal8/php.ini /usr/local/etc/php/php.ini
+ADD docker_build/prod/php.ini /usr/local/etc/php/php.ini
 
 # Install extensions
 RUN docker-php-ext-install zip

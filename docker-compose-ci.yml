@@ -4,22 +4,16 @@ services:
   web_scripts:
     image: goalgorilla/drupal_social:extended-dev-ci
     volumes:
-     - ./html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./docker_build/drupal8/travis/:/root/travis
-     - ./test-results/:/root/test-results
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
-    container_name: social_web_scripts
+    container_name: social_ci_web_scripts
 
   web:
     image: goalgorilla/drupal_social:extended-dev-ci
     volumes:
-     - ./html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - db:db
     environment:
@@ -27,7 +21,7 @@ services:
     ports:
      - "80"
     network_mode: "bridge"
-    container_name: social_web
+    container_name: social_ci_web
 
   db:
     image: mysql:5.6
@@ -39,7 +33,7 @@ services:
     ports:
       - "3307:3306"
     network_mode: "bridge"
-    container_name: social_db
+    container_name: social_ci_db
 
   selenium:
     image: selenium/standalone-firefox:2.48.2
@@ -52,17 +46,12 @@ services:
      - NET_ADMIN
      - NET_RAW
     network_mode: "bridge"
-    container_name: social_selenium
+    container_name: social_ci_selenium
 
   behat:
     image: goalgorilla/drupal_social:extended-dev-ci
     volumes:
-     - ./html/:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./travis_artifacts/:/root/travis_artifacts
-     - ./html/profiles/contrib/social/tests/behat/:/root/behat
-     - ./docker_build/drupal8/travis/:/root/travis
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - web:web
      - db:db
@@ -70,7 +59,7 @@ services:
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
-    container_name: social_behat
+    container_name: social_ci_behat
 
 volumes:
   db_data:
