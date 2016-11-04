@@ -32,21 +32,18 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
 # Install Open Social via composer.
+RUN rm -f /var/www/composer.lock
+RUN rm -rf /root/.composer
+
 ADD composer.json /var/www/composer.json
 WORKDIR /var/www/
-RUN rm -rf /root/.composer
-RUN composer install --prefer-dist --no-interaction
-
-#ADD html/ /var/www/html/
-#ADD vendor/ /var/www/vendor/
+RUN composer install --prefer-dist --no-interaction --no-dev
 
 WORKDIR /var/www/html/
 RUN chown -R www-data:www-data *
 
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
 RUN ln -s /var/www/vendor/bin/drush /usr/local/bin/drush
-
-#RUN if [ ! -f /root/.composer/vendor/drush/drush/lib/Console_Table-1.1.3/Table.php ]; then pear install Console_Table; fi
 
 RUN php -r 'opcache_reset();'
 
