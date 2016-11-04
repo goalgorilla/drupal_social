@@ -2,7 +2,7 @@ version: "2"
 
 services:
   web:
-    image: goalgorilla/drupal_social:extended-dev-dev
+    build: docker_build/dev
     volumes:
      - ./:/var/www
     links:
@@ -62,7 +62,7 @@ services:
     container_name: social_selenium
 
   behat:
-    image: goalgorilla/drupal_social:extended-dev-dev
+    build: docker_build/dev
     volumes:
      - ./:/var/www
     links:
@@ -75,7 +75,7 @@ services:
     container_name: social_behat
 
   cron:
-    image: goalgorilla/drupal_social:extended-dev-cron
+    build: docker_build/cron
     volumes:
      - ./:/var/www
     links:

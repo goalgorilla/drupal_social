@@ -3,6 +3,8 @@ MAINTAINER devel@goalgorilla.com
 
 ADD php.ini /usr/local/etc/php/php.ini
 
+### CI SPECIFIC - START ###
+
 # Install composer dependencies.
 RUN composer install --prefer-dist --no-interaction
 
@@ -10,5 +12,7 @@ RUN composer install --prefer-dist --no-interaction
 RUN ln -s /root/.composer/vendor/bin/behat /usr/local/bin/behat
 RUN ln -s /root/.composer/vendor/bin/phpunit /usr/local/bin/phpunit
 RUN ln -s /var/www/vendor/bin/drupal /usr/local/bin/drupal
+
+### CI SPECIFIC - END ###
 
 RUN php -r "opcache_reset();"
