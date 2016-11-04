@@ -35,7 +35,4 @@ before_install:
 script:
   - docker exec -i social_ci_web bash /var/www/dev-scripts/install/install_script.sh
   - docker exec -i social_ci_web_scripts sh /var/www/dev-scripts/unit-tests.sh
-  - docker ps
-  - docker logs social_ci_selenium
-  - sleep 30
   - docker exec -it social_ci_behat sh /var/www/dev-scripts/behatstability.sh

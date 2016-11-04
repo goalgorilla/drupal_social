@@ -2,8 +2,8 @@
 
 PROJECT_FOLDER=/var/www/html/profiles/contrib/social/tests/behat
 
-behat --version
+/var/www/vendor/bin/behat --version
 
 echo $PROJECT_FOLDER/config/behat.yml;
 
-behat $PROJECT_FOLDER --config $PROJECT_FOLDER/config/behat.yml --tags "stability"
+/var/www/vendor/bin/behat $PROJECT_FOLDER --config $PROJECT_FOLDER/config/behat.yml --tags "stability"
