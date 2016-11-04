@@ -1,16 +1,7 @@
-FROM goalgorilla/drupal_social:latest
+FROM goalgorilla/drupal_social:extended-dev-ci
 MAINTAINER devel@goalgorilla.com
 
-# Install development related packages.
-RUN apt-get update && apt-get install -y \
-nano \
-vim
-
 ADD php.ini /usr/local/etc/php/php.ini
-
-# Install composer dependencies.
-ADD composer.json /root/.composer/composer.json
-RUN composer global install --prefer-dist
 
 # Xdebug.
 RUN pecl install xdebug
@@ -22,10 +13,6 @@ RUN sed -i '1 a xdebug.remote_connect_back=1 ' /usr/local/etc/php/conf.d/docker-
 RUN sed -i '1 a xdebug.remote_port=9000' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN sed -i '1 a xdebug.remote_host=127.0.0.1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN sed -i '1 a xdebug.remote_enable=1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
-# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
-RUN ln -s /root/.composer/vendor/bin/behat /usr/local/bin/behat
-RUN ln -s /root/.composer/vendor/bin/phpunit /usr/local/bin/phpunit
 
 # Contains the Mac hack to get the permissions to work for development.
 # Set user 1000 and group staff to www-data, enables write permission.

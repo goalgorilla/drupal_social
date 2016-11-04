@@ -2,7 +2,7 @@ version: "2"
 
 services:
   web_scripts:
-    build: docker_build/drupal8/travis
+    image: goalgorilla/drupal_social:extended-dev-ci
     volumes:
      - ./html:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
@@ -10,12 +10,12 @@ services:
      - ./test-results/:/root/test-results
      - ./vendor:/var/www/vendor
     environment:
-     - DRUPAL_SETTINGS=travis
+     - DRUPAL_SETTINGS=production
     network_mode: "bridge"
     container_name: social_web_scripts
 
   web:
-    image: goalgorilla/drupal_social
+    image: goalgorilla/drupal_social:extended-dev-ci
     volumes:
      - ./html:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
@@ -55,7 +55,7 @@ services:
     container_name: social_selenium
 
   behat:
-    build: docker_build/drupal8/travis
+    image: goalgorilla/drupal_social:extended-dev-ci
     volumes:
      - ./html/:/var/www/html
      - ./dev-scripts/:/root/dev-scripts
