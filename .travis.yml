@@ -23,19 +23,16 @@ before_install:
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
   - docker --version
   - phpenv config-rm xdebug.ini
-  - composer install
+  - composer install --prefer-dist --no-interaction
   - sudo rm /usr/local/bin/docker-compose || true
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker-compose --version
-  - docker-compose -f docker-compose-travis.yml up -d
+  - docker-compose -f docker-compose-ci.yml up -d
   - docker ps -a
 
 script:
-  - docker exec -i social_web bash /root/dev-scripts/install/install_script.sh
-  - docker exec -i social_web_scripts sh /root/travis/unit-tests.sh
-  - docker ps
-  - docker logs social_selenium
-  - sleep 30
-  - docker exec -it social_behat sh /root/travis/behatstability.sh
+  - docker exec -i social_ci_web bash /var/www/dev-scripts/install/install_script.sh
+  - docker exec -i social_ci_web_scripts sh /var/www/dev-scripts/unit-tests.sh
+  - docker exec -it social_ci_behat sh /var/www/dev-scripts/behatstability.sh

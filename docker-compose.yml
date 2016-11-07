@@ -2,11 +2,9 @@ version: "2"
 
 services:
   web:
-    build: docker_build/drupal8/development
+    build: docker_build/dev
     volumes:
-     - ./html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - db
      - mailcatcher
@@ -64,13 +62,9 @@ services:
     container_name: social_selenium
 
   behat:
-    build: docker_build/drupal8/development
+    build: docker_build/dev
     volumes:
-     - ./html/:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./travis_artifacts/:/root/travis_artifacts
-     - ./html/profiles/contrib/social/tests/behat/:/root/behat
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - web:web
      - db:db
@@ -83,9 +77,7 @@ services:
   cron:
     build: docker_build/cron
     volumes:
-     - ./html:/var/www/html
-     - ./dev-scripts/:/root/dev-scripts
-     - ./vendor:/var/www/vendor
+     - ./:/var/www
     links:
      - db
      - mailcatcher

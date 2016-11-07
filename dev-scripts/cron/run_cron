@@ -1,2 +1,0 @@
-If this file is present, the drupal cron/queue will executed
-renaming it will skip the cron/queue
