@@ -1,4 +1,4 @@
-FROM goalgorilla/drupal_social:extended-dev-prod
+FROM goalgorilla/drupal_social:latest
 MAINTAINER devel@goalgorilla.com
 
 ADD php.ini /usr/local/etc/php/php.ini
