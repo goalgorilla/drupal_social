@@ -1,13 +1,14 @@
 # Social dev files #
 ####################
-test-results/
+test-results
 dev-scripts/local
 
 # Composer files #
 ##################
 composer.lock
-vendor/
+vendor
 html
+files_private
 
 # Compiled source #
 ###################

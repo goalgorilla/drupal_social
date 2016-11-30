@@ -2,7 +2,7 @@ version: "2"
 
 services:
   web_scripts:
-    build: docker_build/ci
+    image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www
     environment:
@@ -11,7 +11,7 @@ services:
     container_name: social_ci_web_scripts
 
   web:
-    build: docker_build/ci
+    image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www
     links:
@@ -49,7 +49,7 @@ services:
     container_name: social_ci_selenium
 
   behat:
-    build: docker_build/ci
+    image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www
     links:
