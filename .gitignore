@@ -2,6 +2,7 @@
 ####################
 test-results/
 dev-scripts/local
+files_private/
 
 # Composer files #
 ##################
