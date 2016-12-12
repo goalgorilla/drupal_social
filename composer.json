@@ -47,9 +47,6 @@
     },
     "extra": {
         "installer-paths": {
-            "scripts/social": [
-                "goalgorilla/open_social_scripts"
-            ],
             "html/core": [
                 "drupal/core"
             ],
@@ -67,6 +64,9 @@
             ],
             "drush/contrib/{$name}": [
                 "type:drupal-drush"
+            ],
+            "scripts/{$name}": [
+                "goalgorilla/open_social_scripts"
             ]
         },
         "enable-patching": true
