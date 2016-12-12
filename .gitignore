@@ -3,6 +3,7 @@
 test-results
 scripts/local
 scripts/social
+files_private/
 
 # Composer files #
 ##################
