@@ -16,6 +16,7 @@ services:
      - ./:/var/www
     links:
      - db:db
+     - mailcatcher:mailcatcher
     environment:
      - DRUPAL_SETTINGS=production
     ports:
@@ -34,6 +35,16 @@ services:
       - "3307:3306"
     network_mode: "bridge"
     container_name: social_ci_db
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    environment:
+      - VIRTUAL_HOST=mailcatcher.social.dev
+      - VIRTUAL_PORT=1080
+    ports:
+      - "1080"
+    network_mode: "bridge"
+    container_name: social_mailcatcher
 
   selenium:
     image: selenium/standalone-firefox:2.48.2
@@ -56,6 +67,7 @@ services:
      - web:web
      - db:db
      - selenium:selenium
+     - mailcatcher:mailcatcher
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
