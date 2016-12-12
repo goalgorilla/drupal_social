@@ -38,12 +38,12 @@
         }
     ],
     "scripts": {
-      "post-install-cmd": [
-        "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-      ],
-      "post-update-cmd": [
-        "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-      ]
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ]
     },
     "extra": {
         "installer-paths": {
@@ -62,11 +62,11 @@
             "html/themes/contrib/{$name}": [
                 "type:drupal-theme"
             ],
-            "drush/contrib/{$name}": [
-                "type:drupal-drush"
-            ],
             "scripts/{$name}": [
                 "goalgorilla/open_social_scripts"
+            ],
+            "drush/contrib/{$name}": [
+                "type:drupal-drush"
             ]
         },
         "enable-patching": true

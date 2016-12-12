@@ -1,7 +1,8 @@
 # Social dev files #
 ####################
 test-results
-dev-scripts/local
+scripts/local
+scripts/social
 
 # Composer files #
 ##################
