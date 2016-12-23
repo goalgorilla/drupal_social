@@ -10,7 +10,8 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "1.5.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-1.x"
+        "goalgorilla/open_social": "dev-8.x-1.x",
+        "goalgorilla/open_social_scripts": "dev-master"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
@@ -37,12 +38,12 @@
         }
     ],
     "scripts": {
-      "post-install-cmd": [
-        "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-      ],
-      "post-update-cmd": [
-        "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-      ]
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ]
     },
     "extra": {
         "installer-paths": {
@@ -60,6 +61,9 @@
             ],
             "html/themes/contrib/{$name}": [
                 "type:drupal-theme"
+            ],
+            "scripts/{$name}": [
+                "goalgorilla/open_social_scripts"
             ],
             "drush/contrib/{$name}": [
                 "type:drupal-drush"

@@ -2,7 +2,7 @@ version: "2"
 
 services:
   web_scripts:
-    build: docker_build/ci
+    image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www
     environment:
@@ -11,11 +11,12 @@ services:
     container_name: social_ci_web_scripts
 
   web:
-    build: docker_build/ci
+    image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www
     links:
      - db:db
+     - mailcatcher:mailcatcher
     environment:
      - DRUPAL_SETTINGS=production
     ports:
@@ -35,6 +36,16 @@ services:
     network_mode: "bridge"
     container_name: social_ci_db
 
+  mailcatcher:
+    image: schickling/mailcatcher
+    environment:
+      - VIRTUAL_HOST=mailcatcher.social.dev
+      - VIRTUAL_PORT=1080
+    ports:
+      - "1080"
+    network_mode: "bridge"
+    container_name: social_mailcatcher
+
   selenium:
     image: selenium/standalone-firefox:2.48.2
     links:
@@ -49,13 +60,14 @@ services:
     container_name: social_ci_selenium
 
   behat:
-    build: docker_build/ci
+    image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www
     links:
      - web:web
      - db:db
      - selenium:selenium
+     - mailcatcher:mailcatcher
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
