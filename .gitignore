@@ -5,6 +5,10 @@ scripts/local
 scripts/social
 files_private/
 
+# Docker files #
+################
+docker-compose.override.yml
+
 # Composer files #
 ##################
 composer.lock
