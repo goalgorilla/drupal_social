@@ -1,5 +1,9 @@
-# Open Social Development #
-Repository for development of the Open Social distribution. Check [drupal.org](https://www.drupal.org/project/social) for more information about Open Social.
+Looking for the repository of the Open Social distribution? [Click here](https://github.com/goalgorilla/open_social) 
+
+# Open Social Developer Repository#
+Repository for developers working on the Open Social distribution. This repository contains a useful development workflow in Docker for the Open Social distribution. The development takes place [here](https://github.com/goalgorilla/open_social).
+
+Check [drupal.org](https://www.drupal.org/project/social) for more information about Open Social.
 For day to day technical documentation use the [Github Wiki](https://github.com/goalgorilla/drupal_social/wiki).
 
 Useful links for developers:
