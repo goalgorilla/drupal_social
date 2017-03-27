@@ -10,7 +10,7 @@ Useful links for developers:
 - [Roadmap]( https://www.drupal.org/node/2766871)
 - [Hifi styleguide and prototype](http://styleguide.getopensocial.com/)
 - [Travis CI](https://travis-ci.org/goalgorilla/drupal_social/builds)
-- [Docker Hub](https://hub.docker.com/r/goalgorilla/drupal_social/builds/)
+- [Docker Hub](https://hub.docker.com/r/goalgorilla/open_social_docker/)
 - [Drupal.org project page](https://drupal.org/project/social)
 - [Open Social Distribution Github repo](https://github.com/goalgorilla/open_social)
 - [Open Social Distribution issue queue](https://www.drupal.org/project/issues/social).
