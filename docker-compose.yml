@@ -41,6 +41,8 @@ services:
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
+    volumes:
+      - ./html/profiles/contrib/social/tests/behat/features/files/:/files
     links:
      - web:web
     ports:
