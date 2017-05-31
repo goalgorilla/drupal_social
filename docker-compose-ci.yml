@@ -50,6 +50,8 @@ services:
     image: selenium/standalone-firefox:2.48.2
     links:
      - web:web
+    volumes:
+      - ./html/profiles/contrib/social/tests/behat/features/files/:/files
     ports:
      - "4444"
      - "5900"
