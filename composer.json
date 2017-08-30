@@ -48,6 +48,19 @@
                     "reference": "v0.6.4"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-jonthornton/jquery-timepicker",
+                "version": "1.11.4",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/jonthornton/jquery-timepicker",
+                    "type": "git",
+                    "reference": "1.11.4"
+                }
+            }
         }
     ],
     "scripts": {
