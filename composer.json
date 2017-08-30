@@ -10,7 +10,7 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-1.x",
+        "goalgorilla/open_social": "dev-features/DS-4122-move-libraries",
         "goalgorilla/open_social_scripts": "dev-master"
     },
     "require-dev": {
@@ -35,6 +35,19 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-fians/waves",
+                "version": "v0.6.4",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/fians/Waves",
+                    "type": "git",
+                    "reference": "v0.6.4"
+                }
+            }
         }
     ],
     "scripts": {
@@ -61,6 +74,9 @@
             ],
             "html/themes/contrib/{$name}": [
                 "type:drupal-theme"
+            ],
+            "html/libraries/{$name}": [
+                "type:drupal-library"
             ],
             "scripts/{$name}": [
                 "goalgorilla/open_social_scripts"
