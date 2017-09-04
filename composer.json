@@ -9,8 +9,9 @@
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
+        "oomphinc/composer-installers-extender": "^1.1",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-feature/DS-4122-move-libraries",
+        "goalgorilla/open_social": "dev-feature/DS-4122-bower-composer-test",
         "goalgorilla/open_social_scripts": "dev-master"
     },
     "require-dev": {
@@ -37,43 +38,8 @@
             "url": "https://packages.drupal.org/8"
         },
         {
-            "type": "package",
-            "package": {
-                "name": "library-fians/waves",
-                "version": "0.7.5",
-                "type": "drupal-library",
-                "source": {
-                    "url": "https://github.com/fians/Waves",
-                    "type": "git",
-                    "reference": "v0.7.5"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "library-jonthornton/jquery-timepicker",
-                "version": "1.11.4",
-                "type": "drupal-library",
-                "source": {
-                    "url": "https://github.com/jonthornton/jquery-timepicker",
-                    "type": "git",
-                    "reference": "1.11.4"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "library-filamentgroup/tablesaw",
-                "version": "2.0.3",
-                "type": "drupal-library",
-                "source": {
-                    "url": "https://github.com/filamentgroup/tablesaw",
-                    "type": "git",
-                    "reference": "v2.0.3"
-                }
-            }
+            "type": "composer",
+            "url": "https://asset-packagist.org"
         }
     ],
     "scripts": {
@@ -85,6 +51,10 @@
         ]
     },
     "extra": {
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
         "installer-paths": {
             "html/core": [
                 "drupal/core"
@@ -102,7 +72,9 @@
                 "type:drupal-theme"
             ],
             "html/libraries/{$name}": [
-                "type:drupal-library"
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
             ],
             "scripts/{$name}": [
                 "goalgorilla/open_social_scripts"
