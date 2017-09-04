@@ -11,7 +11,7 @@
         "cweagans/composer-patches": "^1.0",
         "oomphinc/composer-installers-extender": "^1.1",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-feature/DS-4122-bower-composer-test",
+        "goalgorilla/open_social": "dev-feature/DS-4122-move-libraries",
         "goalgorilla/open_social_scripts": "dev-master"
     },
     "require-dev": {
