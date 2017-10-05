@@ -23,8 +23,8 @@
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "drupal/drupal-extension": "*",
         "drupal/coder": "dev-8.x-2.x",
+        "drupal/drupal-extension": "3.3.0",
         "phpmd/phpmd": "@stable",
         "pdepend/pdepend": "2.1.0",
         "sebastian/phpcpd": "*",
@@ -34,6 +34,10 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
         }
     ],
     "scripts": {
@@ -45,6 +49,10 @@
         ]
     },
     "extra": {
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
         "installer-paths": {
             "html/core": [
                 "drupal/core"
@@ -60,6 +68,11 @@
             ],
             "html/themes/contrib/{$name}": [
                 "type:drupal-theme"
+            ],
+            "html/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
             ],
             "scripts/{$name}": [
                 "goalgorilla/open_social_scripts"
