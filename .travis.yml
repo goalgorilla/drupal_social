@@ -9,7 +9,7 @@ addons:
 language: php
 
 php:
-  - 7.1
+  - 5.6
 
 env:
   DOCKER_COMPOSE_VERSION: 1.6.2
