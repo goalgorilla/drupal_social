@@ -29,7 +29,7 @@
         "pdepend/pdepend": "2.1.0",
         "sebastian/phpcpd": "*",
         "phpunit/phpunit": "^4.8",
-        "drupal/console":"~1.0"
+        "drupal/console":"^1.0"
     },
     "repositories": [
         {
