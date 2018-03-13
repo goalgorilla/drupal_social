@@ -10,8 +10,8 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-1.x",
-        "goalgorilla/open_social_scripts": "dev-master"
+        "goalgorilla/open_social": "dev-feature/DS-4945-accessibility",
+        "goalgorilla/open_social_scripts": "dev-feature/DS-4945-accessibility"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
@@ -95,14 +95,6 @@
                 "type:drupal-drush"
             ]
         },
-        "enable-patching": true,
-        "patches": {
-            "goalgorilla/open_social": {
-                "Update Travis": "../open_social.patch"
-            },
-            "goalgorilla/open_social_scripts": {
-                "Create script for checking accessibility": "../open_social_scripts.patch"
-            }
-        }
+        "enable-patching": true
     }
 }
