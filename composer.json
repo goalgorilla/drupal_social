@@ -29,7 +29,8 @@
         "pdepend/pdepend": "2.1.0",
         "sebastian/phpcpd": "*",
         "phpunit/phpunit": "^4.8",
-        "drupal/console":"1.1"
+        "drupal/console":"1.1",
+        "squizlabs/html_codesniffer": "*"
     },
     "repositories": [
         {
@@ -39,6 +40,18 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "squizlabs/html_codesniffer",
+                "version": "1.0.0",
+                "source": {
+                    "url": "https://github.com/squizlabs/HTML_CodeSniffer.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         }
     ],
     "scripts": {
