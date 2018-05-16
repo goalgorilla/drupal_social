@@ -95,6 +95,11 @@
                 "type:drupal-drush"
             ]
         },
-        "enable-patching": true
+        "enable-patching": true,
+        "patches": {
+            "squizlabs/html_codesniffer": {
+                "Translatings does not work": "patches/DS-5443-accessibility.patch"
+            }
+        }
     }
 }
