@@ -23,7 +23,6 @@ services:
             - 9001:9000
         volumes:
             - ./:/var/www:cached
-            - ./config/web/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
             - ./config/web/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini:ro
             - /var/run/docker.sock:/var/run/docker.sock
         links:
