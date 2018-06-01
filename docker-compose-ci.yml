@@ -1,0 +1,84 @@
+version: '2'
+services:
+    nginx:
+        image: goalgorilla/open_social_docker:nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./config/nginx:/etc/nginx/conf.d:ro
+        links:
+            - web
+        volumes_from:
+            - web
+        networks:
+            socialnet:
+                aliases:
+                    - nginx
+                    - social.local
+        container_name: social_nginx
+
+    web:
+        image: goalgorilla/open_social_docker:web
+        ports:
+            - 9001:9000
+        volumes:
+            - ./:/var/www:cached
+            - ./config/web/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
+            - ./config/web/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+        links:
+            - db
+            - mail
+        networks:
+            socialnet:
+                aliases:
+                    - web
+        container_name: social_web
+
+    db:
+        image: mariadb:latest
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=social
+        ports:
+            - 3307:3306
+        volumes:
+            - ./docker/conf/mariadb.cnf:/etc/mysql/conf.d/custom.cnf:ro
+            - /var/lib/mysql
+        networks:
+            socialnet:
+                aliases:
+                    - db
+        container_name: social_db
+
+    mail:
+        image: djfarrelly/maildev
+        ports:
+            - 25
+            - 8025:80
+        networks:
+            socialnet:
+                aliases:
+                    - mail
+        container_name: social_mail
+
+    selenium:
+        image: selenium/standalone-firefox-debug:2.48.2
+        volumes:
+            - ./html/profiles/contrib/social/tests/behat/features/files/:/files
+        links:
+            - nginx:nginx
+        ports:
+            - 4444
+            - 5900
+        cap_add:
+            - NET_ADMIN
+            - NET_RAW
+        networks:
+            socialnet:
+                aliases:
+                    - selenium
+        container_name: social_selenium
+
+networks:
+    socialnet:
