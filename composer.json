@@ -28,7 +28,7 @@
         "phpmd/phpmd": "@stable",
         "pdepend/pdepend": "2.1.0",
         "sebastian/phpcpd": "*",
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "^4.8",
         "drupal/console":"1.1",
         "squizlabs/html_codesniffer": "*"
     },
