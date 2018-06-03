@@ -18,12 +18,11 @@ services:
         container_name: social_nginx
 
     web:
-        image: goalgorilla/open_social_docker:web
+        image: goalgorilla/open_social_docker:alpine-ci
         ports:
             - 9001:9000
         volumes:
             - ./:/var/www:cached
-            - ./config/web/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini:ro
             - /var/run/docker.sock:/var/run/docker.sock
         links:
             - db
