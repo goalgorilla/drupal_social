@@ -5,7 +5,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./config/nginx:/etc/nginx/conf.d:ro
+            - ./docker/nginx:/etc/nginx/conf.d:ro
         links:
             - web
         volumes_from:
@@ -41,7 +41,7 @@ services:
         ports:
             - 3307:3306
         volumes:
-            - ./docker/conf/mariadb.cnf:/etc/mysql/conf.d/custom.cnf:ro
+            - ./docker/db/mariadb.cnf:/etc/mysql/conf.d/custom.cnf:ro
             - /var/lib/mysql
         networks:
             socialnet:

@@ -5,7 +5,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./config/nginx:/etc/nginx/conf.d:ro
+            - ./docker/nginx:/etc/nginx/conf.d:ro
         links:
             - web
         volumes_from:
@@ -23,8 +23,8 @@ services:
             - 9001:9000
         volumes:
             - ./:/var/www:cached
-            - ./config/web/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
-            - ./config/web/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini:ro
+            - ./docker/web/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:ro
+            - ./docker/web/php-override.ini:/usr/local/etc/php/conf.d/php-override.ini:ro
             - /var/run/docker.sock:/var/run/docker.sock
         links:
             - db
@@ -43,7 +43,7 @@ services:
         ports:
             - 3307:3306
         volumes:
-            - ./docker/conf/mariadb.cnf:/etc/mysql/conf.d/custom.cnf:ro
+            - ./docker/db/mariadb.cnf:/etc/mysql/conf.d/custom.cnf:ro
             - /var/lib/mysql
         networks:
             socialnet:
