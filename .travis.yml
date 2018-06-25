@@ -24,7 +24,8 @@ before_install:
   - docker --version
   - docker-compose --version
   - phpenv config-rm xdebug.ini
-  - composer install --memory=2G --prefer-dist --no-interaction
+  - echo "memory_limit=3072M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - composer install --prefer-dist --no-interaction
   - sudo rm /usr/local/bin/docker-compose || true
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
