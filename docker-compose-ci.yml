@@ -61,7 +61,7 @@ services:
         container_name: social_mail
 
     selenium:
-        image: selenium/standalone-firefox-debug:2.48.2
+        image: selenium/standalone-chrome:3.12.0
         volumes:
             - ./html/profiles/contrib/social/tests/behat/features/files/:/files
         links:
