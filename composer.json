@@ -7,7 +7,7 @@
     "prefer-stable": true,
     "require": {
         "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "2.4.0",
+        "drupal-composer/drupal-scaffold": "^2.4.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
         "goalgorilla/open_social": "dev-feature/new-docker-files",
