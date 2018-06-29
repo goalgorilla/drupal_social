@@ -62,24 +62,6 @@ services:
                     - mail
         container_name: social_mail
 
-    selenium:
-        image: selenium/standalone-chrome:3.12.0
-        volumes:
-            - ./html/profiles/contrib/social/tests/behat/features/files/:/files
-        links:
-            - nginx:nginx
-        ports:
-            - 4444
-            - 5900
-        cap_add:
-            - NET_ADMIN
-            - NET_RAW
-        networks:
-            socialnet:
-                aliases:
-                    - selenium
-        container_name: social_selenium
-
     cron:
         image: goalgorilla/open_social_docker:cron
         environment:
