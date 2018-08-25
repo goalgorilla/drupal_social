@@ -11,7 +11,8 @@
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
         "goalgorilla/open_social": "dev-8.x-1.x",
-        "goalgorilla/open_social_scripts": "dev-master"
+        "goalgorilla/open_social_scripts": "dev-master",
+        "wikimedia/composer-merge-plugin": "^1.4"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
@@ -63,6 +64,18 @@
         ]
     },
     "extra": {
+        "merge-plugin": {
+            "include": [
+                "html/profiles/contrib/social/composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false,
+            "merge-scripts": false
+        },
         "installer-types": [
             "bower-asset",
             "npm-asset"
