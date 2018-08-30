@@ -8,6 +8,7 @@ services:
     links:
      - db
      - mailcatcher
+     - blackfire
     environment:
      - VIRTUAL_HOST=social.dev
      - DRUPAL_SETTINGS=development
@@ -24,7 +25,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "3306"
     network_mode: "bridge"
     container_name: social_db
     command: mysqld --max_allowed_packet=16M
@@ -66,6 +67,17 @@ services:
      - DRUPAL_SETTINGS=development
     network_mode: "bridge"
     container_name: social_behat
+
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+        # Exposes the host BLACKFIRE_SERVER_ID and BLACKFIRE_SERVER_TOKEN environment variables.
+        # Find the values for these on https://blackfire.io/docs/integrations/docker while logged in.
+        # For ease of use on multiple project copy those export statements to ~/.bash_profile.
+        - BLACKFIRE_SERVER_ID
+        - BLACKFIRE_SERVER_TOKEN
+    network_mode: "bridge"
+    container_name: social_blackfire
 
   cron:
     image: goalgorilla/open_social_docker:cron
