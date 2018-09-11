@@ -10,7 +10,7 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-1.x",
+        "goalgorilla/open_social": "dev-8.x-3.x",
         "goalgorilla/open_social_scripts": "dev-master"
     },
     "require-dev": {
@@ -28,7 +28,7 @@
         "phpmd/phpmd": "@stable",
         "pdepend/pdepend": "2.1.0",
         "sebastian/phpcpd": "*",
-        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit": "^6.5",
         "drupal/console":"1.1",
         "squizlabs/html_codesniffer": "*"
     },
