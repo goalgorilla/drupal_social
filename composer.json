@@ -29,6 +29,7 @@
         "pdepend/pdepend": "2.1.0",
         "sebastian/phpcpd": "*",
         "phpunit/phpunit": "^6.5",
+        "phpunit/php-timer": "^1.0.9",
         "drupal/console":"1.1",
         "squizlabs/html_codesniffer": "*"
     },
