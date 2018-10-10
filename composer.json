@@ -23,6 +23,7 @@
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
         "drupal/coder": "dev-8.x-2.x",
         "drupal/drupal-extension": "^3.4",
         "phpmd/phpmd": "@stable",
