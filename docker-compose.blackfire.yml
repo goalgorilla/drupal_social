@@ -1,0 +1,95 @@
+version: "2"
+
+services:
+  web:
+    image: goalgorilla/open_social_docker:dev
+    volumes:
+     - ./:/var/www
+    links:
+     - db
+     - mailcatcher
+     - blackfire
+    environment:
+     - VIRTUAL_HOST=social.dev
+     - DRUPAL_SETTINGS=development
+    ports:
+     - "80"
+    network_mode: "bridge"
+    container_name: social_web
+
+  db:
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=social
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306"
+    network_mode: "bridge"
+    container_name: social_db
+    command: mysqld --max_allowed_packet=16M
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    environment:
+      - VIRTUAL_HOST=mailcatcher.social.dev
+      - VIRTUAL_PORT=1080
+    ports:
+      - "1080"
+    network_mode: "bridge"
+    container_name: social_mailcatcher
+
+  selenium:
+    image: selenium/standalone-firefox-debug:2.48.2
+    volumes:
+      - ./html/profiles/contrib/social/tests/behat/features/files/:/files
+    links:
+     - web:web
+    ports:
+     - "4444"
+     - "5900"
+    cap_add:
+     - NET_ADMIN
+     - NET_RAW
+    network_mode: "bridge"
+    container_name: social_selenium
+
+  behat:
+    image: goalgorilla/open_social_docker:dev
+    volumes:
+     - ./:/var/www
+    links:
+     - web:web
+     - db:db
+     - selenium:selenium
+    environment:
+     - DRUPAL_SETTINGS=development
+    network_mode: "bridge"
+    container_name: social_behat
+
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+        # Exposes the host BLACKFIRE_SERVER_ID and BLACKFIRE_SERVER_TOKEN environment variables.
+        # Find the values for these on https://blackfire.io/docs/integrations/docker while logged in.
+        # For ease of use on multiple project copy those export statements to ~/.bash_profile.
+        - BLACKFIRE_SERVER_ID
+        - BLACKFIRE_SERVER_TOKEN
+    network_mode: "bridge"
+    container_name: social_blackfire
+
+  cron:
+    image: goalgorilla/open_social_docker:cron
+    volumes:
+     - ./:/var/www
+    links:
+     - db
+     - mailcatcher
+    environment:
+     - DRUPAL_SETTINGS=development
+    network_mode: "bridge"
+    container_name: social_cron
+
+volumes:
+  db_data:
