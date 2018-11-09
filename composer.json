@@ -30,6 +30,7 @@
         "phpunit/phpunit": "^6.5",
         "phpunit/php-timer": "^1.0.9",
         "drupal/console": "@stable",
+        "zaporylie/composer-drupal-optimizations": "^1.0",
         "squizlabs/html_codesniffer": "*"
     },
     "repositories": [
