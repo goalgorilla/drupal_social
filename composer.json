@@ -23,14 +23,13 @@
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "drupal/coder": "dev-8.x-2.x",
+        "drupal/coder": "^8.3",
         "drupal/drupal-extension": "^3.4",
         "phpmd/phpmd": "@stable",
-        "pdepend/pdepend": "2.1.0",
-        "sebastian/phpcpd": "*",
+        "sebastian/phpcpd": "@stable",
         "phpunit/phpunit": "^6.5",
         "phpunit/php-timer": "^1.0.9",
-        "drupal/console":"1.1",
+        "drupal/console": "@stable",
         "squizlabs/html_codesniffer": "*"
     },
     "repositories": [
