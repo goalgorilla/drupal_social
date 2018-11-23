@@ -33,16 +33,16 @@
         "zaporylie/composer-drupal-optimizations": "^1.0",
         "squizlabs/html_codesniffer": "*"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        {
+        "1": {
             "type": "composer",
             "url": "https://asset-packagist.org"
         },
-        {
+        "3": {
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
@@ -53,8 +53,12 @@
                     "reference": "master"
                 }
             }
+        },
+        "social": {
+            "type": "git",
+            "url": "https://github.com/goalgorilla/open_social.git"
         }
-    ],
+    },
     "scripts": {
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
