@@ -8,6 +8,7 @@ services:
     links:
      - db
      - mailcatcher
+     - solr
     environment:
      - VIRTUAL_HOST=social.dev
      - DRUPAL_SETTINGS=development
@@ -79,5 +80,26 @@ services:
     network_mode: "bridge"
     container_name: social_cron
 
+  solr:
+    image: solr:6.6
+    hostname: solr
+    volumes:
+      - os_solr_data:/opt/solr/server/solr/mycores
+      - ./docker/solr/6.x/:/solr-conf/conf:cached
+    environment:
+      - SOLR_SOLR_MEM_SIZE=512m
+      - PARTIAL_SEARCH_ENABLED=false
+      - VIRTUAL_HOST=solr.social.local
+      - VIRTUAL_PORT=8983
+    ports:
+      - "8983"
+    entrypoint:
+      - solr-precreate
+      - drupal
+      - /solr-conf
+    network_mode: "bridge"
+    container_name: social_solr
+
 volumes:
   db_data:
+  os_solr_data:
