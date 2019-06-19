@@ -10,13 +10,14 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-3.x",
-        "goalgorilla/open_social_scripts": "dev-master"
+        "goalgorilla/open_social": "dev-8.x-6.x",
+        "goalgorilla/open_social_scripts": "dev-master",
+        "drupal/search_api_solr": "2.x-dev"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-        "mikey179/vfsStream": "~1.2",
+        "mikey179/vfsstream": "~1.2",
         "symfony/css-selector": "~2.8",
         "behat/behat": "3.*@stable",
         "behat/mink": "1.*@stable",
@@ -24,26 +25,26 @@
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "*",
-        "drupal/coder": "dev-8.x-2.x",
+        "drupal/coder": "8.3.1",
         "drupal/drupal-extension": "^3.4",
         "phpmd/phpmd": "@stable",
-        "pdepend/pdepend": "2.1.0",
-        "sebastian/phpcpd": "*",
+        "sebastian/phpcpd": "@stable",
         "phpunit/phpunit": "^6.5",
         "phpunit/php-timer": "^1.0.9",
-        "drupal/console":"1.1",
+        "drupal/console": "@stable",
+        "zaporylie/composer-drupal-optimizations": "^1.0",
         "squizlabs/html_codesniffer": "*"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
-        {
+        "1": {
             "type": "composer",
             "url": "https://asset-packagist.org"
         },
-        {
+        "3": {
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
@@ -54,8 +55,12 @@
                     "reference": "master"
                 }
             }
+        },
+        "social": {
+            "type": "git",
+            "url": "https://github.com/goalgorilla/open_social.git"
         }
-    ],
+    },
     "scripts": {
         "post-install-cmd": [
             "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
