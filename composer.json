@@ -6,6 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "roave/security-advisories": "dev-master",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
@@ -24,6 +25,7 @@
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
         "drupal/coder": "8.3.5",
         "drupal/drupal-extension": "^3.4",
         "phpmd/phpmd": "@stable",
