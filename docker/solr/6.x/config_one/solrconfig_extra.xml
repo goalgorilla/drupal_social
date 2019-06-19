@@ -1,0 +1,12 @@
+<searchComponent name="suggest" class="solr.SuggestComponent">
+  <lst name="suggester">
+    <str name="name">default</str>
+    <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
+    <str name="dictionaryImpl">DocumentDictionaryFactory</str>
+    <str name="field">spell</str>
+    <str name="suggestAnalyzerFieldType">text</str>
+    <str name="contextField">sm_context_tags</str>
+    <str name="buildOnCommit">false</str>
+    <str name="buildOnStartup">false</str>
+  </lst>
+</searchComponent>
