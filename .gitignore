@@ -4,6 +4,7 @@ test-results
 scripts/local
 scripts/social
 files_private/
+sql-backups/
 
 # Docker files #
 ################
