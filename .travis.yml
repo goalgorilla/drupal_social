@@ -1,9 +1,9 @@
 dist: trusty
 sudo: required
 
-#cache:
-#  directories:
-#    - $HOME/.composer/cache/files
+cache:
+  directories:
+    - $HOME/.composer/cache/files
 
 addons:
   artifacts:
