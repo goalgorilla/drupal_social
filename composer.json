@@ -68,23 +68,23 @@
         },
         "drupal/social_course": {
             "type": "git",
-            "url": "git@github.com:goalgorilla/social_course.git"
+            "url": "https://github.com/goalgorilla/social_course.git"
         },
         "drupal/social_geolocation": {
             "type": "git",
-            "url": "git@github.com:goalgorilla/social_geolocation.git"
+            "url": "https://github.com/goalgorilla/social_geolocation.git"
         },
         "goalgorilla/social_json_api": {
             "type": "git",
-            "url": "git@github.com:goalgorilla/social_json_api.git"
+            "url": "https://github.com/goalgorilla/social_json_api.git"
         },
         "drupal/social_kpi_lite": {
             "type": "git",
-            "url": "git@github.com:goalgorilla/social_kpi_lite.git"
+            "url": "https://github.com/goalgorilla/social_kpi_lite.git"
         },
         "goalgorilla/social_pwa": {
             "type": "git",
-            "url": "git@github.com:goalgorilla/social_pwa.git"
+            "url": "https://github.com/goalgorilla/social_pwa.git"
         }
     },
     "scripts": {
