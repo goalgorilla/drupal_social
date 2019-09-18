@@ -14,11 +14,11 @@
         "goalgorilla/open_social": "dev-8.x-7.x",
         "goalgorilla/open_social_scripts": "dev-master",
         "drupal/search_api_solr": "2.x-dev",
-        "drupal/social_course": "dev-8.x-2.x",
         "drupal/social_geolocation": "dev-8.x-1.x",
         "goalgorilla/social_json_api": "dev-8.x-1.x",
         "drupal/social_kpi_lite": "dev-8.x-1.x",
-        "goalgorilla/social_pwa": "dev-8.x-1.x"
+        "goalgorilla/social_pwa": "dev-8.x-1.x",
+        "drupal/social_course": "dev-8.x-2.x"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
@@ -66,10 +66,6 @@
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git"
         },
-        "drupal/social_course": {
-            "type": "git",
-            "url": "git@github.com:goalgorilla/social_course.git"
-        },
         "drupal/social_geolocation": {
             "type": "git",
             "url": "git@github.com:goalgorilla/social_geolocation.git"
@@ -85,6 +81,10 @@
         "goalgorilla/social_pwa": {
             "type": "git",
             "url": "git@github.com:goalgorilla/social_pwa.git"
+        },
+        "drupal/social_course": {
+            "type": "git",
+            "url": "git@github.com:goalgorilla/social_course.git"
         }
     },
     "scripts": {
