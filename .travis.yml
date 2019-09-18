@@ -29,7 +29,7 @@ before_install:
   - docker --version
   - docker-compose --version
   - phpenv config-rm xdebug.ini
-  - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction
+  - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction -v
   - sudo rm /usr/local/bin/docker-compose || true
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
