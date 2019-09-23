@@ -8,6 +8,7 @@ services:
     links:
      - db
      - mailcatcher
+     - redis
      - solr
     environment:
      - VIRTUAL_HOST=social.dev
@@ -18,7 +19,7 @@ services:
     container_name: social_web
 
   db:
-    image: mysql:5.6
+    image: mariadb:10.2
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
