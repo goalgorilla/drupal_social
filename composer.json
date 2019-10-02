@@ -17,7 +17,8 @@
         "drupal/social_geolocation": "dev-8.x-1.x",
         "goalgorilla/social_json_api": "dev-8.x-1.x",
         "drupal/social_kpi_lite": "dev-8.x-1.x",
-        "goalgorilla/social_pwa": "dev-8.x-1.x"
+        "goalgorilla/social_pwa": "dev-8.x-1.x",
+        "drupal/redis": "^1.2"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
