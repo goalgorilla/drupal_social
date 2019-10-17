@@ -11,14 +11,15 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-7.x",
+        "goalgorilla/open_social": "dev-8.x-8.x",
         "goalgorilla/open_social_scripts": "dev-master",
         "drupal/social_course": "dev-8.x-2.x",
         "drupal/social_geolocation": "dev-8.x-1.x",
         "goalgorilla/social_json_api": "dev-8.x-1.x",
         "drupal/social_kpi_lite": "dev-8.x-1.x",
         "goalgorilla/social_pwa": "dev-8.x-1.x",
-        "drupal/redis": "^1.2"
+        "drupal/redis": "^1.2",
+        "blackfire/php-sdk": "^1.19"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
@@ -39,7 +40,8 @@
         "phpunit/php-timer": "^1.0.9",
         "drupal/console": "@stable",
         "zaporylie/composer-drupal-optimizations": "^1.0",
-        "squizlabs/html_codesniffer": "*"
+        "squizlabs/html_codesniffer": "*",
+        "mglaman/drupal-check": "^1.0"
     },
     "repositories": {
         "0": {
@@ -130,6 +132,9 @@
         },
         "enable-patching": true,
         "patches": {
+            "drupal/like_dislike": {
+                "Add support for webprofiler": "patches/like-dislike-fix-webprofiler.patch"
+            },
             "squizlabs/html_codesniffer": {
                 "Translatings does not work": "patches/DS-5443-accessibility.patch"
             }

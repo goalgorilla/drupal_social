@@ -1,0 +1,22 @@
+diff --git a/src/LikeDislikePermissions.php b/src/LikeDislikePermissions.php
+index c197045..9caeeef 100644
+--- a/src/LikeDislikePermissions.php
++++ b/src/LikeDislikePermissions.php
+@@ -5,7 +5,7 @@ namespace Drupal\like_and_dislike;
+ use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+ use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+-use Drupal\Core\Entity\EntityTypeManager;
++use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\StringTranslation\StringTranslationTrait;
+ use Drupal\votingapi\Entity\VoteType;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+@@ -48,7 +48,7 @@ class LikeDislikePermissions implements ContainerInjectionInterface {
+    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info_service
+    *   The bundle info service.
+    */
+-  public function __construct(EntityTypeManager $entity_type_manager, ConfigFactoryInterface $config_factory, EntityTypeBundleInfoInterface $bundle_info_service) {
++  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, EntityTypeBundleInfoInterface $bundle_info_service) {
+     $this->entityTypeManager = $entity_type_manager;
+     $this->configFactory = $config_factory;
+     $this->bundleInfoService = $bundle_info_service;
