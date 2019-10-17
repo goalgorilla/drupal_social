@@ -19,7 +19,8 @@
         "drupal/social_kpi_lite": "dev-8.x-1.x",
         "goalgorilla/social_pwa": "dev-8.x-1.x",
         "drupal/redis": "^1.2",
-        "blackfire/php-sdk": "^1.19"
+        "blackfire/php-sdk": "^1.19",
+        "drupal-composer/drupal-security-advisories": "8.x-dev"
     },
     "require-dev": {
         "jcalderonzumba/gastonjs": "~1.0.2",
