@@ -12,7 +12,7 @@ services:
      - solr
      - blackfire
     environment:
-     - VIRTUAL_HOST=social.dev
+     - VIRTUAL_HOST=social.local
      - DRUPAL_SETTINGS=development
     ports:
      - "80"
@@ -35,7 +35,7 @@ services:
   mailcatcher:
     image: schickling/mailcatcher
     environment:
-      - VIRTUAL_HOST=mailcatcher.social.dev
+      - VIRTUAL_HOST=mailcatcher.social.local
       - VIRTUAL_PORT=1080
     ports:
       - "1080"
