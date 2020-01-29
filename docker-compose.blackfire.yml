@@ -4,7 +4,7 @@ services:
   web:
     image: goalgorilla/open_social_docker:dev
     volumes:
-     - ./:/var/www
+     - ./:/var/www:delegated
     links:
      - db
      - mailcatcher
@@ -45,7 +45,7 @@ services:
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
     volumes:
-      - ./html/profiles/contrib/social/tests/behat/features/files/:/files
+      - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
     links:
      - web:web
     ports:
@@ -60,7 +60,7 @@ services:
   behat:
     image: goalgorilla/open_social_docker:dev
     volumes:
-     - ./:/var/www
+     - ./:/var/www:delegated
     links:
      - web:web
      - db:db

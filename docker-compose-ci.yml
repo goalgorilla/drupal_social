@@ -4,7 +4,7 @@ services:
   web_scripts:
     image: goalgorilla/open_social_docker:ci
     volumes:
-     - ./:/var/www
+     - ./:/var/www:delegated
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
@@ -13,7 +13,7 @@ services:
   web:
     image: goalgorilla/open_social_docker:ci
     volumes:
-     - ./:/var/www
+     - ./:/var/www:delegated
     links:
      - db:db
      - mailcatcher:mailcatcher
@@ -52,7 +52,7 @@ services:
     links:
      - web:web
     volumes:
-      - ./html/profiles/contrib/social/tests/behat/features/files/:/files
+      - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
     ports:
      - "4444"
      - "5900"
@@ -65,7 +65,7 @@ services:
   behat:
     image: goalgorilla/open_social_docker:ci
     volumes:
-     - ./:/var/www
+     - ./:/var/www:delegated
     links:
      - web:web
      - db:db
