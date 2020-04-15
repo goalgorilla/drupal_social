@@ -11,13 +11,13 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-8.x",
+        "goalgorilla/open_social": "dev-8.x-9.x",
         "goalgorilla/open_social_scripts": "dev-master",
         "drupal/social_course": "dev-8.x-2.x",
         "drupal/social_geolocation": "dev-8.x-1.x",
         "goalgorilla/social_json_api": "dev-8.x-1.x",
         "drupal/social_kpi_lite": "dev-8.x-1.x",
-        "goalgorilla/social_pwa": "dev-8.x-1.x",
+        "drupal/social_pwa": "^1.0@alpha",
         "drupal/redis": "^1.2",
         "blackfire/php-sdk": "^1.19",
         "drupal-composer/drupal-security-advisories": "8.x-dev"
@@ -84,10 +84,6 @@
         "drupal/social_kpi_lite": {
             "type": "git",
             "url": "https://github.com/goalgorilla/social_kpi_lite.git"
-        },
-        "goalgorilla/social_pwa": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_pwa.git"
         }
     },
     "scripts": {
