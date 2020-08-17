@@ -11,7 +11,7 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
-        "goalgorilla/open_social": "dev-8.x-9.x",
+        "goalgorilla/open_social": "10.0.x-dev",
         "goalgorilla/open_social_scripts": "dev-master",
         "drupal/social_course": "dev-8.x-2.x",
         "drupal/social_geolocation": "dev-8.x-1.x",
