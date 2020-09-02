@@ -17,7 +17,7 @@ parameters:
     - 'html/core/modules'
     - 'html/modules'
     - 'html/profiles'
-    - 'html/profiles/contrib/social/themes'
+    - 'vendor/autoload.php'
 
   exclude_paths:
     # This path is used by the upgrade_status module.

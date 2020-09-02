@@ -44,6 +44,13 @@
         "mglaman/drupal-check": "^1.0",
         "palantirnet/drupal-rector": "^0.5.6"
     },
+    "autoload": {
+        "psr-4": {
+            "Drupal\\socialblue\\": "html/profiles/contrib/social/themes/socialblue/src",
+            "Drupal\\socialbase\\": "html/profiles/contrib/social/themes/socialbase/src",
+            "Drupal\\bootstrap\\": "html/themes/contrib/bootstrap/src"
+        }
+    },
     "repositories": {
         "0": {
             "type": "composer",
