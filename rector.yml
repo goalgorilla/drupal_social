@@ -13,9 +13,9 @@ imports:
 
 parameters:
   autoload_paths:
-#    - 'html/core'
-#    - 'html/core/modules'
-#    - 'html/modules'
+    - 'html/core'
+    - 'html/core/modules'
+    - 'html/modules'
     - 'html/profiles'
     - 'html/profiles/contrib/social/themes'
 
