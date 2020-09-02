@@ -41,7 +41,8 @@
         "drupal/console": "@stable",
         "zaporylie/composer-drupal-optimizations": "^1.0",
         "squizlabs/html_codesniffer": "*",
-        "mglaman/drupal-check": "^1.0"
+        "mglaman/drupal-check": "^1.0",
+        "palantirnet/drupal-rector": "^0.5.6"
     },
     "repositories": {
         "0": {
