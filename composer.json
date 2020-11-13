@@ -7,9 +7,6 @@
     "prefer-stable": true,
     "require": {
         "roave/security-advisories": "dev-master",
-        "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
-        "cweagans/composer-patches": "^1.0",
         "drush/drush": "8.*@stable",
         "goalgorilla/open_social": "10.0.x-dev",
         "goalgorilla/open_social_scripts": "dev-master",
@@ -31,8 +28,8 @@
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "dealerdirect/phpcodesniffer-composer-installer": "*",
         "drupal/coder": "8.3.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
         "drupal/drupal-extension": "^3.4",
         "phpmd/phpmd": "@stable",
         "sebastian/phpcpd": "@stable",
@@ -93,14 +90,6 @@
             "url": "https://github.com/goalgorilla/social_kpi_lite.git"
         }
     },
-    "scripts": {
-        "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-        ],
-        "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-        ]
-    },
     "extra": {
         "installer-types": [
             "bower-asset",
@@ -135,6 +124,11 @@
             ]
         },
         "enable-patching": true,
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "html/"
+            }
+        },
         "patches": {
             "drupal/like_dislike": {
                 "Add support for webprofiler": "patches/like-dislike-fix-webprofiler.patch"

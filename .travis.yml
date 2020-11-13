@@ -25,6 +25,10 @@ before_install:
   - export COMPOSER_EXIT_ON_PATCH_FAILURE=1 # To enforce throwing an error and stopping package installation/update immediately
   - phpenv config-rm xdebug.ini
 
+  # Travis self-updates it's PHP and Composer dependencies every 30-60 days, so it automatically updates to version 2
+  # which we don't support. There for we self-update to --1 until we support version 2.
+  - composer self-update --1
+
   # Installing hirak/prestissimo allows composer to parallelise downloads which speeds up the composer install.
   - composer global require hirak/prestissimo
   - composer install --prefer-dist --no-interaction
