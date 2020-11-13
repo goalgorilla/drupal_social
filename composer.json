@@ -7,9 +7,8 @@
     "prefer-stable": true,
     "require": {
         "roave/security-advisories": "dev-master",
-        "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
-        "cweagans/composer-patches": "^1.0",
+        "composer/installers": "^1.9",
+        "cweagans/composer-patches": "^1.6",
         "drush/drush": "8.*@stable",
         "goalgorilla/open_social": "10.0.x-dev",
         "goalgorilla/open_social_scripts": "dev-master",
@@ -92,14 +91,6 @@
             "type": "git",
             "url": "https://github.com/goalgorilla/social_kpi_lite.git"
         }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-        ],
-        "post-update-cmd": [
-            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
-        ]
     },
     "extra": {
         "installer-types": [
