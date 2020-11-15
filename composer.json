@@ -12,7 +12,7 @@
         "goalgorilla/open_social_scripts": "dev-master",
         "drupal/social_course": "dev-8.x-2.x",
         "drupal/social_geolocation": "dev-8.x-1.x",
-        "goalgorilla/social_json_api": "dev-8.x-1.x",
+        "drupal/social_json_api": "dev-8.x-1.x",
         "drupal/social_kpi_lite": "dev-8.x-1.x",
         "drupal/social_pwa": "^1.0@alpha",
         "drupal/redis": "^1.2",
@@ -72,22 +72,6 @@
         "social": {
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git"
-        },
-        "drupal/social_course": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_course.git"
-        },
-        "drupal/social_geolocation": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_geolocation.git"
-        },
-        "goalgorilla/social_json_api": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_json_api.git"
-        },
-        "drupal/social_kpi_lite": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_kpi_lite.git"
         }
     },
     "extra": {
