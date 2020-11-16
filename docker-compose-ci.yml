@@ -88,7 +88,7 @@ services:
     environment:
       - DRUPAL_SETTINGS=development
     network_mode: "bridge"
-    container_name: social_cron
+    container_name: social_ci_cron
 
   solr:
     image: solr:6.6
@@ -108,7 +108,7 @@ services:
       - drupal
       - /solr-conf
     network_mode: "bridge"
-    container_name: social_solr
+    container_name: social_ci_solr
 
   redis:
     image: redis:latest
