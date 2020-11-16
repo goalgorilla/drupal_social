@@ -18,6 +18,7 @@ services:
      - db:db
      - mailcatcher:mailcatcher
      - redis
+     - solr
     environment:
      - DRUPAL_SETTINGS=production
     ports:
@@ -26,7 +27,7 @@ services:
     container_name: social_ci_web
 
   db:
-    image: mysql:5.6
+    image: mariadb:10.2
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
@@ -36,6 +37,7 @@ services:
       - "3307:3306"
     network_mode: "bridge"
     container_name: social_ci_db
+    command: mysqld --max_allowed_packet=16M
 
   mailcatcher:
     image: schickling/mailcatcher
@@ -76,9 +78,42 @@ services:
     network_mode: "bridge"
     container_name: social_ci_behat
 
+  cron:
+    image: goalgorilla/open_social_docker:cron
+    volumes:
+      - ./:/var/www:delegated
+    links:
+      - db:db
+      - mailcatcher:mailcatcher
+    environment:
+      - DRUPAL_SETTINGS=development
+    network_mode: "bridge"
+    container_name: social_cron
+
+  solr:
+    image: solr:6.6
+    hostname: solr
+    volumes:
+      - os_solr_data:/opt/solr/server/solr/mycores
+      - ./docker/solr/6.x/drupal/:/solr-conf/conf:cached
+    environment:
+      - SOLR_SOLR_MEM_SIZE=512m
+      - PARTIAL_SEARCH_ENABLED=false
+      - VIRTUAL_HOST=solr.social.local
+      - VIRTUAL_PORT=8983
+    ports:
+      - "8983"
+    entrypoint:
+      - solr-precreate
+      - drupal
+      - /solr-conf
+    network_mode: "bridge"
+    container_name: social_solr
+
   redis:
     image: redis:latest
     network_mode: "bridge"
 
 volumes:
   db_data:
+  os_solr_data:
