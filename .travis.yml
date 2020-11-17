@@ -29,10 +29,6 @@ before_install:
   # which we don't support. There for we self-update to --1 until we support version 2.
   - composer self-update --1
 
-  # Drupal coder.
-  - composer global require drupal/coder:^8.3
-  - composer global require dealerdirect/phpcodesniffer-composer-installer
-
   # Installing hirak/prestissimo allows composer to parallelise downloads which speeds up the composer install.
   - composer global require hirak/prestissimo
   - composer install --prefer-dist --no-interaction
