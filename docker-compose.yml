@@ -31,6 +31,19 @@ services:
     container_name: social_db
     command: mysqld --max_allowed_packet=16M
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    network_mode: "bridge"
+    container_name: social_phpmyadmin
+    ports:
+      - "8080:80"
+
   mailcatcher:
     image: schickling/mailcatcher
     environment:
