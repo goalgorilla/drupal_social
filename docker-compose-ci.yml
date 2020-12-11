@@ -5,6 +5,8 @@ services:
     image: goalgorilla/open_social_docker:ci
     volumes:
      - ./:/var/www:delegated
+    links:
+     - db:db
     environment:
      - DRUPAL_SETTINGS=production
     network_mode: "bridge"
