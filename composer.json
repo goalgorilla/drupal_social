@@ -35,7 +35,6 @@
         "drupal/console": "@stable",
         "zaporylie/composer-drupal-optimizations": "^1.0",
         "squizlabs/html_codesniffer": "*",
-        "squizlabs/php_codesniffer": "3.5.5",
         "mglaman/drupal-check": "^1.0",
         "palantirnet/drupal-rector": "^0.5.6"
     },
