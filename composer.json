@@ -10,10 +10,9 @@
         "drush/drush": "8.*@stable",
         "goalgorilla/open_social": "10.0.x-dev",
         "goalgorilla/open_social_scripts": "dev-master",
-        "drupal/social_course": "dev-8.x-2.x",
-        "drupal/social_geolocation": "dev-8.x-1.x",
-        "goalgorilla/social_json_api": "dev-8.x-1.x",
-        "drupal/social_kpi_lite": "dev-8.x-1.x",
+        "drupal/social_course": "2.x-dev",
+        "drupal/social_geolocation": "1.x-dev",
+        "drupal/social_kpi_lite": "1.x-dev",
         "drupal/social_pwa": "^1.0@alpha",
         "drupal/redis": "^1.2",
         "blackfire/php-sdk": "^1.19"
@@ -28,15 +27,14 @@
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "drupal/coder": "8.3.1",
-        "dealerdirect/phpcodesniffer-composer-installer": "0.6.2",
+        "drupal/coder": "8.3.11",
+        "dealerdirect/phpcodesniffer-composer-installer": "~0.6 || ~0.7",
         "drupal/drupal-extension": "^3.4",
         "phpmd/phpmd": "@stable",
         "phpunit/phpunit": "^7.5",
         "drupal/console": "@stable",
         "zaporylie/composer-drupal-optimizations": "^1.0",
         "squizlabs/html_codesniffer": "*",
-        "squizlabs/php_codesniffer": "3.5.5",
         "mglaman/drupal-check": "^1.0",
         "palantirnet/drupal-rector": "^0.5.6"
     },
@@ -71,22 +69,6 @@
         "social": {
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git"
-        },
-        "drupal/social_course": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_course.git"
-        },
-        "drupal/social_geolocation": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_geolocation.git"
-        },
-        "goalgorilla/social_json_api": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_json_api.git"
-        },
-        "drupal/social_kpi_lite": {
-            "type": "git",
-            "url": "https://github.com/goalgorilla/social_kpi_lite.git"
         }
     },
     "extra": {
