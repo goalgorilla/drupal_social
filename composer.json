@@ -44,7 +44,8 @@
     "repositories": {
         "0": {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://packages.drupal.org/8",
+            "exclude": ["drupal/social"]
         },
         "1": {
             "type": "composer",
@@ -64,7 +65,8 @@
         },
         "social": {
             "type": "git",
-            "url": "https://github.com/goalgorilla/open_social.git"
+            "url": "https://github.com/goalgorilla/open_social.git",
+            "only": ["goalgorilla/open_social", "drupal/social"]
         }
     },
     "extra": {
