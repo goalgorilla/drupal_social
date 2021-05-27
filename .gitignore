@@ -112,3 +112,5 @@ codekit-config.json
 
 # JIRA plugin
 atlassian-ide-plugin.xml
+/.editorconfig
+/.gitattributes
