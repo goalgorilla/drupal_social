@@ -7,7 +7,7 @@
     "prefer-stable": true,
     "require": {
         "roave/security-advisories": "dev-master",
-        "drush/drush": "8.*@stable",
+        "drush/drush": "10.*@stable",
         "goalgorilla/open_social": "10.3.x-dev",
         "goalgorilla/open_social_scripts": "dev-master",
         "drupal/redis": "^1.2",
@@ -51,7 +51,7 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         },
-        "3": {
+        "2": {
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
@@ -63,7 +63,7 @@
                 }
             }
         },
-        "social": {
+        "3": {
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git",
             "only": ["goalgorilla/open_social", "drupal/social"]
