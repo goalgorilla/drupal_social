@@ -8,8 +8,8 @@
     "require": {
         "roave/security-advisories": "dev-master",
         "drush/drush": "10.*@stable",
-        "goalgorilla/open_social": "10.3.x-dev",
-        "goalgorilla/open_social_scripts": "dev-master",
+        "goalgorilla/open_social": "dev-main",
+        "goalgorilla/open_social_scripts": "^2.0",
         "drupal/redis": "^1.2",
         "blackfire/php-sdk": "^1.19"
     },
