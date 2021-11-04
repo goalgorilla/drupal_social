@@ -6,7 +6,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "roave/security-advisories": "dev-master",
         "drush/drush": "10.*@stable",
         "goalgorilla/open_social": "dev-main",
         "goalgorilla/open_social_scripts": "^2.0",
@@ -14,25 +13,20 @@
         "blackfire/php-sdk": "^1.19"
     },
     "require-dev": {
+        "drupal/core-dev": "^9.2",
+        "drupal/coder": "8.3.11",
+        "dealerdirect/phpcodesniffer-composer-installer": "~0.6 || ~0.7",
+        "drupal/drupal-extension": "^4.1",
         "jcalderonzumba/gastonjs": "~1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
         "mikey179/vfsstream": "~1.2",
-        "symfony/css-selector": "~2.8",
-        "behat/behat": "3.*@stable",
-        "behat/mink": "1.*@stable",
-        "behat/mink-extension": "*",
-        "behat/mink-goutte-driver": "*",
-        "behat/mink-selenium2-driver": "*",
-        "drupal/coder": "8.3.11",
-        "dealerdirect/phpcodesniffer-composer-installer": "~0.6 || ~0.7",
-        "drupal/drupal-extension": "^3.4",
-        "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^7.5",
-        "drupal/console": "@stable",
-        "zaporylie/composer-drupal-optimizations": "^1.0",
-        "squizlabs/html_codesniffer": "*",
         "mglaman/drupal-check": "^1.0",
-        "palantirnet/drupal-rector": "^0.5.6"
+        "palantirnet/drupal-rector": "^0.5.6",
+        "phpmd/phpmd": "@stable",
+        "phpspec/prophecy-phpunit": "^2",
+        "phpunit/phpunit": "^9.1",
+        "squizlabs/html_codesniffer": "*",
+        "zaporylie/composer-drupal-optimizations": "^1.0"
     },
     "autoload": {
         "psr-4": {
