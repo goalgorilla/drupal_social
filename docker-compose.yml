@@ -19,7 +19,7 @@ services:
     container_name: social_web
 
   db:
-    image: mariadb:10.2
+    image: mariadb:10.7
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
