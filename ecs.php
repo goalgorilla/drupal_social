@@ -15,7 +15,8 @@ return function (ContainerConfigurator $containerConfigurator): void {
   $services->set(ReturnTypeHintSniff::class);
 
   $parameters = $containerConfigurator->parameters();
-
+  // Ena Parallel run.
+  $parameters->set(Option::PARALLEL, true);
   $parameters->set(Option::SKIP, ['*/upgrade_status/tests/modules/*']);
   $parameters->set(Option::FILE_EXTENSIONS, ['php', 'module', 'theme', 'install', 'profile', 'inc', 'engine']);
 
