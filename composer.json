@@ -29,7 +29,7 @@
         "jcalderonzumba/mink-phantomjs-driver": "~0.3.3",
         "mglaman/phpstan-drupal": "^1.0",
         "mikey179/vfsstream": "^1.6",
-        "palantirnet/drupal-rector": "3248684.x-dev",
+        "palantirnet/drupal-rector": "^0.12.0",
         "phpmd/phpmd": "^2.10",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.1",
@@ -59,7 +59,7 @@
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
-                "version": "1.0.0",
+                "version": "2.5.1",
                 "source": {
                     "url": "https://github.com/squizlabs/HTML_CodeSniffer.git",
                     "type": "git",
@@ -71,11 +71,6 @@
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git",
             "only": ["goalgorilla/open_social", "drupal/social"]
-        },
-        "4": {
-            "type": "vcs",
-            "url": "https://github.com/bluehorndigital/drupal-rector.git",
-            "only": ["palantirnet/drupal-rector"]
         }
     },
     "scripts": {
