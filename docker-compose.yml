@@ -42,7 +42,7 @@ services:
     container_name: social_mailcatcher
 
   selenium:
-    image: selenium/standalone-firefox-debug:3.141.59
+    image: selenium/standalone-firefox:2.48.2
     volumes:
       - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
     links:
