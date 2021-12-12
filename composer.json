@@ -8,7 +8,15 @@
     "config": {
         "optimize-autoloader": true,
         "update-with-dependencies": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "cweagans/composer-patches": true,
+            "oomphinc/composer-installers-extender": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "require": {
         "drush/drush": "10.*@stable",
@@ -40,8 +48,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Drupal\\socialblue\\": "html/profiles/contrib/social/themes/socialblue/src",
-            "Drupal\\socialbase\\": "html/profiles/contrib/social/themes/socialbase/src",
+            "Drupal\\socialblue\\": "html/themes/contrib/socialblue/src",
+            "Drupal\\socialbase\\": "html/themes/contrib/socialbase/src",
             "Drupal\\bootstrap\\": "html/themes/contrib/bootstrap/src"
         }
     },
