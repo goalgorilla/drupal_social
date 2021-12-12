@@ -5,34 +5,38 @@
     "license": "GPL-2.0-or-later",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true,
+        "update-with-dependencies": true,
+        "sort-packages": true
+    },
     "require": {
-        "roave/security-advisories": "dev-master",
         "drush/drush": "10.*@stable",
-        "goalgorilla/open_social": "dev-main",
+        "goalgorilla/open_social": "dev-feature/3162491-group-update-d9",
         "goalgorilla/open_social_scripts": "^2.0",
-        "drupal/redis": "^1.2",
-        "blackfire/php-sdk": "^1.19"
+        "drupal/redis": "^1.5",
+        "blackfire/php-sdk": "^v1.27.1"
     },
     "require-dev": {
-        "jcalderonzumba/gastonjs": "~1.0.2",
-        "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
-        "mikey179/vfsstream": "~1.2",
-        "symfony/css-selector": "~2.8",
-        "behat/behat": "3.*@stable",
-        "behat/mink": "1.*@stable",
-        "behat/mink-extension": "*",
-        "behat/mink-goutte-driver": "*",
-        "behat/mink-selenium2-driver": "*",
-        "drupal/coder": "8.3.11",
-        "dealerdirect/phpcodesniffer-composer-installer": "~0.6 || ~0.7",
-        "drupal/drupal-extension": "^3.4",
-        "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^7.5",
-        "drupal/console": "@stable",
-        "zaporylie/composer-drupal-optimizations": "^1.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "~0.7.1",
+        "drupal/coder": "8.3.13",
+        "drupal/composer_deploy": "^1.6",
+        "drupal/core-dev": "~9.1.0",
+        "drupal/devel": "^4.1",
+        "drupal/drupal-extension": "^4.1",
+        "drupal/upgrade_status": "^3.11",
+        "jcalderonzumba/gastonjs": "~1.2.0",
+        "jcalderonzumba/mink-phantomjs-driver": "~0.3.3",
+        "mglaman/phpstan-drupal": "^1.0",
+        "mikey179/vfsstream": "^1.6",
+        "palantirnet/drupal-rector": "^0.12.0",
+        "phpmd/phpmd": "^2.10",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "slevomat/coding-standard": "^7.0",
         "squizlabs/html_codesniffer": "*",
-        "mglaman/drupal-check": "^1.0",
-        "palantirnet/drupal-rector": "^0.5.6"
+        "symplify/easy-coding-standard": "^9.4"
     },
     "autoload": {
         "psr-4": {
@@ -55,7 +59,7 @@
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
-                "version": "1.0.0",
+                "version": "2.5.1",
                 "source": {
                     "url": "https://github.com/squizlabs/HTML_CodeSniffer.git",
                     "type": "git",
@@ -68,6 +72,12 @@
             "url": "https://github.com/goalgorilla/open_social.git",
             "only": ["goalgorilla/open_social", "drupal/social"]
         }
+    },
+    "scripts": {
+        "refresh": [
+            "rm -rf composer.lock vendor html/core html/modules/contrib html/profiles/contrib html/themes/contrib",
+            "@composer update -W --ansi"
+        ]
     },
     "extra": {
         "installer-types": [

@@ -20,7 +20,7 @@ services:
     container_name: social_web
 
   db:
-    image: mariadb:10.2
+    image: mariadb:10.7
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
@@ -94,11 +94,11 @@ services:
     container_name: social_cron
 
   solr:
-    image: solr:6.6
+    image: solr:8.11
     hostname: solr
     volumes:
       - os_solr_data:/opt/solr/server/solr/mycores
-      - ./docker/solr/6.x/drupal/:/solr-conf/conf:cached
+      - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
     environment:
       - SOLR_SOLR_MEM_SIZE=512m
       - PARTIAL_SEARCH_ENABLED=false
