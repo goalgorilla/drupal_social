@@ -23,7 +23,7 @@
     "require": {
         "blackfire/php-sdk": "^v1.27.1",
         "drupal/redis": "^1.5",
-        "goalgorilla/open_social": "dev-main"
+        "goalgorilla/open_social": "dev-feature/3232848-replace-swift-mailer"
     },
     "require-dev": {
         "goalgorilla/open_social_dev": "dev-main",
