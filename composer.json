@@ -24,8 +24,8 @@
         "blackfire/php-sdk": "^v1.27.1",
         "drupal/redis": "^1.5",
         "drush/drush": "10.*@stable",
-        "goalgorilla/open_social": "dev-main",
-        "goalgorilla/open_social_scripts": "^2.0"
+        "goalgorilla/open_social": "dev-feature/3232848-replace-swift-mailer",
+        "goalgorilla/open_social_scripts": "dev-feature/3232848-replace-swift-mailer"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "~0.7.1",
