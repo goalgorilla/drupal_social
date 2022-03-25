@@ -8,7 +8,6 @@ local:
     service: social_web
 #    exec:
 #      options: --user root
-  uri: dev
   root: /var/www/html
-#  paths:
-#    drush-script: /var/www/html/drush
+  paths:
+    drush-script: /var/www/html/drush
