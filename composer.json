@@ -15,7 +15,9 @@
             "drupal/core-composer-scaffold": true,
             "oomphinc/composer-installers-extender": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "drupal/console-extend-plugin": true,
+            "zaporylie/composer-drupal-optimizations": true
         }
     },
     "require": {
