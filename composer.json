@@ -25,7 +25,7 @@
         "drupal/redis": "^1.5",
         "drush/drush": "10.*@stable",
         "goalgorilla/open_social": "dev-main",
-        "goalgorilla/open_social_scripts": "^2.0"
+        "goalgorilla/open_social_scripts": "^3.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "~0.7.1",
