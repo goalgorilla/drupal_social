@@ -1,0 +1,74 @@
+#This is a Drush config file. Sites may override this config to change minimum PHP.
+drush:
+  php:
+    minimum-version: 7.4.0
+  backup-dir: /drush/drush-backups
+
+# This section is for setting global options.
+options:
+  # Specify the base_url that should be used when generating links.
+  uri: 'http://social.localhost'
+
+  # Enable verbose mode.
+  verbose: true
+
+# This section is for setting command-specific options.
+command:
+  sql:
+    dump:
+      options:
+       # Uncomment to omit cache and similar tables (including during a sql:sync).
+        structure-tables-key: common
+
+  core:
+    rsync:
+      options:
+        # Ensure all rsync commands use verbose output.
+        verbose: true
+
+  site:
+    install:
+      options:
+      # Set a predetermined username and password when using site-install.
+       account-name: 'admin'
+       account-pass: 'secret'
+
+#
+# The sections below are configuration thats consulted by various commands, outside
+# of the option system.
+#
+sql:
+  # An explicit list of tables which should be included in sql-dump and sql-sync.
+  tables:
+    common:
+      - user
+      - permissions
+      - role_permissions
+      - role
+  # List of tables whose *data* is skipped by the 'sql-dump' and 'sql-sync'
+  # commands when the "--structure-tables-key=common" option is provided.
+  # You may add specific tables to the existing array or add a new element.
+  structure-tables:
+    common:
+      - cache
+      - 'cache_*'
+      - history
+      - 'search_*'
+      - 'sessions'
+      - 'watchdog'
+  # List of tables to be omitted entirely from SQL dumps made by the 'sql-dump'
+  # and 'sql-sync' commands when the "--skip-tables-key=common" option is
+  # provided on the command line.  This is useful if your database contains
+  # non-Drupal tables used by some other application or during a migration for
+  # example.  You may add new tables to the existing array or add a new element.
+  skip-tables:
+    common:
+      - 'migration_*'
+
+xh:
+  # Start profiling via xhprof/tideways and show a link to the run report.
+#  link: http://xhprof.local
+  # See https://github.com/drush-ops/drush/blob/11.x/src/Commands/core/XhprofCommands.php for more settings.
+#  profile-builtins: true
+#  profile-cpu: false
+#  profile-memory: false
