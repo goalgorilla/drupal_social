@@ -11,11 +11,11 @@
         "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
-            "drupal/core-composer-scaffold": true,
             "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
             "oomphinc/composer-installers-extender": true,
-            "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true,
             "drupal/console-extend-plugin": true,
             "zaporylie/composer-drupal-optimizations": true
         }
@@ -48,14 +48,6 @@
         "slevomat/coding-standard": "^7.0",
         "squizlabs/html_codesniffer": "*",
         "symplify/easy-coding-standard": "^9.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "Drupal\\social\\": "html/profiles/contrib/social/src",
-            "Drupal\\socialblue\\": "html/themes/contrib/socialblue/src",
-            "Drupal\\socialbase\\": "html/themes/contrib/socialbase/src",
-            "Drupal\\bootstrap\\": "html/themes/contrib/bootstrap/src"
-        }
     },
     "repositories": {
         "0": {

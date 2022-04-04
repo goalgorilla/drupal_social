@@ -1,0 +1,13 @@
+# File: local.site.yml
+# This environment is of the Docker Compose environment.
+# @see: https://www.drush.org/latest/site-aliases/#docker-compose-and-other-transports
+# Example: drush @local cr
+# Command in background will be "docker-compose exec social_gpi_web drush cr --ansi --uri=http://gpi.local"
+local:
+  docker:
+    service: social_web
+#    exec:
+#      options: --user root
+  root: /var/www/html
+  paths:
+    drush-script: /var/www/html/drush
