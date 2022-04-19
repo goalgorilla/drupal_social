@@ -70,7 +70,7 @@
                 }
             }
         },
-        "goalgorilla/open_social": {
+        "goalgorilla/open_social/social": {
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git",
             "only": [
