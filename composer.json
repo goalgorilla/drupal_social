@@ -49,13 +49,16 @@
         "squizlabs/html_codesniffer": "*",
         "symplify/easy-coding-standard": "^9.4"
     },
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "composer",
             "url": "https://packages.drupal.org/8",
-            "exclude": ["goalgorilla/open_social", "drupal/social"]
+            "exclude": [
+                "goalgorilla/open_social",
+                "drupal/social"
+            ]
         },
-        {
+        "squizlabs/html_codesniffer": {
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
@@ -67,12 +70,15 @@
                 }
             }
         },
-        {
+        "goalgorilla/open_social": {
             "type": "git",
             "url": "https://github.com/goalgorilla/open_social.git",
-            "only": ["goalgorilla/open_social", "drupal/social"]
+            "only": [
+                "goalgorilla/open_social",
+                "drupal/social"
+            ]
         },
-        {
+        "npm-asset/autosize": {
             "type": "package",
             "package": {
                 "name": "npm-asset/autosize",
@@ -84,7 +90,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/blazy": {
             "type": "package",
             "package": {
                 "name": "npm-asset/blazy",
@@ -96,7 +102,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/bootstrap": {
             "type": "package",
             "package": {
                 "name": "npm-asset/bootstrap",
@@ -108,7 +114,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/d3": {
             "type": "package",
             "package": {
                 "name": "npm-asset/d3",
@@ -120,7 +126,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/diff": {
             "type": "package",
             "package": {
                 "name": "npm-asset/diff",
@@ -132,7 +138,19 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/eve-raphael": {
+            "type": "package",
+            "package": {
+                "name": "npm-asset/eve-raphael",
+                "version": "0.5.0",
+                "dist": {
+                    "type": "tar",
+                    "url": "https://registry.npmjs.org/eve-raphael/-/eve-raphael-0.5.0.tgz"
+                },
+                "type": "npm-asset"
+            }
+        },
+        "npm-asset/highlight.js": {
             "type": "package",
             "package": {
                 "name": "npm-asset/highlight.js",
@@ -144,7 +162,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/jquery.caret": {
             "type": "package",
             "package": {
                 "name": "npm-asset/jquery.caret",
@@ -156,7 +174,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/jquery-ui-touch-punch": {
             "type": "package",
             "package": {
                 "name": "npm-asset/jquery-ui-touch-punch",
@@ -168,7 +186,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/morris.js06": {
             "type": "package",
             "package": {
                 "name": "npm-asset/morris.js06",
@@ -180,7 +198,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/node-waves": {
             "type": "package",
             "package": {
                 "name": "npm-asset/node-waves",
@@ -192,7 +210,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/photoswipe": {
             "type": "package",
             "package": {
                 "name": "npm-asset/photoswipe",
@@ -204,7 +222,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/raphael": {
             "type": "package",
             "package": {
                 "name": "npm-asset/raphael",
@@ -216,7 +234,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/react": {
             "type": "package",
             "package": {
                 "name": "npm-asset/react",
@@ -228,7 +246,19 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/loose-envify": {
+            "type": "package",
+            "package": {
+                "name": "npm-asset/loose-envify",
+                "version": "1.4.0",
+                "dist": {
+                    "type": "tar",
+                    "url": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
+                },
+                "type": "npm-asset"
+            }
+        },
+        "npm-asset/react-dom": {
             "type": "package",
             "package": {
                 "name": "npm-asset/react-dom",
@@ -240,7 +270,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/select2": {
             "type": "package",
             "package": {
                 "name": "npm-asset/select2",
@@ -252,7 +282,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/shariff": {
             "type": "package",
             "package": {
                 "name": "npm-asset/shariff",
@@ -264,7 +294,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/slick-carousel": {
             "type": "package",
             "package": {
                 "name": "npm-asset/slick-carousel",
@@ -276,7 +306,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/tablesaw": {
             "type": "package",
             "package": {
                 "name": "npm-asset/tablesaw",
@@ -288,7 +318,7 @@
                 "type": "npm-asset"
             }
         },
-        {
+        "npm-asset/lazysizes": {
             "type": "package",
             "package": {
                 "name": "bower-asset/lazysizes",
@@ -306,7 +336,7 @@
                 "type": "bower-asset"
             }
         }
-    ],
+    },
     "scripts": {
         "refresh": [
             "rm -rf composer.lock vendor html/core html/modules/contrib html/profiles/contrib html/themes/contrib",
