@@ -41,7 +41,7 @@ services:
     volumes:
       - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
     depends_on:
-      - web:web
+      - web
     ports:
       - "4444"
       - "5900"
@@ -55,9 +55,9 @@ services:
     volumes:
       - ./:/var/www:delegated
     depends_on:
-      - web:web
-      - db:db
-      - selenium:selenium
+      - web
+      - db
+      - selenium
     environment:
       - DRUPAL_SETTINGS=development
     container_name: social_behat
