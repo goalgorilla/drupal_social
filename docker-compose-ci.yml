@@ -4,28 +4,26 @@ services:
   web_scripts:
     image: goalgorilla/open_social_docker:ci
     volumes:
-     - ./:/var/www:delegated
-    links:
-     - db:db
+      - ./:/var/www:delegated
+    depends_on:
+      - db
     environment:
-     - DRUPAL_SETTINGS=production
-    network_mode: "bridge"
+      - DRUPAL_SETTINGS=production
     container_name: social_ci_web_scripts
 
   web:
     image: goalgorilla/open_social_docker:ci
     volumes:
-     - ./:/var/www:delegated
-    links:
-     - db:db
-     - mailcatcher:mailcatcher
-     - redis
-     - solr
+      - ./:/var/www:delegated
+    depends_on:
+      - db
+      - mailcatcher
+      - redis
+      - solr
     environment:
-     - DRUPAL_SETTINGS=production
+      - DRUPAL_SETTINGS=production
     ports:
-     - "80"
-    network_mode: "bridge"
+      - "80"
     container_name: social_ci_web
 
   db:
@@ -34,10 +32,9 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
     volumes:
-     - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     ports:
       - "3307:3306"
-    network_mode: "bridge"
     container_name: social_ci_db
     command: mysqld --max_allowed_packet=16M
 
@@ -48,36 +45,33 @@ services:
       - VIRTUAL_PORT=1080
     ports:
       - "1080"
-    network_mode: "bridge"
     container_name: social_mailcatcher
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
-    links:
-     - web:web
+    depends_on:
+      - web
     volumes:
       - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
     ports:
-     - "4444"
-     - "5900"
+      - "4444"
+      - "5900"
     cap_add:
-     - NET_ADMIN
-     - NET_RAW
-    network_mode: "bridge"
+      - NET_ADMIN
+      - NET_RAW
     container_name: social_ci_selenium
 
   behat:
     image: goalgorilla/open_social_docker:ci
     volumes:
-     - ./:/var/www:delegated
-    links:
-     - web:web
-     - db:db
-     - selenium:selenium
-     - mailcatcher:mailcatcher
+      - ./:/var/www:delegated
+    depends_on:
+      - web
+      - db
+      - selenium
+      - mailcatcher
     environment:
-     - DRUPAL_SETTINGS=production
-    network_mode: "bridge"
+      - DRUPAL_SETTINGS=production
     container_name: social_ci_behat
 
   solr:
@@ -97,12 +91,10 @@ services:
       - solr-precreate
       - drupal
       - /solr-conf
-    network_mode: "bridge"
     container_name: social_ci_solr
 
   redis:
     image: redis:latest
-    network_mode: "bridge"
 
 volumes:
   db_data:
