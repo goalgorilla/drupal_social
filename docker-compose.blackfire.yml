@@ -1,6 +1,6 @@
 services:
   web:
-    image: goalgorilla/open_social_docker:devd9
+    image: goalgorilla/open_social_docker:dev
     volumes:
      - ./:/var/www:delegated
     depends_on:
@@ -56,7 +56,7 @@ services:
     container_name: social_selenium
 
   behat:
-    image: goalgorilla/open_social_docker:devd9
+    image: goalgorilla/open_social_docker:dev
     volumes:
      - ./:/var/www:delegated
     depends_on:

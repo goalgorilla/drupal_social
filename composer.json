@@ -24,7 +24,7 @@
         "blackfire/php-sdk": "^v1.27.1",
         "drupal/redis": "^1.5",
         "drush/drush": "11.*@stable",
-        "goalgorilla/open_social": "dev-feature/3260861-php-8-support-updated-branch",
+        "goalgorilla/open_social": "dev-main",
         "goalgorilla/open_social_scripts": "^3.1"
     },
     "require-dev": {
