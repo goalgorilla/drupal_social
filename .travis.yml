@@ -1,4 +1,4 @@
-dist: trusty
+dist: focal
 sudo: required
 
 cache:
@@ -14,12 +14,18 @@ addons:
 language: php
 
 php:
-  - 7.4
+  - 8.0
+
+env:
+  global:
+    # Travis Token.
+    secure: "u6jLZiftQdb8Ozxngu5sgwmnXeUyvNF3/Y+5eX3+Xyb7Sm6K++cBLbYl/zNbuzp1rZE5dn3pVTQc4tstVXZw2B5KjCd64r9HE9gdwCEnS/AA/w3wGlaEBinTzKOrrN1EvqNNhnJUY2JmqEYVom+UYwLZWIIKM/5OoaeidNqHDvImZZLAeYfPMGnySsFC01yCzrOn6jv8Bwu00dQPVEOQylVEV5qgdGYz6CvGGslcvGxhvR0qdY/IXhrA0yxIk1yA6vu1mQpCSjGpPLy024JhcqRr3AzjH2N0QRKlL7vcNFxl/OC0qcK2bOl8lcQydeC5LRp92eeCLfMfvqHDqLJKvebCsvaZSmqlzCURlcHaJOM5bce7XPVyNLdwnfppgSacocGol38qxfEc09qV4AZnklwigYCfnk346oSaocKApy48KRW4cNXL45U7+z10IzVAENGwbyyuwdvKHhDtMCgMd8eeYfRF5EvENOKVSG02Kca8X2fLBhmJsXkFcBEW7pSRZKxixkIkuAwEYSQW/lvvM4LJmd2np7vZDEMh1dmf7TBRBygDVmM7vtdYRSzivR/T9nH+mXPP9FcjVvlPPeWAEaqtLPmmONmYRjDRcoHjJh3YnSMpvVs8wejDf7iS6A44cI6xZQRoEoCFA/WUu5EnzmoOCY7HvZ62xnZ0I9nNyL4="
 
 services:
   - docker
 
 before_install:
+  - set -e
   # Composer Configurations.
   - export COMPOSER_MEMORY_LIMIT=-1 # Set php memory limit to -1 so composer update will not fail
   - export COMPOSER_EXIT_ON_PATCH_FAILURE=1 # To enforce throwing an error and stopping package installation/update immediately

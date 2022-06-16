@@ -1,3 +1,5 @@
+# See: https://docs.docker.com/compose/compose-file/
+# See: https://github.com/compose-spec/compose-spec/blob/master/spec.md
 services:
   web:
     image: goalgorilla/open_social_docker:dev

@@ -1,3 +1,5 @@
+# See: https://docs.docker.com/compose/compose-file/
+# See: https://github.com/compose-spec/compose-spec/blob/master/spec.md
 version: "2"
 
 services:
@@ -34,7 +36,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     ports:
-      - "3307:3306"
+      - "3306"
     container_name: social_ci_db
     command: mysqld --max_allowed_packet=16M
 
