@@ -1,5 +1,6 @@
 # See: https://docs.docker.com/compose/compose-file/
 # See: https://github.com/compose-spec/compose-spec/blob/master/spec.md
+# See: https://docs.docker.com/compose/cli-command-compatibility/
 services:
   web:
     image: goalgorilla/open_social_docker:dev
@@ -11,32 +12,32 @@ services:
       - redis
       - solr
     environment:
-      - VIRTUAL_HOST=social.local
-      - DRUPAL_SETTINGS=development
+      VIRTUAL_HOST: social.localhost
+      DRUPAL_SETTINGS: development
     ports:
       - "80"
-    container_name: social_web
+    container_name: social-web
 
   db:
     image: mariadb:10.7
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=social
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: social
     volumes:
       - db-data:/var/lib/mysql
     ports:
       - "3306"
-    container_name: social_db
+    container_name: social-db
     command: mysqld --max_allowed_packet=16M
 
   mailcatcher:
     image: schickling/mailcatcher
     environment:
-      - VIRTUAL_HOST=mailcatcher.social.local
-      - VIRTUAL_PORT=1080
+      VIRTUAL_HOST: mailcatcher.social.localhost
+      VIRTUAL_PORT: 1080
     ports:
       - "1080"
-    container_name: social_mailcatcher
+    container_name: social-mailcatcher
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
@@ -50,7 +51,7 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    container_name: social_selenium
+    container_name: social-selenium
 
   behat:
     image: goalgorilla/open_social_docker:dev
@@ -61,8 +62,8 @@ services:
       - db
       - selenium
     environment:
-      - DRUPAL_SETTINGS=development
-    container_name: social_behat
+      DRUPAL_SETTINGS: development
+    container_name: social-behat
 
   cron:
     image: goalgorilla/open_social_docker:cron
@@ -72,8 +73,8 @@ services:
       - db
       - mailcatcher
     environment:
-      - DRUPAL_SETTINGS=development
-    container_name: social_cron
+      DRUPAL_SETTINGS: development
+    container_name: social-cron
 
   solr:
     image: solr:8.11
@@ -82,21 +83,21 @@ services:
       - os-solr-data:/opt/solr/server/solr/mycores
       - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
     environment:
-      - SOLR_SOLR_MEM_SIZE=512m
-      - PARTIAL_SEARCH_ENABLED=false
-      - VIRTUAL_HOST=solr.social.local
-      - VIRTUAL_PORT=8983
+      SOLR_SOLR_MEM_SIZE: 512m
+      PARTIAL_SEARCH_ENABLED: false
+      VIRTUAL_HOST: solr.social.localhost
+      VIRTUAL_PORT: 8983
     ports:
       - "8983"
     entrypoint:
       - solr-precreate
       - drupal
       - /solr-conf
-    container_name: social_solr
+    container_name: social-solr
 
   redis:
     image: redis:latest
 
 volumes:
-  db-data:
-  os-solr-data:
+  db-data: {}
+  os-solr-data: {}

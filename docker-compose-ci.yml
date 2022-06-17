@@ -8,8 +8,8 @@ services:
     depends_on:
       - db
     environment:
-      - DRUPAL_SETTINGS=production
-    container_name: social_ci_web_scripts
+      DRUPAL_SETTINGS: production
+    container_name: social-ci-web-scripts
 
   web:
     image: goalgorilla/open_social_docker:ci
@@ -21,31 +21,31 @@ services:
       - redis
       - solr
     environment:
-      - DRUPAL_SETTINGS=production
+      DRUPAL_SETTINGS: production
     ports:
       - "80"
-    container_name: social_ci_web
+    container_name: social-ci-web
 
   db:
     image: mariadb:10.7
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=social
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: social
     volumes:
       - db-data:/var/lib/mysql
     ports:
       - "3306"
-    container_name: social_ci_db
+    container_name: social-ci-db
     command: mysqld --max_allowed_packet=16M
 
   mailcatcher:
     image: schickling/mailcatcher
     environment:
-      - VIRTUAL_HOST=mailcatcher.social.dev
-      - VIRTUAL_PORT=1080
+      VIRTUAL_HOST: mailcatcher.social.localhost
+      VIRTUAL_PORT: 1080
     ports:
       - "1080"
-    container_name: social_mailcatcher
+    container_name: social-mailcatcher
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
@@ -59,7 +59,7 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    container_name: social_ci_selenium
+    container_name: social-ci-selenium
 
   behat:
     image: goalgorilla/open_social_docker:ci
@@ -71,8 +71,8 @@ services:
       - selenium
       - mailcatcher
     environment:
-      - DRUPAL_SETTINGS=production
-    container_name: social_ci_behat
+      DRUPAL_SETTINGS: production
+    container_name: social-ci-behat
 
   solr:
     image: solr:8.11
@@ -81,17 +81,17 @@ services:
       - os-solr-data:/opt/solr/server/solr/mycores
       - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
     environment:
-      - SOLR_SOLR_MEM_SIZE=512m
-      - PARTIAL_SEARCH_ENABLED=false
-      - VIRTUAL_HOST=solr.social.local
-      - VIRTUAL_PORT=8983
+      SOLR_SOLR_MEM_SIZE: 512m
+      PARTIAL_SEARCH_ENABLED: false
+      VIRTUAL_HOST: solr.social.localhost
+      VIRTUAL_PORT: 8983
     ports:
       - "8983"
     entrypoint:
       - solr-precreate
       - drupal
       - /solr-conf
-    container_name: social_ci_solr
+    container_name: social-ci-solr
 
   redis:
     image: redis:latest
