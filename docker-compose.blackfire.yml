@@ -1,3 +1,5 @@
+# See: https://docs.docker.com/compose/compose-file/
+# See: https://github.com/compose-spec/compose-spec/blob/master/spec.md
 services:
   web:
     image: goalgorilla/open_social_docker:dev
@@ -14,7 +16,6 @@ services:
      - DRUPAL_SETTINGS=development
     ports:
      - "80"
-    network_mode: "bridge"
     container_name: social_web
 
   db:
@@ -23,10 +24,9 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
     volumes:
-      - db_data:/var/lib/mysql
+      - db-data:/var/lib/mysql
     ports:
       - "3306"
-    network_mode: "bridge"
     container_name: social_db
     command: mysqld --max_allowed_packet=16M
 
@@ -37,7 +37,6 @@ services:
       - VIRTUAL_PORT=1080
     ports:
       - "1080"
-    network_mode: "bridge"
     container_name: social_mailcatcher
 
   selenium:
@@ -52,7 +51,6 @@ services:
     cap_add:
      - NET_ADMIN
      - NET_RAW
-    network_mode: "bridge"
     container_name: social_selenium
 
   behat:
@@ -65,7 +63,6 @@ services:
      - selenium
     environment:
      - DRUPAL_SETTINGS=development
-    network_mode: "bridge"
     container_name: social_behat
 
   blackfire:
@@ -76,7 +73,6 @@ services:
         # For ease of use on multiple project copy those export statements to ~/.bash_profile.
         - BLACKFIRE_SERVER_ID
         - BLACKFIRE_SERVER_TOKEN
-    network_mode: "bridge"
     container_name: social_blackfire
 
   cron:
@@ -88,14 +84,13 @@ services:
      - mailcatcher
     environment:
      - DRUPAL_SETTINGS=development
-    network_mode: "bridge"
     container_name: social_cron
 
   solr:
     image: solr:8.11
     hostname: solr
     volumes:
-      - os_solr_data:/opt/solr/server/solr/mycores
+      - os-solr-data:/opt/solr/server/solr/mycores
       - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
     environment:
       - SOLR_SOLR_MEM_SIZE=512m
@@ -108,13 +103,11 @@ services:
       - solr-precreate
       - drupal
       - /solr-conf
-    network_mode: "bridge"
     container_name: social_solr
 
   redis:
     image: redis:latest
-    network_mode: "bridge"
 
 volumes:
-  db_data:
-  os_solr_data:
+  db-data:
+  os-solr-data:

@@ -24,7 +24,7 @@
         "blackfire/php-sdk": "^v1.27.1",
         "drupal/redis": "^1.5",
         "goalgorilla/open_social": "dev-main",
-        "goalgorilla/open_social_scripts": "^3.1"
+        "goalgorilla/open_social_scripts": "dev-internal/update-docker"
     },
     "require-dev": {
         "drupal/upgrade_status": "^3.11",

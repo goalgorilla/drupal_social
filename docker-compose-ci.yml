@@ -1,7 +1,5 @@
 # See: https://docs.docker.com/compose/compose-file/
 # See: https://github.com/compose-spec/compose-spec/blob/master/spec.md
-version: "2"
-
 services:
   web_scripts:
     image: goalgorilla/open_social_docker:ci
@@ -34,7 +32,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social
     volumes:
-      - db_data:/var/lib/mysql
+      - db-data:/var/lib/mysql
     ports:
       - "3306"
     container_name: social_ci_db
@@ -80,7 +78,7 @@ services:
     image: solr:8.11
     hostname: solr
     volumes:
-      - os_solr_data:/opt/solr/server/solr/mycores
+      - os-solr-data:/opt/solr/server/solr/mycores
       - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
     environment:
       - SOLR_SOLR_MEM_SIZE=512m
@@ -99,5 +97,5 @@ services:
     image: redis:latest
 
 volumes:
-  db_data:
-  os_solr_data:
+  db-data:
+  os-solr-data:
