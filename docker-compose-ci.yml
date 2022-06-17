@@ -25,6 +25,8 @@ services:
     ports:
       - "80"
     container_name: social-ci-web
+    networks:
+      - open-social-ci
 
   db:
     image: mariadb:10.7
@@ -37,6 +39,8 @@ services:
       - "3306"
     container_name: social-ci-db
     command: mysqld --max_allowed_packet=16M
+    networks:
+      - open-social-ci
 
   mailcatcher:
     image: schickling/mailcatcher
@@ -46,6 +50,8 @@ services:
     ports:
       - "1080"
     container_name: social-mailcatcher
+    networks:
+      - open-social-ci
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
@@ -60,6 +66,8 @@ services:
       - NET_ADMIN
       - NET_RAW
     container_name: social-ci-selenium
+    networks:
+      - open-social-ci
 
   behat:
     image: goalgorilla/open_social_docker:ci
@@ -73,6 +81,8 @@ services:
     environment:
       DRUPAL_SETTINGS: production
     container_name: social-ci-behat
+    networks:
+      - open-social-ci
 
   solr:
     image: solr:8.11
@@ -92,10 +102,19 @@ services:
       - drupal
       - /solr-conf
     container_name: social-ci-solr
+    networks:
+      - open-social-ci
 
   redis:
     image: redis:latest
+    container_name: social-redis
+    networks:
+      - open-social-ci
 
 volumes:
   db-data:
   os-solr-data:
+
+networks:
+  open-social-ci:
+    driver: bridge
