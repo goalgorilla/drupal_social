@@ -13,7 +13,7 @@ services:
     container_name: social_ci_web_scripts
 
   web:
-    image: goalgorilla/open_social_docker:ci
+    image: goalgorilla/open_social_docker:ci-php7
     volumes:
      - ./:/var/www:delegated
     links:
@@ -67,7 +67,7 @@ services:
     container_name: social_ci_selenium
 
   behat:
-    image: goalgorilla/open_social_docker:ci
+    image: goalgorilla/open_social_docker:ci-php7
     volumes:
      - ./:/var/www:delegated
     links:

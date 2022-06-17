@@ -57,7 +57,7 @@ services:
     container_name: social_selenium
 
   behat:
-    image: goalgorilla/open_social_docker:dev
+    image: goalgorilla/open_social_docker:dev-php7
     volumes:
      - ./:/var/www:delegated
     links:
@@ -70,7 +70,7 @@ services:
     container_name: social_behat
 
   cron:
-    image: goalgorilla/open_social_docker:cron
+    image: goalgorilla/open_social_docker:cron-php7
     volumes:
      - ./:/var/www:delegated
     links:
