@@ -36,6 +36,7 @@ before_install:
   # Install docker and our docker containers.
   - sh scripts/social/ci/install-docker.sh
   - docker compose -f docker-compose-ci.yml up -d
+  - docker exec -i social-ci-web cat /etc/hosts
 
 script:
   - docker exec -i social-ci-web bash /var/www/scripts/social/install/install_script.sh
