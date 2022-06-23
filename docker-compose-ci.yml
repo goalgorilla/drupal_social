@@ -49,32 +49,19 @@ services:
       - "1080"
     container_name: social_mailcatcher
 
-  selenium:
-    image: selenium/standalone-firefox-debug:2.48.2
-    depends_on:
-      - web
-    volumes:
-      - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
-    ports:
-      - "4444"
-      - "5900"
-    cap_add:
-      - NET_ADMIN
-      - NET_RAW
-    container_name: social_ci_selenium
-
-  behat:
-    image: goalgorilla/open_social_docker:ci
+  chrome:
+    image: zenika/alpine-chrome
+    container_name: social_chrome
+    command:
+      - "--headless" # Run in headless mode, i.e., without a UI or display server dependencies.
+      - "--disable-gpu" # Disables GPU hardware acceleration. If software renderer is not in place, then the GPU process won't launch.
+      - "--no-sandbox" # Disables the sandbox for all process types that are normally sandboxed. Meant to be used as a browser-level switch for testing purposes only.
+      - "--remote-debugging-address=0.0.0.0" # Enables remote debug over HTTP on the specified port.
+      - "--remote-debugging-port=9222" # Enables remote debug over HTTP on the specified port.
     volumes:
       - ./:/var/www:delegated
-    depends_on:
-      - web
-      - db
-      - selenium
-      - mailcatcher
-    environment:
-      - DRUPAL_SETTINGS=production
-    container_name: social_ci_behat
+    ports:
+      - '9222:9222'
 
   solr:
     image: solr:8.11
