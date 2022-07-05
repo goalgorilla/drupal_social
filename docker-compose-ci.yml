@@ -51,34 +51,21 @@ services:
     network_mode: "bridge"
     container_name: social_mailcatcher
 
-  selenium:
-    image: selenium/standalone-firefox:2.48.2
-    links:
-     - web:web
+  # Backported: https://github.com/goalgorilla/drupal_social/pull/375/files#diff-e0c2960e29c1491e970fb7cf34e0e6dacfe8617baab7cfe303850bb5762ce1f5
+  chrome:
+    image: zenika/alpine-chrome
+    container_name: social_chrome
+    network_mode: "bridge"
+    command:
+      - "--headless" # Run in headless mode, i.e., without a UI or display server dependencies.
+      - "--disable-gpu" # Disables GPU hardware acceleration. If software renderer is not in place, then the GPU process won't launch.
+      - "--no-sandbox" # Disables the sandbox for all process types that are normally sandboxed. Meant to be used as a browser-level switch for testing purposes only.
+      - "--remote-debugging-address=0.0.0.0" # Enables remote debug over HTTP on the specified port.
+      - "--remote-debugging-port=9222" # Enables remote debug over HTTP on the specified port.
     volumes:
-      - ./html/profiles/contrib/social/tests/behat/features/files/:/files:delegated
+      - ./:/var/www:delegated
     ports:
-     - "4444"
-     - "5900"
-    cap_add:
-     - NET_ADMIN
-     - NET_RAW
-    network_mode: "bridge"
-    container_name: social_ci_selenium
-
-  behat:
-    image: goalgorilla/open_social_docker:ci-php7
-    volumes:
-     - ./:/var/www:delegated
-    links:
-     - web:web
-     - db:db
-     - selenium:selenium
-     - mailcatcher:mailcatcher
-    environment:
-     - DRUPAL_SETTINGS=production
-    network_mode: "bridge"
-    container_name: social_ci_behat
+      - '9222:9222'
 
   solr:
     image: solr:6.6
