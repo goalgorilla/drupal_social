@@ -11,11 +11,10 @@ services:
       - redis
       - solr
     environment:
-      - VIRTUAL_HOST=social.local
       - DRUPAL_SETTINGS=development
-    ports:
-      - "80"
     container_name: social_web
+    labels:
+      - "traefik.http.routers.web.rule=Host(`social.local`)"
 
   db:
     image: mariadb:10.7
@@ -24,19 +23,15 @@ services:
       - MYSQL_DATABASE=social
     volumes:
       - db_data:/var/lib/mysql
-    ports:
-      - "3306"
     container_name: social_db
     command: mysqld --max_allowed_packet=16M
 
   mailcatcher:
     image: schickling/mailcatcher
-    environment:
-      - VIRTUAL_HOST=mailcatcher.social.local
-      - VIRTUAL_PORT=1080
-    ports:
-      - "1080"
     container_name: social_mailcatcher
+    labels:
+      - "traefik.http.services.mailcatcher.loadbalancer.server.port=1080"
+      - "traefik.http.routers.mailcatcher.rule=Host(`mailcatcher.social.local`)"
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
@@ -84,18 +79,31 @@ services:
     environment:
       - SOLR_SOLR_MEM_SIZE=512m
       - PARTIAL_SEARCH_ENABLED=false
-      - VIRTUAL_HOST=solr.social.local
-      - VIRTUAL_PORT=8983
-    ports:
-      - "8983"
     entrypoint:
       - solr-precreate
       - drupal
       - /solr-conf
     container_name: social_solr
+    labels:
+      - "traefik.http.services.solr.loadbalancer.server.port=8983"
+      - "traefik.http.routers.solr.rule=Host(`solr.social.local`)"
 
   redis:
     image: redis:latest
+
+  reverse-proxy:
+    image: traefik:v2.8
+    container_name: social__traefik
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   db_data:
