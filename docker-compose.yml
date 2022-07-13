@@ -12,26 +12,28 @@ services:
       - solr
     environment:
       - DRUPAL_SETTINGS=development
-    container_name: social_web
+    container_name: "${PROJECT_NAME}_web"
     labels:
-      - "traefik.http.routers.web.rule=Host(`social.local`)"
+      - "traefik.http.routers.web.rule=Host(`${PROJECT_BASE_URL}`)"
 
   db:
     image: mariadb:10.7
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=social
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
     volumes:
       - db_data:/var/lib/mysql
-    container_name: social_db
+    container_name: "${PROJECT_NAME}_db"
     command: mysqld --max_allowed_packet=16M
 
   mailcatcher:
     image: schickling/mailcatcher
-    container_name: social_mailcatcher
+    container_name: "${PROJECT_NAME}_mailcatcher"
     labels:
       - "traefik.http.services.mailcatcher.loadbalancer.server.port=1080"
-      - "traefik.http.routers.mailcatcher.rule=Host(`mailcatcher.social.local`)"
+      - "traefik.http.routers.mailcatcher.rule=Host(`mailcatcher.${PROJECT_BASE_URL}`)"
 
   selenium:
     image: selenium/standalone-firefox-debug:2.48.2
@@ -45,7 +47,7 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    container_name: social_selenium
+    container_name: "${PROJECT_NAME}_selenium"
 
   behat:
     image: goalgorilla/open_social_docker:dev
@@ -57,7 +59,7 @@ services:
       - selenium
     environment:
       - DRUPAL_SETTINGS=development
-    container_name: social_behat
+    container_name: "${PROJECT_NAME}_behat"
 
   cron:
     image: goalgorilla/open_social_docker:cron
@@ -68,7 +70,8 @@ services:
       - mailcatcher
     environment:
       - DRUPAL_SETTINGS=development
-    container_name: social_cron
+    container_name: "${PROJECT_NAME}_cron"
+
 
   solr:
     image: solr:8.11
@@ -83,22 +86,23 @@ services:
       - solr-precreate
       - drupal
       - /solr-conf
-    container_name: social_solr
+    container_name: "${PROJECT_NAME}_solr"
     labels:
       - "traefik.http.services.solr.loadbalancer.server.port=8983"
-      - "traefik.http.routers.solr.rule=Host(`solr.social.local`)"
+      - "traefik.http.routers.solr.rule=Host(`solr.${PROJECT_BASE_URL}`)"
 
   redis:
     image: redis:latest
+    container_name: "${PROJECT_NAME}_redis"
 
   reverse-proxy:
     image: traefik:v2.8
-    container_name: social__traefik
+    container_name: "${PROJECT_NAME}_traefik"
     # Enables the web UI and tells Traefik to listen to docker
     command: --api.insecure=true --providers.docker
     ports:
       # The HTTP port
-      - "80:80"
+      - "${PROJECT_PORT}:80"
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
     volumes:
