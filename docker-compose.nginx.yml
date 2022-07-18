@@ -1,0 +1,17 @@
+services:
+  nginx:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./nginx/custom-nginx.conf:/etc/nginx/conf.d/custom-nginx.conf:ro"
+
+volumes:
+  nginx:
+
+# We need a self-defined bridge, so that containers can connect to each other.
+networks:
+  default:
+    name: nginx

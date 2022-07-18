@@ -1,4 +1,4 @@
-Looking for the repository of the Open Social distribution? [Click here](https://github.com/goalgorilla/open_social) 
+Looking for the repository of the Open Social distribution? [Click here](https://github.com/goalgorilla/open_social)
 
 # Open Social Developer Repository #
 Repository for developers working on the Open Social distribution. This repository contains a useful development workflow in Docker for the Open Social distribution. The development takes place [here](https://github.com/goalgorilla/open_social).
@@ -24,7 +24,20 @@ Visit our drupal.org [project page](https://www.drupal.org/project/social) and h
 
 ### Install in Docker containers ###
 
-Visit our [github wiki](https://github.com/goalgorilla/drupal_social/wiki/Installing-and-updating#12-installation-with-docker) for extensive installation information
+1. Copy and rename the `.env.dist` to `.env` and update the .env variables, if you don't want to use the defaults. We recommend to use the `.localhost` domain extension for the `PROJECT_BASE_URL`; so that you don't have to update your host file.
+
+2. Run the nginx-proxy container, you only need one even if you have multiple projects.
+```
+docker compose -f docker-compose.nginx.yml -p nginx up -d
+```
+3. Run the docker containers for the project:
+```
+docker compose up -d
+```
+4. Depending on the configured `PROJECT_BASE_URL`, you can access the following services:
+- Drupal: http://social.localhost
+- Solr: http://solr.social.localhost
+- Mailcatcher: http://mailcatcher.social.localhost
 
 ### Install with Composer ###
 
