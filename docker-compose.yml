@@ -61,7 +61,7 @@ services:
       - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
     environment:
       SOLR_SOLR_MEM_SIZE: 512m
-      PARTIAL_SEARCH_ENABLED: false
+      PARTIAL_SEARCH_ENABLED: 0
       VIRTUAL_HOST: "solr.${PROJECT_BASE_URL}"
       VIRTUAL_PORT: 8983
     ports:
