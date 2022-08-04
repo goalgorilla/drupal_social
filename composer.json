@@ -23,11 +23,11 @@
     "require": {
         "blackfire/php-sdk": "^v1.27.1",
         "drupal/redis": "^1.5",
-        "goalgorilla/open_social": "dev-feature/headless-chrome"
+        "goalgorilla/open_social": "dev-main"
     },
     "require-dev": {
         "drupal/upgrade_status": "^3.11",
-        "goalgorilla/open_social_dev": "dev-feature/headless-chrome",
+        "goalgorilla/open_social_dev": "dev-main",
         "palantirnet/drupal-rector": "^0.12",
         "phpmd/phpmd": "^2.10",
         "slevomat/coding-standard": "^7.0",
