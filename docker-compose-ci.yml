@@ -5,27 +5,25 @@ services:
     image: goalgorilla/open_social_docker:ci-php7
     volumes:
      - ./:/var/www:delegated
-    links:
-     - db:db
+    depends_on:
+     - db
     environment:
      - DRUPAL_SETTINGS=production
-    network_mode: "bridge"
     container_name: social_ci_web_scripts
 
   web:
     image: goalgorilla/open_social_docker:ci-php7
     volumes:
      - ./:/var/www:delegated
-    links:
-     - db:db
-     - mailcatcher:mailcatcher
+    depends_on:
+     - db
+     - mailcatcher
      - redis
      - solr
     environment:
      - DRUPAL_SETTINGS=production
     ports:
      - "80"
-    network_mode: "bridge"
     container_name: social_ci_web
 
   db:
@@ -36,8 +34,7 @@ services:
     volumes:
      - db_data:/var/lib/mysql
     ports:
-      - "3307:3306"
-    network_mode: "bridge"
+      - "3306"
     container_name: social_ci_db
     command: mysqld --max_allowed_packet=16M
 
@@ -48,14 +45,12 @@ services:
       - VIRTUAL_PORT=1080
     ports:
       - "1080"
-    network_mode: "bridge"
     container_name: social_mailcatcher
 
   # Backported: https://github.com/goalgorilla/drupal_social/pull/375/files#diff-e0c2960e29c1491e970fb7cf34e0e6dacfe8617baab7cfe303850bb5762ce1f5
   chrome:
     image: zenika/alpine-chrome
     container_name: social_chrome
-    network_mode: "bridge"
     command:
       - "--headless" # Run in headless mode, i.e., without a UI or display server dependencies.
       - "--disable-gpu" # Disables GPU hardware acceleration. If software renderer is not in place, then the GPU process won't launch.
@@ -84,12 +79,11 @@ services:
       - solr-precreate
       - drupal
       - /solr-conf
-    network_mode: "bridge"
     container_name: social_ci_solr
 
   redis:
     image: redis:latest
-    network_mode: "bridge"
+
 
 volumes:
   db_data:
