@@ -42,4 +42,4 @@ jobs:
         run: docker exec -i social_ci_web bash /var/www/scripts/social/install/install_script.sh
 
       - name: Run Integration tests
-        run: docker exec -i social_ci_behat bash /var/www/scripts/social/behatstability.sh "stability-1 --stop-on-failure --strict --colors"
+        run: docker exec -i social_ci_web bash /var/www/scripts/social/behatstability.sh "stability-1 --stop-on-failure --strict --colors"
