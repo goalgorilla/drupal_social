@@ -39,6 +39,18 @@ docker compose up -d
 - Solr: http://solr.social.localhost
 - Mailcatcher: http://mailcatcher.social.localhost
 
+Optionally you can use the provided Makefile commands:
+
+```
+up      : Start up containers, including the project_name defined at .env file
+install : Install drfault Open Social profile.
+stop    : Stop containers.
+prune   : Remove container for this project.
+ps      : List running project containers.
+shell   : Access the webserver container via shell.
+```
+
+
 ### Install with Composer ###
 
 Checkout this repository for a Composer template: [goalgorilla/social_template](https://github.com/goalgorilla/social_template).
