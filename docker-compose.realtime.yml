@@ -1,0 +1,131 @@
+# See: https://docs.docker.com/compose/compose-file/
+# See: https://github.com/compose-spec/compose-spec/blob/master/spec.md
+services:
+  web:
+    image: goalgorilla/open_social_docker:dev
+    volumes:
+     - ./:/var/www:delegated
+    depends_on:
+      db: {}
+      mailcatcher: {}
+      redis: {}
+      solr: {}
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      DRUPAL_SETTINGS: development
+      VIRTUAL_HOST: "${PROJECT_BASE_URL}"
+      VIRTUAL_PORT: 80
+    ports:
+         - "80"
+    container_name: "${PROJECT_NAME}_web"
+
+  db:
+    image: mariadb:10.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: social
+    volumes:
+      - db_data:/var/lib/mysql
+    container_name: "${PROJECT_NAME}_db"
+    command: mysqld --max_allowed_packet=16M
+    ports:
+      - "3306"
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    environment:
+      VIRTUAL_HOST: "mailcatcher.${PROJECT_BASE_URL}"
+      VIRTUAL_PORT: 1080
+    ports:
+      - "1080"
+    container_name: "${PROJECT_NAME}_mailcatcher"
+
+  chrome:
+    image: zenika/alpine-chrome
+    container_name: "${PROJECT_NAME}_chrome"
+    command:
+      - "--headless" # Run in headless mode, i.e., without a UI or display server dependencies.
+      - "--disable-gpu" # Disables GPU hardware acceleration. If software renderer is not in place, then the GPU process won't launch.
+      - "--no-sandbox" # Disables the sandbox for all process types that are normally sandboxed. Meant to be used as a browser-level switch for testing purposes only.
+      - "--remote-debugging-address=0.0.0.0" # Enables remote debug over HTTP on the specified port.
+      - "--remote-debugging-port=9222" # Enables remote debug over HTTP on the specified port.
+    volumes:
+      - ./:/var/www:delegated
+    ports:
+      - '9222:9222'
+
+  solr:
+    image: solr:8.11
+    hostname: solr
+    volumes:
+      - os_solr_data:/opt/solr/server/solr/mycores
+      - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
+    environment:
+      SOLR_SOLR_MEM_SIZE: 512m
+      PARTIAL_SEARCH_ENABLED: 0
+      VIRTUAL_HOST: "solr.${PROJECT_BASE_URL}"
+      VIRTUAL_PORT: 8983
+    ports:
+      - "8983"
+    entrypoint:
+      - solr-precreate
+      - drupal
+      - /solr-conf
+    container_name: "${PROJECT_NAME}_solr"
+
+  redis:
+    image: redis:latest
+    container_name: "${PROJECT_NAME}_redis"
+    ports:
+      - "6379"
+
+  realtime:
+    image: goalgorilla/open_social_docker:dev
+    hostname: realtime
+    volumes:
+      - ./:/var/www:delegated
+    depends_on:
+      web: {}
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      VIRTUAL_HOST: "realtime.${PROJECT_BASE_URL}"
+      VIRTUAL_PORT: 8080
+      DRUPAL_SETTINGS: development
+    command: [ "php", "/var/www/vendor/bin/social-real-time" ]
+    ports:
+      - "8080"
+    container_name: "${PROJECT_NAME}_real_time"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    environment:
+      VIRTUAL_HOST: "rabbitmq.${PROJECT_BASE_URL}"
+      VIRTUAL_PORT: 15672
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics" , "--quiet", "--timeout=10", "ping" ]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+    ports:
+      - "4369"
+      - "5671"
+      - "5672"
+      - "15671"
+      - "15672"
+      - "25672"
+    container_name: "${PROJECT_NAME}_rabbitmq"
+
+volumes:
+  db_data:
+  os_solr_data:
+
+networks:
+  # Default will connect all containers to the specified network.
+  default:
+    # Network name.
+    name: nginx
+    # Connects to an existing network.
+    external: true
