@@ -3,6 +3,9 @@ bin
 vendor
 html
 
+# Ignore the composer.lock file since we never want this in the repository.
+composer.lock
+
 # Compiled source #
 ###################
 *.com
