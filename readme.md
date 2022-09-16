@@ -4,7 +4,7 @@ Looking for the repository of the Open Social distribution? [Click here](https:/
 Repository for developers working on the Open Social distribution. This repository contains a useful development workflow in Docker for the Open Social distribution. The development takes place [here](https://github.com/goalgorilla/open_social).
 
 Check [drupal.org](https://www.drupal.org/project/social) for more information about Open Social.
-For day to day technical documentation use the [Github Wiki](https://github.com/goalgorilla/drupal_social/wiki).
+For day to day technical documentation use our [Drupal.org Documentation Guide](https://www.drupal.org/docs/8/distributions/open-social).
 
 Useful links for developers:
 - [Roadmap]( https://www.drupal.org/node/2766871)
@@ -44,7 +44,7 @@ docker compose up -d
 Checkout this repository for a Composer template: [goalgorilla/social_template](https://github.com/goalgorilla/social_template).
 
 # Contribute #
-Contribute to Open Social? Checkout our [Contribution to Open Social](https://github.com/goalgorilla/drupal_social/wiki/Contributing-to-Open-Social) section on out github wiki
+Contribute to Open Social? Checkout [Contribution to Open Social](https://www.drupal.org/docs/drupal-distributions/open-social/contribute-to-open-social) section on Drupal.org Documentation Guide.
 
 Do you want to join us in this effort? We are welcoming your [feedback](http://goalgorilla.github.io/drupal_social/prototype.html), (development) time and/or financial support. For feedback, questions or suggestions you can use [Drupal.org](https://www.drupal.org/project/social).
 
