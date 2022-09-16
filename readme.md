@@ -28,11 +28,11 @@ Visit our drupal.org [project page](https://www.drupal.org/project/social) and h
 
 2. Run the nginx-proxy container, you only need one even if you have multiple projects.
 ```
-docker compose -f docker-compose.nginx.yml -p nginx up -d
+docker-compose -f docker-compose.nginx.yml -p nginx up -d
 ```
 3. Run the docker containers for the project:
 ```
-docker compose up -d
+docker-compose up -d
 ```
 4. Depending on the configured `PROJECT_BASE_URL`, you can access the following services:
 - Drupal: http://social.localhost
