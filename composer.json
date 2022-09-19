@@ -66,7 +66,30 @@
         "refresh": [
             "rm -rf composer.lock vendor html/core html/modules/contrib html/profiles/contrib html/themes/contrib",
             "@composer update -W --ansi"
-        ]
+        ],
+        "docker-up": [
+            "docker compose -f docker-compose.nginx.yml -p nginx up -d || true",
+            "docker compose up -d --remove-orphans"
+        ],
+        "docker-stop": "docker-compose stop",
+        "docker-shell": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -ti ${PROJECT_NAME}_web bash\"",
+        "install-open-social": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -i ${PROJECT_NAME}_web sh /var/www/scripts/social/install/install_script.sh\"",
+        "phpstan": "vendor/bin/phpstan analyse -c html/profiles/contrib/social/phpstan.neon --memory-limit=-1",
+        "phpcs": [
+            "cp /var/www/html/profiles/contrib/social/phpcs.xml /var/www/phpcs.xml",
+            "vendor/bin/phpcs  --report-full",
+            "rm /var/www/phpcs.xml"
+        ],
+        "phpunit": "vendor/bin/phpunit -c /var/www/html/profiles/contrib/social/phpunit.xml.dist --log-junit ./test-reports/phpunit.xml"
+    },
+    "scripts-descriptions": {
+        "docker-up": "Start all the docker containers for this project",
+        "docker-stop": "Stop the docker containers for this project. Does not stop the nginx containers",
+        "docker-shell": "Open bash within the web comtainer",
+        "install-open-social": "(Re)install Open Social using the install script",
+        "phpstan": "Analyse the code in this repository using the configuration from the distribution",
+        "phpcs": "Lint the code in the repository using PHP CodeSniffer with the configuration from the distribution",
+        "phpunit": "Run PHPUnit tests in this project with the configuration from the distribution"
     },
     "extra": {
         "installer-types": [

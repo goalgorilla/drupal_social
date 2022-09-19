@@ -39,6 +39,15 @@ docker compose up -d
 - Solr: http://solr.social.localhost
 - Mailcatcher: http://mailcatcher.social.localhost
 
+5. Alternatively you can use some extra composer commands to facilitate:
+- docker-up: Start all the docker containers for this project
+- docker-stop: Stop the docker containers for this project. Does not stop the nginx containers
+- docker-shell: Open bash within the web comtainer
+- install-open-social: (Re)install Open Social using the install script
+- phpstan ( inside web container ): Analyse the code in this repository using the configuration from the distribution
+- phpcs ( inside web container ): Lint the code in the repository using PHP CodeSniffer with the configuration from the distribution
+- phpunit ( inside web container ): Run PHPUnit tests in this project with the configuration from the distribution
+
 ### Install with Composer ###
 
 Checkout this repository for a Composer template: [goalgorilla/social_template](https://github.com/goalgorilla/social_template).
