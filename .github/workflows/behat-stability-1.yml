@@ -2,9 +2,8 @@ name: 'Behat'
 
 # Controls when the workflow will run
 on:
-  pull_request:
-    # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#webhook-payload-object-35
-    types: [ ready_for_review, reopened, synchronize ]
+  # Triggers the workflow on all pull request events
+  pull_request: { }
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
