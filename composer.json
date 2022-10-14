@@ -26,7 +26,6 @@
         "goalgorilla/open_social": "dev-main"
     },
     "require-dev": {
-        "drupal/upgrade_status": "^3.11",
         "goalgorilla/open_social_dev": "dev-main",
         "palantirnet/drupal-rector": "^0.12",
         "phpmd/phpmd": "^2.10",
