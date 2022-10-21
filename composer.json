@@ -73,6 +73,7 @@
         "docker-stop": "docker-compose stop",
         "docker-shell": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -ti ${PROJECT_NAME}_web bash\"",
         "install-open-social": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -i ${PROJECT_NAME}_web /var/www/scripts/social/install/install_script.sh\"",
+        "drush-cr": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -i ${PROJECT_NAME}_web drush cr\"",
         "phpstan": "/var/www/vendor/bin/phpstan analyse -c /var/www/html/profiles/contrib/social/phpstan.neon --memory-limit=-1",
         "phpcs": [
             "cp /var/www/html/profiles/contrib/social/phpcs.xml /var/www/phpcs.xml",
@@ -82,10 +83,12 @@
         "phpunit": "/var/www/vendor/bin/phpunit -c /var/www/html/profiles/contrib/social/phpunit.xml.dist --log-junit ./test-reports/phpunit.xml"
     },
     "scripts-descriptions": {
+        "refresh": "Delete local directories and execute composer update -W --ansi",
         "docker-up": "Start all the docker containers for this project",
         "docker-stop": "Stop the docker containers for this project. Does not stop the nginx containers",
         "docker-shell": "Open bash within the web comtainer",
         "install-open-social": "(Re)install Open Social using the install script",
+        "drush-cr": "Rebuild cache from outside of docker container",
         "phpstan": "Analyse the code in this repository using the configuration from the distribution",
         "phpcs": "Lint the code in the repository using PHP CodeSniffer with the configuration from the distribution",
         "phpunit": "Run PHPUnit tests in this project with the configuration from the distribution"
