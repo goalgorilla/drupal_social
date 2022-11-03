@@ -4,7 +4,7 @@ version: "2"
 
 services:
   web_scripts:
-    image: goalgorilla/open_social_docker:ci
+    image: goalgorilla/open_social_docker:ci-php8.1
     volumes:
       - ./:/var/www:delegated
     depends_on:
