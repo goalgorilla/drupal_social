@@ -26,7 +26,7 @@
         "goalgorilla/open_social": "dev-feature/3232848-replace-swift-mailer"
     },
     "require-dev": {
-        "goalgorilla/open_social_dev": "dev-main",
+        "goalgorilla/open_social_dev": "dev-feature/3232848-replace-swift-mailer",
         "palantirnet/drupal-rector": "^0.12",
         "phpmd/phpmd": "^2.10",
         "slevomat/coding-standard": "^7.0",
