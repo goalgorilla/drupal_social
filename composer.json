@@ -21,13 +21,13 @@
         }
     },
     "require": {
-        "blackfire/php-sdk": "^v1.27.1",
         "drupal/redis": "^1.5",
         "goalgorilla/open_social": "dev-main"
     },
     "require-dev": {
+        "composer/composer": "^2",
         "goalgorilla/open_social_dev": "dev-main",
-        "palantirnet/drupal-rector": "^0.12",
+        "palantirnet/drupal-rector": "^0.15",
         "phpmd/phpmd": "^2.10",
         "slevomat/coding-standard": "^7.0",
         "squizlabs/html_codesniffer": "*",
@@ -47,7 +47,7 @@
             "type": "package",
             "package": {
                 "name": "squizlabs/html_codesniffer",
-                "version": "2.5.1",
+                "version": "2.8.1",
                 "source": {
                     "url": "https://github.com/squizlabs/HTML_CodeSniffer.git",
                     "type": "git",
