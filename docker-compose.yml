@@ -40,7 +40,7 @@ services:
     container_name: "${PROJECT_NAME}_mailcatcher"
 
   chrome:
-    image: zenika/alpine-chrome
+    image: zenika/alpine-chrome:102
     container_name: "${PROJECT_NAME}_chrome"
     command:
       - "--headless" # Run in headless mode, i.e., without a UI or display server dependencies.

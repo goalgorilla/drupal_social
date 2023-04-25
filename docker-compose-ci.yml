@@ -50,7 +50,7 @@ services:
     container_name: social_mailcatcher
 
   chrome:
-    image: zenika/alpine-chrome
+    image: zenika/alpine-chrome:89
     container_name: social_chrome
     command:
       - "--headless" # Run in headless mode, i.e., without a UI or display server dependencies.
