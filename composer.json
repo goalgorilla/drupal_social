@@ -29,7 +29,6 @@
         "goalgorilla/open_social_dev": "dev-main",
         "palantirnet/drupal-rector": "^0.15",
         "phpmd/phpmd": "^2.10",
-        "slevomat/coding-standard": "^7.0",
         "squizlabs/html_codesniffer": "*",
         "symplify/easy-coding-standard": "^9.4"
     },
