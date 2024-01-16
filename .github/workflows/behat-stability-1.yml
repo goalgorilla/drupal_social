@@ -13,11 +13,11 @@ jobs:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-22.04
     steps:
-      # Set PHP version to 8.0
+      # Set PHP version to 8.1
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.1
           coverage: none # disable xdebug, pcov
           tools: cs2pr
 
