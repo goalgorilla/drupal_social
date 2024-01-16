@@ -68,6 +68,7 @@ services:
     hostname: solr
     volumes:
       - os_solr_data:/opt/solr/server/solr/mycores
+      - ./docker/solr/data/:/var/solr/data/
       - ./docker/solr/9.x/drupal/:/solr-conf/conf:cached
     environment:
       - SOLR_SOLR_MEM_SIZE=512m
