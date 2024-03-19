@@ -71,7 +71,7 @@
         ],
         "docker-stop": "docker-compose stop",
         "docker-shell": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -ti ${PROJECT_NAME}_web bash\"",
-        "install-open-social": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -i ${PROJECT_NAME}_web /var/www/scripts/social/install/install_script.sh\"",
+        "install-open-social": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -i ${PROJECT_NAME}_web /bin/bash /var/www/scripts/social/install/install_script.sh\"",
         "drush-cr": "test -f \".env\" || exit 1; export $(egrep -v '^#' .env | xargs); sh -c \"docker exec -i ${PROJECT_NAME}_web drush cr\"",
         "phpstan": "/var/www/vendor/bin/phpstan analyse -c /var/www/html/profiles/contrib/social/phpstan.neon --memory-limit=-1",
         "phpcs": [
