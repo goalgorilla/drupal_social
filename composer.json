@@ -27,7 +27,6 @@
     "require-dev": {
         "composer/composer": "^2",
         "goalgorilla/open_social_dev": "dev-main",
-        "palantirnet/drupal-rector": "^0.15",
         "phpmd/phpmd": "^2.10",
         "squizlabs/html_codesniffer": "*",
         "symplify/easy-coding-standard": "^9.4"
