@@ -54,11 +54,12 @@ services:
       - '9222:9222'
 
   solr:
-    image: solr:8.11
+    image: solr:9.2
     hostname: solr
     volumes:
       - os_solr_data:/opt/solr/server/solr/mycores
-      - ./docker/solr/8.x/drupal/:/solr-conf/conf:cached
+      - ./docker/solr/data/:/var/solr/data/
+      - ./docker/solr/9.x/drupal/:/solr-conf/conf:cached
     environment:
       SOLR_SOLR_MEM_SIZE: 512m
       PARTIAL_SEARCH_ENABLED: 0

@@ -52,11 +52,13 @@ sublime-project
 
 # Developer files #
 ###################
+docker/solr/data
 docker_build/drupal8/development/vendor
 docker_build/drupal8/ci/vendor
 docker_build/drupal8/vendor
 docker-compose.override.yml
 .env
+
 
 ## Directory-based project format:
 .DS_Store
